@@ -1,0 +1,10 @@
+<li class="list-group-item" ng-controller="EditItemCardController">>
+    <i class="glyphicon glyphicon-barcode"></i>
+    {{card.name}}
+
+    <br>Required : {{card.required}}
+    <br>Provided : {{card.provided}}
+    <br>Remaining : {{card.required - card.provided}}
+    <button type="button" class="btn btn-info" ng-click="provide(project, card)"><span class="glyphicon glyphicon-plus-sign"></span> Provide</button>
+</li>
+
