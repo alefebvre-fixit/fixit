@@ -1,0 +1,85 @@
+@(projects: List[com.fixit.model.Project])
+
+@import helper._
+
+@main("Home") {
+
+
+<div ng-controller="ProjectController" ng-init="init()">
+	
+	<div class="row">
+       <div class="col-sm-3" ng-repeat="project in projects">
+	    <div class="thumbnail" >
+	      <img src="@routes.Assets.at("images/photo-little.jpg")" alt="..." >
+	      <div class="caption">
+	        <h4>{{project.name}} <br> by {{project.username}} </h4>
+	        <p>{{project.description}}</p>
+	        <p>
+	        <i class="glyphicon glyphicon-map-marker"></i>
+	        {{project.city}}, {{project.country}}
+	        </p>
+
+	        <p>
+                <a href="/projects/{{project.id}}" class="btn btn-info"><span class="glyphicon glyphicon-zoom-in"></span> Details</a>
+                <a ng-if="project.username == currentuser " href="/projects/{{project.id}}/edit" class="btn btn-default" role="button"><span class="glyphicon glyphicon-edit"></span>Edit</a>
+            </p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</div>
+	
+	
+	
+
+
+    
+    
+
+      <div class="row row-offcanvas row-offcanvas-right">
+
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="jumbotron">
+            <h1>Hello, world!</h1>
+            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+          </div>
+          
+          
+          @for(project <- projects) {
+          <div class="row">
+            <div class="col-6 col-sm-6 col-lg-4">
+              <h2>@project.name</h2>
+              <p>
+              @project.description
+              </p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a>
+              <i class="icon-edit">AAAA</i>
+              
+              </p>
+            </div><!--/span-->
+          </div><!--/row-->          
+          }
+          
+          
+        </div><!--/span-->
+
+
+      </div><!--/row-->
+
+
+
+    
+    
+
+
+
+
+
+ 
+    
+}

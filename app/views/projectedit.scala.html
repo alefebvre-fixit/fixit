@@ -1,0 +1,105 @@
+@(projectId: String)
+
+@import helper._
+
+@main("New") {
+    
+<div ng-controller="EditProjectController" ng-init="init('@projectId')">
+
+
+    <div>
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Project</h4>
+            </div>
+            <div class="modal-body">
+                This action will permanently delete the selected project. Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Edit Project</h3>
+        </div>
+        <div class="panel-body">
+
+           <form name="projectForm" ng-submit="saveProject()" class="form-horizontal" novalidate>
+
+                <div class="control-group">
+                    <label class="control-label" for="project-name">Name:</label>
+                    <div class="controls">
+                        <input ng-model="project.name" class="form-control" id="project-name" placeholder="Name">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="project-description">Description:</label>
+                    <div class="controls">
+                        <textarea ng-model="project.description" class="form-control" id="project-description" placeholder="Description"></textarea>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <div class="btn-group" dropdown is-open="status.isopen">
+                                <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+                                    Card <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#/item">Add Item</a></li>
+                                    <li><a href="#/date">Add Date</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Something else here</a></li>
+                                </ul>
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <br>
+                        <div ng-view></div>
+                        <br>
+                        <ul class="list-group">
+                            <div ng-repeat="card in project.cards" ng-animate=" 'slide' ">
+                                <div ng-if="card.type == 'date' ">
+                                    <div data-ng-include data-src="'/assets/partials/date-card-preview.html'"></div>
+                                </div>
+                                <div ng-if="card.type == 'item' ">
+                                    <div data-ng-include data-src="'/assets/partials/item-card-preview.html'"></div>
+                                </div>
+                            </div>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary">Save</button>
+                    <button type='button' ng-disabled="!project.id" class="btn btn-danger" ng-click="removeProject()"><span class="glyphicon glyphicon-remove-sign"></span> Delete</button>
+                </div>
+            </form>
+            <br>
+            <pre>form = {{project | json}}</pre>
+        </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+ 
+    
+}
