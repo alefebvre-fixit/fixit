@@ -1,7 +1,0 @@
-<li class="list-group-item" ng-controller="EditItemCardController">
-    <img src="/assets/images/photo-tiny.jpg" class="img-circle" alt="Circular Image"> {{contribution.contributor}} - {{ contribution.date | date:'short' }}
-    <br>
-     will provide {{contribution.quantityProvided}} {{card.name}}
-    <button ng-if="contribution.contributor == currentuser " class="btn btn-danger" ng-click="cancelContribution(project, contribution)"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
-</li>
-
