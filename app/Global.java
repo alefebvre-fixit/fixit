@@ -14,12 +14,14 @@ public class Global extends GlobalSettings {
 
 	@Override
 	public void onStart(Application app) {
+		/*
 		injector = Guice.createInjector(new AbstractModule() {
 			@Override
 			protected void configure() {
 				bind(ProjectService.class).to(MongoProjectService.class);
 			}
 		});
+		*/
 	}
 
 	@Override

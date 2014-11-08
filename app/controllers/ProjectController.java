@@ -3,15 +3,9 @@ package controllers;
 import play.mvc.Result;
 import play.mvc.Security;
 
-import com.fixit.service.ProjectService;
-import com.fixit.service.impl.MongoProjectService;
-import com.google.inject.Inject;
-
 @Security.Authenticated(Secured.class)
 public class ProjectController extends FixItController {
 
-	@Inject
-	private static ProjectService projectService = new MongoProjectService();
 
 	public static Result index() {
 		return redirect(routes.ProjectController.projects());
@@ -19,7 +13,7 @@ public class ProjectController extends FixItController {
 
 	public static Result projects() {
 
-		return ok(views.html.projects.render(projectService.getAll()));
+		return ok(views.html.projects.render(getProjectService().getAll()));
 	}
 
 	public static Result user(String username) {
