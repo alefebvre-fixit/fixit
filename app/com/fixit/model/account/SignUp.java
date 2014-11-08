@@ -1,9 +1,8 @@
 package com.fixit.model.account;
 
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
 
-public class SignUp extends Model {
+public class SignUp {
 
 	private static final long serialVersionUID = 1L;
 

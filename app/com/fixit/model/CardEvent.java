@@ -2,10 +2,8 @@ package com.fixit.model;
 
 import javax.persistence.Entity;
 
-import play.db.ebean.Model;
-
 @Entity
-public class CardEvent extends Model {
+public class CardEvent {
 
 	private static final long serialVersionUID = 1L;
 

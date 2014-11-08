@@ -7,8 +7,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava)
 scalaVersion := "2.10.0"
 
 libraryDependencies ++= Seq(
-  javaJdbc,
-  javaEbean,
   cache,
   javaWs,
   "org.mongojack" %% "play-mongojack" % "2.0.0-RC2" ,

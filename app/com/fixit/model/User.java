@@ -7,13 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.account.SignUp;
 
 @Entity
-public class User extends Model {
+public class User {
 
 	private static final long serialVersionUID = 1L;
 

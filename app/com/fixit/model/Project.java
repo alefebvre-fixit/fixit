@@ -8,10 +8,8 @@ import javax.persistence.Entity;
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
-import play.db.ebean.Model;
-
 @Entity
-public class Project extends Model {
+public class Project {
 
 	private static final long serialVersionUID = 1L;
 
@@ -83,10 +81,6 @@ public class Project extends Model {
 			}
 		}
 		return false;
-	}
-
-	public static void create(Project project) {
-		project.save();
 	}
 
 	public static Project instanciate(User user) {

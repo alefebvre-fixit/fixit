@@ -1,8 +1,6 @@
 package com.fixit.model;
 
-import play.db.ebean.Model;
-
-public class Profile extends Model {
+public class Profile {
 
 	private static final long serialVersionUID = 1L;
 
