@@ -89,7 +89,7 @@ public class Project {
 		project.country = user.getProfile().getCountry();
 		project.city = user.getProfile().getCity();
 
-		project.name = "new project";
+		project.name = "new project 2";
 		project.description = "";
 
 		return project;
