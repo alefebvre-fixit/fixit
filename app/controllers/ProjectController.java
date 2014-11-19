@@ -38,5 +38,9 @@ public class ProjectController extends FixItController {
 	public static Result newProject() {
 		return ok(views.html.projectedit.render(""));
 	}
+	
+	public static Result testProject() {
+		return ok(views.html.test.render());
+	}
 
 }

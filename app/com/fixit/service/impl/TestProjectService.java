@@ -2,6 +2,7 @@ package com.fixit.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import play.Logger;
 
@@ -17,33 +18,29 @@ public class TestProjectService implements ProjectService {
 
 	@Override
 	public String create(Project project) {
-		// TODO Auto-generated method stub
-		projects.add(project);
+		project.setId(java.util.UUID.randomUUID().toString());
+		projects.put(project.getId(), project);
 		return project.id;
 	}
 
 	@Override
 	public Project save(Project project) {
-		// TODO Auto-generated method stub
+		projects.put(project.getId(), project);
 		return project;
 	}
 
 	@Override
 	public Project load(String id) {
 		Logger.debug("load(String id) id=" + id);
-		for (Project project : projects) {
-			if (project.id.equals(id)) {
-				return project;
-			}
-		}
-		return null;
+		return projects.get(id);
 	}
 
 	@Override
 	public List<Project> loadByOwner(String owner) {
 		Logger.debug("loadByOwner(String owner) owner=" + owner);
 		List<Project> result = new ArrayList<>();
-		for (Project project : projects) {
+		
+		for (Project project : projects.values()) {
 			if (project.username.equals(owner)) {
 				result.add(project);
 			}
@@ -52,15 +49,15 @@ public class TestProjectService implements ProjectService {
 	}
 
 	public static List<Project> all() {
-		return projects;
+		return new ArrayList<Project>(projects.values());
 	}
 
-	public static final List<Project> projects = Project.all();
+	public static final Map<String, Project> projects = Project.all();
+	
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
-
+		projects.remove(id);
 	}
 
 }

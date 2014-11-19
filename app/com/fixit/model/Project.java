@@ -1,7 +1,9 @@
 package com.fixit.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 
@@ -95,10 +97,10 @@ public class Project {
 		return project;
 	}
 
-	public static List<Project> all() {
+	public static Map<String, Project> all() {
 		// return find.all();
 
-		List<Project> result = new ArrayList<Project>();
+		Map<String, Project> result = new HashMap<String, Project>();
 
 		Project project = new Project();
 		project.id = "1";
@@ -108,7 +110,7 @@ public class Project {
 		project.city = "Paris";
 		project.username = User.PAUL_SMITH;
 
-		result.add(project);
+		result.put(project.getId(), project);
 
 		Project project2 = new Project();
 		project2.id = "2";
@@ -118,7 +120,7 @@ public class Project {
 		project2.country = "USA";
 		project2.username = User.PAUL_SMITH;
 
-		result.add(project2);
+		result.put(project2.getId(), project2);
 
 		Project project3 = new Project();
 		project3.id = "3";
@@ -128,7 +130,7 @@ public class Project {
 		project3.country = "USA";
 		project3.username = User.PAUL_SMITH;
 
-		result.add(project3);
+		result.put(project3.getId(), project3);
 
 		Project project4 = new Project();
 		project4.id = "4";
@@ -137,7 +139,7 @@ public class Project {
 		project4.city = "San Francisco";
 		project4.country = "USA";
 		project4.username = User.ANTOINE;
-		result.add(project4);
+		result.put(project4.getId(), project4);
 
 		Project project5 = new Project();
 		project5.id = "5";
@@ -146,7 +148,7 @@ public class Project {
 		project5.city = "San Francisco";
 		project5.country = "USA";
 		project5.username = User.ANTOINE;
-		result.add(project5);
+		result.put(project5.getId(), project5);
 
 		return result;
 

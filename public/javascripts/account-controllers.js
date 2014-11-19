@@ -77,7 +77,6 @@ fixItApp.controller('SignUpController', ['SettingService', '$scope', '$http', '$
         // check to make sure the form is completely valid
         if (isValid) {
             console.log("SignupForm is valid" + $scope.signupRequest.email);
-
             SettingService.signupUser($scope.signupRequest) .then(function (data) {
                 console.log("Just signed up");
                 $location.url('projects');

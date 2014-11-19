@@ -28,6 +28,7 @@ GET     /projects/:id/edit      controllers.ProjectController.editProject(id: St
 GET     /projects/new/          controllers.ProjectController.newProject()
 GET     /me/		       	    controllers.ProjectController.me()
 GET     /users/:user       	    controllers.ProjectController.user(user: String)
+GET     /projects/test/          controllers.ProjectController.testProject()
 
 
 
