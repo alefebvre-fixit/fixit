@@ -14,7 +14,7 @@ public class FixItController extends Controller {
 	public static final String SESSION_ATTRIBUTE_USERNAME = "username";
 	
 	private static UserService userService = new TestUserService();
-	private static ProjectService projectService = new MongoProjectService();
+	private static ProjectService projectService = new TestProjectService();
 
 	protected static UserService getUserService() {
 		return userService;
