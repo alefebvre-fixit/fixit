@@ -16,7 +16,7 @@ import com.fixit.model.card.ItemCard;
 import controllers.FixItController;
 import controllers.Secured;
 
-@Security.Authenticated(Secured.class)
+//@Security.Authenticated(Secured.class)
 public class ProjectAPIController extends FixItController {
 
 	public static Result projects() {
@@ -25,6 +25,8 @@ public class ProjectAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(getProjectService().getAll()));
 	}
 
+	
+	
 	public static Result createProject() {
 		Logger.debug("ProjectAPIController.createProject()");
 

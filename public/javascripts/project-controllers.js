@@ -118,6 +118,7 @@ fixItApp.controller('ProjectController', ['ProjectService', '$scope', '$http', f
 
 
 
+
 fixItApp.controller('ViewProjectController', ['ProjectService', '$scope', '$http', function (ProjectService, $scope, $http) {
 
     $scope.init = function(projectId)
