@@ -9,7 +9,7 @@ import play.Logger;
 import com.fixit.model.Project;
 import com.fixit.service.ProjectService;
 
-public class TestProjectService implements ProjectService {
+public class TestProjectService extends BaseProjectService implements ProjectService {
 
 	@Override
 	public List<Project> getAll() {
@@ -25,6 +25,8 @@ public class TestProjectService implements ProjectService {
 
 	@Override
 	public Project save(Project project) {
+		assignCardIds(project);
+		project.incrementVersion();
 		projects.put(project.getId(), project);
 		return project;
 	}

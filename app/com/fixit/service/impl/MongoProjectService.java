@@ -13,7 +13,7 @@ import com.fixit.model.Contribution;
 import com.fixit.model.Project;
 import com.fixit.service.ProjectService;
 
-public class MongoProjectService implements ProjectService {
+public class MongoProjectService extends BaseProjectService implements ProjectService {
 
 	private static JacksonDBCollection<Project, String> coll = MongoDB
 			.getCollection("Project", Project.class, String.class);
@@ -56,20 +56,7 @@ public class MongoProjectService implements ProjectService {
 		return project;
 	}
 
-	private void assignCardIds(Project project) {
-		List<Card> cards = project.getCards();
-		for (Card card : cards) {
-			if (card.getId() == null) {
-				card.setId(java.util.UUID.randomUUID().toString());
-			}
-			List<Contribution> contributions = card.getContributions();
-			for (Contribution contribution : contributions) {
-				if (contribution.getId() == null) {
-					contribution.setId(java.util.UUID.randomUUID().toString());
-				}
-			}
-		}
-	}
+
 
 	@Override
 	public Project load(String id) {
