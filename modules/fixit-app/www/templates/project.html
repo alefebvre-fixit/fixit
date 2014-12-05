@@ -1,0 +1,26 @@
+<ion-view title="Project"> <ion-content class="has-header">
+
+<div class="card">
+	<div class="item item-avatar">
+		<img src="{{baseUrl}}/assets/images/photo-little.jpg">
+		<h2>{{project.name}}</h2>
+		<p>{{baseUrl}}{{project.username}}</p>
+	</div>
+	<div class="item item-text-wrap">
+		{{project.description}} <br> <br> <i
+			class="icon ion-location"> {{project.city}}, {{project.country}}</i>
+	</div>
+	<div class="item item-divider">I'm a Footer in a Card!</div>
+</div>
+<div ng-repeat="card in project.cards">
+	<div ng-if="card.type == 'date' ">
+		<div ng-include data-src="'templates/cards/date-card-display.html'"></div>
+	</div>
+	<div ng-if="card.type == 'item' ">
+		<div ng-include src="'templates/cards/item-card-display.html'"></div>
+	</div>
+</div>
+
+
+
+</ion-content> </ion-view>
