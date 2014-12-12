@@ -52,5 +52,6 @@ POST 	/api/projects/:projectId/contributions/:contributionId/cancel controllers.
 GET     /api/account     			controllers.api.AccountAPIController.account()
 GET     /api/account/summary     	controllers.api.AccountAPIController.accountSummary()
 GET     /api/accounts     			controllers.api.AccountAPIController.accounts()
-POST    /api/signup     			controllers.api.AccountAPIController.signup()
+POST    /api/signup     			controllers.api.AccountAPIController.signUp()
+POST    /api/signin     			controllers.api.AccountAPIController.signIn()
 

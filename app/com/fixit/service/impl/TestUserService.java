@@ -7,6 +7,7 @@ import java.util.Map;
 import play.Logger;
 
 import com.fixit.model.User;
+import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 import com.fixit.service.UserService;
 
@@ -81,6 +82,11 @@ public class TestUserService implements UserService {
 		User user = new User(signup);
 		save(user);
 		return user;
+	}
+
+	@Override
+	public User authenticate(SignIn signin) {
+		return authenticateByUserName(signin.getUsername(), signin.getPassword());
 	}
 
 }

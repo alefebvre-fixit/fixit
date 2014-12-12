@@ -10,6 +10,7 @@ import play.modules.mongojack.MongoDB;
 
 import com.fixit.model.Project;
 import com.fixit.model.User;
+import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 import com.fixit.service.UserService;
 
@@ -94,6 +95,11 @@ public class MongoUserService implements UserService {
 		User user = new User(signup);
 		save(user);
 		return user;
+	}
+	
+	@Override
+	public User authenticate(SignIn signin) {
+		return authenticateByUserName(signin.getUsername(), signin.getPassword());
 	}
 	
 }

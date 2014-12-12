@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import play.Logger;
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -12,10 +13,12 @@ import play.mvc.Http.RequestBody;
 
 import com.fixit.model.Project;
 import com.fixit.model.User;
+import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 
 import controllers.FixItController;
 import controllers.Secured;
+import controllers.AccountController.Login;
 
 public class AccountAPIController extends FixItController {
 
@@ -43,7 +46,7 @@ public class AccountAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(getUserService().getAll()));
 	}
 	
-	public static Result signup() {
+	public static Result signUp() {
 		Logger.debug("AccountAPIController.signup()");
 		
 		RequestBody body = request().body();
@@ -58,6 +61,24 @@ public class AccountAPIController extends FixItController {
 		
 	}
 	
+	public static Result signIn() {
+		
+		Logger.debug("AccountAPIController.signIn()");
+		
+		RequestBody body = request().body();
+		SignIn signin = Json.fromJson(body.asJson(), SignIn.class);
+
+		User user = getUserService().authenticate(signin);
+
+		if (user == null) {
+			return forbidden("Invalid password");
+		}
+		session().clear();
+		session(SESSION_ATTRIBUTE_USERNAME, user.username);
+		
+		return ok(play.libs.Json.toJson(user));
+		
+	}
 	
 	//TODO use bean validation
 	public static List<String> validate(SignUp signup){
@@ -70,7 +91,6 @@ public class AccountAPIController extends FixItController {
 		
 		return result;
 	}
-	
 	
 
 }

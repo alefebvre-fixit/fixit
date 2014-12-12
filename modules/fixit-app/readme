@@ -1,0 +1,3 @@
+open -a Google\ Chrome --args --disable-web-security
+
+http://localhost:8100/#/app/signin

@@ -3,11 +3,14 @@ package com.fixit.service;
 import java.util.List;
 
 import com.fixit.model.User;
+import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 
 public interface UserService {
 
 	public User load(String userName);
+	
+	public User authenticate(SignIn signin);
 
 	public User authenticateByEmail(String email, String password);
 
