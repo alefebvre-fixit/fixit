@@ -29,3 +29,21 @@ fixItApp.controller('ViewProjectController', ['$scope', 'project', function ($sc
 
 }
 ]);
+
+
+fixItApp.controller('EditProjectController', ['ProjectService', '$scope', 'project', function (ProjectService, $scope, project) {
+	
+    $scope.project = project;
+    
+    $scope.saveProject = function() {
+		ProjectService.save($scope.project).then(function (data) {
+		    $scope.project = data;
+         });
+    }
+
+    $scope.removeCard = function(index) {
+    	$scope.project.cards.splice(index, 1);
+    }
+    	
+}
+]);

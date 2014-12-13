@@ -1,13 +1,19 @@
 <ion-view title="New Project"> <ion-content
-	class="has-header">
+	class="has-header"> 
+	
+	
+	<label class="item item-input">
+	<input type="text" placeholder="First Name" value="{{project.name}}">
+</label>
 
-<div class="card">
-	<div class="item item-avatar">
-		This is going to be a new project
-	</div>
-	<div class="item item-divider">I'm a Footer in a Card!</div>
+ <label class="item item-input"> <textarea
+		placeholder="Comments">{{project.description}}</textarea>
+</label>
+
+
+<div class="item item-divider">
+	<button class="button button-block button-positive" >Create</button>
 </div>
-
 
 
 </ion-content> </ion-view>
