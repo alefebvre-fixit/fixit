@@ -1,0 +1,8 @@
+
+<div class="item item-avatar" ng-controller="EditItemCardController">
+    <img src="{{baseUrl}}/assets/images/photo-tiny.jpg">
+    <h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
+    <p>will provide {{contribution.quantityProvided}} {{card.name}}</p>
+    <button ng-if="contribution.contributor == user.username " class="btn btn-danger" ng-click="cancelContribution(project, contribution)"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+</div>
+

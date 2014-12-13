@@ -26,6 +26,10 @@ fixItApp.controller('ProjectController', ['ProjectService', '$scope', '$http', f
 fixItApp.controller('ViewProjectController', ['$scope', 'project', function ($scope, project) {
 
 	$scope.project = project;
+	
+	$scope.setProject =function(newProject){
+	    $scope.project = newProject;
+	};
 
 }
 ]);
@@ -47,3 +51,30 @@ fixItApp.controller('EditProjectController', ['ProjectService', '$scope', 'proje
     	
 }
 ]);
+
+fixItApp.controller('EditItemCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
+
+    $scope.itemCard = {type : 'item'};
+
+    $scope.addCard = function() {
+        $scope.project.cards.push($scope.itemCard);
+    };
+
+    $scope.provide = function(project, card) {
+        console.log("Provide an item projectId=" + project.id + " cardId=" + card.id);
+        ProjectService.provide(project, card, 1).then(function (data) {
+            $scope.setProject(data);
+        });
+
+    };
+
+    $scope.cancelContribution = function(project, contribution) {
+        console.log("Cancel a contribution");
+        ProjectService.cancelContribution(project, contribution).then(function (data) {
+            $scope.setProject(data);
+        });
+
+    };
+}
+]);
+

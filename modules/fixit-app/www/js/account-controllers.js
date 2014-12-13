@@ -19,6 +19,7 @@ fixItApp.controller('SignUpController', ['SettingService', '$scope', '$http', '$
 
 fixItApp.controller('SignInController', ['SettingService', '$scope', '$state', '$rootScope', function (SettingService, $scope, $state, $rootScope) {
 
+    $scope.signin = {username : 'antoinelefebvre', password : 'password'};
     // Perform the login action when the user submits the login for
     $scope.doSignIn = function() {
 		  
