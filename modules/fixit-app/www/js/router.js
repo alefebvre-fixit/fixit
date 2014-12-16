@@ -43,6 +43,22 @@ fixItApp.config(function($stateProvider, $urlRouterProvider) {
 		},
 		authenticate: false
 	})
+	.state('app.newproject', {
+		url : "/projects/new",
+		views : {
+			'menuContent' : {
+				templateUrl : "templates/project-new.html",
+				controller : 'EditProjectController',
+				resolve : {
+				    project : function($rootScope, ProjectService) {
+					console.log('ProjectService.instanciateProject()' + JSON.stringify(ProjectService.instanciateProject()));
+					return ProjectService.instanciateProject();
+				    }
+				}
+			}
+		},
+		authenticate: false
+	})
 	.state('app.singleproject', {
 		url : "/projects/:projectId",
 		views : {
