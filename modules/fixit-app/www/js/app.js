@@ -5,11 +5,15 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-var fixItApp = angular
-	.module('fixit', [ 'ionic' ]);
+angular.module('fixit', [ 'ionic' ]);
 
 
-fixItApp.run(
+angular.module('fixit').constant('fixitSettings', {
+	apiRrl: 'http://localhost:9000'
+});
+
+
+angular.module('fixit').run(
 		function($ionicPlatform, $rootScope, $state) {
 		    $ionicPlatform
 			    .ready(function() {

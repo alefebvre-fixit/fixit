@@ -2,7 +2,6 @@ package com.fixit.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import play.Logger;
 
@@ -19,7 +18,7 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 	@Override
 	public String create(Project project) {
 		project.setId(java.util.UUID.randomUUID().toString());
-		projects.put(project.getId(), project);
+		InMemoryPersistence.put(project);
 		return project.id;
 	}
 
@@ -27,14 +26,14 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 	public Project save(Project project) {
 		assignCardIds(project);
 		project.incrementVersion();
-		projects.put(project.getId(), project);
+		InMemoryPersistence.put(project);
 		return project;
 	}
 
 	@Override
 	public Project load(String id) {
 		Logger.debug("load(String id) id=" + id);
-		return projects.get(id);
+		return InMemoryPersistence.getProject(id);
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 		Logger.debug("loadByOwner(String owner) owner=" + owner);
 		List<Project> result = new ArrayList<>();
 		
-		for (Project project : projects.values()) {
+		for (Project project : InMemoryPersistence.getProjects()) {
 			if (project.username.equals(owner)) {
 				result.add(project);
 			}
@@ -51,15 +50,13 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 	}
 
 	public static List<Project> all() {
-		return new ArrayList<Project>(projects.values());
+		return new ArrayList<Project>(InMemoryPersistence.getProjects());
 	}
-
-	public static final Map<String, Project> projects = Project.all();
 	
 
 	@Override
 	public void delete(String id) {
-		projects.remove(id);
+		InMemoryPersistence.removeProject(id);
 	}
 
 }

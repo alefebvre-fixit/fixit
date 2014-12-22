@@ -1,4 +1,4 @@
-fixItApp.factory('ProjectService', ['$http', '$rootScope', function($http, $rootScope) {
+angular.module('fixit').factory('ProjectService', ['$http', '$rootScope', function($http, $rootScope) {
 
 	  var resultService = {
 			  getProjects: function() {
@@ -32,6 +32,12 @@ fixItApp.factory('ProjectService', ['$http', '$rootScope', function($http, $root
                       });
                       return promise;
                 },
+              getCard: function(projectId, cardId) {
+                  var promise = $http.get($rootScope.baseUrl + '/api/projects/'+ projectId + '/cards/' + cardId).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              },
               provide: function(project, card, quantity) {
                   var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id  +'/provide?quantity=' + quantity).then(function (response) {
                       return response.data;
@@ -55,7 +61,7 @@ fixItApp.factory('ProjectService', ['$http', '$rootScope', function($http, $root
 	}]);
 
 
-fixItApp.factory('SettingService', ['$http', '$rootScope', function($http, $rootScope) {
+angular.module('fixit').factory('SettingService', ['$http', '$rootScope', function($http, $rootScope) {
 	
     var resultService = {
         getAccount: function() {

@@ -5,9 +5,9 @@
 <ion-nav-buttons side="right">
 
 
-<button class="button" ng-if="project.username == user.username ">
+<a class="button" ng-if="project.username == user.username " href="#/app/projects/{{project.id}}/edit">
   Edit
-</button>
+</a>
 </ion-nav-buttons>
 
 <ion-content
@@ -19,7 +19,7 @@
 	<div class="item item-avatar">
 		<img src="{{baseUrl}}/assets/images/photo-little.jpg">
 		<h2>{{project.name}}</h2>
-		<p>{{baseUrl}}{{project.username}}</p>
+		<p>{{project.username}}</p>
 	</div>
 	<div class="item item-text-wrap">
 		{{project.description}} <br> <br> <i

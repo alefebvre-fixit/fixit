@@ -1,12 +1,12 @@
 
-fixItApp.controller('MyProjectController', ['ProjectService', '$scope', 'projects', function (ProjectService, $scope, projects) {
+angular.module('fixit').controller('MyProjectController', ['ProjectService', '$scope', 'projects', function (ProjectService, $scope, projects) {
 	console.log('Calling MyProjectController');
 	$scope.projects = projects;
     }
 ]);
 
 
-fixItApp.controller('ProjectController', ['ProjectService', '$scope', '$http', function (ProjectService, $scope, $http) {
+angular.module('fixit').controller('ProjectController', ['ProjectService', '$scope', '$http', function (ProjectService, $scope, $http) {
 	 
     $scope.init = function()
 	{
@@ -23,7 +23,7 @@ fixItApp.controller('ProjectController', ['ProjectService', '$scope', '$http', f
     }
 ]);
 
-fixItApp.controller('ViewProjectController', ['$scope', 'project', function ($scope, project) {
+angular.module('fixit').controller('ViewProjectController', ['$scope', 'project', function ($scope, project) {
 
 	$scope.project = project;
 	
@@ -35,7 +35,7 @@ fixItApp.controller('ViewProjectController', ['$scope', 'project', function ($sc
 ]);
 
 
-fixItApp.controller('EditProjectController', ['ProjectService', '$scope', 'project', function (ProjectService, $scope, project) {
+angular.module('fixit').controller('EditProjectController', ['ProjectService', '$scope', 'project', function (ProjectService, $scope, project) {
 	
     $scope.project = project;
     
@@ -52,13 +52,24 @@ fixItApp.controller('EditProjectController', ['ProjectService', '$scope', 'proje
 }
 ]);
 
-fixItApp.controller('EditItemCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
+angular.module('fixit').controller('CardController', ['$scope', 'card', 'project', function ($scope, card, project) {
 
-    $scope.itemCard = {type : 'item'};
+    $scope.card = card;
+    $scope.project = project;
 
-    $scope.addCard = function() {
-        $scope.project.cards.push($scope.itemCard);
+    $scope.setProject =function(newProject){
+        $scope.project = newProject;
+        var cards = newProject.cards;
+        for (index = 0; index < cards.length; ++index) {
+            if (cards[index].id == $scope.card.id){
+                $scope.card = cards[index];
+            }
+        }
     };
+}
+]);
+
+angular.module('fixit').controller('ItemCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
 
     $scope.provide = function(project, card) {
         console.log("Provide an item projectId=" + project.id + " cardId=" + card.id);
