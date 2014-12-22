@@ -40,7 +40,24 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
                 }
             },
             authenticate: false
-        }).state('app.singlecard', {
+        })
+        .state('app.cardselector', {
+            url: "/projects/:projectId/cards/selector",
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/card-selector.html",
+                    controller: 'EditProjectController',
+                    resolve: {
+                        project: function ($stateParams, ProjectService) {
+                            console.log('resolve single project');
+                            return ProjectService.getProject($stateParams.projectId);
+                        }
+                    }
+                }
+            },
+            authenticate: true
+        })
+        .state('app.singlecard', {
             url: "/projects/:projectId/cards/:cardId",
             views: {
                 'menuContent': {
@@ -73,6 +90,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             authenticate: true
 
         })
+
         .state('app.singleproject', {
             url: "/projects/:projectId",
             views: {
