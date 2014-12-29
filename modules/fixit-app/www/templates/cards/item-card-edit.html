@@ -1,0 +1,56 @@
+<div class="card" ng-controller="ItemCardController">
+
+    <div class="item item-divider item-calm">
+        <i class="icon ion-bag"></i>
+        Item
+    </div>
+
+    <div class="item item-text-wrap">
+        <div class="list">
+
+        <label class="item item-input">
+            <span class="input-label">Name</span>
+            <input type="text" placeholder="Item Name" ng-model="card.name">
+        </label>
+
+        <li class="item item-toggle">
+            <div ng-show="card.limited">Limited</div>
+            <div ng-show="!card.limited">Unlimited</div>
+            <label class="toggle toggle-assertive">
+                <input type="checkbox" ng-model="card.limited">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </li>
+
+        <label class="item item-input" ng-show="card.limited">
+            <span class="input-label">Quantity</span>
+            <input type="number" placeholder="Required Quantity" ng-model="card.required">
+        </label>
+
+        </div>
+    </div>
+
+    <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="#">
+
+        </a>
+        <a class="tab-item tab-item-light" ng-click="deleteCard(project.id, card)">
+            Delete
+        </a>
+        <a class="tab-item" ng-click="addCard(project.id, card)">
+            <i class="icon ion-share"></i>
+            Apply
+        </a>
+    </div>
+
+
+
+
+</div>
+
+
+
+
+

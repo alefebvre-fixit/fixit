@@ -13,7 +13,8 @@ public class ItemCard extends Card {
 	}
 
 	private String name;
-	private int required;
+	private boolean limited = false;
+	private int required = 1;
 	private int provided;
 	
 	public String getName() {
@@ -38,6 +39,14 @@ public class ItemCard extends Card {
 
 	public void setProvided(int provided) {
 		this.provided = provided;
+	}
+
+	public boolean isLimited() {
+		return limited;
+	}
+
+	public void setLimited(boolean limited) {
+		this.limited = limited;
 	}
 
 	@JsonIgnore

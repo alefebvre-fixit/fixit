@@ -1,33 +1,29 @@
 <div class="card">
 
-    <div class="item item-divider item-calm" href="#/app/projects/{{project.id}}/cards/{{card.id}}">
-        This is an Item
-    </div>
+    <a class="item item-divider item-calm" ui-sref="app.card-edit({ projectId: project.id, cardId : card.id })">
+        <i class="icon ion-bag"></i>
+        {{card.name}}
+    </a>
 
     <div class="item item-text-wrap">
-        <br>Required : 2
-        <br>Provided : 3
-        <br>Remaining : 12
-
-        <div class="range">
-            <i class="icon ion-volume-low"></i> <input type="range" name="volume">
-            <i class="icon ion-volume-high"></i>
-        </div>
+        Required : {{card.required}}
+        <br>
+        Provided : {{card.provided}}
+        <br>
+        Remaining : {{card.required - card.provided}}
+        <p>
+            <a href="#" class="subdued">{{project.contributionSize}} Contributions</a>
+            <a href="#" class="subdued">5 Comments</a>
+        </p>
     </div>
-
     <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="#">
-
-        </a>
-        <a class="tab-item" href="#">
-
+        <a class="tab-item" ui-sref="app.card-edit({ projectId: project.id, cardId : card.id })">
+            Edit
         </a>
         <a class="tab-item">
-            <i class="icon ion-share"></i>
-            Contribute
+            Remove
         </a>
     </div>
-
 </div>
 
 

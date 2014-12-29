@@ -73,6 +73,41 @@ public class ProjectAPIController extends FixItController {
 		Project project = getProjectService().load(projectId);
 		return ok(Json.toJson(project.getCard(cardId)));
 	}
+	
+	public static Result deleteCard(String projectId, String cardId) {
+		Logger.debug("ProjectAPIController.project projectId =" + projectId
+				+ " cardId=" + cardId);
+		Project project = getProjectService().load(projectId);
+		project.deleteCard(cardId);
+		return ok(Json.toJson(getProjectService().save(project)));
+	}
+	
+	
+	public static Result addCard(String projectId){
+		
+		RequestBody body = request().body();
+		Card card = Json.fromJson(body.asJson(), Card.class);
+
+		Logger.debug("ProjectAPIController.addCard projectId =" + projectId
+				+ " cardId=" + card.id);
+		Project project = getProjectService().load(projectId);
+		project.addCard(card);
+		project = getProjectService().save(project);
+		return ok(Json.toJson(project));
+	}
+	
+	public static Result updateCard(String projectId, String cardId){
+		
+		RequestBody body = request().body();
+		Card card = Json.fromJson(body.asJson(), Card.class);
+
+		Logger.debug("ProjectAPIController.updateCard projectId =" + projectId
+				+ " cardId=" + card.id);
+		Project project = getProjectService().load(projectId);
+		project.addCard(card);
+		project = getProjectService().save(project);
+		return ok(Json.toJson(project));
+	}
 
 	public static Result deleteProject(String projectId) {
 		Logger.debug("ProjectAPIController.deleteProject projectId ="

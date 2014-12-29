@@ -10,7 +10,10 @@ import javax.persistence.Entity;
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project {
 
 	private static final long serialVersionUID = 1L;
@@ -30,14 +33,14 @@ public class Project {
 		this.id = id;
 	}
 
-	public double getVersion(){
+	public double getVersion() {
 		return version;
 	}
-	
-	public void incrementVersion(){
-		this.version++; 
+
+	public void incrementVersion() {
+		this.version++;
 	}
-	
+
 	public String name;
 	public String description;
 
@@ -65,6 +68,33 @@ public class Project {
 		return null;
 	}
 
+	public boolean deleteCard(String cardId) {
+		// TODO Change this implementation
+		for (int i = 0; i < cards.size(); i++) {
+			if (cardId.equals(cards.get(i).getId())) {
+				cards.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean addCard(Card card) {
+		// TODO Change this implementation
+		if (card.getId() != null) {
+			for (int i = 0; i < cards.size(); i++) {
+				if (cards.get(i) != null) {
+					if (card.getId().equals(cards.get(i).getId())) {
+						cards.set(i, card);
+						return true;
+					}
+				}
+			}
+		}
+		cards.add(card);
+		return true;
+	}
+
 	public Contribution getContribution(String contributionId) {
 		for (Card card : cards) {
 			Contribution contribution = card.getContribution(contributionId);
@@ -73,6 +103,14 @@ public class Project {
 			}
 		}
 		return null;
+	}
+
+	public int getContributionSize() {
+		int result = 0;
+		for (Card card : cards) {
+			result += card.getContributionSize();
+		}
+		return result;
 	}
 
 	public boolean cancelContribution(String contributionId) {

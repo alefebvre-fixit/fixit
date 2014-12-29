@@ -1,86 +1,20 @@
-<ion-view title="Project Details"> 
+<ion-view title="Project Details">
 
-<ion-nav-buttons side="left">
-</ion-nav-buttons>
-<ion-nav-buttons side="right">
+    <ion-nav-buttons side="left">
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
 
+        <a class="button" ng-if="project.username == user.username " href="#/app/projects/{{project.id}}/edit">
+            Edit
+        </a>
 
-<a class="button" ng-if="project.username == user.username " href="#/app/projects/{{project.id}}/edit">
-  Edit
-</a>
-</ion-nav-buttons>
+    </ion-nav-buttons>
 
-<ion-content
-	class="has-header">
+    <ion-content class="has-header">
 
+        <div ng-include data-src="'templates/project/partial/project-view.html'"></div>
 
+        <div ng-include data-src="'templates/cards/card-display-list.html'"></div>
 
-<div class="card">
-	<div class="item item-avatar">
-		<img src="{{baseUrl}}/assets/images/photo-tiny.jpg">
-		<h2>{{project.name}}</h2>
-		<p>{{project.username}}</p>
-	</div>
-	<div class="item item-text-wrap">
-		{{project.description}} <br> <br> <i
-			class="icon ion-location"> {{project.city}}, {{project.country}}</i>
-		<p>
-	      <a href="#" class="subdued">1 Like</a>
-	      <a href="#" class="subdued">5 Comments</a>
-	    </p>
-	</div>
-	<div class="item tabs tabs-secondary tabs-icon-left">
-    <a class="tab-item" href="#">
-      <i class="icon ion-thumbsup"></i>
-      Like
-    </a>
-    <a class="tab-item" href="#">
-      <i class="icon ion-chatbox"></i>
-      Comment
-    </a>
-    <a class="tab-item" href="#">
-      <i class="icon ion-share"></i>
-      Share
-    </a>
-  </div>
-</div>
-<div ng-repeat="card in project.cards">
-	<div ng-if="card.type == 'date' ">
-		<div ng-include data-src="'templates/cards/date-card-display.html'"></div>
-	</div>
-	<div ng-if="card.type == 'item' ">
-		<div ng-include src="'templates/cards/item-card-display.html'"></div>
-	</div>
-</div>
-
-
-
-
-
-<div class="list card">
-
-<div ng-repeat="card in project.cards">
-    <div ng-repeat="card in project.cards">
-        <div ng-repeat="contribution in card.contributions ">
-            <div ng-if="contribution.status != 'Canceled' ">
-                <div ng-if="contribution.type == 'date' ">
-                    <div data-ng-include data-src="'templates/cards/date-card-contribution.html'"></div>
-                </div>
-                <div ng-if="contribution.type == 'item' ">
-                    <div data-ng-include data-src="'templates/cards/item-card-contribution.html'"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
-
-
-
-
-
-
-
-
-</ion-content> </ion-view>
+    </ion-content>
+</ion-view>

@@ -62,7 +62,6 @@
                 <div class="panel-body">
                     <ul class="list-group">
                         <ul class="list-group">
-                            <div ng-repeat="card in project.cards">
                                 <div ng-repeat="card in project.cards">
                                     <div ng-repeat="contribution in card.contributions ">
                                         <div ng-if="contribution.status != 'Canceled' ">
@@ -75,7 +74,6 @@
                                             <pre>form = {{contribution | json}}</pre>
                                         </div>
                                     </div>
-                                </div>
                             </div>
                         </ul>
                     </ul>

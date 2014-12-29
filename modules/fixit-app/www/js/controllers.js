@@ -17,8 +17,6 @@ angular.module('fixit').controller('ProjectController', ['ProjectService', '$sco
             $scope.projects = data;
         });
 	};
-	
-
 
     }
 ]);
@@ -51,6 +49,15 @@ angular.module('fixit').controller('EditProjectController', ['ProjectService', '
     	
 }
 ]);
+
+angular.module('fixit').controller('CardSelectorController', ['ProjectService', '$scope', 'project', function (ProjectService, $scope, project) {
+    console.log('Calling CardSelectorController');
+
+    $scope.project = project;
+
+}
+]);
+
 
 angular.module('fixit').controller('CardController', ['$scope', 'card', 'project', function ($scope, card, project) {
 
@@ -89,3 +96,41 @@ angular.module('fixit').controller('ItemCardController', ['ProjectService', '$sc
 }
 ]);
 
+angular.module('fixit').controller('EditCardController', ['ProjectService',
+                                                            '$scope',
+                                                            '$state',
+                                                            '$ionicPopup',
+                                                            'project',
+                                                            'card',
+                                                            function (ProjectService, $scope, $state, $ionicPopup, project, card) {
+
+    $scope.project = project;
+    $scope.card = card;
+
+
+    $scope.addCard = function(projectId, card) {
+        console.log("Add a card to project " + projectId);
+        ProjectService.addCard(projectId, card).then(function (data) {
+            $state.go('app.project-edit', {projectId: project.id});
+        });
+    };
+
+    // A confirm dialog
+    $scope.deleteCard = function(projectId, card) {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Delete Card',
+            template: 'Are you sure you want to delete this card?'
+        });
+        confirmPopup.then(function(res) {
+            if(res) {
+                console.log("Delete a card from project " + projectId);
+                ProjectService.deleteCard(projectId, card).then(function (data) {
+                    $state.go('app.project-edit', {projectId: project.id});
+                });
+            }
+        });
+    };
+
+
+}
+]);

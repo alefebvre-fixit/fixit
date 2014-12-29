@@ -25,7 +25,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             },
             authenticate: true
         })
-        .state('app.newproject', {
+        .state('app.project-new', {
             url: "/projects/new",
             views: {
                 'menuContent': {
@@ -41,15 +41,15 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             },
             authenticate: false
         })
-        .state('app.cardselector', {
-            url: "/projects/:projectId/cards/selector",
+        .state('app.card-selector', {
+            url: "/projects/:projectId/selector",
             views: {
                 'menuContent': {
                     templateUrl: "templates/card-selector.html",
-                    controller: 'EditProjectController',
+                    controller: 'CardSelectorController',
                     resolve: {
                         project: function ($stateParams, ProjectService) {
-                            console.log('resolve single project');
+                            console.log('card-selector: resolve single project');
                             return ProjectService.getProject($stateParams.projectId);
                         }
                     }
@@ -57,13 +57,57 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             },
             authenticate: true
         })
-        .state('app.singlecard', {
+        .state('app.card-new', {
+            cache: false,
+            url: "/projects/:projectId/cards/new/:type",
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/card-edit.html",
+                    controller: 'EditCardController',
+                    resolve: {
+                        project: function ($stateParams, ProjectService) {
+                            console.log('card-new: resolve single project');
+                            return ProjectService.getProject($stateParams.projectId);
+                        },
+                        card: function($stateParams, ProjectService){
+                            console.log('card-new: resolve single card');
+                            return ProjectService.instanciateCard($stateParams.type);
+                        }
+                    }
+                }
+            },
+            authenticate: true
+        })
+        .state('app.card-edit', {
+            url: "/projects/:projectId/cards/:cardId/edit",
+            cache: false,
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/card-edit.html",
+                    controller: 'EditCardController',
+                    resolve: {
+                        project: function ($stateParams, ProjectService) {
+                            return ProjectService.getProject($stateParams.projectId);
+                        },
+                        card: function($stateParams, ProjectService){
+                            return ProjectService.getCard($stateParams.projectId, $stateParams.cardId);
+                        }
+                    }
+                }
+            },
+            authenticate: true
+        })
+        .state('app.card-single', {
+            cache: false,
             url: "/projects/:projectId/cards/:cardId",
             views: {
                 'menuContent': {
                     templateUrl: "templates/card.html",
                     controller: 'CardController',
                     resolve: {
+                        project: function ($stateParams, ProjectService) {
+                            return ProjectService.getProject($stateParams.projectId);
+                        },
                         card: function($stateParams, ProjectService){
                             console.log('resolve single card');
                             return ProjectService.getCard($stateParams.projectId, $stateParams.cardId);
@@ -74,7 +118,8 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             authenticate: true
 
         })
-        .state('app.editproject', {
+        .state('app.project-edit', {
+            cache: false,
             url: "/projects/:projectId/edit",
             views: {
                 'menuContent': {
@@ -82,6 +127,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
                     controller: 'EditProjectController',
                     resolve: {
                         project: function ($stateParams, ProjectService) {
+                            console.log('edit-project: resolve single project');
                             return ProjectService.getProject($stateParams.projectId);
                         }
                     }
@@ -91,7 +137,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 
         })
 
-        .state('app.singleproject', {
+        .state('app.project-single', {
             url: "/projects/:projectId",
             views: {
                 'menuContent': {
@@ -138,5 +184,5 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             authenticate: false
         });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/projects');
+    $urlRouterProvider.otherwise('/app/signin');
 });

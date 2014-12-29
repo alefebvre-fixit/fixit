@@ -1,19 +1,13 @@
-<ion-view title="Card Selector">
+<ion-view title="Add Card">
     <ion-content
             class="has-header">
-
-        <ion-slide-box on-slide-changed="">
-            <ion-slide>
-                <div class="box blue"><h1>BLUE</h1></div>
-            </ion-slide>
-            <ion-slide>
-                <div class="box yellow"><h1>YELLOW</h1></div>
-            </ion-slide>
-            <ion-slide>
-                <div class="box pink"><h1>PINK</h1></div>
-            </ion-slide>
-        </ion-slide-box>
-
-
+        <a class="item item-icon-left" ui-sref="app.card-new({ projectId: project.id , type: 'item'})">
+            <i class="icon ion-bag"></i>
+            Items
+        </a>
+        <a class="item item-icon-left" href="#">
+            <i class="icon ion-person-stalker"></i>
+            Participant
+        </a>
     </ion-content>
 </ion-view>

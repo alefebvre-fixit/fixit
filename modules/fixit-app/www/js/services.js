@@ -38,6 +38,24 @@ angular.module('fixit').factory('ProjectService', ['$http', '$rootScope', functi
                   });
                   return promise;
               },
+              addCard: function(projectId, card) {
+                  var promise = $http.post($rootScope.baseUrl + '/api/projects/'+ projectId + '/cards', card).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              },
+              updateCard: function(projectId, card) {
+                  var promise = $http.put($rootScope.baseUrl + '/api/projects/'+ projectId + '/cards/' + card.id , card).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              },
+              deleteCard: function(projectId, card) {
+                  var promise = $http.delete($rootScope.baseUrl + '/api/projects/'+ projectId + '/cards/' + card.id).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              },
               provide: function(project, card, quantity) {
                   var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id  +'/provide?quantity=' + quantity).then(function (response) {
                       return response.data;
@@ -53,7 +71,11 @@ angular.module('fixit').factory('ProjectService', ['$http', '$rootScope', functi
 			  instanciateProject:function(){
 			  		var result = {"name":"Project A","description":"AAA","city":"Paris","country":"France","cards":[{"type":"item","name":"my item", "required":"1"}]};
 			  		return result;
-			  	}
+			  },
+              instanciateCard:function(type){
+                  var result = {"type":type, "limited":false, "required":1};
+                  return result;
+              }
 			  
 			  };
 	

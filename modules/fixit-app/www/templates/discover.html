@@ -3,16 +3,7 @@
 </ion-nav-buttons> <ion-content class="has-header" ng-controller="ProjectController"
 	ng-init="init()">
 
-<div class="card" ng-repeat="project in projects">
-	<a class="item item-avatar" href="#"> <img
-		src="{{baseUrl}}/assets/images/photo-tiny.jpg">
-		<h2>{{project.name}}</h2>
-		<p>{{project.username}}</p>
-	</a>
-	<div class="item item-text-wrap">
-		{{project.description}} <br> <br> <i
-			class="icon ion-location"> {{project.city}}, {{project.country}}</i>
-	</div>
-	<div class="item item-divider">I'm a Footer in a Card!</div>
+<div ng-repeat="project in projects">
+	<div ng-include data-src="'templates/project/partial/project-view.html'"></div>
 </div>
 </ion-content> </ion-view>
