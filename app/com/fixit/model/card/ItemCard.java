@@ -1,12 +1,13 @@
 package com.fixit.model.card;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.Card;
 import com.fixit.model.Contribution;
 
-public class ItemCard extends Card {
+public class ItemCard extends Card<ItemContribution> {
 
 	public ItemCard() {
 		this.type = "item";
@@ -16,7 +17,7 @@ public class ItemCard extends Card {
 	private boolean limited = false;
 	private int required = 1;
 	private int provided;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -61,21 +62,20 @@ public class ItemCard extends Card {
 	@JsonIgnore
 	public int calculateProvided() {
 		int result = 0;
-		for (Contribution contribution : contributions) {
-			ItemContribution itemContribution = (ItemContribution) contribution;
-			if (!Contribution.STATUS_CANCELED.equals(contribution.getStatus())) {
-				result += itemContribution.getQuantityProvided();
-			}
+
+		List<ItemContribution> validContributions = getValidContributions();
+		for (ItemContribution contribution : validContributions) {
+			result += contribution.getQuantityProvided();
 		}
 		return result;
 	}
 
-	public void contribute(String username, int quantity) {
+	public void provide(String username, int quantity) {
 		int remaining = getRemaining();
 		if (remaining > 0) {
 			ItemContribution contribution = new ItemContribution();
 			contribution.setDate(new Date());
-			
+
 			contribution.setContributor(username);
 			if (quantity <= remaining) {
 				contribution.setQuantityProvided(quantity);

@@ -126,7 +126,7 @@ public class ProjectAPIController extends FixItController {
 			Card card = project.getCard(itemId);
 			if (card instanceof ItemCard) {
 				ItemCard item = (ItemCard) card;
-				item.contribute(getUserName(), quantity);
+				item.provide(getUserName(), quantity);
 			}
 		}
 		getProjectService().save(project);

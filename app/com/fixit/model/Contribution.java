@@ -4,13 +4,14 @@ import java.util.Date;
 
 import org.mongojack.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fixit.model.card.ItemContribution;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({ @Type(value = ItemContribution.class, name = "item") })
+@JsonSubTypes({ @Type(value = ItemContribution.class, name = ItemContribution.TYPE) })
 public abstract class Contribution {
 
 	public static final String STATUS_NEW = "New";
@@ -60,6 +61,14 @@ public abstract class Contribution {
 		this.status = status;
 	}
 	
+	@JsonIgnore
+	public boolean isValid(){
+		return !STATUS_CANCELED.equals(status);
+	}
 	
+	@JsonIgnore
+	public void validate(){
+		status = STATUS_NEW;
+	}
 
 }
