@@ -115,9 +115,8 @@ public class Project {
 
 	public boolean cancelContribution(String contributionId) {
 		for (Card card : cards) {
-			Contribution contribution = card.getContribution(contributionId);
-			if (contribution != null) {
-				return card.cancel(contribution);
+			if (card.cancel(contributionId)){
+				return true;
 			}
 		}
 		return false;

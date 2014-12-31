@@ -1,17 +1,23 @@
 package com.fixit.model.card;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.Card;
+import com.fixit.model.Contributable;
 import com.fixit.model.Contribution;
+import com.fixit.model.ContributionHolder;
 
-public class ItemCard extends Card<ItemContribution> {
+public class ItemCard extends Card implements Contributable<ItemContribution> {
 
 	public ItemCard() {
 		this.type = "item";
 	}
+
+	private final ContributionHolder<ItemContribution> contributions = new ContributionHolder<ItemContribution>();
 
 	private String name;
 	private boolean limited = false;
@@ -63,7 +69,8 @@ public class ItemCard extends Card<ItemContribution> {
 	public int calculateProvided() {
 		int result = 0;
 
-		List<ItemContribution> validContributions = getValidContributions();
+		List<ItemContribution> validContributions = contributions
+				.getValidContributions();
 		for (ItemContribution contribution : validContributions) {
 			result += contribution.getQuantityProvided();
 		}
@@ -82,20 +89,47 @@ public class ItemCard extends Card<ItemContribution> {
 			} else {
 				contribution.setQuantityProvided(remaining);
 			}
-			contribute(contribution);
+			contributions.add(contribution);
+			provided = calculateProvided();
 		}
 	}
-
-	public void contribute(ItemContribution contribution) {
-		getContributions().add(contribution);
-		provided = calculateProvided();
+	
+	@Override
+	public boolean cancel(String contributionId) {
+		Contribution contribution = getContribution(contributionId);
+		if (contribution != null){
+			contribution.setStatus(Contribution.STATUS_CANCELED);
+			provided = calculateProvided();
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public boolean cancel(Contribution contribution) {
-		contribution.setStatus(Contribution.STATUS_CANCELED);
-		provided = calculateProvided();
-		return true;
+	public List<ItemContribution> getContributions() {
+		return contributions.getContributions();
+	}
+
+	@Override
+	public int getContributionSize() {
+		return contributions.getValidContributions().size();
+	}
+
+	@Override
+	public void setContributions(List<ItemContribution> contributions) {
+		this.contributions.setContributions(contributions);
+	}
+
+	@Override
+	public Contribution getContribution(String contributionId) {
+		return contributions.getContribution(contributionId);
+	}
+
+	@Override
+	public List<Contributable<? extends Contribution>> getContributables() {
+		List<Contributable<? extends Contribution>> result = new ArrayList<Contributable<? extends Contribution>>();
+		result.add(this);
+		return result;
 	}
 
 }

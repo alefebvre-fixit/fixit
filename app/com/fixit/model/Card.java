@@ -17,7 +17,7 @@ import com.fixit.model.card.ItemCard;
 @JsonSubTypes({ @Type(value = DateCard.class, name = "date"),
 		@Type(value = ItemCard.class, name = "item") })
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class Card<C extends Contribution> implements Contributable<C> {
+public abstract class Card {
 
 	public String type = "default";
 
@@ -34,7 +34,6 @@ public abstract class Card<C extends Contribution> implements Contributable<C> {
 	}
 
 	public List<CardEvent> events = new ArrayList<CardEvent>();
-	public List<C> contributions = new ArrayList<C>();
 
 	public List<CardEvent> getEvents() {
 		return events;
@@ -44,41 +43,41 @@ public abstract class Card<C extends Contribution> implements Contributable<C> {
 		this.events = events;
 	}
 
-	public List<C> getContributions() {
-		return contributions;
-	}
+	/*
+	 * public List<C> contributions = new ArrayList<C>(); public List<C>
+	 * getContributions() { return contributions; }
+	 * 
+	 * @JsonIgnore public List<C> getValidContributions() { List<C> result = new
+	 * ArrayList<C>();
+	 * 
+	 * for (C contribution : contributions) { if (contribution.isValid()) {
+	 * result.add(contribution); } }
+	 * 
+	 * return result; }
+	 * 
+	 * public int getContributionSize() { List<C> validContributions =
+	 * getValidContributions(); return validContributions.size(); }
+	 * 
+	 * public void setContributions(List<C> contributions) { this.contributions
+	 * = contributions; }
+	 * 
+	 * public Contribution getContribution(String contributionId) { for
+	 * (Contribution contribution : contributions) { if
+	 * (contribution.getId().equals(contributionId)) { return contribution; } }
+	 * return null; }
+	 * 
+	 * public abstract boolean cancel(Contribution contribution);
+	 */
+	
+	public abstract int getContributionSize();
+	
+	@JsonIgnore
+	public abstract Contribution getContribution(String contributionId);
+	
+	@JsonIgnore
+	public abstract boolean cancel(String contributionId);
 
 	@JsonIgnore
-	public List<C> getValidContributions() {
-		List<C> result = new ArrayList<C>();
-
-		for (C contribution : contributions) {
-			if (contribution.isValid()) {
-				result.add(contribution);
-			}
-		}
-
-		return result;
-	}
-
-	public int getContributionSize() {
-		List<C> validContributions = getValidContributions();
-		return validContributions.size();
-	}
-
-	public void setContributions(List<C> contributions) {
-		this.contributions = contributions;
-	}
-
-	public Contribution getContribution(String contributionId) {
-		for (Contribution contribution : contributions) {
-			if (contribution.getId().equals(contributionId)) {
-				return contribution;
-			}
-		}
-		return null;
-	}
-
-	public abstract boolean cancel(Contribution contribution);
-
+	public abstract List<Contributable<? extends Contribution>> getContributables();
+	
 }
