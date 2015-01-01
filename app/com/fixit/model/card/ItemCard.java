@@ -1,7 +1,6 @@
 package com.fixit.model.card;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -13,8 +12,10 @@ import com.fixit.model.ContributionHolder;
 
 public class ItemCard extends Card implements Contributable<ItemContribution> {
 
+	public static final String TYPE = "item";
+	
 	public ItemCard() {
-		this.type = "item";
+		this.type = TYPE;
 	}
 
 	private final ContributionHolder<ItemContribution> contributions = new ContributionHolder<ItemContribution>();

@@ -72,9 +72,11 @@ angular.module('fixit').factory('ProjectService', ['$http', '$rootScope', functi
 			  		var result = {"name":"Project A","description":"AAA","city":"Paris","country":"France","cards":[{"type":"item","name":"my item", "required":"1"}]};
 			  		return result;
 			  },
-              instanciateCard:function(type){
-                  var result = {"type":type, "limited":false, "required":1};
-                  return result;
+              instanciateCard:function(project, type){
+                  var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/new/' + type).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
               }
 			  
 			  };

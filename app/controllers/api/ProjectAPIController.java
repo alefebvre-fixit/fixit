@@ -11,6 +11,7 @@ import play.mvc.Security;
 import com.fixit.model.Card;
 import com.fixit.model.Contribution;
 import com.fixit.model.Project;
+import com.fixit.model.card.CardFactory;
 import com.fixit.model.card.ItemCard;
 
 import controllers.FixItController;
@@ -163,4 +164,12 @@ public class ProjectAPIController extends FixItController {
 		return notFound();
 	}
 
+	public static Result createCard(String projectId, String type){
+		
+		Card card = CardFactory.createCard(type);
+		Logger.debug("ProjectAPIController.createCard type =" + type);
+		
+		return ok(Json.toJson(card));
+	}
+	
 }

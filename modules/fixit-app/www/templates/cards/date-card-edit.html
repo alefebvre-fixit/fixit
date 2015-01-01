@@ -1,0 +1,69 @@
+<div class="card" ng-controller="DateCardController">
+
+    <div class="item item-divider item-calm">
+        <i class="icon ion-clock"></i>
+        Date
+    </div>
+
+    <div class="item item-text-wrap">
+        <div class="list">
+
+        <label class="item item-input">
+            <span class="input-label">Name</span>
+            <input type="text" placeholder="Date Name" ng-model="card.name">
+        </label>
+
+        <li class="item item-toggle">
+            <div ng-show="card.open">Open</div>
+            <div ng-show="!card.open">Fixed</div>
+            <label class="toggle toggle-assertive">
+                <input type="checkbox" ng-model="card.open">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </li>
+        <label class="item item-input" ng-show="!card.open">
+            <span class="input-label">Date</span>
+            <input type="date" placeholder="Date" ng-model="card.date"/>
+        </label>
+        <div ng-show="card.open">
+            <label class="item item-input" >
+                <input type="date" placeholder="Date" ng-model="newDate"/>
+            </label>
+            The new date is:{{newDate}}
+            <ion-list>
+                <ion-item ng-repeat="proposal in card.proposals">
+                    Hello, {{proposal.date}}!
+                </ion-item>
+            </ion-list>
+
+
+        </div>
+
+        </div>
+    </div>
+    <pre>form = {{card | json}}</pre>
+
+    <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" ng-click="addDate()">
+        Add Date Test
+        </a>
+        <a class="tab-item tab-item-light" ng-click="deleteCard(project.id, card)">
+            Delete
+        </a>
+        <a class="tab-item" ng-click="addCard(project.id, card)">
+            <i class="icon ion-share"></i>
+            Apply
+        </a>
+    </div>
+
+
+
+
+</div>
+
+
+
+
+

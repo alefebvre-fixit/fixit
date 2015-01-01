@@ -11,13 +11,25 @@ import com.fixit.model.Contribution;
 
 public class DateCard extends Card {
 
+	public static final String TYPE = "date";
+
 	public DateCard() {
-		this.type = "date";
+		this.type = TYPE;
 	}
 
+	private String name;
+	private boolean open = false;
 	private Date date;
 	private int votes = 0;
 	private List<DateProposal> proposals = new ArrayList<DateProposal>();
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Date getDate() {
 		return date;
@@ -109,6 +121,14 @@ public class DateCard extends Card {
 		List<Contributable<? extends Contribution>> result = new ArrayList<Contributable<? extends Contribution>>();
 		result.addAll(proposals);
 		return result;
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 
 }

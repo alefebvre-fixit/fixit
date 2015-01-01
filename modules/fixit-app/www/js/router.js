@@ -71,7 +71,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
                         },
                         card: function($stateParams, ProjectService){
                             console.log('card-new: resolve single card');
-                            return ProjectService.instanciateCard($stateParams.type);
+                            return ProjectService.instanciateCard($stateParams.projectId, $stateParams.type);
                         }
                     }
                 }
