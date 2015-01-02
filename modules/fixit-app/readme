@@ -1,3 +1,10 @@
 open -a Google\ Chrome --args --disable-web-security
 
 http://localhost:8100/#/app/signin
+
+mongo ds029821.mongolab.com:29821/fixit-mg -u <dbuser> -p <dbpassword>
+fixit-admin AZERTy75
+https://mongolab.com/databases/fixit-mg/collections/Project
+
+MongoLab@Heroku
+ds029831.mongolab.com:29831
