@@ -18,8 +18,14 @@ public class Project {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String STATUS_NEW = "New";
+	public static final String STATUS_PUBLISHED = "Published";
+	public static final String STATUS_DRAFT = "Draft";
+
+	
 	public String id;
 	public double version = 0;
+	private String status = STATUS_NEW;
 
 	@Id
 	@ObjectId
@@ -48,6 +54,50 @@ public class Project {
 	public String country;
 
 	public String username;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setVersion(double version) {
+		this.version = version;
+	}
 
 	public List<Card> cards = new ArrayList<Card>();
 
@@ -132,6 +182,14 @@ public class Project {
 		project.description = "";
 
 		return project;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public static Map<String, Project> all() {

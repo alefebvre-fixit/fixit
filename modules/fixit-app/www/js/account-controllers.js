@@ -13,6 +13,10 @@ angular.module('fixit').controller('SignUpController', ['SettingService', '$scop
         }
     };
 
+
+    $scope.goToSignIn = function () {
+        $state.transitionTo('app.sign-in');
+    }
 }
 ]);
 
@@ -25,7 +29,6 @@ angular.module('fixit').controller('SignInController', ['SettingService', '$scop
         console.log('Doing login' + $scope.signin.username + '/' + $scope.signin.password);
 
         SettingService.signinUser($scope.signin).success(function (loggedUser) {
-            console.log("Your name is: " + loggedUser.username);
             $rootScope.user = loggedUser;
 
             localStorage.setItem("username", $rootScope.user.username);
@@ -40,8 +43,12 @@ angular.module('fixit').controller('SignInController', ['SettingService', '$scop
 
     };
 
+    $scope.goToSignUp = function () {
+        $state.transitionTo('app.sign-up');
+    }
 
-}
+
+    }
 ]);
 
 

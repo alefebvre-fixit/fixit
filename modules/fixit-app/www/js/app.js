@@ -20,6 +20,8 @@ angular.module('fixit').run(
 
 				var localFixitURL = 'http://localhost:9000';
 				var herokuFixitURL = 'http://intense-meadow-9097.herokuapp.com';
+				var herokuFixitURL2 = 'http://vast-gorge-2883.herokuapp.com';
+
 				$rootScope.user = {};
 				$rootScope.baseUrl = localFixitURL;
 

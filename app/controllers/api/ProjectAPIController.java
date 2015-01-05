@@ -11,6 +11,7 @@ import play.mvc.Security;
 import com.fixit.model.Card;
 import com.fixit.model.Contribution;
 import com.fixit.model.Project;
+import com.fixit.model.ProjectFactory;
 import com.fixit.model.card.CardFactory;
 import com.fixit.model.card.ItemCard;
 
@@ -26,7 +27,20 @@ public class ProjectAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(getProjectService().getAll()));
 	}
 
+	public static Result createNewProject() {
+		Logger.debug("ProjectAPIController.createNewProject()");
+
+		return ok(Json.toJson(ProjectFactory.createProject(getUser())));
+	}
 	
+	public static Result publishProject(String projectId) {
+		Project project = getProjectService().load(projectId);
+		project.setStatus(Project.STATUS_PUBLISHED);
+		
+		project = getProjectService().save(project);
+		
+		return ok(Json.toJson(project));
+	}
 	
 	public static Result createProject() {
 		Logger.debug("ProjectAPIController.createProject()");
@@ -35,7 +49,7 @@ public class ProjectAPIController extends FixItController {
 
 		Project project = Json.fromJson(body.asJson(), Project.class);
 		project.username = getUserName();
-
+		project.setStatus(Project.STATUS_DRAFT);
 		String id = getProjectService().create(project);
 		project.id = id;
 		return ok(Json.toJson(project));

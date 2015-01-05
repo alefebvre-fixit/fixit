@@ -33,15 +33,42 @@ angular.module('fixit').controller('ViewProjectController', ['$scope', 'project'
 ]);
 
 
-angular.module('fixit').controller('EditProjectController', ['ProjectService', '$scope', 'project', function (ProjectService, $scope, project) {
+angular.module('fixit').controller('EditProjectController', ['ProjectService', '$scope', '$state', '$ionicPopup', 'project', function (ProjectService, $scope, $state, $ionicPopup, project) {
 	
     $scope.project = project;
     
-    $scope.saveProject = function() {
-		ProjectService.save($scope.project).then(function (data) {
+    $scope.saveProject = function(projectToSave) {
+		ProjectService.saveProject(projectToSave).then(function (data) {
 		    $scope.project = data;
          });
     }
+
+	$scope.createProject = function(projectToSave) {
+		ProjectService.saveProject(projectToSave).then(function (data) {
+			$scope.project = data;
+			$state.go('app.project-edit', {projectId: $scope.project.id});
+		});
+	}
+
+	$scope.publishProject = function(projectToPublish) {
+		ProjectService.publishProject(projectToPublish).then(function (data) {
+			$scope.project = data;
+		});
+	}
+
+	$scope.deleteProject = function(projectToDelete) {
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'Delete Project',
+			template: 'Are you sure you want to delete this project?'
+		});
+		confirmPopup.then(function(res) {
+			if(res) {
+				ProjectService.deleteProject(projectToDelete).then(function (data) {
+					$state.go('app.project-new');
+				});
+			}
+		});
+	}
 
     $scope.removeCard = function(index) {
     	$scope.project.cards.splice(index, 1);

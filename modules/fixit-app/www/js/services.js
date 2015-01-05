@@ -20,12 +20,18 @@ angular.module('fixit').factory('ProjectService', ['$http', '$rootScope', functi
                       });
                       return promise;
                 },
-			    save: function(project) {
+			    saveProject: function(project) {
 				      var promise = $http.post($rootScope.baseUrl + '/api/projects', project).then(function (response) {
 				        return response.data;
 				      });
 				      return promise;
 			  	},
+                  publishProject: function(project) {
+                      var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/publish').then(function (response) {
+                          return response.data;
+                      });
+                      return promise;
+                  },
                 deleteProject: function(project) {
                       var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/delete').then(function (response) {
                           return response.data;
@@ -69,8 +75,10 @@ angular.module('fixit').factory('ProjectService', ['$http', '$rootScope', functi
                   return promise;
               },
 			  instanciateProject:function(){
-			  		var result = {"name":"Project A","description":"AAA","city":"Paris","country":"France","cards":[{"type":"item","name":"my item", "required":"1"}]};
-			  		return result;
+                  var promise = $http.get($rootScope.baseUrl + '/api/projects/new').then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
 			  },
               instanciateCard:function(project, type){
                   var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/new/' + type).then(function (response) {

@@ -97,7 +97,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             },
             authenticate: true
         })
-        .state('app.card-single', {
+        .state('app.card-view', {
             cache: false,
             url: "/projects/:projectId/cards/:cardId",
             views: {
@@ -174,11 +174,20 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             },
             authenticate: true
         })
-        .state('app.signin', {
+        .state('app.sign-in', {
             url: "/signin",
             views: {
                 'menuContent': {
-                    templateUrl: "templates/signin.html"
+                    templateUrl: "templates/sign-in.html"
+                }
+            },
+            authenticate: false
+        })
+        .state('app.sign-up', {
+            url: "/signup",
+            views: {
+                'menuContent': {
+                    templateUrl: "templates/sign-up.html"
                 }
             },
             authenticate: false

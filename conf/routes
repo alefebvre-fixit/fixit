@@ -35,10 +35,14 @@ GET     /projects/test/          controllers.ProjectController.testProject()
 
 # API Project
 GET     /api/projects              controllers.api.ProjectAPIController.projects()
+GET     /api/projects/new          controllers.api.ProjectAPIController.createNewProject()
 GET     /api/projects/:id          controllers.api.ProjectAPIController.project(id: String)
 POST 	/api/projects			   controllers.api.ProjectAPIController.save()
 GET     /api/user/:id/projects     controllers.api.ProjectAPIController.projectByOwner(id: String)
 POST    /api/projects/:id/delete   controllers.api.ProjectAPIController.deleteProject(id: String)
+POST    /api/projects/:id/publish  controllers.api.ProjectAPIController.publishProject(id: String)
+
+
 
 # API Cards
 

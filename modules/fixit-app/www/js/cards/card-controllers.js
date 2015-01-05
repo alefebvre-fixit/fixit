@@ -87,24 +87,32 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
 }
 ]);
 
+angular.module('fixit').controller('EditDateCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
 
-angular.module('fixit').controller('DateCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
-
-    console.log("DateCardController");
-
+    console.log("EditDateCardController");
 
     $scope.addDate = function() {
         console.log("Add a date from DateCardController ");
         //$scope.card.proposals.push({date:newDate});
     };
 
+}
+]);
+
+
+angular.module('fixit').controller('DateCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
+
+    console.log("DateCardController");
+
+    $scope.isOpenForContribution = function(card) {
+        return card.open;
+    };
 
     $scope.cancelContribution = function(project, contribution) {
         console.log("Cancel a contribution");
         ProjectService.cancelContribution(project, contribution).then(function (data) {
             $scope.setProject(data);
         });
-
     };
 }
 ]);

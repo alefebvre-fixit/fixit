@@ -1,10 +1,8 @@
 <div class="card">
-
     <a class="item item-divider item-calm" ui-sref="app.card-edit({ projectId: project.id, cardId : card.id })">
         <i class="icon ion-bag"></i>
         {{card.name}}
     </a>
-
     <div class="item item-text-wrap">
         Required : {{card.required}}
         <br>
@@ -17,11 +15,12 @@
         </p>
     </div>
     <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" ui-sref="app.card-edit({ projectId: project.id, cardId : card.id })">
-            Edit
+        <a class="tab-item">
         </a>
         <a class="tab-item">
-            Remove
+        </a>
+        <a class="tab-item" ui-sref="app.card-edit({ projectId: project.id, cardId : card.id })">
+            Edit
         </a>
     </div>
 </div>
