@@ -25,7 +25,7 @@ public class TestUserService implements UserService {
 		Logger.debug("authenticateByEmail password=" + password);
 
 		for (User user : users.values()) {
-			if (user.email.equals(email)) {
+			if (user.getEmail().equals(email)) {
 				if (user.password.equals(password)) {
 					return user;
 				} else {
@@ -57,13 +57,13 @@ public class TestUserService implements UserService {
 
 	@Override
 	public String create(User user) {
-		users.put(user.username, user);
-		return user.username;
+		users.put(user.getUsername(), user);
+		return user.getUsername();
 	}
 
 	@Override
 	public User save(User user) {
-		users.put(user.username, user);
+		users.put(user.getUsername(), user);
 		return user;
 	}
 

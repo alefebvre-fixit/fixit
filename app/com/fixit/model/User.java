@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.mongojack.ObjectId;
+
 import play.data.validation.Constraints.Required;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,26 +18,63 @@ public class User {
 
 	private static final long serialVersionUID = 1L;
 
+	private String id;
+
 	@Id
-	@Required
-	public String username;
+	@ObjectId
+	public String getId() {
+		return id;
+	}
+
+	@Id
+	@ObjectId
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	@Required
-	public String email;
+	private String username;
 
 	@Required
-	@JsonIgnore
+	private String email;
+
+	@Required
 	public String password;
 
-    private Profile profile= new Profile();
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	private Profile profile = new Profile();
 
 	public User() {
 	}
-	
+
 	public User(SignUp signup) {
 		this.email = signup.getEmail();
 		this.username = signup.getUsername();
 		this.profile.setName(signup.getName());
+		this.password = signup.getPassword();
 	}
 
 	public User(String email, String password) {
@@ -48,13 +87,13 @@ public class User {
 		return new AccountSummary(this);
 	}
 
-    public Profile getProfile(){
-        return profile;
-    }
+	public Profile getProfile() {
+		return profile;
+	}
 
-    public void setProfile(Profile profile){
-        this.profile = profile;
-    }
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
 
 	public static final String ANTOINE = "antoinelefebvre";
 	public static final String PAUL_SMITH = "paulsmith";
@@ -67,10 +106,10 @@ public class User {
 
 		return result;
 	}
-	
-	public static User createUser(String username){
+
+	public static User createUser(String username) {
 		User result = null;
-		if (ANTOINE.equals(username)){
+		if (ANTOINE.equals(username)) {
 			result = new User("antoinelefebvre@gmail.com", "password");
 			result.username = ANTOINE;
 			result.getProfile().setBiography("This is my bio");
@@ -78,7 +117,7 @@ public class User {
 			result.getProfile().setCity("San Francisco");
 			result.getProfile().setCountry("United States");
 			result.getProfile().setName("Antoine Lefebvre");
-		} else if (PAUL_SMITH.equals(username)){
+		} else if (PAUL_SMITH.equals(username)) {
 			result = new User("paulsmith@gmail.com", "password");
 			result.username = PAUL_SMITH;
 			result.getProfile().setBiography("This is paul bio");
@@ -89,6 +128,5 @@ public class User {
 		}
 		return result;
 	}
-	
 
 }

@@ -1,18 +1,23 @@
-angular.module('fixit').controller('SignUpController', ['SettingService', '$scope', '$http', '$location', function (SettingService, $scope, $http, $location) {
+angular.module('fixit').controller('SignUpController', ['SettingService', '$scope', '$http', '$location', 'signup', function (SettingService, $scope, $http, $location, signup) {
 
-    $scope.submitForm = function (isValid) {
-        // check to make sure the form is completely valid
-        if (isValid) {
-            console.log("SignupForm is valid" + $scope.signupRequest.email);
-            SettingService.signupUser($scope.signupRequest).then(function (data) {
-                console.log("Just signed up");
-                $location.url('projects');
-            });
-        } else {
-            console.log("SignupForm is not valid");
-        }
+    $scope.signup = signup;
+
+
+    $scope.doSignUp = function () {
+
+        console.log('$scope.signup' + $scope.signup);
+
+
+        SettingService.signupUser($scope.signup).success(function (data) {
+            $rootScope.user = data;
+            localStorage.setItem("username", $rootScope.user.username);
+            console.log("localStorage name is: " + localStorage.getItem("username"));
+            $state.transitionTo('app.projects');
+        }).error(function (response, status) {
+            console.log("Invalid signup");
+            $scope.signup.error = 'Invalid signup';
+        });
     };
-
 
     $scope.goToSignIn = function () {
         $state.transitionTo('app.sign-in');
@@ -53,4 +58,16 @@ angular.module('fixit').controller('SignInController', ['SettingService', '$scop
 
 
 
+angular.module('fixit').controller('EditSettingController', ['SettingService', '$scope', '$state', '$ionicPopup', 'profile', function (SettingService, $scope, $state, $ionicPopup, profile) {
 
+    $scope.profile = profile;
+
+    $scope.saveProfile = function(profile) {
+        SettingService.saveProfile(profile).then(function (data) {
+            $rootScope.user = data;
+            $scope.profile = data.profile;
+        });
+    }
+
+}
+]);

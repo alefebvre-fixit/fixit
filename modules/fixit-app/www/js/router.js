@@ -169,7 +169,14 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             url: "/settings",
             views: {
                 'menuContent': {
-                    templateUrl: "templates/settings.html"
+                    templateUrl: "templates/settings.html",
+                    controller: 'EditSettingController',
+                    resolve: {
+                        profile: function ($rootScope, $stateParams) {
+                            console.log('sign-up: resolve profile');
+                            return JSON.parse(JSON.stringify($rootScope.user.profile));
+                        }
+                    }
                 }
             },
             authenticate: true
@@ -187,7 +194,14 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             url: "/signup",
             views: {
                 'menuContent': {
-                    templateUrl: "templates/sign-up.html"
+                    templateUrl: "templates/sign-up.html",
+                    controller: 'SignUpController',
+                    resolve: {
+                        signup: function ($stateParams) {
+                            console.log('sign-up: resolve signup');
+                            return {};
+                        }
+                    }
                 }
             },
             authenticate: false

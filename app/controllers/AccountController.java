@@ -44,7 +44,7 @@ public class AccountController extends FixItController {
 			return forbidden("Invalid password");
 		}
 		session().clear();
-		session(SESSION_ATTRIBUTE_USERNAME, user.username);
+		session(SESSION_ATTRIBUTE_USERNAME, user.getUsername());
 
 		return redirect(routes.ProjectController.projects());
 	}

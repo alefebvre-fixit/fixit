@@ -10,7 +10,7 @@ public class AccountSummary {
 	
 	public AccountSummary(User user){
 		fullName = user.getProfile().getName();
-		userName = user.username;
+		userName = user.getUsername();
 	}
 	
 }

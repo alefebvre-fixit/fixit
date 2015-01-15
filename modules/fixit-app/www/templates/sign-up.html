@@ -17,18 +17,24 @@
 		</label>
 
 		<label class="item item-input item-floating-label">
+			<span class="input-label">E-mail</span>
+			<input type="email" ng-model="signup.email" placeholder="e-mail">
+		</label>
+
+		<label class="item item-input item-floating-label">
 			<span class="input-label">Password</span>
 			<input type="password" ng-model="signup.password" placeholder="password">
 		</label>
 
 		<label class="item">
-			<button class="button button-block button-positive" type="submit">Sign Up</button>
+			<button class="button button-block button-positive" type="button" ng-click="doSignUp()">Sign Up</button>
 		</label>
-		<p ng-show="signin.error" class="help-block">{{signin.error}}</p>
+		<p ng-show="signup.error" class="help-block">{{signup.error}}</p>
 
 		<label class="item ">
 			<button class="button button-block button-outline button-positive" ng-click="goToSignIn()">Already member? Sign In.</button>
 		</label>
 	</div>
+	<pre>signup = {{signup | json}}</pre>
 
 </ion-content> </ion-view>

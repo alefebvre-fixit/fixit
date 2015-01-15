@@ -65,4 +65,5 @@ GET     /api/account/summary     	controllers.api.AccountAPIController.accountSu
 GET     /api/accounts     			controllers.api.AccountAPIController.accounts()
 POST    /api/signup     			controllers.api.AccountAPIController.signUp()
 POST    /api/signin     			controllers.api.AccountAPIController.signIn()
+POST    /api/profile     			controllers.api.AccountAPIController.updateProfile()
 

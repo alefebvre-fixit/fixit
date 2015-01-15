@@ -174,7 +174,7 @@ public class Project {
 
 	public static Project instanciate(User user) {
 		Project project = new Project();
-		project.username = user.username;
+		project.username = user.getUsername();
 		project.country = user.getProfile().getCountry();
 		project.city = user.getProfile().getCity();
 

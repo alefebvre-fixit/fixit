@@ -1,5 +1,5 @@
 <ion-view title="Setting">
-
+	
 
 <ion-nav-buttons side="left">
 	<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -25,23 +25,23 @@
 	</div>
 	<label class="item item-input item-floating-label">
 		<span class="input-label">Name</span>
-		<input type="text" placeholder="Name" ng-model="user.profile.name">
+		<input type="text" placeholder="Name" ng-model="profile.name">
 	</label>
 	<label class="item item-input item-floating-label">
 		<span class="input-label">City</span>
-		<input type="text" placeholder="City" ng-model="user.profile.city">
+		<input type="text" placeholder="City" ng-model="profile.city">
 	</label>
 	<label class="item item-input item-floating-label">
 		<span class="input-label">Country</span>
-		<input type="text" placeholder="Country" ng-model="user.profile.country">
+		<input type="text" placeholder="Country" ng-model="profile.country">
 	</label>
 	<label class="item item-input item-floating-label">
 		<span class="input-label">Website</span>
-		<input type="text" placeholder="Website" ng-model="user.profile.website">
+		<input type="text" placeholder="Website" ng-model="profile.website">
 	</label>
 	<label class="item item-input item-floating-label">
 		<span class="input-label">Biography</span>
-		<textarea placeholder="Biography" ng-model="user.profile.biography"></textarea>
+		<textarea placeholder="Biography" ng-model="profile.biography"></textarea>
 	</label>
 	<div class="item item-divider">
 		Notification
@@ -50,7 +50,7 @@
 
 
 	<div class="item item-divider">
-		<button class="button button-block button-positive" ng-click="createProject(project)">Save Changes</button>
+		<button class="button button-block button-positive" ng-click="saveProfile(profile)">Save Changes</button>
 	</div>
 
 
