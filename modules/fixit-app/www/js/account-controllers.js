@@ -58,7 +58,7 @@ angular.module('fixit').controller('SignInController', ['SettingService', '$scop
 
 
 
-angular.module('fixit').controller('EditSettingController', ['SettingService', '$scope', '$state', '$ionicPopup', 'profile', function (SettingService, $scope, $state, $ionicPopup, profile) {
+angular.module('fixit').controller('EditSettingController', ['SettingService', '$scope', '$state', '$ionicPopup', 'profile','$cordovaToast', function (SettingService, $scope, $state, $ionicPopup, profile, $cordovaToast) {
 
     $scope.profile = profile;
 
@@ -67,6 +67,21 @@ angular.module('fixit').controller('EditSettingController', ['SettingService', '
             $rootScope.user = data;
             $scope.profile = data.profile;
         });
+    }
+
+    $scope.toastMe = function() {
+        console.log("Before Toast Me");
+        if ($window.plugins.toast){
+            $cordovaToast
+                .show('Here is a message', 'long', 'center')
+                .then(function(success) {
+                    // success
+                }, function (error) {
+                    // error
+                });
+        }
+
+
     }
 
 }

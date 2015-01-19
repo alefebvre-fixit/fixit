@@ -9,7 +9,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 'menuContent': {
                     templateUrl: "templates/projects.html",
-                    controller: 'MyProjectController',
+                    controller: 'FixItController',
                     resolve: {
                         projects: function ($rootScope, ProjectService) {
                             var username = localStorage.getItem("username");

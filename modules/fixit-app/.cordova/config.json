@@ -1,1 +1,8 @@
-{"id":"com.ionicframework.fixitapp653987","name":"fixit-app","engine":{"id":"cordova","ver":"3.6.3"}}
+{
+    "id": "com.ionicframework.fixitapp653987",
+    "name": "fixit-app",
+    "engine": {
+        "id": "cordova",
+        "ver": "3.6.3"
+    }
+}

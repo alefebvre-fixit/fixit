@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('fixit', [ 'ionic' ]);
+angular.module('fixit', [ 'ionic', 'ngCordova']);
 
 
 angular.module('fixit').constant('fixitSettings', {
@@ -23,7 +23,7 @@ angular.module('fixit').run(
 				var herokuFixitURL2 = 'http://vast-gorge-2883.herokuapp.com';
 
 				$rootScope.user = {};
-				$rootScope.baseUrl = localFixitURL;
+				$rootScope.baseUrl = herokuFixitURL2;
 
 				// Hide the accessory bar by default (remove
 				// this to show the accessory

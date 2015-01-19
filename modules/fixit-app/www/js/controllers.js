@@ -1,8 +1,17 @@
 
-angular.module('fixit').controller('MyProjectController', ['ProjectService', '$scope', 'projects', function (ProjectService, $scope, projects) {
+angular.module('fixit').controller('FixItController', ['ProjectService', '$scope', 'projects', '$window', function (ProjectService, $scope, projects, $window) {
 	console.log('Calling MyProjectController');
+
 	$scope.projects = projects;
-    }
+
+
+	$scope.isToastAvailable = function () {
+		if ($window.plugins.toast){
+			return true;
+		}
+		return false;
+	}
+}
 ]);
 
 
