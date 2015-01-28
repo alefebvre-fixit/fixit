@@ -71,7 +71,8 @@ angular.module('fixit').controller('EditSettingController', ['SettingService', '
 
     $scope.toastMe = function() {
         console.log("Before Toast Me");
-        if ($window.plugins.toast){
+
+        if (isToastAvailable()){
             $cordovaToast
                 .show('Here is a message', 'long', 'center')
                 .then(function(success) {
