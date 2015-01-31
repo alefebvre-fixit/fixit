@@ -1,4 +1,4 @@
-fixItApp.factory('ProjectService', ['$http', '$rootScope', function($http, $rootScope) {
+angular.module('fixit').factory('ProjectService', ['$http', '$rootScope', function($http, $rootScope) {
 
 	  var resultService = {
 			  getProjects: function() {
@@ -20,18 +20,48 @@ fixItApp.factory('ProjectService', ['$http', '$rootScope', function($http, $root
                       });
                       return promise;
                 },
-			    save: function(project) {
+			    saveProject: function(project) {
 				      var promise = $http.post($rootScope.baseUrl + '/api/projects', project).then(function (response) {
 				        return response.data;
 				      });
 				      return promise;
 			  	},
+                  publishProject: function(project) {
+                      var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/publish').then(function (response) {
+                          return response.data;
+                      });
+                      return promise;
+                  },
                 deleteProject: function(project) {
                       var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/delete').then(function (response) {
                           return response.data;
                       });
                       return promise;
                 },
+              getCard: function(projectId, cardId) {
+                  var promise = $http.get($rootScope.baseUrl + '/api/projects/'+ projectId + '/cards/' + cardId).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              },
+              addCard: function(projectId, card) {
+                  var promise = $http.post($rootScope.baseUrl + '/api/projects/'+ projectId + '/cards', card).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              },
+              updateCard: function(projectId, card) {
+                  var promise = $http.put($rootScope.baseUrl + '/api/projects/'+ projectId + '/cards/' + card.id , card).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              },
+              deleteCard: function(projectId, card) {
+                  var promise = $http.delete($rootScope.baseUrl + '/api/projects/'+ projectId + '/cards/' + card.id).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              },
               provide: function(project, card, quantity) {
                   var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id  +'/provide?quantity=' + quantity).then(function (response) {
                       return response.data;
@@ -45,9 +75,17 @@ fixItApp.factory('ProjectService', ['$http', '$rootScope', function($http, $root
                   return promise;
               },
 			  instanciateProject:function(){
-			  		var result = {"name":"Project A","description":"AAA","city":"Paris","country":"France","cards":[{"type":"item","name":"my item", "required":"1"}]};
-			  		return result;
-			  	}
+                  var promise = $http.get($rootScope.baseUrl + '/api/projects/new').then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+			  },
+              instanciateCard:function(project, type){
+                  var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/new/' + type).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              }
 			  
 			  };
 	
@@ -55,7 +93,7 @@ fixItApp.factory('ProjectService', ['$http', '$rootScope', function($http, $root
 	}]);
 
 
-fixItApp.factory('SettingService', ['$http', '$rootScope', function($http, $rootScope) {
+angular.module('fixit').factory('SettingService', ['$http', '$rootScope', function($http, $rootScope) {
 	
     var resultService = {
         getAccount: function() {
@@ -70,23 +108,19 @@ fixItApp.factory('SettingService', ['$http', '$rootScope', function($http, $root
             });
             return promise;
         },
-        saveAccount: function(account) {
-            var promise = $http.post($rootScope.baseUrl + '/api/account', account).then(function (response) {
+        saveProfile: function(profile) {
+            var promise = $http.post($rootScope.baseUrl + '/api/profile', profile).then(function (response) {
                 return response.data;
             });
             return promise;
         },
-        signupUser: function(signupRequest) {
-            console.log("Posting signupUser" + signupRequest.email);
-
-            var promise = $http.post($rootScope.baseUrl + '/api/signup', signupRequest).then(function (response) {
-                return response.data;
-            });
-            return promise;
+        signupUser: function(signup) {
+            console.log("Posting signupUser" + signup.email);
+            return $http.post($rootScope.baseUrl + '/api/signup', signup);
         },
-        signinUser: function(signinRequest) {
-            console.log("BBPosting signinUser:" + $rootScope.baseUrl + '/api/signin'+ signinRequest.username + '/' + signinRequest.password);
-            return $http.post($rootScope.baseUrl + '/api/signin', signinRequest);
+        signinUser: function(signin) {
+            console.log("BBPosting signinUser:" + $rootScope.baseUrl + '/api/signin'+ signin.username + '/' + signin.password);
+            return $http.post($rootScope.baseUrl + '/api/signin', signin);
         }
     };
 

@@ -1,21 +1,30 @@
 package com.fixit.model.card;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.Card;
+import com.fixit.model.Contributable;
 import com.fixit.model.Contribution;
+import com.fixit.model.ContributionHolder;
 
-public class ItemCard extends Card {
+public class ItemCard extends Card implements Contributable<ItemContribution> {
 
+	public static final String TYPE = "item";
+	
 	public ItemCard() {
-		this.type = "item";
+		this.type = TYPE;
 	}
 
+	private final ContributionHolder<ItemContribution> contributions = new ContributionHolder<ItemContribution>();
+
 	private String name;
-	private int required;
+	private boolean limited = false;
+	private int required = 1;
 	private int provided;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -40,6 +49,14 @@ public class ItemCard extends Card {
 		this.provided = provided;
 	}
 
+	public boolean isLimited() {
+		return limited;
+	}
+
+	public void setLimited(boolean limited) {
+		this.limited = limited;
+	}
+
 	@JsonIgnore
 	public int getRemaining() {
 		if (required >= provided) {
@@ -52,41 +69,68 @@ public class ItemCard extends Card {
 	@JsonIgnore
 	public int calculateProvided() {
 		int result = 0;
-		for (Contribution contribution : contributions) {
-			ItemContribution itemContribution = (ItemContribution) contribution;
-			if (!Contribution.STATUS_CANCELED.equals(contribution.getStatus())) {
-				result += itemContribution.getQuantityProvided();
-			}
+
+		List<ItemContribution> validContributions = contributions
+				.getValidContributions();
+		for (ItemContribution contribution : validContributions) {
+			result += contribution.getQuantityProvided();
 		}
 		return result;
 	}
 
-	public void contribute(String username, int quantity) {
+	public void provide(String username, int quantity) {
 		int remaining = getRemaining();
 		if (remaining > 0) {
 			ItemContribution contribution = new ItemContribution();
 			contribution.setDate(new Date());
-			
+
 			contribution.setContributor(username);
 			if (quantity <= remaining) {
 				contribution.setQuantityProvided(quantity);
 			} else {
 				contribution.setQuantityProvided(remaining);
 			}
-			contribute(contribution);
+			contributions.add(contribution);
+			provided = calculateProvided();
 		}
 	}
-
-	public void contribute(ItemContribution contribution) {
-		getContributions().add(contribution);
-		provided = calculateProvided();
+	
+	@Override
+	public boolean cancel(String contributionId) {
+		Contribution contribution = getContribution(contributionId);
+		if (contribution != null){
+			contribution.setStatus(Contribution.STATUS_CANCELED);
+			provided = calculateProvided();
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public boolean cancel(Contribution contribution) {
-		contribution.setStatus(Contribution.STATUS_CANCELED);
-		provided = calculateProvided();
-		return true;
+	public List<ItemContribution> getContributions() {
+		return contributions.getContributions();
+	}
+
+	@Override
+	public int getContributionSize() {
+		return contributions.getValidContributions().size();
+	}
+
+	@Override
+	public void setContributions(List<ItemContribution> contributions) {
+		this.contributions.setContributions(contributions);
+	}
+
+	@Override
+	public Contribution getContribution(String contributionId) {
+		return contributions.getContribution(contributionId);
+	}
+
+	@Override
+	public List<Contributable<? extends Contribution>> getContributables() {
+		List<Contributable<? extends Contribution>> result = new ArrayList<Contributable<? extends Contribution>>();
+		result.add(this);
+		return result;
 	}
 
 }

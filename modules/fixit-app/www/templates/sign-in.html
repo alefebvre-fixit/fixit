@@ -1,0 +1,26 @@
+<ion-view title="SignIn"> <ion-content class="has-header">
+
+<ion-nav-buttons side="left">
+<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+</ion-nav-buttons>
+
+	<div class="list" ng-controller="SignInController">
+		<form ng-submit="doSignIn()" >
+
+		<label class="item item-input"> <span class="input-label">Username</span>
+			<input type="text" ng-model="signin.username">
+		</label> <label class="item item-input"> <span class="input-label">Password</span>
+			<input type="password" ng-model="signin.password">
+		</label>
+		<label class="item">
+			<button class="button button-block button-positive" type="submit"><b>Sign In</b></button>
+			<p ng-show="signin.error" class="help-block">{{signin.error}}</p>
+		</label>
+
+		</form>
+		<label class="item ">
+		<button class="button button-block button-outline button-positive" ng-click="goToSignUp()">Create Free Account</button>
+		</label>
+	</div>
+
+</ion-content> </ion-view>

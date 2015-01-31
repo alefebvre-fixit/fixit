@@ -1,0 +1,15 @@
+<ion-view title="Edit Card">
+    <ion-content
+            class="has-header">
+        <div ng-if="card.type == 'date' ">
+            <div ng-include data-src="'templates/cards/date-card-edit.html'"></div>
+        </div>
+        <div ng-if="card.type == 'item' ">
+            <div ng-include src="'templates/cards/item-card-edit.html'"></div>
+        </div>
+        <div ng-if="card.type == 'item' ">
+            <div ng-include src="'templates/cards/participant-card-edit.html'"></div>
+        </div>
+
+    </ion-content>
+</ion-view>

@@ -4,25 +4,27 @@ import java.util.List;
 
 import org.mongojack.DBCursor;
 import org.mongojack.JacksonDBCollection;
+import org.mongojack.WriteResult;
 
 import play.Logger;
-import play.modules.mongojack.MongoDB;
 
-import com.fixit.model.Project;
 import com.fixit.model.User;
 import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 import com.fixit.service.UserService;
 
 public class MongoUserService implements UserService {
-
-	private static JacksonDBCollection<User, String> coll = MongoDB
-			.getCollection("User", User.class, String.class);
 	
 	@Override
 	public User load(String username) {
 		Logger.debug("MongoUserService.load(String userName) username=" + username);
-		User result = coll.findOneById(username);
+
+		User result = null;
+		DBCursor<User> cursor = getCollection().find().is("username", username);
+		if (cursor.hasNext()){
+			result = cursor.next();
+		}
+		
 		return result;
 	}
 
@@ -31,14 +33,15 @@ public class MongoUserService implements UserService {
 		
 		User user = null;
 				
-		DBCursor<User> cursor = coll.find().is("email", email);
-		user = cursor.next();
-		
-		if (authenticate(user, password)){
-			return user;
-		} else {
-			return null;
+		DBCursor<User> cursor = getCollection().find().is("email", email);
+		if (cursor.hasNext()){
+			user = cursor.next();
+			if (authenticate(user, password)){
+				return user;
+			}
 		}
+		
+		return null;
 		
 	}
 
@@ -65,29 +68,41 @@ public class MongoUserService implements UserService {
 
 		return password.equals(user.password);
 	}
-
+	
 	@Override
 	public String create(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		User result = save(user);
+		return result.getUsername();
 	}
 
 	@Override
 	public User save(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		WriteResult<User, String> result = null;
+		if (user.getId() == null) {
+			Logger.debug("MongoUserService.save()");
+			result = getCollection().insert(user);
+			user.setId(result.getSavedId());
+		} else {
+			Logger.debug("MongoUserService.save.updateById(String id) username="
+					+ user.getUsername());
+
+			result = getCollection().updateById(user.getId(), user);
+		}
+
+		return user;
 	}
+	
 	
 	@Override
 	public List<User> getAll() {
 		Logger.debug("MongoUserService.getAll()");
-		return coll.find().toArray();
+		return getCollection().find().toArray();
 	}
 
 	@Override
 	public void delete(String id) {
 		Logger.debug("MongoUserService.delete(String id) id=" + id);
-		coll.removeById(id);
+		getCollection().removeById(id);
 	}
 
 	@Override
@@ -100,6 +115,11 @@ public class MongoUserService implements UserService {
 	@Override
 	public User authenticate(SignIn signin) {
 		return authenticateByUserName(signin.getUsername(), signin.getPassword());
+	}
+	
+	
+	private JacksonDBCollection<User, String> getCollection() {
+		return MongoDBPersistence.getUserCollection();
 	}
 	
 }

@@ -1,12 +1,21 @@
 
-fixItApp.controller('MyProjectController', ['ProjectService', '$scope', 'projects', function (ProjectService, $scope, projects) {
+angular.module('fixit').controller('FixItController', ['ProjectService', '$scope', 'projects', '$window', function (ProjectService, $scope, projects, $window) {
 	console.log('Calling MyProjectController');
+
 	$scope.projects = projects;
-    }
+
+
+	$scope.isToastAvailable = function () {
+		if ($window.plugins.toast){
+			return true;
+		}
+		return false;
+	}
+}
 ]);
 
 
-fixItApp.controller('ProjectController', ['ProjectService', '$scope', '$http', function (ProjectService, $scope, $http) {
+angular.module('fixit').controller('ProjectController', ['ProjectService', '$scope', '$http', function (ProjectService, $scope, $http) {
 	 
     $scope.init = function()
 	{
@@ -17,13 +26,11 @@ fixItApp.controller('ProjectController', ['ProjectService', '$scope', '$http', f
             $scope.projects = data;
         });
 	};
-	
-
 
     }
 ]);
 
-fixItApp.controller('ViewProjectController', ['$scope', 'project', function ($scope, project) {
+angular.module('fixit').controller('ViewProjectController', ['$scope', 'project', function ($scope, project) {
 
 	$scope.project = project;
 	
@@ -35,46 +42,47 @@ fixItApp.controller('ViewProjectController', ['$scope', 'project', function ($sc
 ]);
 
 
-fixItApp.controller('EditProjectController', ['ProjectService', '$scope', 'project', function (ProjectService, $scope, project) {
+angular.module('fixit').controller('EditProjectController', ['ProjectService', '$scope', '$state', '$ionicPopup', 'project', function (ProjectService, $scope, $state, $ionicPopup, project) {
 	
     $scope.project = project;
     
-    $scope.saveProject = function() {
-		ProjectService.save($scope.project).then(function (data) {
+    $scope.saveProject = function(projectToSave) {
+		ProjectService.saveProject(projectToSave).then(function (data) {
 		    $scope.project = data;
          });
     }
+
+	$scope.createProject = function(projectToSave) {
+		ProjectService.saveProject(projectToSave).then(function (data) {
+			$scope.project = data;
+			$state.go('app.project-edit', {projectId: $scope.project.id});
+		});
+	}
+
+	$scope.publishProject = function(projectToPublish) {
+		ProjectService.publishProject(projectToPublish).then(function (data) {
+			$scope.project = data;
+		});
+	}
+
+	$scope.deleteProject = function(projectToDelete) {
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'Delete Project',
+			template: 'Are you sure you want to delete this project?'
+		});
+		confirmPopup.then(function(res) {
+			if(res) {
+				ProjectService.deleteProject(projectToDelete).then(function (data) {
+					$state.go('app.project-new');
+				});
+			}
+		});
+	}
 
     $scope.removeCard = function(index) {
     	$scope.project.cards.splice(index, 1);
     }
     	
-}
-]);
-
-fixItApp.controller('EditItemCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
-
-    $scope.itemCard = {type : 'item'};
-
-    $scope.addCard = function() {
-        $scope.project.cards.push($scope.itemCard);
-    };
-
-    $scope.provide = function(project, card) {
-        console.log("Provide an item projectId=" + project.id + " cardId=" + card.id);
-        ProjectService.provide(project, card, 1).then(function (data) {
-            $scope.setProject(data);
-        });
-
-    };
-
-    $scope.cancelContribution = function(project, contribution) {
-        console.log("Cancel a contribution");
-        ProjectService.cancelContribution(project, contribution).then(function (data) {
-            $scope.setProject(data);
-        });
-
-    };
 }
 ]);
 

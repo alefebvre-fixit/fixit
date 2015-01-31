@@ -5,17 +5,23 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-var fixItApp = angular
-	.module('fixit', [ 'ionic' ]);
+angular.module('fixit', [ 'ionic', 'ngCordova']);
 
 
-fixItApp.run(
+angular.module('fixit').constant('fixitSettings', {
+	apiRrl: 'http://localhost:9000'
+});
+
+
+angular.module('fixit').run(
 		function($ionicPlatform, $rootScope, $state) {
 		    $ionicPlatform
 			    .ready(function() {
 
 				var localFixitURL = 'http://localhost:9000';
 				var herokuFixitURL = 'http://intense-meadow-9097.herokuapp.com';
+				var herokuFixitURL2 = 'http://vast-gorge-2883.herokuapp.com';
+
 				$rootScope.user = {};
 				$rootScope.baseUrl = localFixitURL;
 

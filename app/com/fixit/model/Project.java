@@ -10,13 +10,22 @@ import javax.persistence.Entity;
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String STATUS_NEW = "New";
+	public static final String STATUS_PUBLISHED = "Published";
+	public static final String STATUS_DRAFT = "Draft";
+
+	
 	public String id;
 	public double version = 0;
+	private String status = STATUS_NEW;
 
 	@Id
 	@ObjectId
@@ -30,14 +39,14 @@ public class Project {
 		this.id = id;
 	}
 
-	public double getVersion(){
+	public double getVersion() {
 		return version;
 	}
-	
-	public void incrementVersion(){
-		this.version++; 
+
+	public void incrementVersion() {
+		this.version++;
 	}
-	
+
 	public String name;
 	public String description;
 
@@ -45,6 +54,50 @@ public class Project {
 	public String country;
 
 	public String username;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setVersion(double version) {
+		this.version = version;
+	}
 
 	public List<Card> cards = new ArrayList<Card>();
 
@@ -65,6 +118,33 @@ public class Project {
 		return null;
 	}
 
+	public boolean deleteCard(String cardId) {
+		// TODO Change this implementation
+		for (int i = 0; i < cards.size(); i++) {
+			if (cardId.equals(cards.get(i).getId())) {
+				cards.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean addCard(Card card) {
+		// TODO Change this implementation
+		if (card.getId() != null) {
+			for (int i = 0; i < cards.size(); i++) {
+				if (cards.get(i) != null) {
+					if (card.getId().equals(cards.get(i).getId())) {
+						cards.set(i, card);
+						return true;
+					}
+				}
+			}
+		}
+		cards.add(card);
+		return true;
+	}
+
 	public Contribution getContribution(String contributionId) {
 		for (Card card : cards) {
 			Contribution contribution = card.getContribution(contributionId);
@@ -75,11 +155,18 @@ public class Project {
 		return null;
 	}
 
+	public int getContributionSize() {
+		int result = 0;
+		for (Card card : cards) {
+			result += card.getContributionSize();
+		}
+		return result;
+	}
+
 	public boolean cancelContribution(String contributionId) {
 		for (Card card : cards) {
-			Contribution contribution = card.getContribution(contributionId);
-			if (contribution != null) {
-				return card.cancel(contribution);
+			if (card.cancel(contributionId)){
+				return true;
 			}
 		}
 		return false;
@@ -87,7 +174,7 @@ public class Project {
 
 	public static Project instanciate(User user) {
 		Project project = new Project();
-		project.username = user.username;
+		project.username = user.getUsername();
 		project.country = user.getProfile().getCountry();
 		project.city = user.getProfile().getCity();
 
@@ -95,6 +182,14 @@ public class Project {
 		project.description = "";
 
 		return project;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public static Map<String, Project> all() {

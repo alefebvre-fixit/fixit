@@ -11,6 +11,8 @@ import play.mvc.Security;
 import com.fixit.model.Card;
 import com.fixit.model.Contribution;
 import com.fixit.model.Project;
+import com.fixit.model.ProjectFactory;
+import com.fixit.model.card.CardFactory;
 import com.fixit.model.card.ItemCard;
 
 import controllers.FixItController;
@@ -25,7 +27,20 @@ public class ProjectAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(getProjectService().getAll()));
 	}
 
+	public static Result createNewProject() {
+		Logger.debug("ProjectAPIController.createNewProject()");
+
+		return ok(Json.toJson(ProjectFactory.createProject(getUser())));
+	}
 	
+	public static Result publishProject(String projectId) {
+		Project project = getProjectService().load(projectId);
+		project.setStatus(Project.STATUS_PUBLISHED);
+		
+		project = getProjectService().save(project);
+		
+		return ok(Json.toJson(project));
+	}
 	
 	public static Result createProject() {
 		Logger.debug("ProjectAPIController.createProject()");
@@ -34,7 +49,7 @@ public class ProjectAPIController extends FixItController {
 
 		Project project = Json.fromJson(body.asJson(), Project.class);
 		project.username = getUserName();
-
+		project.setStatus(Project.STATUS_DRAFT);
 		String id = getProjectService().create(project);
 		project.id = id;
 		return ok(Json.toJson(project));
@@ -73,6 +88,41 @@ public class ProjectAPIController extends FixItController {
 		Project project = getProjectService().load(projectId);
 		return ok(Json.toJson(project.getCard(cardId)));
 	}
+	
+	public static Result deleteCard(String projectId, String cardId) {
+		Logger.debug("ProjectAPIController.project projectId =" + projectId
+				+ " cardId=" + cardId);
+		Project project = getProjectService().load(projectId);
+		project.deleteCard(cardId);
+		return ok(Json.toJson(getProjectService().save(project)));
+	}
+	
+	
+	public static Result addCard(String projectId){
+		
+		RequestBody body = request().body();
+		Card card = Json.fromJson(body.asJson(), Card.class);
+
+		Logger.debug("ProjectAPIController.addCard projectId =" + projectId
+				+ " cardId=" + card.id);
+		Project project = getProjectService().load(projectId);
+		project.addCard(card);
+		project = getProjectService().save(project);
+		return ok(Json.toJson(project));
+	}
+	
+	public static Result updateCard(String projectId, String cardId){
+		
+		RequestBody body = request().body();
+		Card card = Json.fromJson(body.asJson(), Card.class);
+
+		Logger.debug("ProjectAPIController.updateCard projectId =" + projectId
+				+ " cardId=" + card.id);
+		Project project = getProjectService().load(projectId);
+		project.addCard(card);
+		project = getProjectService().save(project);
+		return ok(Json.toJson(project));
+	}
 
 	public static Result deleteProject(String projectId) {
 		Logger.debug("ProjectAPIController.deleteProject projectId ="
@@ -91,7 +141,7 @@ public class ProjectAPIController extends FixItController {
 			Card card = project.getCard(itemId);
 			if (card instanceof ItemCard) {
 				ItemCard item = (ItemCard) card;
-				item.contribute(getUserName(), quantity);
+				item.provide(getUserName(), quantity);
 			}
 		}
 		getProjectService().save(project);
@@ -128,4 +178,12 @@ public class ProjectAPIController extends FixItController {
 		return notFound();
 	}
 
+	public static Result createCard(String projectId, String type){
+		
+		Card card = CardFactory.createCard(type);
+		Logger.debug("ProjectAPIController.createCard type =" + type);
+		
+		return ok(Json.toJson(card));
+	}
+	
 }

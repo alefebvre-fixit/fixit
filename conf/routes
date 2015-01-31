@@ -35,17 +35,28 @@ GET     /projects/test/          controllers.ProjectController.testProject()
 
 # API Project
 GET     /api/projects              controllers.api.ProjectAPIController.projects()
+GET     /api/projects/new          controllers.api.ProjectAPIController.createNewProject()
 GET     /api/projects/:id          controllers.api.ProjectAPIController.project(id: String)
 POST 	/api/projects			   controllers.api.ProjectAPIController.save()
 GET     /api/user/:id/projects     controllers.api.ProjectAPIController.projectByOwner(id: String)
 POST    /api/projects/:id/delete   controllers.api.ProjectAPIController.deleteProject(id: String)
+POST    /api/projects/:id/publish  controllers.api.ProjectAPIController.publishProject(id: String)
+
+
 
 # API Cards
 
 POST    /api/projects/:projectId/cards/:cardId/provide  controllers.api.ProjectAPIController.provide(projectId: String, cardId: String, quantity: Integer ?= 1)
-GET     /api/projects/:projectId/cards/:cardId          controllers.api.ProjectAPIController.card(projectId: String, cardId: String)
-GET 	/api/projects/:projectId/contributions/:contributionId controllers.api.ProjectAPIController.contribution(projectId: String, contributionId: String)
-POST 	/api/projects/:projectId/contributions/:contributionId/cancel controllers.api.ProjectAPIController.cancelContribution(projectId: String, contributionId: String)
+PUT    	/api/projects/:projectId/cards/:cardId  		controllers.api.ProjectAPIController.updateCard(projectId: String, cardId: String)
+POST    /api/projects/:projectId/cards/new/:type		controllers.api.ProjectAPIController.createCard(projectId: String, type: String)
+POST    /api/projects/:projectId/cards  				controllers.api.ProjectAPIController.addCard(projectId: String)
+
+DELETE 	/api/projects/:projectId/cards/:cardId 			controllers.api.ProjectAPIController.deleteCard(projectId: String, cardId: String)
+
+GET     /api/projects/:projectId/cards/:cardId          				controllers.api.ProjectAPIController.card(projectId: String, cardId: String)
+GET 	/api/projects/:projectId/contributions/:contributionId 			controllers.api.ProjectAPIController.contribution(projectId: String, contributionId: String)
+POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers.api.ProjectAPIController.cancelContribution(projectId: String, contributionId: String)
+
 
 # API Account
 
@@ -54,4 +65,5 @@ GET     /api/account/summary     	controllers.api.AccountAPIController.accountSu
 GET     /api/accounts     			controllers.api.AccountAPIController.accounts()
 POST    /api/signup     			controllers.api.AccountAPIController.signUp()
 POST    /api/signin     			controllers.api.AccountAPIController.signIn()
+POST    /api/profile     			controllers.api.AccountAPIController.updateProfile()
 

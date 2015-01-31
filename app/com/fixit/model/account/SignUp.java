@@ -4,8 +4,6 @@ import play.data.validation.Constraints.Required;
 
 public class SignUp {
 
-	private static final long serialVersionUID = 1L;
-
 	@Required
 	private String username;
 
@@ -14,6 +12,9 @@ public class SignUp {
 
 	@Required
 	private String email;
+
+	@Required
+	private String password;
 
 	public String getUsername() {
 		return username;
@@ -38,6 +39,13 @@ public class SignUp {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }

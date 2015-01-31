@@ -1,19 +1,30 @@
 <ion-view title="New Project"> <ion-content
-	class="has-header"> 
-	
-	
-	<label class="item item-input">
-	<input type="text" placeholder="First Name" value="{{project.name}}">
-</label>
+	class="has-header">
 
- <label class="item item-input"> <textarea
-		placeholder="Comments">{{project.description}}</textarea>
-</label>
+	<label class="item item-input item-floating-label">
+		<span class="input-label">Project Name</span>
+		<input type="text" placeholder="Project Name" ng-model="project.name">
+	</label>
 
+	 <label class="item item-input item-floating-label">
+		 <span class="input-label">Description</span>
+		 <textarea placeholder="Description" ng-model="project.description"></textarea>
+	</label>
+	<div class="item item-divider">
+		Location
+	</div>
+	<label class="item item-input item-floating-label">
+		<span class="input-label">City</span>
+		<input type="text" placeholder="City" ng-model="project.city">
+	</label>
+	<label class="item item-input item-floating-label">
+		<span class="input-label">Country</span>
+		<input type="text" placeholder="Country" ng-model="project.country">
+	</label>
 
-<div class="item item-divider">
-	<button class="button button-block button-positive" >Create</button>
-</div>
+	<div class="item item-divider">
+		<button class="button button-block button-positive" ng-click="createProject(project)">Create</button>
+	</div>
 
 
 </ion-content> </ion-view>

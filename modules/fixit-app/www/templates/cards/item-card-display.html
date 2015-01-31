@@ -1,32 +1,38 @@
-<div class="card" ng-controller="EditItemCardController">
-	<div class="item item-divider item-calm">{{card.name}}</div>
-	<div class="item item-text-wrap">
-		<br>Required : {{card.required}} 
-		<br>Provided :
-		{{card.provided}} 
-		<br>Remaining : {{card.required -
-		card.provided}}
+<div class="card" ng-controller="ItemCardController">
 
-		<div class="range">
-			<i class="icon ion-volume-low"></i> <input type="range" name="volume">
-			<i class="icon ion-volume-high"></i>
-		</div>
-	</div>
-	
-	<div class="item tabs tabs-secondary tabs-icon-left">
-    <a class="tab-item" href="#">
-    
-    </a>
-    <a class="tab-item" href="#">
-     
-    </a>
-    <a class="tab-item" ng-click="provide(project, card)">
-      <i class="icon ion-share"></i>
-      Contribute
+    <a class="item item-divider item-calm" href="#/app/projects/{{project.id}}/cards/{{card.id}}">
+        <i class="icon ion-bag"></i>
+        {{card.name}}
     </a>
 
-  </div>
-	
+    <div class="item item-text-wrap">
+        <div ng-show="card.limited">
+        Required : {{card.required}}
+        <br>
+        </div>
+        Provided : {{card.provided}}
+        <div ng-show="card.limited">
+        
+        Remaining : {{card.required - card.provided}}
+        </div>
+        <p>
+            <a href="#" class="subdued">{{project.contributionSize}} Contributions</a>
+        </p>
+    </div>
+
+    <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="#">
+
+        </a>
+        <a class="tab-item" href="#">
+
+        </a>
+        <a class="tab-item" ng-click="provide(project, card)">
+            <i class="icon ion-share"></i>
+            Contribute
+        </a>
+    </div>
+
 </div>
 
 

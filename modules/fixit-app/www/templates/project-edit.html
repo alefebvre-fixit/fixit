@@ -1,0 +1,54 @@
+<ion-view title="Edit Project">
+    <ion-content
+            class="has-header">
+
+        <label class="item item-input">
+            <span class="input-label">Status</span>
+            {{project.status}}
+        </label>
+
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Project Name</span>
+            <input type="text" placeholder="Project Name" ng-model="project.name">
+        </label>
+
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Description</span>
+            <textarea placeholder="Description" ng-model="project.description"></textarea>
+        </label>
+        <div class="item item-divider">
+            Location
+        </div>
+        <label class="item item-input item-floating-label">
+            <span class="input-label">City</span>
+            <input type="text" placeholder="City" ng-model="project.city">
+        </label>
+        <label class="item item-input item-floating-label">
+            <span class="input-label">Country</span>
+            <input type="text" placeholder="Country" ng-model="project.country">
+        </label>
+
+        <div class="list card">
+
+            <a href="#" class="item item-button-right item-calm">
+                <li class="button button-small button-calm" ui-sref="app.card-selector({ projectId: project.id })">Add</li>
+                <b>Cards</b>
+            </a>
+
+        </div>
+
+
+        <div ng-include data-src="'templates/cards/card-preview-list.html'"></div>
+
+
+        <div class="item item-divider">
+            <button class="button button-positive" ng-click="saveProject(project)">Save</button>
+
+            <button class="button button-positive" ng-click="publishProject(project)">Publish</button>
+
+            <button class="button button-positive" ng-click="deleteProject(project)">Delete</button>
+        </div>
+
+
+    </ion-content>
+</ion-view>

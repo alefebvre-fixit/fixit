@@ -26,4 +26,5 @@ public interface UserService {
 	
 	public User signup(SignUp signup);
 
+
 }

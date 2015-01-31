@@ -4,21 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import play.Logger;
-import play.data.Form;
 import play.libs.Json;
+import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
-import play.mvc.Http.RequestBody;
 
-import com.fixit.model.Project;
+import com.fixit.model.Profile;
 import com.fixit.model.User;
 import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 
 import controllers.FixItController;
 import controllers.Secured;
-import controllers.AccountController.Login;
 
 public class AccountAPIController extends FixItController {
 
@@ -40,7 +38,6 @@ public class AccountAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(user));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public static Result accounts() {
 		Logger.debug("AccountAPIController.accounts()");
 		return ok(play.libs.Json.toJson(getUserService().getAll()));
@@ -54,7 +51,10 @@ public class AccountAPIController extends FixItController {
 		
 		List<String> messages = validate(signup);
 		if (messages.size() == 0){
-			return ok(play.libs.Json.toJson(getUserService().signup(signup)));
+			session().clear();
+			User user = getUserService().signup(signup);
+			session(SESSION_ATTRIBUTE_USERNAME, user.getUsername());
+			return ok(play.libs.Json.toJson(user));
 		} else {
 			return Results.badRequest();
 		}
@@ -74,7 +74,7 @@ public class AccountAPIController extends FixItController {
 			return forbidden("Invalid password");
 		}
 		session().clear();
-		session(SESSION_ATTRIBUTE_USERNAME, user.username);
+		session(SESSION_ATTRIBUTE_USERNAME, user.getUsername());
 		
 		return ok(play.libs.Json.toJson(user));
 		
@@ -86,10 +86,25 @@ public class AccountAPIController extends FixItController {
 		
 		User user = getUserService().load(signup.getUsername());
 		if (user != null){
+			Logger.debug("AccountAPIController.validate() : User already exist");
 			result.add("User already exist");
 		}
 		
 		return result;
+	}
+	
+	
+	public static Result updateProfile() {
+		Logger.debug("AccountAPIController.updateAccount()");
+		
+		RequestBody body = request().body();
+		Profile profile = Json.fromJson(body.asJson(), Profile.class);
+		
+		User user = getUser();
+		user.setProfile(profile);
+		getUserService().save(user);
+		return ok(play.libs.Json.toJson(user));
+		
 	}
 	
 
