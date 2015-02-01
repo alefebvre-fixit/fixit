@@ -30,6 +30,7 @@ angular.module('fixit').controller('ItemCardController', ['ProjectService', '$sc
         console.log("Provide an item projectId=" + project.id + " cardId=" + card.id);
         ProjectService.provide(project, card, 1).then(function (data) {
             $scope.setProject(data);
+            toastMe(card.name + ' provided.');
         });
 
     };
@@ -38,6 +39,7 @@ angular.module('fixit').controller('ItemCardController', ['ProjectService', '$sc
         console.log("Cancel a contribution");
         ProjectService.cancelContribution(project, contribution).then(function (data) {
             $scope.setProject(data);
+            toastMe('Contribution canceled.');
         });
 
     };

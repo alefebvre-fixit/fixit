@@ -15,7 +15,9 @@ public class CardFactory {
 		else if (DateCard.TYPE.equals(type)){
 			result = new DateCard();
 		}
-		
+		else if (ParticipantCard.TYPE.equals(type)){
+			result = new ParticipantCard();
+		}
 		
 		return result;
 	}

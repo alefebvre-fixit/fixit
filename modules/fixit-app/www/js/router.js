@@ -190,6 +190,18 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: true
 		})
+		
+		.state('app.toaster', {
+			url: "/toaster",
+			views: {
+				'menuContent': {
+					templateUrl: "templates/toaster.html",
+					controller: 'ToastController',
+				}
+			},
+			authenticate: false
+		})
+		
 		.state('app.sign-in', {
 			url: "/signin",
 			views: {

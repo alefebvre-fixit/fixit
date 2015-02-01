@@ -1,18 +1,23 @@
 
-angular.module('fixit').controller('FixItController', ['$scope', '$window', function ($scope, $window) {
-	console.log('Calling FixItController');
-
-	    	    	
+angular.module('fixit').controller('FixItController', ['$scope', '$window', '$cordovaToast', function ($scope, $window,  $cordovaToast) {
 	$scope.toastMe = function(message) {
-			if ($window.plugins && $window.plugins.toast) {
-			    $cordovaToast.show(message, 'long', 'center').then(
-				    function(success) {
-					// success
-				    }, function(error) {
-					// error
-				    });
-			}
-		    }
+	    
+	    $cordovaToast.show(message, 'short', 'center').then(
+		    function(success) {
+			// success
+		    }, function(error) {
+			// error
+		    });
+	    
+	    if (window.cordova) {
+		    $cordovaToast.show('Youpi', 'short', 'center').then(
+			    function(success) {
+				// success
+			    }, function(error) {
+				// error
+			    });
+	    }
+	}
 	    	  
 }
 ]);
@@ -63,6 +68,7 @@ angular.module('fixit').controller('EditProjectController', ['ProjectService', '
 	$scope.createProject = function(projectToSave) {
 		ProjectService.saveProject(projectToSave).then(function (data) {
 			$scope.project = data;
+			$scope.toastMe('Project ' + projectToSave.name + ' updated.');
 			$state.go('app.project-edit', {projectId: $scope.project.id});
 		});
 	}
@@ -70,6 +76,7 @@ angular.module('fixit').controller('EditProjectController', ['ProjectService', '
 	$scope.publishProject = function(projectToPublish) {
 		ProjectService.publishProject(projectToPublish).then(function (data) {
 			$scope.project = data;
+			$scope.toastMe('Project ' + projectToPublish.name + ' published.');
 		});
 	}
 
@@ -81,6 +88,7 @@ angular.module('fixit').controller('EditProjectController', ['ProjectService', '
 		confirmPopup.then(function(res) {
 			if(res) {
 				ProjectService.deleteProject(projectToDelete).then(function (data) {
+					$scope.toastMe('Project ' + projectToDelete.name + ' deleted.');
 					$state.go('app.project-new');
 				});
 			}

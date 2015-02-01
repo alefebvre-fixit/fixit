@@ -58,7 +58,8 @@ angular.module('fixit').controller('SignInController', ['SettingService', '$scop
 
 
 
-angular.module('fixit').controller('EditSettingController', ['SettingService', '$scope', '$state', '$ionicPopup', 'profile','$cordovaToast', function (SettingService, $scope, $state, $ionicPopup, profile, $cordovaToast) {
+angular.module('fixit').controller('EditSettingController', ['SettingService', '$scope', '$rootScope', 'profile', '$cordovaToast',
+                                                             function (SettingService, $scope, $rootScope, profile, $cordovaToast) {
 
     $scope.profile = profile;
 
@@ -66,11 +67,30 @@ angular.module('fixit').controller('EditSettingController', ['SettingService', '
         SettingService.saveProfile(profile).then(function (data) {
             $rootScope.user = data;
             $scope.profile = data.profile;
+            $scope.toastMe('Setting Updated');
         });
     }
 
-    $scope.toastMe("Hello");
 
 
 }
 ]);
+
+angular.module('fixit').controller('ToastController', ['$scope', '$rootScope', '$cordovaToast',
+                                                             function ($scope, $rootScope, $cordovaToast) {
+
+    $scope.callToast = function() {
+	    console.log('Calling callToast');
+	    $cordovaToast.show('Hello', 'long', 'center').then(
+		    function(success) {
+			// success
+		    }, function(error) {
+			// error
+		    });
+	}
+
+}
+]);
+
+
+

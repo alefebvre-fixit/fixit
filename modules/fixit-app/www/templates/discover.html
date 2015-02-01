@@ -4,10 +4,16 @@
 
 
 <ion-content class="has-header">
-	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
-	<div ng-repeat="project in projects">
-	
+
+	<div collection-repeat="project in projects"
+		collection-item-width="'100%'"
+		collection-item-height="'300'">
+		
+		
 		<div ng-include data-src="'templates/project/partial/project-view.html'"></div>
 	
+	
 	</div>
+	
+	
 </ion-content>

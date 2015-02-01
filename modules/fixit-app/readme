@@ -18,6 +18,9 @@ npm install --global gulp
 //To install Saas
 ionic setup sass
 
+//To add Toast plugin:
+cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
+
 
 export MONGODB_HOME=/work/workspace-fixit/mongodb
 export PATH=$MONGODB_HOME/bin:$PATH
@@ -33,3 +36,4 @@ export PATH=$PATH:$ANT_HOME/bin
 export SBT_OPTS="-Xms1024M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=4028M"
 
 export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk
+
