@@ -1,5 +1,5 @@
 <div class="card">
-	<a class="item item-avatar" href="#/app/projects/{{project.id}}">
+	<a class="item item-avatar" ui-sref="app.project-single({ projectId: project.id })">
 		<img src="{{baseUrl}}/assets/images/photo-tiny.jpg">
 		<h2>{{project.name}}</h2>
 		<p>{{project.username}}</p>
@@ -14,16 +14,16 @@
 	</div>
 	<div class="item tabs tabs-secondary tabs-icon-left">
     <a class="tab-item" href="#">
-      <i class="icon ion-thumbsup"></i>
-      Like
+      <i class="icon ion-star"></i>
+      Follow
     </a>
     <a class="tab-item" href="#">
       <i class="icon ion-chatbox"></i>
       Comment
     </a>
-    <a class="tab-item" href="#">
-      <i class="icon ion-share"></i>
-      Share
+    <a class="tab-item"  ui-sref="app.project-single({ projectId: project.id })">
+      <i class="icon ion-navigate"></i>
+      Contribute
     </a>
   </div>
 </div>

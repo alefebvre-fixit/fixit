@@ -69,21 +69,8 @@ angular.module('fixit').controller('EditSettingController', ['SettingService', '
         });
     }
 
-    $scope.toastMe = function() {
-        console.log("Before Toast Me");
+    $scope.toastMe("Hello");
 
-        if (isToastAvailable()){
-            $cordovaToast
-                .show('Here is a message', 'long', 'center')
-                .then(function(success) {
-                    // success
-                }, function (error) {
-                    // error
-                });
-        }
-
-
-    }
 
 }
 ]);

@@ -1,34 +1,42 @@
 
-angular.module('fixit').controller('FixItController', ['ProjectService', '$scope', 'projects', '$window', function (ProjectService, $scope, projects, $window) {
-	console.log('Calling MyProjectController');
+angular.module('fixit').controller('FixItController', ['$scope', '$window', function ($scope, $window) {
+	console.log('Calling FixItController');
 
-	$scope.projects = projects;
-
-
-	$scope.isToastAvailable = function () {
-		if ($window.plugins.toast){
-			return true;
-		}
-		return false;
-	}
+	    	    	
+	$scope.toastMe = function(message) {
+			if ($window.plugins && $window.plugins.toast) {
+			    $cordovaToast.show(message, 'long', 'center').then(
+				    function(success) {
+					// success
+				    }, function(error) {
+					// error
+				    });
+			}
+		    }
+	    	  
 }
 ]);
 
 
-angular.module('fixit').controller('ProjectController', ['ProjectService', '$scope', '$http', function (ProjectService, $scope, $http) {
-	 
-    $scope.init = function()
-	{
-    	$scope.initVar = 'InitOk';
-    	console.log('Calling init');
-	    //This function is sort of private constructor for controller
-        ProjectService.getProjects().then(function (data) {
-            $scope.projects = data;
-        });
-	};
+angular.module('fixit').controller('ListProjectController', ['ProjectService', '$scope', 'projects', '$window', function (ProjectService, $scope, projects, $window) {
+	console.log('Calling ListProjectController');
 
-    }
+	$scope.projects = projects;
+
+	$scope.doRefresh = function() {
+		var username = localStorage.getItem("username");
+		console.log('doRefresh' + username);
+		ProjectService.getProjectsByOwner(username).then(function (data) {
+		    $scope.projects = data;
+		});
+	      //Stop the ion-refresher from spinning
+	      $scope.$broadcast('scroll.refreshComplete');
+	  };
+
+}
 ]);
+
+
 
 angular.module('fixit').controller('ViewProjectController', ['$scope', 'project', function ($scope, project) {
 

@@ -3,13 +3,14 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 		.state('app', {
 			url: "/app",
 			abstract: true,
-			templateUrl: "templates/menu.html"
+			templateUrl: "templates/menu.html",
+			controller: 'FixItController'
 		}).state('app.projects', {
 			url: "/projects",
 			views: {
 				'menuContent': {
 					templateUrl: "templates/projects.html",
-					controller: 'FixItController',
+					controller: 'ListProjectController',
 					resolve: {
 						projects: function ($rootScope, ProjectService) {
 							var username = localStorage.getItem("username");
@@ -159,8 +160,16 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			url: "/discover",
 			views: {
 				'menuContent': {
-					templateUrl: "templates/discover.html"
-				}
+					templateUrl: "templates/discover.html",
+					controller: 'ListProjectController',
+					resolve: {
+						projects: function ($rootScope, ProjectService) {
+							return ProjectService.getProjects();
+
+						}
+					}
+				},
+
 			},
 			authenticate: true
 		})

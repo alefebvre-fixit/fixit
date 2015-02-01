@@ -1,9 +1,13 @@
 <ion-view title="Discover" class="view-positive"> <ion-nav-buttons side="left">
 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-</ion-nav-buttons> <ion-content class="has-header" ng-controller="ProjectController"
-	ng-init="init()">
+</ion-nav-buttons> 
 
-<div ng-repeat="project in projects">
-	<div ng-include data-src="'templates/project/partial/project-view.html'"></div>
-</div>
-</ion-content> </ion-view>
+
+<ion-content class="has-header">
+	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+	<div ng-repeat="project in projects">
+	
+		<div ng-include data-src="'templates/project/partial/project-view.html'"></div>
+	
+	</div>
+</ion-content>
