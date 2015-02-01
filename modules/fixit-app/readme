@@ -11,3 +11,18 @@ ds029831.mongolab.com:29831
 
 
 mongo ds029831.mongolab.com:2983/fixit-mg -u fixit-admin -p AZERTy75
+
+
+export MONGODB_HOME=/work/workspace-fixit/mongodb
+export PATH=$MONGODB_HOME/bin:$PATH
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+export ANDROID_HOME=/Users/antoine_lefebvre/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+export ANT_HOME=/work/workspace-fixit/apache-ant-1.9.4
+export PATH=$PATH:$ANT_HOME/bin
+
+export SBT_OPTS="-Xms1024M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=4028M"
+
