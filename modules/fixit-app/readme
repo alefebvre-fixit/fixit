@@ -20,7 +20,8 @@ ionic setup sass
 
 //To add Toast plugin:
 cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
-
+//To add Date picker plugin
+cordova plugin add http://github.com/VitaliiBlagodir/cordova-plugin-datepicker
 
 export MONGODB_HOME=/work/workspace-fixit/mongodb
 export PATH=$MONGODB_HOME/bin:$PATH

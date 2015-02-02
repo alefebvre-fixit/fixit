@@ -55,6 +55,21 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
                                                             function (ProjectService, $scope, $state, $ionicPopup, project, card) {
 
     $scope.project = project;
+    
+    //We must convert string to date. Put that code somewhere else
+    if (card.date){
+	card.date = new Date(card.date);
+    }
+    if (card.proposals){
+	var arrayLength = card.proposals.length;
+	for (var i = 0; i < arrayLength; i++) {
+    		if (card.proposals[i].date){
+    		    card.proposals[i].date = new Date(card.proposals[i].date);
+    		}
+	}
+    }
+
+    
     $scope.card = card;
 
     $scope.addDate = function() {
@@ -89,15 +104,41 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
 }
 ]);
 
-angular.module('fixit').controller('EditDateCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
+angular.module('fixit').controller('EditDateCardController', ['ProjectService', '$scope', '$cordovaDatePicker', function (ProjectService, $scope, $cordovaDatePicker) {
 
     console.log("EditDateCardController");
 
-    $scope.addDate = function() {
-        console.log("Add a date from DateCardController ");
-        //$scope.card.proposals.push({date:newDate});
+    $scope.addDateProposal = function() {
+	
+	var proposal = {date:new Date()};
+	//To be removed
+	$scope.card.proposals.push(proposal);
+	
+	var options = {
+		    date: new Date(),
+		    mode: 'date', // or 'time'
+		    minDate: new Date() - 10000,
+		    allowOldDates: true,
+		    allowFutureDates: false,
+		    doneButtonLabel: 'DONE',
+		    doneButtonColor: '#F2F3F4',
+		    cancelButtonLabel: 'CANCEL',
+		    cancelButtonColor: '#000000'
+		  };
+
+		  document.addEventListener("deviceready", function () {
+
+		    $cordovaDatePicker.show(options).then(function(date){
+			var newProposal = {date:new Date()};
+			newProposal.date = date;
+		        $scope.card.proposals.push(newProposal);
+		    });
+
+		  }, false);
     };
 
+    
+    
 }
 ]);
 

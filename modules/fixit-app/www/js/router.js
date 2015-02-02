@@ -191,12 +191,12 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			authenticate: true
 		})
 		
-		.state('app.toaster', {
-			url: "/toaster",
+		.state('app.tester', {
+			url: "/tester",
 			views: {
 				'menuContent': {
-					templateUrl: "templates/toaster.html",
-					controller: 'ToastController',
+					templateUrl: "templates/tester.html",
+					controller: 'TesterController',
 				}
 			},
 			authenticate: false

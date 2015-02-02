@@ -1,4 +1,4 @@
-angular.module('fixit').controller('SignUpController', ['SettingService', '$scope', '$http', '$location', 'signup', function (SettingService, $scope, $http, $location, signup) {
+angular.module('fixit').controller('SignUpController', ['SettingService', '$scope', '$http', '$state', 'signup', function (SettingService, $scope, $http, $state, signup) {
 
     $scope.signup = signup;
 
@@ -72,22 +72,6 @@ angular.module('fixit').controller('EditSettingController', ['SettingService', '
     }
 
 
-
-}
-]);
-
-angular.module('fixit').controller('ToastController', ['$scope', '$rootScope', '$cordovaToast',
-                                                             function ($scope, $rootScope, $cordovaToast) {
-
-    $scope.callToast = function() {
-	    console.log('Calling callToast');
-	    $cordovaToast.show('Hello', 'long', 'center').then(
-		    function(success) {
-			// success
-		    }, function(error) {
-			// error
-		    });
-	}
 
 }
 ]);
