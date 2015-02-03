@@ -8,14 +8,4 @@ public class DateContribution extends Contribution {
 		this.type = "date";
 	}
 
-	private int proposalId;
-
-	public int getProposalId() {
-		return proposalId;
-	}
-
-	public void setProposalId(int proposalId) {
-		this.proposalId = proposalId;
-	}
-
 }

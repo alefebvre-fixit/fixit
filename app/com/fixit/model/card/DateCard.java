@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.Card;
 import com.fixit.model.Contributable;
 import com.fixit.model.Contribution;
+import com.fixit.model.Votable;
+import com.fixit.model.Vote;
 
-public class DateCard extends Card {
+public class DateCard extends Card implements Votable{
 
 	public static final String TYPE = "date";
 
@@ -130,6 +132,17 @@ public class DateCard extends Card {
 
 	public void setOpen(boolean open) {
 		this.open = open;
+	}
+	
+	@Override
+	public void submit(Vote vote){
+		List<String> proposalIds = vote.getProposals();
+		for (String proposalId : proposalIds) {
+			DateProposal proposal = getProposal(proposalId);
+			if (proposal != null){
+				proposal.vote(vote.getUsername());
+			}
+		}
 	}
 
 }

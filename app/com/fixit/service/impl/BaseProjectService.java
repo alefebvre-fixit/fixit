@@ -6,12 +6,15 @@ import com.fixit.model.Card;
 import com.fixit.model.Contributable;
 import com.fixit.model.Contribution;
 import com.fixit.model.Project;
+import com.fixit.model.card.DateCard;
+import com.fixit.model.card.DateProposal;
 
 public class BaseProjectService {
 
 	protected void assignCardIds(Project project) {
 		List<Card> cards = project.getCards();
 		for (Card card : cards) {
+			
 			if (card.getId() == null) {
 				card.setId(java.util.UUID.randomUUID().toString());
 			}
@@ -25,6 +28,16 @@ public class BaseProjectService {
 					}
 				}
 			}
+			
+			if (card instanceof DateCard){
+				DateCard dateCard = new DateCard();
+				for (DateProposal proposal : dateCard.getProposals()) {
+					if (proposal.getId() == null) {
+						proposal.setId(java.util.UUID.randomUUID().toString());
+					}
+				}
+			}
+			
 			
 		}
 	}

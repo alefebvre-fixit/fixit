@@ -12,6 +12,8 @@ import com.fixit.model.Card;
 import com.fixit.model.Contribution;
 import com.fixit.model.Project;
 import com.fixit.model.ProjectFactory;
+import com.fixit.model.Votable;
+import com.fixit.model.Vote;
 import com.fixit.model.card.CardFactory;
 import com.fixit.model.card.ItemCard;
 
@@ -185,5 +187,31 @@ public class ProjectAPIController extends FixItController {
 		
 		return ok(Json.toJson(card));
 	}
+	
+	
+	public static Result vote(String projectId, String itemId, int quantity) {
+		Logger.debug("ProjectAPIController.provide() projectId=" + projectId
+				+ " itemId=" + itemId + "quantity" + quantity);
+
+		RequestBody body = request().body();
+		Vote vote = Json.fromJson(body.asJson(), Vote.class);
+		vote.setUsername(getUserName());
+		
+		Project project = getProjectService().load(projectId);
+
+		if (project != null) {
+			Card card = project.getCard(itemId);
+			if (card instanceof Votable) {
+				Votable votable = (Votable) card;
+				votable.submit(vote);
+			}
+		}
+		getProjectService().save(project);
+		Logger.debug(Json.toJson(project).toString());
+		return ok(Json.toJson(project));
+
+	}
+	
+	
 	
 }

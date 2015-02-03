@@ -157,5 +157,16 @@ angular.module('fixit').controller('DateCardController', ['ProjectService', '$sc
             $scope.setProject(data);
         });
     };
+    
+    $scope.vote = function(project, card) {
+        console.log("Provide an item projectId=" + project.id + " cardId=" + card.id);
+        ProjectService.provide(project, card, 1).then(function (data) {
+            $scope.setProject(data);
+            toastMe(card.name + ' provided.');
+        });
+
+    };
+    
+    
 }
 ]);

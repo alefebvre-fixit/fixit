@@ -12,15 +12,15 @@ public class DateProposal implements Contributable<DateContribution> {
 
 	private final ContributionHolder<DateContribution> contributions = new ContributionHolder<DateContribution>();
 
-	private int id;
+	private String id;
 	private Date date;
 	private int votes;
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
