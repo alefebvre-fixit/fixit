@@ -1,3 +1,5 @@
+
+//Open Chrome without security
 open -a Google\ Chrome --args --disable-web-security
 
 http://localhost:8100/#/app/signin
@@ -12,16 +14,39 @@ ds029831.mongolab.com:29831
 
 mongo ds029831.mongolab.com:2983/fixit-mg -u fixit-admin -p AZERTy75
 
+
+//Install homebrew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+//Install NPM
+http://thechangelog.com/install-node-js-with-homebrew-on-os-x/
+
 //To install gulp:
 npm install --global gulp
 
 //To install Saas
 ionic setup sass
 
+
+#ngCordova plugins
 //To add Toast plugin:
 cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
 //To add Date picker plugin
 cordova plugin add http://github.com/VitaliiBlagodir/cordova-plugin-datepicker
+
+
+#Start android in debug mode
+o see the option for USB debugging mode in Nexus 4 or Android 4.2 or higher OS, do the following:
+Open up your device’s “Settings”. This can be done by pressing the Menu button while on your home screen and tapping “System settings”
+Now scroll to the bottom and tap “About phone” or “About tablet”.
+At the “About” screen, scroll to the bottom and tap on “Build number” seven times.
+Make sure you tap seven times. If you see a “Not need, you are already a developer!” message pop up, then you know you have done it correctly.
+
+
+
+
+#Env Variable
+
 
 export MONGODB_HOME=/work/workspace-fixit/mongodb
 export PATH=$MONGODB_HOME/bin:$PATH
