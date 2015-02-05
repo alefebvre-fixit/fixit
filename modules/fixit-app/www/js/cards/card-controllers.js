@@ -150,7 +150,20 @@ angular.module('fixit').controller('DateCardController', ['ProjectService', '$sc
     $scope.votes = [];
    
     $scope.isOpenForContribution = function(card) {
-        return card.open;
+        if  (card.open){
+            	var arrayLength = card.proposals.length;
+        	for (var i = 0; i < arrayLength; i++) {
+        	        var subArrayLength = card.proposals[i].contributions;
+        		for (var j = 0; j < subArrayLength; j++) {
+        		    if ($scope.getUsername() == card.proposals[i].contributions[j].contributor){
+        			return false;
+        		    }
+        		}
+        	}
+        }
+        return true;
+        
+        
     };
 
     $scope.cancelContribution = function(project, contribution) {

@@ -23,7 +23,7 @@ angular.module('fixit').run(
 				var herokuFixitURL2 = 'http://vast-gorge-2883.herokuapp.com';
 
 				$rootScope.user = {};
-				$rootScope.baseUrl = localFixitURL;
+				$rootScope.baseUrl = herokuFixitURL2;
 
 				// Hide the accessory bar by default (remove
 				// this to show the accessory

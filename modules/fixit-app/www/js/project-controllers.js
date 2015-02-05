@@ -1,5 +1,5 @@
 
-angular.module('fixit').controller('FixItController', ['$scope', '$window', '$cordovaToast', function ($scope, $window,  $cordovaToast) {
+angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '$window', '$cordovaToast', function ($scope, $rootScope, $window,  $cordovaToast) {
 	$scope.toastMe = function(message) {
 	    
 	    $cordovaToast.show(message, 'short', 'center').then(
@@ -17,7 +17,12 @@ angular.module('fixit').controller('FixItController', ['$scope', '$window', '$co
 				// error
 			    });
 	    }
+	},
+	
+	$scope.getUsername = function(){
+	    return $rootScope.user.username;
 	}
+
 	    	  
 }
 ]);
