@@ -5,20 +5,24 @@
     </a>
     
 	<div ng-show="card.open">
+	  
 	  <li class="item item-checkbox" ng-repeat="proposal in card.proposals">
 	     <label class="checkbox">
-	       <input type="checkbox">
+	       <input type="checkbox" ng-model="proposal.selected" value="{{proposal.id}}">
 	     </label>
 	     {{ proposal.date | date:'short' }}
 	     <span class="badge badge-calm">{{proposal.votes}}</span>
+	     
 	  </li>
+	  
+	  votes = {{votes | json}}
 	</div>
 	
 	
 	
     <div class="item item-text-wrap">
         <p>
-            <a href="#" class="subdued">{{card.contributionSize}} Contributions</a>
+            <a href="#" class="subdued">{{card.contributionSize}} Votes</a>
         </p>
     </div>
     <div class="item tabs tabs-secondary tabs-icon-left">
@@ -26,9 +30,9 @@
         </a>
         <a class="tab-item" href="#">
         </a>
-        <a class="tab-item" ng-click="provide(project, card)" ng-show="isOpenForContribution(card)">
+        <a class="tab-item" ng-click="vote(project, card)" ng-show="isOpenForContribution(card)">
             <i class="icon ion-navigate"></i>
-      		Contribute
+      		Vote
         </a>
         <a class="tab-item" href="#" ng-show="!isOpenForContribution(card)">
 

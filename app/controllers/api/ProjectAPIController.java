@@ -1,5 +1,6 @@
 package controllers.api;
 
+import java.util.Arrays;
 import java.util.List;
 
 import play.Logger;
@@ -189,9 +190,9 @@ public class ProjectAPIController extends FixItController {
 	}
 	
 	
-	public static Result vote(String projectId, String itemId, int quantity) {
-		Logger.debug("ProjectAPIController.provide() projectId=" + projectId
-				+ " itemId=" + itemId + "quantity" + quantity);
+	public static Result vote(String projectId, String itemId) {
+		Logger.debug("ProjectAPIController.vote() projectId=" + projectId
+				+ " itemId=" + itemId);
 
 		RequestBody body = request().body();
 		Vote vote = Json.fromJson(body.asJson(), Vote.class);
@@ -212,6 +213,12 @@ public class ProjectAPIController extends FixItController {
 
 	}
 	
-	
+	public static Result voteSample(){
+		
+		Vote vote = new Vote();
+		vote.setProposals(Arrays.asList("AAA", "BBB"));
+		
+		return ok(Json.toJson(vote));
+	}
 	
 }

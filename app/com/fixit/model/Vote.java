@@ -1,5 +1,6 @@
 package com.fixit.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Vote {
 	
 	private String username;
-	private List<String> proposals;
+	public List<String> proposals = new ArrayList<String>();
 	
 	@JsonIgnore
 	public String getUsername() {

@@ -8,35 +8,38 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fixit.model.card.DateContribution;
 import com.fixit.model.card.ItemContribution;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({ @Type(value = ItemContribution.class, name = ItemContribution.TYPE) })
+@JsonSubTypes({
+		@Type(value = ItemContribution.class, name = ItemContribution.TYPE),
+		@Type(value = DateContribution.class, name = DateContribution.TYPE) })
 public abstract class Contribution {
 
 	public static final String STATUS_NEW = "New";
 	public static final String STATUS_CANCELED = "Canceled";
-	
+
 	public String type = "default";
 	public String status = STATUS_NEW;
-	
+
 	private String contributor;
 	private Date date;
 	private String id;
 
-	public Contribution(){
+	public Contribution() {
 	}
-	
+
 	@Id
 	public String getId() {
 		return id;
 	}
-	
+
 	@Id
 	public void setId(String id) {
 		this.id = id;
-	}	
-	
+	}
+
 	public String getContributor() {
 		return contributor;
 	}
@@ -60,14 +63,14 @@ public abstract class Contribution {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	@JsonIgnore
-	public boolean isValid(){
+	public boolean isValid() {
 		return !STATUS_CANCELED.equals(status);
 	}
-	
+
 	@JsonIgnore
-	public void validate(){
+	public void validate() {
 		status = STATUS_NEW;
 	}
 

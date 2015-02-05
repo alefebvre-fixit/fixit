@@ -30,7 +30,7 @@ public class BaseProjectService {
 			}
 			
 			if (card instanceof DateCard){
-				DateCard dateCard = new DateCard();
+				DateCard dateCard = (DateCard) card;
 				for (DateProposal proposal : dateCard.getProposals()) {
 					if (proposal.getId() == null) {
 						proposal.setId(java.util.UUID.randomUUID().toString());

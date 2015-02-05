@@ -68,6 +68,13 @@ angular.module('fixit').factory('ProjectService', ['$http', '$rootScope', functi
                   });
                   return promise;
               },
+              vote: function(project, card, ids) {
+        	  var vote = {proposals : ids};
+                  var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id + '/vote', vote).then(function (response) {
+                      return response.data;
+                  });
+                  return promise;
+              },
               cancelContribution: function(project, contribution) {
                   var promise = $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/contributions/' + contribution.id  +'/cancel').then(function (response) {
                       return response.data;

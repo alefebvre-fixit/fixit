@@ -146,7 +146,9 @@ angular.module('fixit').controller('EditDateCardController', ['ProjectService', 
 angular.module('fixit').controller('DateCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
 
     console.log("DateCardController");
-
+    
+    $scope.votes = [];
+   
     $scope.isOpenForContribution = function(card) {
         return card.open;
     };
@@ -159,11 +161,21 @@ angular.module('fixit').controller('DateCardController', ['ProjectService', '$sc
     };
     
     $scope.vote = function(project, card) {
-        console.log("Provide an item projectId=" + project.id + " cardId=" + card.id);
-        ProjectService.provide(project, card, 1).then(function (data) {
+	
+	var arrayLength = card.proposals.length;
+	for (var i = 0; i < arrayLength; i++) {
+	    if (card.proposals[i].selected){
+		$scope.votes.push(card.proposals[i].id);
+	    }
+	}
+	console.log($scope.votes);
+	
+        console.log("Vote an item projectId=" + project.id + " cardId=" + card.id);
+        ProjectService.vote(project, card, $scope.votes).then(function (data) {
             $scope.setProject(data);
-            toastMe(card.name + ' provided.');
+            $scope.toastMe(card.name + ' voted.');
         });
+        
 
     };
     
