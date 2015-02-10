@@ -6,16 +6,26 @@
     
 	<div ng-show="card.open">
 	  
-	  <li class="item item-checkbox" ng-repeat="proposal in card.proposals">
-	     <label class="checkbox">
-	       <input type="checkbox" ng-model="proposal.selected" value="{{proposal.id}}">
-	     </label>
-	     {{ proposal.date | date:'short' }}
-	     <span class="badge badge-calm">{{proposal.votes}}</span>
-	     
-	  </li>
-	  
-	  votes = {{votes | json}}
+	  	<div ng-show="!isOpenForContribution(card)">
+
+  		<li class="item item-checkbox" ng-repeat="proposal in card.proposals">
+		     {{ proposal.date | date:'short' }}
+		     <span class="badge badge-calm">{{proposal.votes}}</span>
+		  </li>
+
+		</div>
+		<div ng-show="isOpenForContribution(card)">
+		  <li class="item item-checkbox" ng-repeat="proposal in card.proposals">
+		     <label class="checkbox">
+		       <input type="checkbox" ng-model="proposal.selected" value="{{proposal.id}}">
+		     </label>
+		     {{ proposal.date | date:'short' }}
+		     <span class="badge badge-calm">{{proposal.votes}}</span>
+		  </li>
+		</div>
+	</div>
+	<div ng-show="!card.open">
+		Date is {{ card.date | date:'short' }}
 	</div>
 	
 	

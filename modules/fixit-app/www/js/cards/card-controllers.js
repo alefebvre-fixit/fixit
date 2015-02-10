@@ -50,9 +50,10 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
                                                             '$scope',
                                                             '$state',
                                                             '$ionicPopup',
+                                                            '$ionicActionSheet',
                                                             'project',
                                                             'card',
-                                                            function (ProjectService, $scope, $state, $ionicPopup, project, card) {
+                                                            function (ProjectService, $scope, $state, $ionicPopup, $ionicActionSheet, project, card) {
 
     $scope.project = project;
     
@@ -71,11 +72,6 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
 
     
     $scope.card = card;
-
-    $scope.addDate = function() {
-        console.log("Add a date from DateCardController ");
-        //$scope.card.proposals.push({date:newDate});
-    };
 
     $scope.addCard = function(projectId, card) {
         console.log("Add a card to project " + projectId);
@@ -98,6 +94,29 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
                 });
             }
         });
+    };
+    
+    
+    // Triggered on a button click, or some other target
+    $scope.showAction = function(project, card) {
+      // Show the action sheet
+      var hideSheet = $ionicActionSheet.show({
+        buttons: [
+                  { text: 'Update' },
+                  ],
+            destructiveText: 'Delete',
+            titleText: 'Update your card',
+            cancelText: 'Cancel',
+            destructiveButtonClicked: function() {
+        	$scope.deleteCard(project.id, card);
+           },
+           buttonClicked: function(index) {
+            if (index == 0){
+        	$scope.addCard(project.id, card);
+            } 
+          return true;
+        }
+      });
     };
 
 
@@ -144,8 +163,6 @@ angular.module('fixit').controller('EditDateCardController', ['ProjectService', 
 
 
 angular.module('fixit').controller('DateCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
-
-    console.log("DateCardController");
     
     $scope.votes = [];
    
@@ -153,7 +170,7 @@ angular.module('fixit').controller('DateCardController', ['ProjectService', '$sc
         if  (card.open){
             	var arrayLength = card.proposals.length;
         	for (var i = 0; i < arrayLength; i++) {
-        	        var subArrayLength = card.proposals[i].contributions;
+        	        var subArrayLength = Object.keys(card.proposals[i].contributions).length;
         		for (var j = 0; j < subArrayLength; j++) {
         		    if ($scope.getUsername() == card.proposals[i].contributions[j].contributor){
         			return false;
@@ -162,8 +179,6 @@ angular.module('fixit').controller('DateCardController', ['ProjectService', '$sc
         	}
         }
         return true;
-        
-        
     };
 
     $scope.cancelContribution = function(project, contribution) {

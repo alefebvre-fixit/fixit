@@ -60,15 +60,17 @@ angular.module('fixit').controller('ViewProjectController', ['$scope', 'project'
 ]);
 
 
-angular.module('fixit').controller('EditProjectController', ['ProjectService', '$scope', '$state', '$ionicPopup', 'project', function (ProjectService, $scope, $state, $ionicPopup, project) {
+angular.module('fixit').controller('EditProjectController', 
+	['ProjectService', '$scope', '$state', '$ionicPopup', '$ionicActionSheet', 'project', 
+	 function (ProjectService, $scope, $state, $ionicPopup, $ionicActionSheet, project) {
 	
-    $scope.project = project;
+	$scope.project = project;
     
-    $scope.saveProject = function(projectToSave) {
-		ProjectService.saveProject(projectToSave).then(function (data) {
-		    $scope.project = data;
-         });
-    }
+        $scope.saveProject = function(projectToSave) {
+    		ProjectService.saveProject(projectToSave).then(function (data) {
+    		    $scope.project = data;
+             });
+        }
 
 	$scope.createProject = function(projectToSave) {
 		ProjectService.saveProject(projectToSave).then(function (data) {
@@ -100,9 +102,35 @@ angular.module('fixit').controller('EditProjectController', ['ProjectService', '
 		});
 	}
 
-    $scope.removeCard = function(index) {
-    	$scope.project.cards.splice(index, 1);
-    }
+        $scope.removeCard = function(index) {
+        	$scope.project.cards.splice(index, 1);
+        }
+        
+        // Triggered on a button click, or some other target
+        $scope.showAction = function(projectToUpdate) {
+          // Show the action sheet
+          var hideSheet = $ionicActionSheet.show({
+            buttons: [
+                      { text: 'Update' },
+                      { text: 'Publish' }
+                      ],
+                destructiveText: 'Delete',
+                titleText: 'Update your project',
+                cancelText: 'Cancel',
+                destructiveButtonClicked: function() {
+            	$scope.deleteProject(projectToUpdate);
+               },
+               buttonClicked: function(index) {
+                if (index == 0){
+            	$scope.saveProject(projectToUpdate);
+                } else if (index == 1) {
+            	$scope.publishProject(projectToUpdate);
+                }
+              return true;
+            }
+          });
+        };
+
     	
 }
 ]);

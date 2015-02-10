@@ -1,4 +1,14 @@
 <ion-view title="Edit Project">
+
+	<ion-nav-buttons side="left">
+    </ion-nav-buttons>
+    
+    <ion-nav-buttons side="right">
+        <a class="button"  ng-click="showAction(project)">
+            Action
+        </a>
+    </ion-nav-buttons>
+
     <ion-content
             class="has-header">
 
@@ -37,15 +47,6 @@
 
 
         <div ng-include data-src="'templates/cards/card-preview-list.html'"></div>
-
-
-        <div class="item item-divider">
-            <button class="button button-positive" ng-click="saveProject(project)">Save</button>
-
-            <button class="button button-positive" ng-click="publishProject(project)">Publish</button>
-
-            <button class="button button-positive" ng-click="deleteProject(project)">Delete</button>
-        </div>
 
     </ion-content>
 </ion-view>

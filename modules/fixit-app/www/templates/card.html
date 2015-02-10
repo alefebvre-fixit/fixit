@@ -7,24 +7,15 @@
     </ion-nav-buttons>
 
     <ion-content class="has-header">
+
         <div ng-if="card.type == 'date' ">
             <div ng-include data-src="'templates/cards/date-card-display.html'"></div>
-        </div>
-        <div ng-if="card.type == 'item' ">
-            <div ng-include src="'templates/cards/item-card-display.html'"></div>
+            <div data-ng-include data-src="'templates/cards/date-card-contribution.html'"></div>
         </div>
 
-        <div class="list card">
-            <div ng-repeat="contribution in card.contributions ">
-                <div ng-if="contribution.status != 'Canceled' ">
-                    <div ng-if="contribution.type == 'date' ">
-                        <div data-ng-include data-src="'templates/cards/date-card-contribution.html'"></div>
-                    </div>
-                    <div ng-if="contribution.type == 'item' ">
-                        <div data-ng-include data-src="'templates/cards/item-card-contribution.html'"></div>
-                    </div>
-                </div>
-            </div>
+        <div ng-if="card.type == 'item' ">
+            <div ng-include src="'templates/cards/item-card-display.html'"></div>
+            <div data-ng-include data-src="'templates/cards/item-card-contribution.html'"></div>
         </div>
 
 </ion-content> </ion-view>

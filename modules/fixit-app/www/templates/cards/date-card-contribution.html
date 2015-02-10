@@ -1,0 +1,38 @@
+
+
+
+<div class="list card" ng-show="card.open">
+
+	
+	<div ng-repeat="proposal in card.proposals ">
+		<div ng-repeat="contribution in proposal.contributions ">
+			<div ng-if="contribution.status != 'Canceled' ">
+				<div ng-controller="ItemCardController">
+					<div class="item item-avatar">
+						<img src="{{baseUrl}}/assets/images/photo-tiny.jpg">
+						<h3>{{contribution.contributor}} - {{ contribution.date |
+							date:'short' }}</h3>
+
+						<p>voted {{proposal.date}}
+							{{card.name}}</p>
+					</div>
+					<div class="item tabs tabs-secondary tabs-icon-left"
+						ng-if="contribution.contributor == user.username ">
+						<a class="tab-item" href="#"> </a> <a class="tab-item" href="#">
+
+						</a> <a class="tab-item"
+							ng-click="cancelContribution(project, contribution)"> <i
+							class="icon ion-share"></i> Cancel
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+</div>
+

@@ -1,23 +1,35 @@
 
-<div ng-controller="ItemCardController">
-<div class="item item-avatar">
-    <img src="{{baseUrl}}/assets/images/photo-tiny.jpg">
 
-    <h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
 
-    <p>will provide {{contribution.quantityProvided}} {{card.name}}</p>
+        <div class="list card">
+            <div ng-repeat="contribution in card.contributions ">
+                <div ng-if="contribution.status != 'Canceled' ">
 
-</div>
-<div class="item tabs tabs-secondary tabs-icon-left" ng-if="contribution.contributor == user.username ">
-    <a class="tab-item" href="#">
+					<div ng-controller="ItemCardController">
+					<div class="item item-avatar">
+					    <img src="{{baseUrl}}/assets/images/photo-tiny.jpg">
+					
+					    <h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
+					
+					    <p>will provide {{contribution.quantityProvided}} {{card.name}}</p>
+					
+					</div>
+					<div class="item tabs tabs-secondary tabs-icon-left" ng-if="contribution.contributor == user.username ">
+					    <a class="tab-item" href="#">
+					
+					    </a>
+					    <a class="tab-item" href="#">
+					
+					    </a>
+					    <a class="tab-item" ng-click="cancelContribution(project, contribution)">
+					        <i class="icon ion-share"></i>
+					        Cancel
+					    </a>
+					</div>
+					</div>
 
-    </a>
-    <a class="tab-item" href="#">
 
-    </a>
-    <a class="tab-item" ng-click="cancelContribution(project, contribution)">
-        <i class="icon ion-share"></i>
-        Cancel
-    </a>
-</div>
-</div>
+                </div>
+            </div>
+        </div>
+
