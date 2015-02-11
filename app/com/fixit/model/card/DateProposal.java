@@ -72,5 +72,15 @@ public class DateProposal implements Contributable<DateContribution> {
 	public void setContributions(List<DateContribution> contributions) {
 		this.contributions.setContributions(contributions);
 	}
+	
+	public boolean cancel(String contributionId) {
+		Contribution contribution = getContribution(contributionId);
+		if (contribution != null) {
+			contribution.setStatus(Contribution.STATUS_CANCELED);
+			this.votes = calculateVotes();
+			return true;
+		}
+		return false;
+	}
 
 }

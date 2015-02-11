@@ -65,10 +65,6 @@ public class DateCard extends Card implements Votable{
 		return null;
 	}
 
-	public boolean cancel(Contribution contribution) {
-		contribution.setStatus(Contribution.STATUS_CANCELED);
-		return true;
-	}
 
 	@JsonIgnore
 	public int calculateVotes() {
@@ -77,14 +73,6 @@ public class DateCard extends Card implements Votable{
 			result += proposal.calculateVotes();
 		}
 		return result;
-	}
-
-	public void vote(String username, String proposalId) {
-		DateProposal proposal = getProposal(proposalId);
-		if (proposal != null) {
-			proposal.vote(username);
-		}
-		this.votes = calculateVotes();
 	}
 
 	public int getVotes() {
@@ -110,11 +98,10 @@ public class DateCard extends Card implements Votable{
 
 	@Override
 	public boolean cancel(String contributionId) {
-		Contribution contribution = getContribution(contributionId);
-		if (contribution != null) {
-			contribution.setStatus(Contribution.STATUS_CANCELED);
-			this.votes = calculateVotes();
-			return true;
+		for (DateProposal proposal : proposals) {
+			if (proposal.cancel(contributionId)){
+				return true;
+			}
 		}
 		return false;
 	}
@@ -143,6 +130,7 @@ public class DateCard extends Card implements Votable{
 				proposal.vote(vote.getUsername());
 			}
 		}
+		this.votes = calculateVotes();
 	}
 
 }
