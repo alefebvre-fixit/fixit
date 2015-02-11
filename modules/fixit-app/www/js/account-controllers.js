@@ -1,4 +1,5 @@
-angular.module('fixit').controller('SignUpController', ['SettingService', '$scope', '$http', '$state', 'signup', function (SettingService, $scope, $http, $state, signup) {
+angular.module('fixit').controller('SignUpController', ['SettingService', '$scope', '$http', '$state', '$rootScope', 'signup', 
+                                                        function (SettingService, $scope, $http, $state, $rootScope, signup) {
 
     $scope.signup = signup;
 
@@ -25,7 +26,8 @@ angular.module('fixit').controller('SignUpController', ['SettingService', '$scop
 }
 ]);
 
-angular.module('fixit').controller('SignInController', ['SettingService', '$scope', '$state', '$rootScope', function (SettingService, $scope, $state, $rootScope) {
+angular.module('fixit').controller('SignInController', ['SettingService', '$scope', '$state', '$rootScope', 
+                                                        function (SettingService, $scope, $state, $rootScope) {
 
     $scope.signin = {username: 'antoinelefebvre', password: 'password'};
     // Perform the login action when the user submits the login for
