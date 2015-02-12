@@ -100,6 +100,7 @@ public class DateCard extends Card implements Votable{
 	public boolean cancel(String contributionId) {
 		for (DateProposal proposal : proposals) {
 			if (proposal.cancel(contributionId)){
+				this.votes = calculateVotes();
 				return true;
 			}
 		}

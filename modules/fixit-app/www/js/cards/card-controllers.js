@@ -7,7 +7,8 @@ angular.module('fixit').controller('CardSelectorController', ['ProjectService', 
 ]);
 
 
-angular.module('fixit').controller('CardController', ['$scope', 'card', 'project', function ($scope, card, project) {
+angular.module('fixit').controller('CardController', ['$scope', 'card', 'project', '$filter', 
+                                                      function ($scope, card, project, $filter) {
 
     $scope.card = card;
     $scope.project = project;
@@ -21,10 +22,30 @@ angular.module('fixit').controller('CardController', ['$scope', 'card', 'project
             }
         }
     };
+    
+    
+    $scope.hasMyContribution=function(card){
+	var result = $filter('MyContributions')(card,$scope.user.username);
+	if (result && result.length>0){
+	    return true;
+	} else {
+	    return false;
+	}
+    };
+    
+    $scope.hasOtherContribution =function(card){
+	var result = $filter('OtherContributions')(card,$scope.user.username);
+	if (result && result.length>0){
+	    return true;
+	} else {
+	    return false;
+	}
+    };
 }
 ]);
 
-angular.module('fixit').controller('ItemCardController', ['ProjectService', '$scope', function (ProjectService, $scope) {
+angular.module('fixit').controller('ItemCardController', ['ProjectService', '$scope', 
+                                                          function (ProjectService, $scope) {
 
     $scope.provide = function(project, card) {
         console.log("Provide an item projectId=" + project.id + " cardId=" + card.id);
@@ -173,7 +194,8 @@ angular.module('fixit').controller('DateCardController', ['ProjectService', '$sc
         	for (var i = 0; i < arrayLength; i++) {
         	        var subArrayLength = Object.keys(card.proposals[i].contributions).length;
         		for (var j = 0; j < subArrayLength; j++) {
-        		    if ($scope.getUsername() == card.proposals[i].contributions[j].contributor){
+        		    var contribution = card.proposals[i].contributions[j];
+        		    if (contribution.status != 'Canceled' && $scope.getUsername() == contribution.contributor){
         			return false;
         		    }
         		}

@@ -1,5 +1,5 @@
 angular.module('fixit').filter(
-	'myContributions',
+	'MyContributions',
 	function() {
 	    return function(card, user) {
 		var filtered = [];
@@ -9,9 +9,9 @@ angular.module('fixit').filter(
 			    .keys(card.proposals[i].contributions).length;
 		    for (var j = 0; j < subArrayLength; j++) {
 			var contribution = card.proposals[i].contributions[j];
-
 			if (user.username == contribution.contributor
-				&& contribution.status != 'Cancel') {
+				&& contribution.status != 'Canceled') {
+			    contribution.proposalDate = card.proposals[i].date;
 			    filtered.push(contribution);
 			}
 		    }
@@ -21,7 +21,7 @@ angular.module('fixit').filter(
 
 	    };
 	}).filter(
-	'otherContributions',
+	'OtherContributions',
 	function() {
 	    return function(card, user) {
 		var filtered = [];
@@ -32,7 +32,8 @@ angular.module('fixit').filter(
 		    for (var j = 0; j < subArrayLength; j++) {
 			var contribution = card.proposals[i].contributions[j];
 			if (user.username != contribution.contributor
-				&& contribution.status != 'Cancel') {
+				&& contribution.status != 'Canceled') {
+			    contribution.proposalDate = card.proposals[i].date;
 			    filtered.push(contribution);
 			}
 		    }

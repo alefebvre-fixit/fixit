@@ -1,40 +1,29 @@
-
-<div class="list card" ng-show="card.open">
-
-	<div class="item item-divider">
+<div class="list card" ng-show="card.open" ng-controller="ItemCardController">
+	<div class="item item-divider" ng-show="hasMyContribution(card)">
     My contributions
   	</div>
-	<div ng-repeat="contribution in card | myContributions:user">
-			<div ng-controller="ItemCardController">
-				<div class="item item-avatar">
-					<img src="img/{{contribution.contributor}}.jpg">
-					<h3>{{contribution.contributor}} - {{ contribution.date |
-						date:'short' }}</h3>
-					<p>voted {{proposal.date}}
-						{{card.name}}</p>
-				</div>
-				<div class="item tabs tabs-secondary tabs-icon-left"
-					ng-if="contribution.contributor == user.username ">
-					<a class="tab-item" href="#"> </a> <a class="tab-item" href="#">
-					</a> <a class="tab-item"
-						ng-click="cancelContribution(project, contribution)"> <i
-						class="icon ion-share"></i> Cancel
-					</a>
-				</div>
-		</div>
-	</div>
-	
-	<div class="item item-divider">
+  	<ion-list>
+        <ion-item ng-repeat="contribution in card | MyContributions:user" 
+                  item="contribution"
+                  class="item item-avatar item-remove-animate">
+                 	<img ng-src="img/{{contribution.contributor}}.jpg">
+					<h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
+					<p>has voted {{contribution.proposalDate | date:'short'}}</p>
+          <ion-option-button class="button-assertive"
+                             ng-click="cancelContribution(project, contribution)">
+            Cancel
+          </ion-option-button>
+        </ion-item>
+    </ion-list>
+	<div class="item item-divider" ng-show="hasOtherContribution(card)">
     Other contributions
   	</div>
-	<div ng-repeat="contribution in card | otherContributions:user">
-			<div ng-if="contribution.contributor != user.username " ng-controller="ItemCardController">
+	<div ng-repeat="contribution in card | OtherContributions:user">
+			<div ng-if="contribution.contributor != user.username ">
 				<div class="item item-avatar">
-					<img src="img/{{contribution.contributor}}.jpg">
-					<h3>{{contribution.contributor}} - {{ contribution.date |
-						date:'short' }}</h3>
-					<p>voted {{proposal.date}}
-						{{card.name}}</p>
+					<img ng-src="img/{{contribution.contributor}}.jpg">
+					<h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
+					<p>has voted {{contribution.proposalDate | date:'short'}}</p>
 				</div>
 			</div>
 	</div>
