@@ -1,15 +1,13 @@
 
-
-
 <div class="list card" ng-show="card.open">
+
 	<div class="item item-divider">
     My contributions
   	</div>
-	<div ng-repeat="proposal in card.proposals ">
-		<div ng-repeat="contribution in proposal.contributions | filter: { contributor: user.username, status: '!Canceled' }">
+	<div ng-repeat="contribution in card | myContributions:user">
 			<div ng-controller="ItemCardController">
 				<div class="item item-avatar">
-					<img src="/img/{{contribution.contributor}}.jpg">
+					<img src="img/{{contribution.contributor}}.jpg">
 					<h3>{{contribution.contributor}} - {{ contribution.date |
 						date:'short' }}</h3>
 					<p>voted {{proposal.date}}
@@ -23,25 +21,22 @@
 						class="icon ion-share"></i> Cancel
 					</a>
 				</div>
-			</div>
 		</div>
 	</div>
 	
 	<div class="item item-divider">
     Other contributions
   	</div>
-	<div ng-repeat="proposal in card.proposals ">
-		<div ng-repeat="contribution in proposal.contributions | filter: {status: '!Canceled' }">	
+	<div ng-repeat="contribution in card | otherContributions:user">
 			<div ng-if="contribution.contributor != user.username " ng-controller="ItemCardController">
 				<div class="item item-avatar">
-					<img src="/img/{{contribution.contributor}}.jpg">
+					<img src="img/{{contribution.contributor}}.jpg">
 					<h3>{{contribution.contributor}} - {{ contribution.date |
 						date:'short' }}</h3>
 					<p>voted {{proposal.date}}
 						{{card.name}}</p>
 				</div>
 			</div>
-		</div>
 	</div>
 
 	

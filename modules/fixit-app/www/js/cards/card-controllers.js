@@ -126,6 +126,7 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
 angular.module('fixit').controller('EditDateCardController', ['ProjectService', '$scope', '$cordovaDatePicker', function (ProjectService, $scope, $cordovaDatePicker) {
 
     console.log("EditDateCardController");
+    
 
     $scope.addDateProposal = function() {
 	
