@@ -7,18 +7,15 @@
 </ion-nav-buttons>
 
 <ion-nav-buttons side="right">
-<a class="button button-icon icon ion-plus" href="#/app/projects/new"></a>
+	<a class="button button-icon icon ion-plus" href="#/app/projects/new"></a>
 </ion-nav-buttons>
 
 <ion-content class="has-header">
 	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
-	<div ng-repeat="project in projects">
-	
-		<div ng-include data-src="'templates/project/partial/project-view.html'"></div>
-	
+	<div ng-repeat="project in projects">	
+		<div ng-include data-src="'templates/project/partial/project-view.html'"></div>	
 	</div>
 </ion-content>
-
 
 
 </ion-view>

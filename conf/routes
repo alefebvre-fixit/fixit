@@ -27,8 +27,7 @@ GET     /projects/:id           controllers.ProjectController.viewProject(id: St
 GET     /projects/:id/edit      controllers.ProjectController.editProject(id: String)
 GET     /projects/new/          controllers.ProjectController.newProject()
 GET     /me/		       	    controllers.ProjectController.me()
-GET     /users/:user       	    controllers.ProjectController.user(user: String)
-GET     /projects/test/          controllers.ProjectController.testProject()
+GET     /projects/test/         controllers.ProjectController.testProject()
 
 
 
@@ -38,7 +37,7 @@ GET     /api/projects              controllers.api.ProjectAPIController.projects
 GET     /api/projects/new          controllers.api.ProjectAPIController.createNewProject()
 GET     /api/projects/:id          controllers.api.ProjectAPIController.project(id: String)
 POST 	/api/projects			   controllers.api.ProjectAPIController.save()
-GET     /api/user/:id/projects     controllers.api.ProjectAPIController.projectByOwner(id: String)
+GET     /api/user/:username/projects     controllers.api.ProjectAPIController.projectByOwner(username: String)
 POST    /api/projects/:id/delete   controllers.api.ProjectAPIController.deleteProject(id: String)
 POST    /api/projects/:id/publish  controllers.api.ProjectAPIController.publishProject(id: String)
 
@@ -63,6 +62,7 @@ POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers
 
 # API Account
 
+GET     /api/users/:user       	    controllers.api.AccountAPIController.user(user: String)
 GET     /api/account     			controllers.api.AccountAPIController.account()
 GET     /api/account/summary     	controllers.api.AccountAPIController.accountSummary()
 GET     /api/accounts     			controllers.api.AccountAPIController.accounts()

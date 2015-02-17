@@ -43,6 +43,11 @@ public class AccountAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(getUserService().getAll()));
 	}
 	
+	public static Result user(String username) {
+		Logger.debug("AccountAPIController.user(username)");
+		return ok(play.libs.Json.toJson(getUserService().load(username)));
+	}
+	
 	public static Result signUp() {
 		Logger.debug("AccountAPIController.signup()");
 		

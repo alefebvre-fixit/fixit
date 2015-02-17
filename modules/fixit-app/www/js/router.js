@@ -173,6 +173,24 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: true
 		})
+		
+		.state('app.user', {
+			url: "/user/:username",
+			views: {
+				'menuContent': {
+					templateUrl: "templates/user.html",
+					controller: 'UserController',
+					resolve: {
+						profile: function (SettingService, $stateParams) {
+							console.log('app.user: resolve profile');
+							return SettingService.getUserProfile($stateParams.username);
+						}
+					}
+				},
+
+			},
+			authenticate: true
+		})
 
 		.state('app.settings', {
 			url: "/settings",
@@ -196,7 +214,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			views: {
 				'menuContent': {
 					templateUrl: "templates/tester.html",
-					controller: 'TesterController',
+					controller: 'TesterController'
 				}
 			},
 			authenticate: false
