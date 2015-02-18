@@ -139,6 +139,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 		})
 
 		.state('app.project-single', {
+			cache: false,
 			url: "/projects/:projectId",
 			views: {
 				'menuContent': {
@@ -168,7 +169,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 
 						}
 					}
-				},
+				}
 
 			},
 			authenticate: true
@@ -181,13 +182,12 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 					templateUrl: "templates/user.html",
 					controller: 'UserController',
 					resolve: {
-						profile: function (SettingService, $stateParams) {
+						summary: function (SettingService, $stateParams) {
 							console.log('app.user: resolve profile');
-							return SettingService.getUserProfile($stateParams.username);
+							return SettingService.getUserSummary($stateParams.username);
 						}
 					}
-				},
-
+				}
 			},
 			authenticate: true
 		})

@@ -5,6 +5,7 @@ import java.util.List;
 
 import play.Logger;
 
+import com.fixit.model.Contribution;
 import com.fixit.model.Project;
 import com.fixit.service.ProjectService;
 
@@ -37,12 +38,12 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 	}
 
 	@Override
-	public List<Project> loadByOwner(String owner) {
-		Logger.debug("loadByOwner(String owner) owner=" + owner);
+	public List<Project> loadByOwner(String username) {
+		Logger.debug("loadByOwner(String owner) owner=" + username);
 		List<Project> result = new ArrayList<>();
 		
 		for (Project project : InMemoryPersistence.getProjects()) {
-			if (project.username.equals(owner)) {
+			if (project.username.equals(username)) {
 				result.add(project);
 			}
 		}
@@ -57,6 +58,31 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 	@Override
 	public void delete(String id) {
 		InMemoryPersistence.removeProject(id);
+	}
+
+	@Override
+	public int countProjectsByOwner(String username) {
+		// TODO Auto-generated method stub
+		return loadByOwner(username).size();
+	}
+
+	@Override
+	public int countContributionsByOwner(String username) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Project> loadByOwner(String username, int offset, int length) {
+		// TODO Auto-generated method stub
+		return loadByOwner(username);
+	}
+
+	@Override
+	public List<Contribution> loadContributions(String username, int offset,
+			int length) {
+		// TODO Auto-generated method stub
+		return new ArrayList<Contribution>();
 	}
 
 }

@@ -79,10 +79,10 @@ angular.module('fixit').controller('EditSettingController', ['SettingService', '
 ]);
 
 
-angular.module('fixit').controller('UserController', ['$scope', 'profile', '$cordovaToast',
-                                                             function ($scope, profile, $cordovaToast) {
+angular.module('fixit').controller('UserController', ['$scope', 'summary', '$cordovaToast',
+                                                             function ($scope, summary, $cordovaToast) {
 
-    $scope.profile = profile;
+    $scope.summary = summary;
 
 
 }

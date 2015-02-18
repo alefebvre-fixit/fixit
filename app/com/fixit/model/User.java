@@ -1,6 +1,8 @@
 package com.fixit.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Entity;
@@ -19,6 +21,8 @@ public class User {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
+	private List<String> following = new ArrayList<String>();
+	private List<String> favorites = new ArrayList<String>();
 
 	@Id
 	@ObjectId
@@ -93,6 +97,22 @@ public class User {
 
 	public void setProfile(Profile profile) {
 		this.profile = profile;
+	}
+
+	public List<String> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(List<String> following) {
+		this.following = following;
+	}
+
+	public List<String> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<String> favorites) {
+		this.favorites = favorites;
 	}
 
 	public static final String ANTOINE = "antoinelefebvre";

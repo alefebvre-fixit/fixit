@@ -1,8 +1,8 @@
 <div class="card">
-	<a class="item item-avatar" ui-sref="app.user({ username: project.username })">
-		<img ng-src="img/{{project.username}}.jpg">
-		<h2>{{project.name}}</h2>
-		<p>{{project.username}}</p>
+	<a class="item item-avatar">
+		<img ng-src="img/{{project.username}}.jpg" ng-click="goToUser(project.username)">
+		<h2 ng-click="goToProject(project.id)">{{project.name}}</h2>
+		<p ng-click="goToProject(project.id)">{{project.username}}</p>
 	</a>
 	<div class="item item-text-wrap">
 		{{project.description}} <br> <br> <i class="icon ion-location"> {{project.city}}, {{project.country}}</i>

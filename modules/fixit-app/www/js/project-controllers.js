@@ -1,5 +1,6 @@
 
-angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '$window', '$cordovaToast', function ($scope, $rootScope, $window,  $cordovaToast) {
+angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '$window', '$cordovaToast', '$state',
+	function ($scope, $rootScope, $window,  $cordovaToast, $state) {
 	$scope.toastMe = function(message) {
 	    
 	    $cordovaToast.show(message, 'short', 'center').then(
@@ -23,12 +24,20 @@ angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '
 	    return $rootScope.user.username;
 	}
 
+	$scope.goToUser = function(username){
+		$state.go('app.user', {username: username});
+	}
+
+	$scope.goToProject = function(projectId){
+		$state.go('app.project-single', {projectId: projectId});
+	}
 	    	  
 }
 ]);
 
 
-angular.module('fixit').controller('ListProjectController', ['ProjectService', '$scope', 'projects', '$window', function (ProjectService, $scope, projects, $window) {
+angular.module('fixit').controller('ListProjectController', ['ProjectService', '$scope', 'projects', '$window',
+	function (ProjectService, $scope, projects, $window) {
 	console.log('Calling ListProjectController');
 
 	$scope.projects = projects;

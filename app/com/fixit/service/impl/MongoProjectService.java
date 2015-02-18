@@ -1,5 +1,6 @@
 package com.fixit.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mongojack.JacksonDBCollection;
@@ -7,11 +8,14 @@ import org.mongojack.WriteResult;
 
 import play.Logger;
 
+import com.fixit.model.Contribution;
 import com.fixit.model.Project;
 import com.fixit.service.ProjectService;
 
 public class MongoProjectService extends BaseProjectService implements
 		ProjectService {
+
+	private static final String USER_NAME = "username";
 
 	@Override
 	public List<Project> getAll() {
@@ -60,10 +64,10 @@ public class MongoProjectService extends BaseProjectService implements
 	}
 
 	@Override
-	public List<Project> loadByOwner(String owner) {
-		Logger.debug("loadByOwner(String owner) owner=" + owner);
+	public List<Project> loadByOwner(String username) {
+		Logger.debug("loadByOwner(String owner) owner=" + username);
 
-		List<Project> result = getCollection().find().is("username", owner)
+		List<Project> result = getCollection().find().is(USER_NAME, username)
 				.toArray();
 
 		return result;
@@ -71,5 +75,32 @@ public class MongoProjectService extends BaseProjectService implements
 
 	private JacksonDBCollection<Project, String> getCollection() {
 		return MongoDBPersistence.getProjectCollection();
+	}
+
+	@Override
+	public int countProjectsByOwner(String username) {
+		//return getCollection().find().is(USER_NAME, username).count();
+		
+		int result =  getCollection().find().count();
+		Logger.debug("countProjectsByOwner(String owner) owner=" + username + "result = " + result);
+		return result;
+	}
+
+	@Override
+	public int countContributionsByOwner(String username) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Project> loadByOwner(String username, int offset, int length) {
+		return getCollection().find().is(USER_NAME, username).skip(offset).limit(length).toArray();
+	}
+
+	@Override
+	public List<Contribution> loadContributions(String username, int offset,
+			int length) {
+		// TODO Auto-generated method stub
+		return new ArrayList<Contribution>();
 	}
 }

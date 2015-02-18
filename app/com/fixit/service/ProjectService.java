@@ -2,6 +2,7 @@ package com.fixit.service;
 
 import java.util.List;
 
+import com.fixit.model.Contribution;
 import com.fixit.model.Project;
 
 public interface ProjectService {
@@ -17,5 +18,14 @@ public interface ProjectService {
 	public Project load(String id);
 	
 	public List<Project> loadByOwner(String username);
+	
+	public int countProjectsByOwner(String username);
+	
+	public int countContributionsByOwner(String username);
+	
+	public List<Project> loadByOwner(String username, int offset, int length);
+	
+	public List<Contribution> loadContributions(String username, int offset, int length); 
+
 
 }

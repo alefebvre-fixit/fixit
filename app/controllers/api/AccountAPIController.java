@@ -12,6 +12,7 @@ import play.mvc.Security;
 
 import com.fixit.model.Profile;
 import com.fixit.model.User;
+import com.fixit.model.UserSummary;
 import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 
@@ -112,5 +113,23 @@ public class AccountAPIController extends FixItController {
 		
 	}
 	
+	
+	public static Result userSummary(String username) {
+		Logger.debug("AccountAPIController.user(username)");
+		
+		UserSummary result = new UserSummary();
+		result.setUser(getUserService().load(username));
+		
+		result.setLastProjects(getProjectService().loadByOwner(username, 0, 5));
+		result.setProjectNumber(getProjectService().countProjectsByOwner(username));
+		
+		result.setLastContribution(getProjectService().loadContributions(username, 0, 5));
+		result.setContributionNumber(getProjectService().countContributionsByOwner(username));
+		
+		return ok(play.libs.Json.toJson(result));
+	}
 
+	
+	
+	
 }
