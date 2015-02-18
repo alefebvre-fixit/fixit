@@ -129,7 +129,27 @@ public class AccountAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(result));
 	}
 
+	public static Result follow(String followee) {
+		Logger.debug("AccountAPIController.follow(followee)");
+		
+		User result = getUser();
+		if (!result.getUsername().equals(followee)){
+			result = getUserService().follow(result.getUsername(), followee);
+		}
+		
+		return ok(play.libs.Json.toJson(result));
+	}
 	
+	public static Result unFollow(String followee) {
+		Logger.debug("AccountAPIController.unFollow(followee)");
+		
+		User result = getUser();
+		if (!result.getUsername().equals(followee)){
+			result = getUserService().unFollow(result.getUsername(), followee);
+		}
+		
+		return ok(play.libs.Json.toJson(result));
+	}
 	
 	
 }

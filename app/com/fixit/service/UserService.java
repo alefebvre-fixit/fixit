@@ -25,6 +25,10 @@ public interface UserService {
 	public List<User> getAll();
 	
 	public User signup(SignUp signup);
+	
+	public User follow(String follower, String followee);
+	
+	public User unFollow(String follower, String followee);
 
 
 }

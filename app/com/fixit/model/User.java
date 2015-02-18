@@ -22,6 +22,8 @@ public class User {
 
 	private String id;
 	private List<String> following = new ArrayList<String>();
+	private List<String> followers = new ArrayList<String>();
+	
 	private List<String> favorites = new ArrayList<String>();
 
 	@Id
@@ -113,6 +115,14 @@ public class User {
 
 	public void setFavorites(List<String> favorites) {
 		this.favorites = favorites;
+	}
+
+	public List<String> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(List<String> followers) {
+		this.followers = followers;
 	}
 
 	public static final String ANTOINE = "antoinelefebvre";

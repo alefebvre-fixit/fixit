@@ -121,5 +121,27 @@ public class MongoUserService implements UserService {
 	private JacksonDBCollection<User, String> getCollection() {
 		return MongoDBPersistence.getUserCollection();
 	}
+
+	@Override
+	public User follow(String follower, String followee) {
+		User followerUser = load(follower);
+		User followeeUser = load(followee);
+		if (!followerUser.getFollowing().contains(followee)){
+			followerUser.getFollowing().add(followee);
+		}
+		
+		
+		
+		return followerUser;
+	}
+
+	@Override
+	public User unFollow(String follower, String followee) {
+		User user = load(follower);
+		if (user.getFollowing().contains(followee)){
+			user.getFollowing().remove(followee);
+		}
+		return user;
+	}
 	
 }

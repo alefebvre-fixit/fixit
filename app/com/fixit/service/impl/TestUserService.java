@@ -88,5 +88,23 @@ public class TestUserService implements UserService {
 	public User authenticate(SignIn signin) {
 		return authenticateByUserName(signin.getUsername(), signin.getPassword());
 	}
+	
+	@Override
+	public User follow(String follower, String followee) {
+		User user = load(follower);
+		if (!user.getFollowing().contains(followee)){
+			user.getFollowing().add(followee);
+		}
+		return user;
+	}
+
+	@Override
+	public User unFollow(String follower, String followee) {
+		User user = load(follower);
+		if (user.getFollowing().contains(followee)){
+			user.getFollowing().remove(followee);
+		}
+		return user;
+	}
 
 }
