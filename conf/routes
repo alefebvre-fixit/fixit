@@ -63,6 +63,8 @@ POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers
 # API Account
 
 GET     /api/users/:user/summary       	    controllers.api.AccountAPIController.userSummary(user: String)
+POST    /api/users/:user/follow       	    controllers.api.AccountAPIController.follow(user: String)
+POST    /api/users/:user/unfollow       	controllers.api.AccountAPIController.unFollow(user: String)
 GET     /api/users/:user       	    		controllers.api.AccountAPIController.user(user: String)
 
 

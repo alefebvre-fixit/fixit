@@ -199,7 +199,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 					templateUrl: "templates/settings.html",
 					controller: 'EditSettingController',
 					resolve: {
-						profile: function ($rootScope, $stateParams) {
+						profile: function ($rootScope) {
 							console.log('sign-up: resolve profile');
 							return JSON.parse(JSON.stringify($rootScope.user.profile));
 						}

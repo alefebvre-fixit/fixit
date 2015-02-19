@@ -40,6 +40,18 @@ angular.module('fixit').factory('SettingService', ['$http', '$rootScope', functi
                 return response.data;
             });
             return promise;
+        },
+        follow: function (username) {
+            var promise = $http.post($rootScope.baseUrl + '/api/users/'+ username +'/follow').then(function (response) {
+                return response.data;
+            });
+            return promise;
+        },
+        unfollow: function (username) {
+            var promise = $http.post($rootScope.baseUrl + '/api/users/'+ username +'/unfollow').then(function (response) {
+                return response.data;
+            });
+            return promise;
         }
     };
 

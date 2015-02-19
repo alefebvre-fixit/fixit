@@ -130,7 +130,7 @@ public class AccountAPIController extends FixItController {
 	}
 
 	public static Result follow(String followee) {
-		Logger.debug("AccountAPIController.follow(followee)");
+		Logger.debug("AccountAPIController.follow(followee)" + followee);
 		
 		User result = getUser();
 		if (!result.getUsername().equals(followee)){
@@ -141,7 +141,7 @@ public class AccountAPIController extends FixItController {
 	}
 	
 	public static Result unFollow(String followee) {
-		Logger.debug("AccountAPIController.unFollow(followee)");
+		Logger.debug("AccountAPIController.unFollow(followee)" + followee);
 		
 		User result = getUser();
 		if (!result.getUsername().equals(followee)){

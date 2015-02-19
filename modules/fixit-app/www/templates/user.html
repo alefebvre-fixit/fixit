@@ -29,12 +29,14 @@
                 Followers
             </div>
         </div>
+        <div class="item item-button-right" ng-show="user.username!=summary.user.username">
+            &nbsp;
 
-
-        <div class="item item-button-right">
-            
-            <button class="button button-positive">
+            <button class="button button-positive button-small icon-left ion-person" ng-click="follow(summary.user.username)" ng-show="!isFollowing(summary)">
                 Follow
+            </button>
+            <button class="button button-positive button-small icon-left ion-person" ng-click="unfollow(summary.user.username)" ng-show="isFollowing(summary)">
+                Following
             </button>
         </div>
 

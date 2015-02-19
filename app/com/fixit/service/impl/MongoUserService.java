@@ -124,24 +124,47 @@ public class MongoUserService implements UserService {
 
 	@Override
 	public User follow(String follower, String followee) {
+		
+		//TODO Externalize relationship
+		
 		User followerUser = load(follower);
 		User followeeUser = load(followee);
+		
 		if (!followerUser.getFollowing().contains(followee)){
 			followerUser.getFollowing().add(followee);
 		}
 		
+		if (!followeeUser.getFollowers().contains(follower)){
+			followeeUser.getFollowers().add(follower);
+		}
 		
+		getCollection().updateById(followerUser.getId(), followerUser);
+		getCollection().updateById(followeeUser.getId(), followeeUser);
+
 		
 		return followerUser;
 	}
 
 	@Override
 	public User unFollow(String follower, String followee) {
-		User user = load(follower);
-		if (user.getFollowing().contains(followee)){
-			user.getFollowing().remove(followee);
+		//TODO Externalize relationship
+		
+		User followerUser = load(follower);
+		User followeeUser = load(followee);
+		
+		if (followerUser.getFollowing().contains(followee)){
+			followerUser.getFollowing().remove(followee);
 		}
-		return user;
+		
+		if (followeeUser.getFollowers().contains(follower)){
+			followeeUser.getFollowers().remove(follower);
+		}
+		
+		getCollection().updateById(followerUser.getId(), followerUser);
+		getCollection().updateById(followeeUser.getId(), followeeUser);
+
+		
+		return followerUser;
 	}
 	
 }
