@@ -29,19 +29,26 @@
                 Followers
             </div>
         </div>
-        <div class="item item-button-right" ng-show="user.username!=summary.user.username">
-            &nbsp;
 
-            <button class="button button-positive button-small icon-left ion-person" ng-click="follow(summary.user.username)" ng-show="!isFollowing(summary)">
-                Follow
-            </button>
-            <button class="button button-positive button-small icon-left ion-person" ng-click="unfollow(summary.user.username)" ng-show="isFollowing(summary)">
-                Following
-            </button>
+
+        <div class="row">
+            <div class="col">
+                <div ng-show="user.username==summary.user.username">
+                    <button class="button button-positive button-small icon-left ion-person" ng-click="follow(summary.user.username)">
+                        Edit
+                    </button>
+                </div>
+            </div>
+            <div class="col"></div>
+            <div class="col">
+                <button class="button button-positive button-small icon-left ion-person" ng-click="follow(summary.user.username)" ng-show="!isFollowing(summary)">
+                    Follow
+                </button>
+                <button class="button button-positive button-small icon-left ion-person" ng-click="unfollow(summary.user.username)" ng-show="isFollowing(summary)">
+                    Following
+                </button>
+            </div>
         </div>
-
-        <br>
-
 
         <div ng-repeat="project in summary.lastProjects">
             <div ng-include data-src="'templates/project/partial/project-view.html'"></div>
