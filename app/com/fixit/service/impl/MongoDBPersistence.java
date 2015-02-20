@@ -4,6 +4,7 @@ import org.mongojack.JacksonDBCollection;
 
 import play.modules.mongojack.MongoDB;
 
+import com.fixit.model.Favorite;
 import com.fixit.model.Project;
 import com.fixit.model.User;
 
@@ -21,6 +22,13 @@ public class MongoDBPersistence {
 
 	public static final JacksonDBCollection<User, String> getUserCollection() {
 		return users;
+	}
+	
+	private static JacksonDBCollection<Favorite, String> favorites = MongoDB
+			.getCollection("Favorites", Favorite.class, String.class);
+
+	public static final JacksonDBCollection<Favorite, String> getFavoritesCollection() {
+		return favorites;
 	}
 
 }

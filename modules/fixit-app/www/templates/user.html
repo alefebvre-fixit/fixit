@@ -23,8 +23,8 @@
                 <br>
                 Contributions
             </div>
-            <div class="col">
-                <b>{{summary.followerNumber}}</b>
+            <div class="col" ng-click="goToFollowers(summary.user.username)">
+                <b>{{summary.user.followers.length}}</b>
                 <br>
                 Followers
             </div>
@@ -34,19 +34,21 @@
         <div class="row">
             <div class="col">
                 <div ng-show="user.username==summary.user.username">
-                    <button class="button button-positive button-small icon-left ion-person" ng-click="follow(summary.user.username)">
+                    <button class="button button-positive button-small icon-left ion-person" ng-click="goToSettings()">
                         Edit
                     </button>
                 </div>
             </div>
             <div class="col"></div>
             <div class="col">
-                <button class="button button-positive button-small icon-left ion-person" ng-click="follow(summary.user.username)" ng-show="!isFollowing(summary)">
-                    Follow
-                </button>
-                <button class="button button-positive button-small icon-left ion-person" ng-click="unfollow(summary.user.username)" ng-show="isFollowing(summary)">
-                    Following
-                </button>
+                <div ng-show="user.username!=summary.user.username">
+                    <button class="button button-positive button-small icon-left ion-person" ng-click="follow(summary.user.username)" ng-show="!isFollowing(summary)">
+                        Follow
+                    </button>
+                    <button class="button button-positive button-small icon-left ion-person" ng-click="unfollow(summary.user.username)" ng-show="isFollowing(summary)">
+                        Following
+                    </button>
+                </div>
             </div>
         </div>
 

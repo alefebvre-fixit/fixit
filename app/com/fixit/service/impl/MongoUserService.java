@@ -15,6 +15,10 @@ import com.fixit.service.UserService;
 
 public class MongoUserService implements UserService {
 	
+	private static final String USER_NAME = "username";
+	private static final String EMAIL = "email";
+
+	
 	@Override
 	public User load(String username) {
 		Logger.debug("MongoUserService.load(String userName) username=" + username);
@@ -33,7 +37,7 @@ public class MongoUserService implements UserService {
 		
 		User user = null;
 				
-		DBCursor<User> cursor = getCollection().find().is("email", email);
+		DBCursor<User> cursor = getCollection().find().is(EMAIL, email);
 		if (cursor.hasNext()){
 			user = cursor.next();
 			if (authenticate(user, password)){
@@ -165,6 +169,20 @@ public class MongoUserService implements UserService {
 
 		
 		return followerUser;
+	}
+
+	@Override
+	public List<User> getFollowers(String username) {
+		
+		List<User> result = null;
+		
+		User user = load(username);
+		if (user != null){
+			List<String> followers = user.getFollowers();
+			result = getCollection().find().in(USER_NAME, followers).toArray();
+		}
+		
+		return result;
 	}
 	
 }

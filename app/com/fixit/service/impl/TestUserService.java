@@ -107,4 +107,10 @@ public class TestUserService implements UserService {
 		return user;
 	}
 
+	@Override
+	public List<User> getFollowers(String user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

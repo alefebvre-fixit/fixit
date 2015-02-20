@@ -52,6 +52,12 @@ angular.module('fixit').factory('SettingService', ['$http', '$rootScope', functi
                 return response.data;
             });
             return promise;
+        },
+        getFollowers: function (username) {
+            var promise = $http.get($rootScope.baseUrl + '/api/users/' + username + '/followers').then(function (response) {
+                return response.data;
+            });
+            return promise;
         }
     };
 

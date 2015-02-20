@@ -38,8 +38,13 @@ angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '
 		$state.go('app.project-single', {projectId: projectId});
 	};
 
+	$scope.goToSettings = function(){
+		$state.go('app.settings');
+	};
 
-
+	$scope.goToFollowers = function(username){
+		$state.go('app.followers', {username: username});
+	};
 	    	  
 }
 ]);

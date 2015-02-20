@@ -6,6 +6,7 @@ import java.util.List;
 import play.Logger;
 
 import com.fixit.model.Contribution;
+import com.fixit.model.Favorite;
 import com.fixit.model.Project;
 import com.fixit.service.ProjectService;
 
@@ -83,6 +84,18 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 			int length) {
 		// TODO Auto-generated method stub
 		return new ArrayList<Contribution>();
+	}
+
+	@Override
+	public void favorite(String username, String projectId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Favorite> favorites(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

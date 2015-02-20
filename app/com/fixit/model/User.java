@@ -18,8 +18,6 @@ import com.fixit.model.account.SignUp;
 @Entity
 public class User {
 
-	private static final long serialVersionUID = 1L;
-
 	private String id;
 	private List<String> following = new ArrayList<String>();
 	private List<String> followers = new ArrayList<String>();

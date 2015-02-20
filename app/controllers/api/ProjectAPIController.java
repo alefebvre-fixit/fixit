@@ -7,7 +7,6 @@ import play.Logger;
 import play.libs.Json;
 import play.mvc.Http.RequestBody;
 import play.mvc.Result;
-import play.mvc.Security;
 
 import com.fixit.model.Card;
 import com.fixit.model.Contribution;
@@ -19,7 +18,6 @@ import com.fixit.model.card.CardFactory;
 import com.fixit.model.card.ItemCard;
 
 import controllers.FixItController;
-import controllers.Secured;
 
 //@Security.Authenticated(Secured.class)
 public class ProjectAPIController extends FixItController {
@@ -78,6 +76,23 @@ public class ProjectAPIController extends FixItController {
 		List<Project> projects = getProjectService().loadByOwner(username);
 		return ok(Json.toJson(projects));
 	}
+	
+	public static Result favorite(String projectId) {
+		Logger.debug("ProjectAPIController.favorite projectId ="
+				+ projectId);
+
+		getProjectService().favorite(getUserName(), projectId);
+		
+		return ok(Json.toJson(getProjectService().favorites(getUserName())));
+	}
+	
+	public static Result favorites(String username) {
+		Logger.debug("ProjectAPIController.favorites username ="
+				+ username);
+		
+		return ok(Json.toJson(getProjectService().favorites(username)));
+	}
+	
 
 	public static Result project(String projectId) {
 		Logger.debug("ProjectAPIController.project projectId =" + projectId);

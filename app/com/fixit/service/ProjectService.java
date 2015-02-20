@@ -3,7 +3,9 @@ package com.fixit.service;
 import java.util.List;
 
 import com.fixit.model.Contribution;
+import com.fixit.model.Favorite;
 import com.fixit.model.Project;
+import com.fixit.model.User;
 
 public interface ProjectService {
 
@@ -27,5 +29,8 @@ public interface ProjectService {
 	
 	public List<Contribution> loadContributions(String username, int offset, int length); 
 
-
+	public void favorite(String username, String projectId);
+	
+	public List<Favorite> favorites(String username);
+	
 }

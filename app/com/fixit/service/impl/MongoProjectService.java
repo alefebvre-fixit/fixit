@@ -1,6 +1,7 @@
 package com.fixit.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.mongojack.JacksonDBCollection;
@@ -9,6 +10,7 @@ import org.mongojack.WriteResult;
 import play.Logger;
 
 import com.fixit.model.Contribution;
+import com.fixit.model.Favorite;
 import com.fixit.model.Project;
 import com.fixit.service.ProjectService;
 
@@ -16,7 +18,18 @@ public class MongoProjectService extends BaseProjectService implements
 		ProjectService {
 
 	private static final String USER_NAME = "username";
+	private static final String PROJECT_ID = "projectId";
 
+
+	private JacksonDBCollection<Project, String> getCollection() {
+		return MongoDBPersistence.getProjectCollection();
+	}
+	
+	private JacksonDBCollection<Favorite, String> getFavoritesCollection() {
+		return MongoDBPersistence.getFavoritesCollection();
+	}
+	
+	
 	@Override
 	public List<Project> getAll() {
 		Logger.debug("MongoProjectService.getAll()");
@@ -73,9 +86,7 @@ public class MongoProjectService extends BaseProjectService implements
 		return result;
 	}
 
-	private JacksonDBCollection<Project, String> getCollection() {
-		return MongoDBPersistence.getProjectCollection();
-	}
+
 
 	@Override
 	public int countProjectsByOwner(String username) {
@@ -103,4 +114,27 @@ public class MongoProjectService extends BaseProjectService implements
 		// TODO Auto-generated method stub
 		return new ArrayList<Contribution>();
 	}
+
+	@Override
+	public void favorite(String username, String projectId) {
+		Favorite favorite = new Favorite();
+		favorite.setCreationDate(new Date());
+		favorite.setUsername(username);
+		favorite.setProjectId(projectId);
+		
+		int count = getFavoritesCollection().find().is(USER_NAME, username).is(PROJECT_ID, projectId).count();
+		if (count <= 0){
+			getFavoritesCollection().insert(favorite);
+		}
+		
+	}
+
+	@Override
+	public List<Favorite> favorites(String username) {
+		return getFavoritesCollection().find().is(USER_NAME, username).toArray();
+	}
+	
+	
+	
+	
 }

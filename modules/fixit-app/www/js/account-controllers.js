@@ -117,3 +117,13 @@ angular.module('fixit').controller('UserController', ['$scope', 'SettingService'
 
     }
 ]);
+
+
+angular.module('fixit').controller('FollowersController', ['SettingService', '$scope', 'followers', '$cordovaToast',
+    function (SettingService, $scope, followers, $cordovaToast) {
+
+        $scope.followers = followers;
+
+
+    }
+]);

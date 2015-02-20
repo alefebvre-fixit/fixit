@@ -151,5 +151,12 @@ public class AccountAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(result));
 	}
 	
+	public static Result followers(String username) {
+		Logger.debug("AccountAPIController.followers(username)" + username);
+		
+		List<User> result = getUserService().getFollowers(username);
+		
+		return ok(play.libs.Json.toJson(result));
+	}
 	
 }
