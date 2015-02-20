@@ -1,0 +1,17 @@
+<div class="card">
+
+    <div class="item" style="background-color: #387ef5;">
+    </div>
+	<a class="item item-avatar" ui-sref="app.project-single({ projectId: project.id })">
+		<img ng-src="img/{{project.username}}.jpg">
+		<h2>{{::project.name}}</h2>
+		<p>{{::project.username}}</p>
+	</a>
+	<div class="item item-text-wrap">
+		{{::project.description}} <br> <br> <i class="icon ion-location"> {{::project.city}}, {{::project.country}}</i>
+		<p>
+	      <a href="#" class="subdued">{{::project.contributionSize}} Contributions</a>
+	      <a href="#" class="subdued">5 Comments</a>
+	    </p>
+	</div>
+</div>
