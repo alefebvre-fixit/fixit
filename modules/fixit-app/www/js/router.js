@@ -10,7 +10,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			views: {
 				'menuContent': {
 					templateUrl: "templates/projects.html",
-					controller: 'ListProjectController',
+					controller: 'MyProjectController',
 					resolve: {
 						projects: function ($rootScope, ProjectService) {
 							var username = localStorage.getItem("username");
@@ -147,7 +147,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 					controller: 'ViewProjectController',
 					resolve: {
 						project: function ($stateParams, ProjectService) {
-							console.log('resolve single project');
+							console.log('resolve project-single id=' + $stateParams.projectId);
 							return ProjectService.getProject($stateParams.projectId);
 						}
 					}
@@ -162,7 +162,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			views: {
 				'menuContent': {
 					templateUrl: "templates/discover.html",
-					controller: 'ListProjectController',
+					controller: 'DiscoverProjectController',
 					resolve: {
 						projects: function ($rootScope, ProjectService) {
 							return ProjectService.getProjects();
@@ -177,59 +177,11 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 		
 
 
-		.state('app.settings', {
-			url: "/settings",
-			views: {
-				'menuContent': {
-					templateUrl: "templates/settings.html",
-					controller: 'EditSettingController',
-					resolve: {
-						profile: function ($rootScope) {
-							console.log('sign-up: resolve profile');
-							return JSON.parse(JSON.stringify($rootScope.user.profile));
-						}
-					}
-				}
-			},
-			authenticate: true
-		})
+
+		;
+
 		
-		.state('app.tester', {
-			url: "/tester",
-			views: {
-				'menuContent': {
-					templateUrl: "templates/tester.html",
-					controller: 'TesterController'
-				}
-			},
-			authenticate: false
-		})
-		
-		.state('app.sign-in', {
-			url: "/signin",
-			views: {
-				'menuContent': {
-					templateUrl: "templates/sign-in.html"
-				}
-			},
-			authenticate: false
-		})
-		.state('app.sign-up', {
-			url: "/signup",
-			views: {
-				'menuContent': {
-					templateUrl: "templates/sign-up.html",
-					controller: 'SignUpController',
-					resolve: {
-						signup: function ($stateParams) {
-							console.log('sign-up: resolve signup');
-							return {};
-						}
-					}
-				}
-			},
-			authenticate: false
-		});
+
 	// if none of the above states are matched, use this as the fallback
 	$urlRouterProvider.otherwise('/app/signin');
 });

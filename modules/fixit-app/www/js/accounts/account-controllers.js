@@ -3,18 +3,14 @@ angular.module('fixit').controller('SignUpController', ['SettingService', '$scop
 
         $scope.signup = signup;
 
-
         $scope.doSignUp = function () {
-
-            console.log('$scope.signup' + $scope.signup);
-
 
             SettingService.signupUser($scope.signup).success(function (data) {
                 $scope.setUser(data);
                 $state.transitionTo('app.projects');
             }).error(function (response, status) {
-                console.log("Invalid signup");
-                $scope.signup.error = 'Invalid signup';
+                console.log("Invalid sign-up");
+                $scope.signup.error = 'Invalid sign-up';
             });
         };
 
@@ -31,23 +27,21 @@ angular.module('fixit').controller('SignInController', ['SettingService', '$scop
         // Perform the login action when the user submits the login for
         $scope.doSignIn = function () {
 
-            SettingService.signinUser($scope.signin).success(function (loggedUser) {
-                $scope.setUser(loggedUser);
-
-                $state.transitionTo('app.projects');
-
+            SettingService.signinUser($scope.signin).success(function (user) {
+                SettingService.getFavorites(user.username).then(function(favorites) {
+                        $scope.setFavorites(favorites);
+                        $scope.setUser(user);
+                        $state.transitionTo('app.projects');
+                    }
+                );
             }).error(function (response, status) {
                 console.log("Invalid username or password");
                 $scope.signin.error = 'Invalid username or password';
             });
-
         };
-
         $scope.goToSignUp = function () {
             $state.transitionTo('app.sign-up');
         };
-
-
     }
 ]);
 
@@ -119,8 +113,8 @@ angular.module('fixit').controller('UserController', ['$scope', 'SettingService'
 ]);
 
 
-angular.module('fixit').controller('FollowersController', ['SettingService', '$scope', 'followers', '$cordovaToast',
-    function (SettingService, $scope, followers, $cordovaToast) {
+angular.module('fixit').controller('FollowersController', ['SettingService', '$scope', 'followers',
+    function (SettingService, $scope, followers) {
 
         $scope.followers = followers;
 

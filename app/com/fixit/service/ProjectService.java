@@ -29,8 +29,10 @@ public interface ProjectService {
 	
 	public List<Contribution> loadContributions(String username, int offset, int length); 
 
-	public void favorite(String username, String projectId);
+	public void follow(String username, String projectId);
 	
-	public List<Favorite> favorites(String username);
+	public void unfollow(String username, String projectId);
+	
+	public List<String> favorites(String username);
 	
 }

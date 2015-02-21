@@ -1,36 +1,73 @@
 
 
-angular.module('fixit').controller('ListProjectController', ['ProjectService', '$scope', 'projects', '$window',
-	function (ProjectService, $scope, projects, $window) {
-		console.log('Calling ListProjectController');
+angular.module('fixit').controller('MyProjectController',
+	['ProjectService', '$scope', 'projects',
+		function (ProjectService, $scope, projects) {
 
-		$scope.projects = projects;
+			$scope.projects = projects;
 
-		$scope.doRefresh = function() {
-			var username = localStorage.getItem("username");
-			console.log('doRefresh' + username);
-			ProjectService.getProjectsByOwner(username).then(function (data) {
-				$scope.projects = data;
-			});
-			//Stop the ion-refresher from spinning
-			$scope.$broadcast('scroll.refreshComplete');
-		};
+			$scope.doRefresh = function() {
+				ProjectService.getProjectsByOwner(getUsername()).then(function (projects) {
+					$scope.projects = projects;
+				});
+				$scope.$broadcast('scroll.refreshComplete');
+			};
 
-	}
-]);
+		}
+	]);
+
+angular.module('fixit').controller('DiscoverProjectController',
+	['ProjectService', '$scope', 'projects',
+		function (ProjectService, $scope, projects) {
+
+			$scope.projects = projects;
+
+			$scope.doRefresh = function() {
+				ProjectService.getProjects().then(function (data) {
+					$scope.projects = data;
+				});
+				//Stop the ion-refresher from spinning
+				$scope.$broadcast('scroll.refreshComplete');
+			};
+
+		}
+	]);
+
+angular.module('fixit').controller('ViewProjectController',
+	['$scope', '$ionicPopup', 'ProjectService', 'project',
+		function ($scope, $ionicPopup, ProjectService, project) {
+			console.log(project);
+			$scope.project = project;
+
+			$scope.setProject =function(newProject){
+				$scope.project = newProject;
+			};
+
+			$scope.follow = function(project){
+				ProjectService.followProject(project).then(function (favorites) {
+					$scope.setFavorites(favorites);
+					$scope.toastMe('Project ' + project.name + ' is added to your favorites.');
+				});
+			};
+
+			$scope.unfollow = function(project){
+				var confirmPopup = $ionicPopup.confirm({
+					title: 'Unfollow',
+					template: 'Remove project ' + project.name + ' from favorites ?'
+				});
+				confirmPopup.then(function(res) {
+					if(res) {
+						ProjectService.unfollowProject(project).then(function (favorites) {
+							$scope.setFavorites(favorites);
+							$scope.toastMe('Project ' + project.name + ' is removed from your favorites.');
+						});
+					}
+				});
+			};
 
 
-
-angular.module('fixit').controller('ViewProjectController', ['$scope', 'project', function ($scope, project) {
-
-	$scope.project = project;
-
-	$scope.setProject =function(newProject){
-		$scope.project = newProject;
-	};
-
-}
-]);
+		}
+	]);
 
 
 angular.module('fixit').controller('EditProjectController',
@@ -67,7 +104,7 @@ angular.module('fixit').controller('EditProjectController',
 				});
 				confirmPopup.then(function(res) {
 					if(res) {
-						ProjectService.deleteProject(projectToDelete).then(function (data) {
+						ProjectService.deleteProject(projectToDelete).then(function () {
 							$scope.toastMe('Project ' + projectToDelete.name + ' deleted.');
 							$state.go('app.project-new');
 						});
@@ -82,7 +119,7 @@ angular.module('fixit').controller('EditProjectController',
 			// Triggered on a button click, or some other target
 			$scope.showAction = function(projectToUpdate) {
 				// Show the action sheet
-				var hideSheet = $ionicActionSheet.show({
+				$ionicActionSheet.show({
 					buttons: [
 						{ text: 'Update' },
 						{ text: 'Publish' }

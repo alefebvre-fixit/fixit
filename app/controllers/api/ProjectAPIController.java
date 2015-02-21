@@ -77,14 +77,24 @@ public class ProjectAPIController extends FixItController {
 		return ok(Json.toJson(projects));
 	}
 	
-	public static Result favorite(String projectId) {
-		Logger.debug("ProjectAPIController.favorite projectId ="
+	public static Result follow(String projectId) {
+		Logger.debug("ProjectAPIController.follow projectId ="
 				+ projectId);
 
-		getProjectService().favorite(getUserName(), projectId);
+		getProjectService().follow(getUserName(), projectId);
 		
 		return ok(Json.toJson(getProjectService().favorites(getUserName())));
 	}
+	
+	public static Result unfollow(String projectId) {
+		Logger.debug("ProjectAPIController.unfollow projectId ="
+				+ projectId);
+
+		getProjectService().unfollow(getUserName(), projectId);
+		
+		return ok(Json.toJson(getProjectService().favorites(getUserName())));
+	}
+	
 	
 	public static Result favorites(String username) {
 		Logger.debug("ProjectAPIController.favorites username ="

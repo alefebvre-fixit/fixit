@@ -2,11 +2,27 @@ package com.fixit.model;
 
 import java.util.Date;
 
+import org.mongojack.Id;
+import org.mongojack.ObjectId;
+
 public class Favorite {
 
 	private String projectId;
 	private String username;
 	private Date creationDate;
+	public String id;
+
+	@Id
+	@ObjectId
+	public String getId() {
+		return id;
+	}
+
+	@Id
+	@ObjectId
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getProjectId() {
 		return projectId;

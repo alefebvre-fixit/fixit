@@ -2,29 +2,43 @@
 angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '$window', '$cordovaToast', '$state',
 	function ($scope, $rootScope, $window,  $cordovaToast, $state) {
 	$scope.toastMe = function(message) {
-	    
-	    $cordovaToast.show(message, 'short', 'center').then(
-		    function(success) {
-			// success
-		    }, function(error) {
-			// error
-		    });
-	    
-	    if (window.cordova) {
-		    $cordovaToast.show('Youpi', 'short', 'center').then(
-			    function(success) {
-				// success
-			    }, function(error) {
-				// error
-			    });
-	    }
+
+		if ($rootScope.isToastEnabled){
+			$cordovaToast.show(message, 'short', 'center').then(
+				function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
+		} else {
+			console.log(message);
+		}
+
 	};
+
 
 	$scope.setUser = function(user){
 		$rootScope.user = user;
 		localStorage.setItem("username",user.username);
 	};
 
+	$scope.setFavorites = function(favorites){
+		$rootScope.favorites = favorites;
+	};
+
+	$scope.isFavorite = function(project){
+		return ($rootScope.favorites.indexOf(project.id) > 0);
+	};
+
+	$scope.isMine = function(project){
+		if (project.username){
+			return (project.username == $rootScope.user.username);
+		}
+		else if (project.contributor){
+			return (project.contributor == $rootScope.user.username);
+		}
+		return false;
+	};
 
 	$scope.getUsername = function(){
 	    return $rootScope.user.username;

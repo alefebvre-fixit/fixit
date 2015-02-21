@@ -87,15 +87,21 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 	}
 
 	@Override
-	public void favorite(String username, String projectId) {
+	public void follow(String username, String projectId) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Favorite> favorites(String username) {
+	public List<String> favorites(String username) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void unfollow(String username, String projectId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

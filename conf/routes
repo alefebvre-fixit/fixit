@@ -37,8 +37,6 @@ GET     /api/projects              			controllers.api.ProjectAPIController.proje
 GET     /api/projects/new          			controllers.api.ProjectAPIController.createNewProject()
 GET     /api/projects/:id          			controllers.api.ProjectAPIController.project(id: String)
 POST 	/api/projects			   			controllers.api.ProjectAPIController.save()
-GET     /api/user/:username/projects     	controllers.api.ProjectAPIController.projectByOwner(username: String)
-GET     /api/user/:username/favorites     	controllers.api.ProjectAPIController.favorites(username: String)
 POST    /api/projects/:id/delete   			controllers.api.ProjectAPIController.deleteProject(id: String)
 POST    /api/projects/:id/publish  			controllers.api.ProjectAPIController.publishProject(id: String)
 
@@ -47,23 +45,24 @@ POST    /api/projects/:id/publish  			controllers.api.ProjectAPIController.publi
 # API Cards
 GET    	/api/vote  														controllers.api.ProjectAPIController.voteSample()
 
+GET     /api/projects/:projectId/cards/:cardId          				controllers.api.ProjectAPIController.card(projectId: String, cardId: String)
+GET 	/api/projects/:projectId/contributions/:contributionId 			controllers.api.ProjectAPIController.contribution(projectId: String, contributionId: String)
+PUT    	/api/projects/:projectId/cards/:cardId  						controllers.api.ProjectAPIController.updateCard(projectId: String, cardId: String)
+
 POST    /api/projects/:projectId/cards/:cardId/provide  				controllers.api.ProjectAPIController.provide(projectId: String, cardId: String, quantity: Integer ?= 1)
 POST    /api/projects/:projectId/cards/:cardId/vote  					controllers.api.ProjectAPIController.vote(projectId: String, cardId: String)
-
-PUT    	/api/projects/:projectId/cards/:cardId  						controllers.api.ProjectAPIController.updateCard(projectId: String, cardId: String)
 POST    /api/projects/:projectId/cards/new/:type						controllers.api.ProjectAPIController.createCard(projectId: String, type: String)
 POST    /api/projects/:projectId/cards  								controllers.api.ProjectAPIController.addCard(projectId: String)
+POST 	/api/projects/:projectId/follow 								controllers.api.ProjectAPIController.follow(projectId: String)
+POST 	/api/projects/:projectId/unfollow 								controllers.api.ProjectAPIController.unfollow(projectId: String)
+
+POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers.api.ProjectAPIController.cancelContribution(projectId: String, contributionId: String)
 
 DELETE 	/api/projects/:projectId/cards/:cardId 							controllers.api.ProjectAPIController.deleteCard(projectId: String, cardId: String)
 
-GET     /api/projects/:projectId/cards/:cardId          				controllers.api.ProjectAPIController.card(projectId: String, cardId: String)
-GET 	/api/projects/:projectId/contributions/:contributionId 			controllers.api.ProjectAPIController.contribution(projectId: String, contributionId: String)
-POST 	/api/projects/:projectId/favorite 								controllers.api.ProjectAPIController.favorite(projectId: String)
-POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers.api.ProjectAPIController.cancelContribution(projectId: String, contributionId: String)
-
-
 # API Account
-
+GET     /api/users/:user/projects     		controllers.api.ProjectAPIController.projectByOwner(user: String)
+GET     /api/users/:user/favorites     		controllers.api.ProjectAPIController.favorites(user: String)
 GET     /api/users/:user/summary       	    controllers.api.AccountAPIController.userSummary(user: String)
 GET     /api/users/:user/followers       	controllers.api.AccountAPIController.followers(user: String)
 POST    /api/users/:user/follow       	    controllers.api.AccountAPIController.follow(user: String)
@@ -72,8 +71,8 @@ GET     /api/users/:user       	    		controllers.api.AccountAPIController.user(
 
 
 
-GET     /api/account     			controllers.api.AccountAPIController.account()
 GET     /api/account/summary     	controllers.api.AccountAPIController.accountSummary()
+GET     /api/account     			controllers.api.AccountAPIController.account()
 GET     /api/accounts     			controllers.api.AccountAPIController.accounts()
 POST    /api/signup     			controllers.api.AccountAPIController.signUp()
 POST    /api/signin     			controllers.api.AccountAPIController.signIn()

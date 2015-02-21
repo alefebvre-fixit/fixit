@@ -24,6 +24,7 @@ angular.module('fixit').run(
 
 				$rootScope.user = {};
 				$rootScope.baseUrl = localFixitURL;
+				$rootScope.isToastEnabled = false;
 
 				// Hide the accessory bar by default (remove
 				// this to show the accessory

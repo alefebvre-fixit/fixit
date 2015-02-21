@@ -116,7 +116,7 @@ public class MongoProjectService extends BaseProjectService implements
 	}
 
 	@Override
-	public void favorite(String username, String projectId) {
+	public void follow(String username, String projectId) {
 		Favorite favorite = new Favorite();
 		favorite.setCreationDate(new Date());
 		favorite.setUsername(username);
@@ -128,13 +128,29 @@ public class MongoProjectService extends BaseProjectService implements
 		}
 		
 	}
-
+	
 	@Override
-	public List<Favorite> favorites(String username) {
-		return getFavoritesCollection().find().is(USER_NAME, username).toArray();
+	public void unfollow(String username, String projectId) {
+		//TODO Find a better way
+		List<Favorite> favorites = getFavoritesCollection().find().is(USER_NAME, username).is(PROJECT_ID, projectId).toArray();
+		if (favorites != null){
+			for (Favorite favorite : favorites) {
+				getFavoritesCollection().removeById(favorite.getId());
+			}
+		}
 	}
 	
-	
-	
+	@Override
+	public List<String> favorites(String username) {
+		List<String> result = new ArrayList<String>();
+
+		List<Favorite> favorites = getFavoritesCollection().find().is(USER_NAME, username).toArray();
+		if (favorites != null){
+			for (Favorite favorite : favorites) {
+				result.add(favorite.getProjectId());
+			}
+		}
+		return result;	
+	}
 	
 }
