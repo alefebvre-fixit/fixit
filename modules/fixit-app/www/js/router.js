@@ -63,7 +63,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			url: "/projects/:projectId/cards/new/:type",
 			views: {
 				'menuContent': {
-					templateUrl: "templates/card-edit.html",
+					templateUrl: "templates/cards/card-edit-list.html",
 					controller: 'EditCardController',
 					resolve: {
 						project: function ($stateParams, ProjectService) {
@@ -84,7 +84,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			cache: false,
 			views: {
 				'menuContent': {
-					templateUrl: "templates/card-edit.html",
+					templateUrl: "templates/cards/card-edit-list.html",
 					controller: 'EditCardController',
 					resolve: {
 						project: function ($stateParams, ProjectService) {

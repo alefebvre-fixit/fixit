@@ -4,7 +4,7 @@
     </ion-nav-buttons>
     
     <ion-nav-buttons side="right">
-        <a class="button" ng-if="project.username == user.username " href="#/app/projects/{{project.id}}/edit">
+        <a class="button" ng-if="isMine(project)" href="#/app/projects/{{project.id}}/edit">
             Edit
         </a>
     </ion-nav-buttons>

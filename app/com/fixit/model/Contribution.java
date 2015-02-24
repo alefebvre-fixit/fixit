@@ -10,11 +10,14 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fixit.model.card.DateContribution;
 import com.fixit.model.card.ItemContribution;
+import com.fixit.model.card.ParticipantContribution;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
 		@Type(value = ItemContribution.class, name = ItemContribution.TYPE),
-		@Type(value = DateContribution.class, name = DateContribution.TYPE) })
+		@Type(value = DateContribution.class, name = DateContribution.TYPE),
+		@Type(value = ParticipantContribution.class, name = ParticipantContribution.TYPE)
+		})
 public abstract class Contribution {
 
 	public static final String STATUS_NEW = "New";

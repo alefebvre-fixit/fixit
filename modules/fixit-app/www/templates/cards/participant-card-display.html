@@ -1,0 +1,41 @@
+<div class="card" ng-controller="ItemCardController">
+
+    <a class="item item-divider item-calm" href="#/app/projects/{{project.id}}/cards/{{card.id}}">
+        <i class="icon ion-person-stalker"></i>
+        {{card.name}}
+    </a>
+
+    <div class="item item-text-wrap">
+        <div ng-show="card.minimum">
+        Required : {{card.minimumParticipant}}
+        <br>
+        </div>
+        Provided : {{card.participantNumber}}
+        <div ng-show="card.minimum">
+        
+        Remaining : {{card.minimumParticipant - card.participantNumber}}
+        </div>
+        <p>
+            <a href="#" class="subdued">{{card.contributionSize}} Contributions</a>
+        </p>
+    </div>
+
+    <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="#">
+
+        </a>
+        <a class="tab-item" href="#">
+
+        </a>
+        <a class="tab-item" ng-click="provide(project, card)">
+            <i class="icon ion-navigate"></i>
+      		Contribute
+        </a>
+    </div>
+
+</div>
+
+
+
+
+

@@ -10,10 +10,11 @@ import com.fixit.model.Contributable;
 import com.fixit.model.Contribution;
 import com.fixit.model.ContributionHolder;
 
-public class ParticipantCard extends Card implements Contributable<ParticipantContribution> {
+public class ParticipantCard extends Card implements
+		Contributable<ParticipantContribution> {
 
 	public static final String TYPE = "participant";
-	
+
 	public ParticipantCard() {
 		this.type = TYPE;
 	}
@@ -21,14 +22,18 @@ public class ParticipantCard extends Card implements Contributable<ParticipantCo
 	private final ContributionHolder<ParticipantContribution> contributions = new ContributionHolder<ParticipantContribution>();
 
 	private String name;
-	
-	private boolean required = false;
-	private int requirement = 0;
-	
-	private boolean limited = false;
-	private int limit = 0;
-	
-	private int provided;
+
+	private boolean isMinimum = false;
+	private int minimumParticipant = 0;
+
+	private boolean isMaximum = false;
+	private int maximumParticipant = 0;
+
+	private boolean plusAllowed = true;
+	private boolean isPlusMaximum = false;
+	private int plusMaximumParticipant = 4;
+
+	private int participantNumber = 0;
 
 	public String getName() {
 		return name;
@@ -38,57 +43,87 @@ public class ParticipantCard extends Card implements Contributable<ParticipantCo
 		this.name = name;
 	}
 
-	public int getProvided() {
-		return provided;
+	public boolean isMinimum() {
+		return isMinimum;
 	}
 
-	public void setProvided(int provided) {
-		this.provided = provided;
+	public void setMinimum(boolean isMinimum) {
+		this.isMinimum = isMinimum;
 	}
 
-	public boolean isRequired() {
-		return required;
+	public int getMinimumParticipant() {
+		return minimumParticipant;
 	}
 
-	public void setRequired(boolean required) {
-		this.required = required;
+	public void setMinimumParticipant(int minimumParticipant) {
+		this.minimumParticipant = minimumParticipant;
 	}
 
-	public int getRequirement() {
-		return requirement;
+	public boolean isMaximum() {
+		return isMaximum;
 	}
 
-	public void setRequirement(int requirement) {
-		this.requirement = requirement;
+	public void setMaximum(boolean isMaximum) {
+		this.isMaximum = isMaximum;
 	}
 
-	public boolean isLimited() {
-		return limited;
+	public int getMaximumParticipant() {
+		return maximumParticipant;
 	}
 
-	public void setLimited(boolean limited) {
-		this.limited = limited;
+	public void setMaximumParticipant(int maximumParticipant) {
+		this.maximumParticipant = maximumParticipant;
 	}
 
-	public int getLimit() {
-		return limit;
+	public boolean isPlusAllowed() {
+		return plusAllowed;
 	}
 
-	public void setLimit(int limit) {
-		this.limit = limit;
+	public void setPlusAllowed(boolean plusAllowed) {
+		this.plusAllowed = plusAllowed;
+	}
+
+	public boolean isPlusMaximum() {
+		return isPlusMaximum;
+	}
+
+	public void setPlusMaximum(boolean isPlusMaximum) {
+		this.isPlusMaximum = isPlusMaximum;
+	}
+
+	public int getPlusMaximumParticipant() {
+		return plusMaximumParticipant;
+	}
+
+	public void setPlusMaximumParticipant(int plusMaximumParticipant) {
+		this.plusMaximumParticipant = plusMaximumParticipant;
+	}
+
+	public int getParticipantNumber() {
+		return participantNumber;
+	}
+
+	public void setParticipantNumber(int participantNumber) {
+		this.participantNumber = participantNumber;
 	}
 
 	@JsonIgnore
 	public int getRemaining() {
-		if (limit >= provided) {
-			return limit - provided;
+
+		if (isMinimum) {
+			return 0;
+		}
+
+		if (minimumParticipant >= participantNumber) {
+			return minimumParticipant - participantNumber;
 		} else {
 			return 0;
 		}
+
 	}
 
 	@JsonIgnore
-	public int calculateProvided() {
+	public int calculateParticipantNumber() {
 		int result = 0;
 
 		List<ParticipantContribution> validContributions = contributions
@@ -99,7 +134,7 @@ public class ParticipantCard extends Card implements Contributable<ParticipantCo
 		return result;
 	}
 
-	public void provide(String username, int quantity) {
+	public void participate(String username, int quantity) {
 		int remaining = getRemaining();
 		if (remaining > 0) {
 			ParticipantContribution contribution = new ParticipantContribution();
@@ -112,16 +147,16 @@ public class ParticipantCard extends Card implements Contributable<ParticipantCo
 				contribution.setParticipantNumber(remaining);
 			}
 			contributions.add(contribution);
-			provided = calculateProvided();
+			participantNumber = calculateParticipantNumber();
 		}
 	}
-	
+
 	@Override
 	public boolean cancel(String contributionId) {
 		Contribution contribution = getContribution(contributionId);
-		if (contribution != null){
+		if (contribution != null) {
 			contribution.setStatus(Contribution.STATUS_CANCELED);
-			provided = calculateProvided();
+			participantNumber = calculateParticipantNumber();
 			return true;
 		}
 		return false;

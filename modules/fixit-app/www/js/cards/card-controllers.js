@@ -52,7 +52,6 @@ angular.module('fixit').controller('ItemCardController', ['ProjectService', '$sc
         };
 
         $scope.cancelContribution = function(project, contribution) {
-            console.log("Cancel a contribution");
             ProjectService.cancelContribution(project, contribution).then(function (data) {
                 $scope.setProject(data);
                 $scope.toastMe('Contribution canceled.');
@@ -90,7 +89,6 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
         $scope.card = card;
 
         $scope.addCard = function(projectId, card) {
-            console.log("Add a card to project " + projectId);
             ProjectService.addCard(projectId, card).then(function () {
                 $state.go('app.project-edit', {projectId: project.id});
             });
@@ -104,7 +102,6 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
             });
             confirmPopup.then(function(res) {
                 if(res) {
-                    console.log("Delete a card from project " + projectId);
                     ProjectService.deleteCard(projectId, card).then(function () {
                         $state.go('app.project-edit', {projectId: project.id});
                     });
@@ -142,9 +139,6 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
 angular.module('fixit').controller('EditDateCardController',
     ['ProjectService', '$scope', '$cordovaDatePicker',
         function (ProjectService, $scope, $cordovaDatePicker) {
-
-            console.log("EditDateCardController");
-
 
             $scope.addDateProposal = function() {
 
@@ -194,7 +188,7 @@ angular.module('fixit').controller('DateCardController',
                         var subArrayLength = Object.keys(card.proposals[i].contributions).length;
                         for (var j = 0; j < subArrayLength; j++) {
                             var contribution = card.proposals[i].contributions[j];
-                            if (contribution.status != 'Canceled' && $scope.getUsername() == contribution.contributor){
+                            if (contribution.status != 'Canceled' && $scope.isMine(contribution)){
                                 return false;
                             }
                         }
@@ -204,7 +198,6 @@ angular.module('fixit').controller('DateCardController',
             };
 
             $scope.cancelContribution = function(project, contribution) {
-                console.log("Cancel a contribution");
                 ProjectService.cancelContribution(project, contribution).then(function (data) {
                     $scope.setProject(data);
                 });
@@ -218,9 +211,7 @@ angular.module('fixit').controller('DateCardController',
                         $scope.votes.push(card.proposals[i].id);
                     }
                 }
-                console.log($scope.votes);
 
-                console.log("Vote an item projectId=" + project.id + " cardId=" + card.id);
                 ProjectService.vote(project, card, $scope.votes).then(function (data) {
                     $scope.setProject(data);
                     $scope.toastMe(card.name + ' voted.');
@@ -229,6 +220,15 @@ angular.module('fixit').controller('DateCardController',
 
             };
 
+
+        }
+    ]);
+
+
+
+angular.module('fixit').controller('EditParticipantCardController',
+    ['ProjectService', '$scope',
+        function (ProjectService, $scope) {
 
         }
     ]);

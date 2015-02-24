@@ -7,7 +7,7 @@ angular.module('fixit').controller('MyProjectController',
 			$scope.projects = projects;
 
 			$scope.doRefresh = function() {
-				ProjectService.getProjectsByOwner(getUsername()).then(function (projects) {
+				ProjectService.getProjectsByOwner($scope.getUsername()).then(function (projects) {
 					$scope.projects = projects;
 				});
 				$scope.$broadcast('scroll.refreshComplete');

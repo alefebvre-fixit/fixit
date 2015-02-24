@@ -12,7 +12,7 @@
 	    </p>
 	</div>
 	<div class="item tabs tabs-secondary tabs-icon-left">
-    <div ng-show="project.username!=user.username">
+    <div ng-show="!isMine(project)">
         <a class="tab-item" ng-click="follow(project)" ng-show="!isFavorite(project)">
             <i class="icon ion-star"></i>
             Follow
@@ -22,7 +22,7 @@
             Following
         </a>
     </div>
-        <div ng-show="project.username==user.username">
+        <div ng-show="isMine(project)">
             <a class="tab-item">
                 <i class="icon ion-star calm"></i>
             </a>

@@ -4,7 +4,7 @@ import com.fixit.model.Contribution;
 
 public class ParticipantContribution extends Contribution {
 	
-	public static final String TYPE = "item";
+	public static final String TYPE = "participant";
 
 	public ParticipantContribution() {
 		this.type = TYPE;
