@@ -38,7 +38,6 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 		return InMemoryPersistence.getProject(id);
 	}
 
-	@Override
 	public List<Project> loadByOwner(String username) {
 		Logger.debug("loadByOwner(String owner) owner=" + username);
 		List<Project> result = new ArrayList<>();
@@ -74,13 +73,13 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 	}
 
 	@Override
-	public List<Project> loadByOwner(String username, int offset, int length) {
+	public List<Project> getUserProjects(String username, int offset, int length) {
 		// TODO Auto-generated method stub
 		return loadByOwner(username);
 	}
 
 	@Override
-	public List<Contribution> loadContributions(String username, int offset,
+	public List<Contribution> getUserContributions(String username, int offset,
 			int length) {
 		// TODO Auto-generated method stub
 		return new ArrayList<Contribution>();
@@ -102,6 +101,43 @@ public class TestProjectService extends BaseProjectService implements ProjectSer
 	public void unfollow(String username, String projectId) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Contribution> getProjectContributions(String username,
+			String projectId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Contribution getContribution(String contributionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Contribution saveContribution(Contribution contribution) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteContribution(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Contribution> getProjectContributions(String projectId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Contribution> getCardContributions(String cardId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,29 +1,31 @@
 package com.fixit.model.card;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import play.Logger;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.Card;
-import com.fixit.model.Contributable;
 import com.fixit.model.Contribution;
-import com.fixit.model.ContributionHolder;
 
-public class ItemCard extends Card implements Contributable<ItemContribution> {
+public class ItemCard extends Card<ItemContribution> {
 
 	public static final String TYPE = "item";
-	
+
 	public ItemCard() {
 		this.type = TYPE;
 	}
 
-	private final ContributionHolder<ItemContribution> contributions = new ContributionHolder<ItemContribution>();
-
 	private String name;
-	private boolean limited = false;
-	private int required = 1;
-	private int provided;
+
+	private boolean isMinimum = false;
+	private int minimumItem = 0;
+
+	private boolean isMaximum = false;
+	private int maximumItem = 0;
+
+	private int items = 0;
 
 	public String getName() {
 		return name;
@@ -33,104 +35,121 @@ public class ItemCard extends Card implements Contributable<ItemContribution> {
 		this.name = name;
 	}
 
-	public int getRequired() {
-		return required;
+	public boolean isMinimum() {
+		return isMinimum;
 	}
 
-	public void setRequired(int required) {
-		this.required = required;
+	public void setMinimum(boolean isMinimum) {
+		this.isMinimum = isMinimum;
 	}
 
-	public int getProvided() {
-		return provided;
+	public int getMinimumItem() {
+		return minimumItem;
 	}
 
-	public void setProvided(int provided) {
-		this.provided = provided;
+	public void setMinimumItem(int minimumItem) {
+		this.minimumItem = minimumItem;
 	}
 
-	public boolean isLimited() {
-		return limited;
+	public boolean isMaximum() {
+		return isMaximum;
 	}
 
-	public void setLimited(boolean limited) {
-		this.limited = limited;
+	public void setMaximum(boolean isMaximum) {
+		this.isMaximum = isMaximum;
+	}
+
+	public int getMaximumItem() {
+		return maximumItem;
+	}
+
+	public void setMaximumItem(int maximumItem) {
+		this.maximumItem = maximumItem;
+	}
+
+	public int getItems() {
+		return items;
+	}
+
+	public void setItems(int items) {
+		this.items = items;
 	}
 
 	@JsonIgnore
 	public int getRemaining() {
-		if (required >= provided) {
-			return required - provided;
+
+		if (!isMaximum) {
+			return -1;
+		}
+
+		if (maximumItem >= items) {
+			return maximumItem - items;
 		} else {
 			return 0;
 		}
+
 	}
 
 	@JsonIgnore
-	public int calculateProvided() {
+	public int getRequired() {
+
+		if (!isMinimum) {
+			return -1;
+		}
+
+		if (minimumItem >= items) {
+			return minimumItem - items;
+		} else {
+			return 0;
+		}
+
+	}
+
+	@JsonIgnore
+	public int calculateItemNumber(List<ItemContribution> contributions) {
 		int result = 0;
 
-		List<ItemContribution> validContributions = contributions
-				.getValidContributions();
-		for (ItemContribution contribution : validContributions) {
+		for (ItemContribution contribution : contributions) {
 			result += contribution.getQuantityProvided();
 		}
 		return result;
 	}
 
-	public void provide(String username, int quantity) {
-		int remaining = getRemaining();
-		if (remaining > 0) {
-			ItemContribution contribution = new ItemContribution();
-			contribution.setDate(new Date());
-
-			contribution.setContributor(username);
-			if (quantity <= remaining) {
-				contribution.setQuantityProvided(quantity);
-			} else {
-				contribution.setQuantityProvided(remaining);
-			}
-			contributions.add(contribution);
-			provided = calculateProvided();
-		}
-	}
-	
 	@Override
-	public boolean cancel(String contributionId) {
-		Contribution contribution = getContribution(contributionId);
-		if (contribution != null){
-			contribution.setStatus(Contribution.STATUS_CANCELED);
-			provided = calculateProvided();
+	public boolean cancel(ItemContribution contribution) {
+
+		contribution.setStatus(Contribution.STATUS_CANCELED);
+		items -= contribution.getQuantityProvided();
+		decrementContributions();
+
+		return true;
+	}
+
+	private boolean contribute(ItemContribution contribution) {
+		Logger.debug("contribute + isMaximum()" + isMaximum()  
+				+ " getRemaining()=" + getRemaining() + "getQuantityProvided()" + contribution.getQuantityProvided());
+		
+		if (!isMaximum() || getRemaining() >= contribution.getQuantityProvided()){
+			items += contribution.getQuantityProvided();
+			incrementContributions();
 			return true;
-		}
+		} 
+
 		return false;
 	}
 
-	@Override
-	public List<ItemContribution> getContributions() {
-		return contributions.getContributions();
-	}
+	public ItemContribution provide(String username, int items) {
+		ItemContribution contribution = new ItemContribution();
 
-	@Override
-	public int getContributionSize() {
-		return contributions.getValidContributions().size();
-	}
+		contribution.setDate(new Date());
+		contribution.setContributor(username);
+		contribution.setQuantityProvided(items);
 
-	@Override
-	public void setContributions(List<ItemContribution> contributions) {
-		this.contributions.setContributions(contributions);
-	}
-
-	@Override
-	public Contribution getContribution(String contributionId) {
-		return contributions.getContribution(contributionId);
-	}
-
-	@Override
-	public List<Contributable<? extends Contribution>> getContributables() {
-		List<Contributable<? extends Contribution>> result = new ArrayList<Contributable<? extends Contribution>>();
-		result.add(this);
-		return result;
+		if (contribute(contribution)) {
+			return contribution;
+		} else {
+			return null;
+		}
 	}
 
 }

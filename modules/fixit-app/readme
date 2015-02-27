@@ -63,3 +63,6 @@ export SBT_OPTS="-Xms1024M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:Ma
 
 export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk
 
+
+
+./activator -jvm-debug 4444 ~run

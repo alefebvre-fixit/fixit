@@ -1,7 +1,7 @@
 package com.fixit.model;
 
-public interface Votable {
+public interface Votable<C extends Contribution> {
 	
-	public void submit(Vote vote);
+	public C submit(Vote vote);
 
 }

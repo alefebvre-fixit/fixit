@@ -99,18 +99,18 @@ public class Project {
 		this.version = version;
 	}
 
-	public List<Card> cards = new ArrayList<Card>();
+	public List<Card<? extends Contribution>> cards = new ArrayList<Card<? extends Contribution>>();
 
-	public List<Card> getCards() {
+	public List<Card<? extends Contribution>> getCards() {
 		return cards;
 	}
 
-	public void setCards(List<Card> cards) {
+	public void setCards(List<Card<? extends Contribution>> cards) {
 		this.cards = cards;
 	}
 
-	public Card getCard(String cardId) {
-		for (Card card : cards) {
+	public Card<? extends Contribution> getCard(String cardId) {
+		for (Card<? extends Contribution> card : cards) {
 			if (cardId.equals(card.getId())) {
 				return card;
 			}
@@ -129,7 +129,7 @@ public class Project {
 		return false;
 	}
 
-	public boolean addCard(Card card) {
+	public boolean addCard(Card<? extends Contribution> card) {
 		// TODO Change this implementation
 		if (card.getId() != null) {
 			for (int i = 0; i < cards.size(); i++) {
@@ -145,27 +145,18 @@ public class Project {
 		return true;
 	}
 
-	public Contribution getContribution(String contributionId) {
-		for (Card card : cards) {
-			Contribution contribution = card.getContribution(contributionId);
-			if (contribution != null) {
-				return contribution;
-			}
-		}
-		return null;
-	}
-
-	public int getContributionSize() {
+	public int getContributions() {
 		int result = 0;
-		for (Card card : cards) {
-			result += card.getContributionSize();
+		for (Card<? extends Contribution> card : cards) {
+			result += card.getContributions();
 		}
 		return result;
 	}
 
-	public boolean cancelContribution(String contributionId) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public boolean cancelContribution(Contribution contribution) {
 		for (Card card : cards) {
-			if (card.cancel(contributionId)){
+			if (card.cancel(contribution)){
 				return true;
 			}
 		}

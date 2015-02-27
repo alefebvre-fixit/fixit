@@ -6,17 +6,16 @@
     </a>
 
     <div class="item item-text-wrap">
-        <div ng-show="card.limited">
-        Required : {{card.required}}
+        <div ng-show="card.minimum">
+        Required : {{card.minimumItem}}
         <br>
         </div>
-        Provided : {{card.provided}}
-        <div ng-show="card.limited">
-        
-        Remaining : {{card.required - card.provided}}
+        Provided : {{card.items}}
+        <div ng-show="card.maximum">
+            Remaining : {{card.maximumItem - card.items}}
         </div>
         <p>
-            <a href="#" class="subdued">{{card.contributionSize}} Contributions</a>
+            <a href="#" class="subdued">{{card.contributions}} Contributions</a>
         </p>
     </div>
 

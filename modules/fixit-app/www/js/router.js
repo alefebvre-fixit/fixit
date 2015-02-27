@@ -112,6 +112,10 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 						card: function($stateParams, ProjectService){
 							console.log('resolve single card');
 							return ProjectService.getCard($stateParams.projectId, $stateParams.cardId);
+						},
+						contributions: function($stateParams, CardService){
+							console.log('resolve contributions');
+							return CardService.getContributions($stateParams.projectId, $stateParams.cardId);
 						}
 					}
 				}

@@ -1,16 +1,10 @@
 package com.fixit.model.card;
 
 import java.util.Date;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fixit.model.Contributable;
 import com.fixit.model.Contribution;
-import com.fixit.model.ContributionHolder;
 
-public class DateProposal implements Contributable<DateContribution> {
-
-	private final ContributionHolder<DateContribution> contributions = new ContributionHolder<DateContribution>();
+public class DateProposal {
 
 	private String id;
 	private Date date;
@@ -40,44 +34,14 @@ public class DateProposal implements Contributable<DateContribution> {
 		this.votes = votes;
 	}
 
-	@JsonIgnore
-	public int calculateVotes() {
-		return contributions.getValidContributions().size();
+	public void vote() {
+		this.votes += 1;
 	}
 
-	public void vote(String username) {
-		DateContribution contribution = contributions
-				.getContributionByOwner(username);
-		if (contribution != null) {
-			contribution.validate();
-		} else {
-			contribution = new DateContribution();
-			contribution.setContributor(username);
-			contribution.setDate(new Date());
-			contributions.add(contribution);
-		}
-		votes = calculateVotes();
-	}
-
-	public Contribution getContribution(String contributionId) {
-		return contributions.getContribution(contributionId);
-	}
-
-	@Override
-	public List<DateContribution> getContributions() {
-		return contributions.getContributions();
-	}
-
-	@Override
-	public void setContributions(List<DateContribution> contributions) {
-		this.contributions.setContributions(contributions);
-	}
-	
-	public boolean cancel(String contributionId) {
-		Contribution contribution = getContribution(contributionId);
-		if (contribution != null) {
+	public boolean cancel(DateContribution contribution) {
+		if (contribution != null && contribution.getVotes().equals(getId())) {
 			contribution.setStatus(Contribution.STATUS_CANCELED);
-			this.votes = calculateVotes();
+			this.votes -= 1;
 			return true;
 		}
 		return false;

@@ -120,10 +120,10 @@ public class AccountAPIController extends FixItController {
 		UserSummary result = new UserSummary();
 		result.setUser(getUserService().load(username));
 		
-		result.setLastProjects(getProjectService().loadByOwner(username, 0, 5));
+		result.setLastProjects(getProjectService().getUserProjects(username, 0, 5));
 		result.setProjectNumber(getProjectService().countProjectsByOwner(username));
 		
-		result.setLastContribution(getProjectService().loadContributions(username, 0, 5));
+		result.setLastContribution(getProjectService().getUserContributions(username, 0, 5));
 		result.setContributionNumber(getProjectService().countContributionsByOwner(username));
 		
 		return ok(play.libs.Json.toJson(result));

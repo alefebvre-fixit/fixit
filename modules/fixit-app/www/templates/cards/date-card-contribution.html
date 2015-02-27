@@ -6,7 +6,8 @@
         <ion-item ng-repeat="contribution in card | MyContributions:user" 
                   item="contribution"
                   class="item item-avatar item-remove-animate">
-                 	<img ng-src="img/{{contribution.contributor}}.jpg">
+					<img ng-src="img/{{contribution.contributor}}.jpg" ng-click="goToUser(contribution.contributor)">
+
 					<h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
 					<p>has voted {{contribution.proposalDate | date:'short'}}</p>
           <ion-option-button class="button-assertive"
@@ -21,7 +22,7 @@
 	<div ng-repeat="contribution in card | OtherContributions:user">
 			<div ng-if="contribution.contributor != user.username ">
 				<div class="item item-avatar">
-					<img ng-src="img/{{contribution.contributor}}.jpg">
+					<img ng-src="img/{{contribution.contributor}}.jpg" ng-click="goToUser(contribution.contributor)">
 					<h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
 					<p>has voted {{contribution.proposalDate | date:'short'}}</p>
 				</div>

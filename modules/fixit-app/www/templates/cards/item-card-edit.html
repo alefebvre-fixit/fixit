@@ -9,19 +9,31 @@
     </label>
 
     <li class="item item-toggle">
-        <div ng-show="card.limited">Limited</div>
-        <div ng-show="!card.limited">Unlimited</div>
+        <div ng-show="card.minimum">Minimum required</div>
+        <div ng-show="!card.minimum">No minimum required</div>
         <label class="toggle toggle-assertive">
-            <input type="checkbox" ng-model="card.limited">
+            <input type="checkbox" ng-model="card.minimum">
             <div class="track">
                 <div class="handle"></div>
             </div>
         </label>
     </li>
+    <label class="item item-input" ng-show="card.minimum">
+        <input type="number" placeholder="Minimum quantity" ng-model="card.minimumItem">
+    </label>
 
-    <label class="item item-input" ng-show="card.limited">
-        <span class="input-label">Quantity</span>
-        <input type="number" placeholder="Required Quantity" ng-model="card.required">
+    <li class="item item-toggle">
+        <div ng-show="card.maximum">Maximum allowed</div>
+        <div ng-show="!card.maximum">No maximum</div>
+        <label class="toggle toggle-assertive">
+            <input type="checkbox" ng-model="card.maximum">
+            <div class="track">
+                <div class="handle"></div>
+            </div>
+        </label>
+    </li>
+    <label class="item item-input" ng-show="card.maximum">
+        <input type="number" placeholder="Maximum allowed" ng-model="card.maximumItem">
     </label>
 
 

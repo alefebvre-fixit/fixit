@@ -2,9 +2,13 @@ package com.fixit.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import org.mongojack.Id;
+import org.mongojack.ObjectId;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -18,6 +22,8 @@ import com.fixit.model.card.ParticipantContribution;
 		@Type(value = DateContribution.class, name = DateContribution.TYPE),
 		@Type(value = ParticipantContribution.class, name = ParticipantContribution.TYPE)
 		})
+@Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Contribution {
 
 	public static final String STATUS_NEW = "New";
@@ -28,17 +34,17 @@ public abstract class Contribution {
 
 	private String contributor;
 	private Date date;
-	private String id;
-
+	public String id;
+	
 	public Contribution() {
 	}
 
-	@Id
+	@ObjectId
 	public String getId() {
 		return id;
 	}
 
-	@Id
+	@ObjectId
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -76,5 +82,29 @@ public abstract class Contribution {
 	public void validate() {
 		status = STATUS_NEW;
 	}
+	
+	private String projectId;
+	private String cardId;
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+
+	public String getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+	
+	
+	
+	
+	
 
 }

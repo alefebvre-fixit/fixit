@@ -1,25 +1,19 @@
 package com.fixit.model.card;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.Card;
-import com.fixit.model.Contributable;
 import com.fixit.model.Contribution;
-import com.fixit.model.ContributionHolder;
 
-public class ParticipantCard extends Card implements
-		Contributable<ParticipantContribution> {
+public class ParticipantCard extends Card<ParticipantContribution> {
 
 	public static final String TYPE = "participant";
 
 	public ParticipantCard() {
 		this.type = TYPE;
 	}
-
-	private final ContributionHolder<ParticipantContribution> contributions = new ContributionHolder<ParticipantContribution>();
 
 	private String name;
 
@@ -33,7 +27,7 @@ public class ParticipantCard extends Card implements
 	private boolean isPlusMaximum = false;
 	private int plusMaximumParticipant = 4;
 
-	private int participantNumber = 0;
+	private int participants = 0;
 
 	public String getName() {
 		return name;
@@ -99,23 +93,23 @@ public class ParticipantCard extends Card implements
 		this.plusMaximumParticipant = plusMaximumParticipant;
 	}
 
-	public int getParticipantNumber() {
-		return participantNumber;
+	public int getParticipants() {
+		return participants;
 	}
 
-	public void setParticipantNumber(int participantNumber) {
-		this.participantNumber = participantNumber;
+	public void setParticipants(int participants) {
+		this.participants = participants;
 	}
 
 	@JsonIgnore
 	public int getRemaining() {
 
-		if (isMinimum) {
-			return 0;
+		if (isMaximum) {
+			return -1;
 		}
 
-		if (minimumParticipant >= participantNumber) {
-			return minimumParticipant - participantNumber;
+		if (maximumParticipant >= participants) {
+			return maximumParticipant - participants;
 		} else {
 			return 0;
 		}
@@ -123,70 +117,65 @@ public class ParticipantCard extends Card implements
 	}
 
 	@JsonIgnore
-	public int calculateParticipantNumber() {
+	public int getRequired() {
+
+		if (isMinimum) {
+			return -1;
+		}
+
+		if (minimumParticipant >= participants) {
+			return minimumParticipant - participants;
+		} else {
+			return 0;
+		}
+
+	}
+
+	@JsonIgnore
+	public int calculateParticipantNumber(
+			List<ParticipantContribution> contributions) {
 		int result = 0;
 
-		List<ParticipantContribution> validContributions = contributions
-				.getValidContributions();
-		for (ParticipantContribution contribution : validContributions) {
-			result += contribution.getParticipantNumber();
+		for (ParticipantContribution contribution : contributions) {
+			result += contribution.getParticipants();
 		}
 		return result;
 	}
 
-	public void participate(String username, int quantity) {
-		int remaining = getRemaining();
-		if (remaining > 0) {
-			ParticipantContribution contribution = new ParticipantContribution();
-			contribution.setDate(new Date());
+	@Override
+	public boolean cancel(ParticipantContribution contribution) {
 
-			contribution.setContributor(username);
-			if (quantity <= remaining) {
-				contribution.setParticipantNumber(quantity);
-			} else {
-				contribution.setParticipantNumber(remaining);
-			}
-			contributions.add(contribution);
-			participantNumber = calculateParticipantNumber();
-		}
+		contribution.setStatus(Contribution.STATUS_CANCELED);
+		participants -= contribution.getParticipants();
+		decrementContributions();
+
+		return true;
 	}
 
-	@Override
-	public boolean cancel(String contributionId) {
-		Contribution contribution = getContribution(contributionId);
-		if (contribution != null) {
-			contribution.setStatus(Contribution.STATUS_CANCELED);
-			participantNumber = calculateParticipantNumber();
+	private boolean contribute(ParticipantContribution contribution) {
+
+		if (isMaximum() && (getRemaining() >= contribution.getParticipants())) {
+			participants += contribution.getParticipants();
+			incrementContributions();
 			return true;
 		}
+
 		return false;
 	}
 
-	@Override
-	public List<ParticipantContribution> getContributions() {
-		return contributions.getContributions();
-	}
+	public ParticipantContribution participate(String username, int participants) {
+		ParticipantContribution contribution = new ParticipantContribution();
 
-	@Override
-	public int getContributionSize() {
-		return contributions.getValidContributions().size();
-	}
+		contribution = new ParticipantContribution();
+		contribution.setDate(new Date());
+		contribution.setContributor(username);
+		contribution.setParticipants(participants);
 
-	@Override
-	public void setContributions(List<ParticipantContribution> contributions) {
-		this.contributions.setContributions(contributions);
-	}
-
-	@Override
-	public Contribution getContribution(String contributionId) {
-		return contributions.getContribution(contributionId);
-	}
-
-	@Override
-	public List<Contributable<? extends Contribution>> getContributables() {
-		List<Contributable<? extends Contribution>> result = new ArrayList<Contributable<? extends Contribution>>();
-		result.add(this);
-		return result;
+		if (contribute(contribution)) {
+			return contribution;
+		} else {
+			return null;
+		}
 	}
 
 }

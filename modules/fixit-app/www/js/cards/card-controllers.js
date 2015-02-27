@@ -10,11 +10,12 @@ angular.module('fixit').controller('CardSelectorController',
 
 
 angular.module('fixit').controller('CardController',
-    ['$scope', 'card', 'project', '$filter',
-        function ($scope, card, project, $filter) {
+    ['$scope', 'project', 'card', 'contributions', '$filter', 'CardService',
+        function ($scope, project, card, contributions, $filter, CardService) {
 
             $scope.card = card;
             $scope.project = project;
+            $scope.contributions = contributions;
 
             $scope.setProject =function(newProject){
                 $scope.project = newProject;
@@ -24,6 +25,9 @@ angular.module('fixit').controller('CardController',
                         $scope.card = cards[index];
                     }
                 }
+                CardService.getContributions(project.id, card.id).then(function (data) {
+                    $scope.contributions = data;
+                });
             };
 
 

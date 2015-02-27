@@ -1,8 +1,5 @@
 package com.fixit.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mongojack.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,16 +13,17 @@ import com.fixit.model.card.ParticipantCard;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ 
-	@Type(value = DateCard.class, name = DateCard.TYPE),
-	@Type(value = ItemCard.class, name = ItemCard.TYPE),
-	@Type(value = ParticipantCard.class, name = ParticipantCard.TYPE) 
-})
+		@Type(value = DateCard.class, name = DateCard.TYPE),
+		@Type(value = ItemCard.class, name = ItemCard.TYPE),
+		@Type(value = ParticipantCard.class, name = ParticipantCard.TYPE) 
+		})
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class Card {
+public abstract class Card<C extends Contribution> {
 
 	public String type = "default";
 
-	public String id;
+	private String id;
+	private int contributions;
 
 	@Id
 	public String getId() {
@@ -37,51 +35,27 @@ public abstract class Card {
 		this.id = id;
 	}
 
-	public List<CardEvent> events = new ArrayList<CardEvent>();
+	@JsonIgnore
+	public abstract boolean cancel(C contribution);
 
-	public List<CardEvent> getEvents() {
-		return events;
+	public int getContributions() {
+		return contributions;
 	}
 
-	public void setEvents(List<CardEvent> events) {
-		this.events = events;
+	public void setContributions(int contributions) {
+		this.contributions = contributions;
 	}
 
-	/*
-	 * public List<C> contributions = new ArrayList<C>(); public List<C>
-	 * getContributions() { return contributions; }
-	 * 
-	 * @JsonIgnore public List<C> getValidContributions() { List<C> result = new
-	 * ArrayList<C>();
-	 * 
-	 * for (C contribution : contributions) { if (contribution.isValid()) {
-	 * result.add(contribution); } }
-	 * 
-	 * return result; }
-	 * 
-	 * public int getContributionSize() { List<C> validContributions =
-	 * getValidContributions(); return validContributions.size(); }
-	 * 
-	 * public void setContributions(List<C> contributions) { this.contributions
-	 * = contributions; }
-	 * 
-	 * public Contribution getContribution(String contributionId) { for
-	 * (Contribution contribution : contributions) { if
-	 * (contribution.getId().equals(contributionId)) { return contribution; } }
-	 * return null; }
-	 * 
-	 * public abstract boolean cancel(Contribution contribution);
-	 */
-	
-	public abstract int getContributionSize();
+	@JsonIgnore
+	public void incrementContributions(){
+		this.contributions += 1;
+	}
 	
 	@JsonIgnore
-	public abstract Contribution getContribution(String contributionId);
-	
-	@JsonIgnore
-	public abstract boolean cancel(String contributionId);
+	public void decrementContributions(){
+		if (contributions >= 0){
+			this.contributions -= 1;
+		}
+	}
 
-	@JsonIgnore
-	public abstract List<Contributable<? extends Contribution>> getContributables();
-	
 }

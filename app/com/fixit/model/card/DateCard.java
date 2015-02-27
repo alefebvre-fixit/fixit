@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.Card;
-import com.fixit.model.Contributable;
-import com.fixit.model.Contribution;
 import com.fixit.model.Votable;
 import com.fixit.model.Vote;
 
-public class DateCard extends Card implements Votable{
+public class DateCard extends Card<DateContribution> implements
+		Votable<DateContribution> {
 
 	public static final String TYPE = "date";
 
@@ -24,7 +22,7 @@ public class DateCard extends Card implements Votable{
 	private Date date;
 	private int votes = 0;
 	private List<DateProposal> proposals = new ArrayList<DateProposal>();
-	
+
 	public String getName() {
 		return name;
 	}
@@ -64,53 +62,8 @@ public class DateCard extends Card implements Votable{
 		return null;
 	}
 
-
-	@JsonIgnore
-	public int calculateVotes() {
-		int result = 0;
-		for (DateProposal proposal : proposals) {
-			result += proposal.calculateVotes();
-		}
-		return result;
-	}
-
 	public int getVotes() {
 		return votes;
-	}
-
-	@Override
-	public int getContributionSize() {
-		return getVotes();
-	}
-
-	@Override
-	public Contribution getContribution(String contributionId) {
-		for (DateProposal proposal : proposals) {
-			Contribution contribution = proposal
-					.getContribution(contributionId);
-			if (contribution != null) {
-				return contribution;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public boolean cancel(String contributionId) {
-		for (DateProposal proposal : proposals) {
-			if (proposal.cancel(contributionId)){
-				this.votes = calculateVotes();
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public List<Contributable<? extends Contribution>> getContributables() {
-		List<Contributable<? extends Contribution>> result = new ArrayList<Contributable<? extends Contribution>>();
-		result.addAll(proposals);
-		return result;
 	}
 
 	public boolean isOpen() {
@@ -120,17 +73,48 @@ public class DateCard extends Card implements Votable{
 	public void setOpen(boolean open) {
 		this.open = open;
 	}
-	
+
 	@Override
-	public void submit(Vote vote){
+	public DateContribution submit(Vote vote) {
+
 		List<String> proposalIds = vote.getProposals();
+
+		DateContribution contribution = new DateContribution();
+		contribution.setCardId(getId());
+		contribution.setContributor(vote.getUsername());
+
 		for (String proposalId : proposalIds) {
 			DateProposal proposal = getProposal(proposalId);
-			if (proposal != null){
-				proposal.vote(vote.getUsername());
+			if (proposal != null) {
+				contribution.getVotes().add(proposalId);
+				proposal.vote();
 			}
 		}
-		this.votes = calculateVotes();
+
+		if (contribution.getVotes().size() > 0) {
+			votes++;
+			incrementContributions();
+			return contribution;
+		}
+
+		return null;
+	}
+
+	@Override
+	public boolean cancel(DateContribution contribution) {
+		boolean result = false;
+
+		List<String> proposalIds = contribution.getVotes();
+		for (String proposalId : proposalIds) {
+			DateProposal proposal = getProposal(proposalId);
+			if (proposal != null) {
+				if (proposal.cancel(contribution)) {
+					result = true;
+				}
+			}
+		}
+
+		return result;
 	}
 
 }

@@ -10,14 +10,14 @@ public class ParticipantContribution extends Contribution {
 		this.type = TYPE;
 	}
 
-	private int participantNumber;
+	private int participants;
 
-	public int getParticipantNumber() {
-		return participantNumber;
+	public int getParticipants() {
+		return participants;
 	}
 
-	public void setParticipantNumber(int participantNumber) {
-		this.participantNumber = participantNumber;
+	public void setParticipants(int participants) {
+		this.participants = participants;
 	}
 
 
