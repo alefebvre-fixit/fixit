@@ -23,4 +23,10 @@ public class DateContribution extends Contribution {
 		this.votes = votes;
 	}
 
+	@Override
+	public boolean merge(List<Contribution> contributions) {
+		// We do not allow merge for votes
+		return false;
+	}
+
 }

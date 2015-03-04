@@ -1,5 +1,7 @@
 package com.fixit.model;
 
+import java.util.List;
+
 import org.mongojack.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,13 +14,11 @@ import com.fixit.model.card.ItemCard;
 import com.fixit.model.card.ParticipantCard;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({ 
-		@Type(value = DateCard.class, name = DateCard.TYPE),
+@JsonSubTypes({ @Type(value = DateCard.class, name = DateCard.TYPE),
 		@Type(value = ItemCard.class, name = ItemCard.TYPE),
-		@Type(value = ParticipantCard.class, name = ParticipantCard.TYPE) 
-		})
+		@Type(value = ParticipantCard.class, name = ParticipantCard.TYPE) })
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class Card<C extends Contribution> {
+public abstract class Card {
 
 	public String type = "default";
 
@@ -36,7 +36,14 @@ public abstract class Card<C extends Contribution> {
 	}
 
 	@JsonIgnore
-	public abstract boolean cancel(C contribution);
+	public abstract boolean cancel(Contribution contribution);
+	
+	@JsonIgnore
+	public abstract boolean isOpenForContribution(List<Contribution> contributions);
+
+	@JsonIgnore
+	public abstract boolean contribute(Contribution contribution,
+			List<Contribution> contributions);
 
 	public int getContributions() {
 		return contributions;
@@ -47,13 +54,13 @@ public abstract class Card<C extends Contribution> {
 	}
 
 	@JsonIgnore
-	public void incrementContributions(){
+	public void incrementContributions() {
 		this.contributions += 1;
 	}
-	
+
 	@JsonIgnore
-	public void decrementContributions(){
-		if (contributions >= 0){
+	public void decrementContributions() {
+		if (contributions >= 0) {
 			this.contributions -= 1;
 		}
 	}

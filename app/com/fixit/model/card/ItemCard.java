@@ -1,15 +1,12 @@
 package com.fixit.model.card;
 
-import java.util.Date;
 import java.util.List;
-
-import play.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.Card;
 import com.fixit.model.Contribution;
 
-public class ItemCard extends Card<ItemContribution> {
+public class ItemCard extends Card {
 
 	public static final String TYPE = "item";
 
@@ -116,40 +113,45 @@ public class ItemCard extends Card<ItemContribution> {
 	}
 
 	@Override
-	public boolean cancel(ItemContribution contribution) {
-
-		contribution.setStatus(Contribution.STATUS_CANCELED);
-		items -= contribution.getQuantityProvided();
-		decrementContributions();
-
-		return true;
-	}
-
-	private boolean contribute(ItemContribution contribution) {
-		Logger.debug("contribute + isMaximum()" + isMaximum()  
-				+ " getRemaining()=" + getRemaining() + "getQuantityProvided()" + contribution.getQuantityProvided());
-		
-		if (!isMaximum() || getRemaining() >= contribution.getQuantityProvided()){
-			items += contribution.getQuantityProvided();
-			incrementContributions();
+	public boolean cancel(Contribution contribution) {
+		if (contribution instanceof ItemContribution){
+			ItemContribution itemContribution = (ItemContribution) contribution;
+			itemContribution.setStatus(Contribution.STATUS_CANCELED);
+			items -= itemContribution.getQuantityProvided();
+			decrementContributions();
 			return true;
-		} 
-
+		}
 		return false;
 	}
 
-	public ItemContribution provide(String username, int items) {
-		ItemContribution contribution = new ItemContribution();
-
-		contribution.setDate(new Date());
-		contribution.setContributor(username);
-		contribution.setQuantityProvided(items);
-
-		if (contribute(contribution)) {
-			return contribution;
-		} else {
-			return null;
+	@Override
+	public boolean contribute(Contribution contribution, List<Contribution> contributions) {
+		if (contribution instanceof ItemContribution){
+			
+			if (!isOpenForContribution(contributions)){
+				return false;
+			}
+			
+			ItemContribution itemContribution = (ItemContribution) contribution;
+			if (!isMaximum() || getRemaining() >= itemContribution.getQuantityProvided()){		
+				items += itemContribution.getQuantityProvided();
+				if (!contribution.merge(contributions)){
+					incrementContributions();					
+				}
+				return true;
+			} 
 		}
+		return false;
 	}
 
+	@Override
+	public boolean isOpenForContribution(List<Contribution> contributions) {
+		
+		if (isMaximum() && getRemaining() <= 0){
+			return false;
+		}
+		
+		return true;
+	}
+	
 }

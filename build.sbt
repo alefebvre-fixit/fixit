@@ -11,8 +11,9 @@ scalaVersion := "2.11.1"
 libraryDependencies ++= Seq(
   cache,
   javaWs,
-  "org.mongojack" % "play-mongojack_2.10" % "2.0.0-RC2" ,
-  "com.google.inject" % "guice" % "3.0"
-)
+  "uk.co.panaxiom" %% "play-jongo" % "0.7.1-jongo1.0",
+    "org.mongojack" % "play-mongojack_2.10" % "2.0.0-RC2" ,
+  	"com.google.inject" % "guice" % "3.0"
+  )
 
 

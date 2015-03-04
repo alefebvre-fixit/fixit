@@ -7,48 +7,55 @@ import play.modules.mongojack.MongoDB;
 import com.fixit.model.Contribution;
 import com.fixit.model.Favorite;
 import com.fixit.model.Project;
-import com.fixit.model.TestProject;
 import com.fixit.model.User;
 
 public class MongoDBPersistence {
 
+	private static final String CONTRIBUTIONS_COLLECTION = "Contributions";
+	private static final String FAVORITES_COLLECTION = "Favorites";
+	private static final String USER_COLLECTION = "User";
+	private static final String PROJECT_COLLECTION = "Project";
+
 	public static final int MAX_OBJECT = 1000;
-	
+
 	private static JacksonDBCollection<Project, String> projects = MongoDB
-			.getCollection("Project", Project.class, String.class);
+			.getCollection(PROJECT_COLLECTION, Project.class, String.class);
 
 	public static final JacksonDBCollection<Project, String> getProjectCollection() {
 		return projects;
 	}
-	
+
 	private static JacksonDBCollection<User, String> users = MongoDB
-			.getCollection("User", User.class, String.class);
+			.getCollection(USER_COLLECTION, User.class, String.class);
 
 	public static final JacksonDBCollection<User, String> getUserCollection() {
 		return users;
 	}
-	
+
 	private static JacksonDBCollection<Favorite, String> favorites = MongoDB
-			.getCollection("Favorites", Favorite.class, String.class);
+			.getCollection(FAVORITES_COLLECTION, Favorite.class, String.class);
 
 	public static final JacksonDBCollection<Favorite, String> getFavoritesCollection() {
 		return favorites;
 	}
-	
-	
+
 	private static JacksonDBCollection<Contribution, String> contributions = MongoDB
-			.getCollection("Contributions", Contribution.class, String.class);
+			.getCollection(CONTRIBUTIONS_COLLECTION, Contribution.class,
+					String.class);
 
 	public static final JacksonDBCollection<Contribution, String> getContributionsCollection() {
 		return contributions;
 	}
-
 	
-	private static JacksonDBCollection<TestProject, String> testProjects = MongoDB
-			.getCollection("TestProject", TestProject.class, String.class);
+	
+	/*
+	private static JacksonDBCollection<Contribution, ObjectId> alternateContributions = MongoDB
+			.getCollection(CONTRIBUTIONS_COLLECTION, Contribution.class,
+					ObjectId.class);
 
-	public static final JacksonDBCollection<TestProject, String> getTestProjectCollection() {
-		return testProjects;
+	public static final JacksonDBCollection<Contribution, ObjectId> getAlternateContributionsCollection() {
+		return alternateContributions;
 	}
-	
+	*/
+
 }

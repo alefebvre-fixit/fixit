@@ -4,7 +4,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			url: "/tester",
 			views: {
 				'menuContent': {
-					templateUrl: "templates/tester.html",
+					templateUrl: "templates/test/tester.html",
 					controller: 'TesterController'
 				}
 			},

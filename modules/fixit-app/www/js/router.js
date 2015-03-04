@@ -46,7 +46,7 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			url: "/projects/:projectId/selector",
 			views: {
 				'menuContent': {
-					templateUrl: "templates/card-selector.html",
+					templateUrl: "templates/cards/card-selector.html",
 					controller: 'CardSelectorController',
 					resolve: {
 						project: function ($stateParams, ProjectService) {
@@ -103,20 +103,18 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			url: "/projects/:projectId/cards/:cardId",
 			views: {
 				'menuContent': {
-					templateUrl: "templates/card.html",
+					templateUrl: "templates/cards/card-detail.html",
 					controller: 'CardController',
 					resolve: {
 						project: function ($stateParams, ProjectService) {
+							console.log('app.card-view: resolve project');
 							return ProjectService.getProject($stateParams.projectId);
 						},
-						card: function($stateParams, ProjectService){
-							console.log('resolve single card');
-							return ProjectService.getCard($stateParams.projectId, $stateParams.cardId);
-						},
-						contributions: function($stateParams, CardService){
-							console.log('resolve contributions');
-							return CardService.getContributions($stateParams.projectId, $stateParams.cardId);
+						summary: function($stateParams, CardService){
+							console.log('app.card-view: resolve summary');
+							return CardService.getCardSummary($stateParams.projectId, $stateParams.cardId);
 						}
+
 					}
 				}
 			},

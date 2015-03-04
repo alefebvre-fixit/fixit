@@ -8,60 +8,42 @@ angular.module('fixit').controller('CardSelectorController',
         }
     ]);
 
-
 angular.module('fixit').controller('CardController',
-    ['$scope', 'project', 'card', 'contributions', '$filter', 'CardService',
-        function ($scope, project, card, contributions, $filter, CardService) {
+    ['$scope', 'project', 'summary', 'CardService',
+        function ($scope, project, summary, CardService) {
 
-            $scope.card = card;
             $scope.project = project;
-            $scope.contributions = contributions;
+            $scope.summary = summary;
 
             $scope.setProject =function(newProject){
                 $scope.project = newProject;
-                var cards = newProject.cards;
-                for (index = 0; index < cards.length; ++index) {
-                    if (cards[index].id == $scope.card.id){
-                        $scope.card = cards[index];
-                    }
-                }
-                CardService.getContributions(project.id, card.id).then(function (data) {
-                    $scope.contributions = data;
+
+                CardService.getCardSummary(project.id, $scope.summary.card.id).then(function (data) {
+                    $scope.summary = data;
                 });
             };
 
-
-            $scope.hasMyContribution=function(card){
-                var result = $filter('MyContributions')(card,$scope.user.username);
-                return (result && result.length>0);
+            $scope.cancelContribution = function(project, contribution) {
+                CardService.cancelContribution(project, contribution).then(function (data) {
+                    $scope.setProject(data);
+                    $scope.toastMe('Participation canceled.');
+                });
             };
 
-            $scope.hasOtherContribution =function(card){
-                var result = $filter('OtherContributions')(card,$scope.user.username);
-                return (result && result.length>0);
-            };
         }
     ]);
 
-angular.module('fixit').controller('ItemCardController', ['ProjectService', '$scope',
-    function (ProjectService, $scope) {
+angular.module('fixit').controller('ItemCardController', ['CardService', '$scope',
+    function (CardService, $scope) {
 
         $scope.provide = function(project, card) {
             console.log("Provide an item projectId=" + project.id + " cardId=" + card.id);
-            ProjectService.provide(project, card, 1).then(function (data) {
+            CardService.provide(project, card, 1).then(function (data) {
                 $scope.setProject(data);
                 $scope.toastMe(card.name + ' provided.');
             });
-
         };
 
-        $scope.cancelContribution = function(project, contribution) {
-            ProjectService.cancelContribution(project, contribution).then(function (data) {
-                $scope.setProject(data);
-                $scope.toastMe('Contribution canceled.');
-            });
-
-        };
     }
 ]);
 
@@ -178,34 +160,11 @@ angular.module('fixit').controller('EditDateCardController',
         }
     ]);
 
-
 angular.module('fixit').controller('DateCardController',
     ['ProjectService', '$scope',
         function (ProjectService, $scope) {
 
             $scope.votes = [];
-
-            $scope.isOpenForContribution = function(card) {
-                if  (card.open){
-                    var arrayLength = card.proposals.length;
-                    for (var i = 0; i < arrayLength; i++) {
-                        var subArrayLength = Object.keys(card.proposals[i].contributions).length;
-                        for (var j = 0; j < subArrayLength; j++) {
-                            var contribution = card.proposals[i].contributions[j];
-                            if (contribution.status != 'Canceled' && $scope.isMine(contribution)){
-                                return false;
-                            }
-                        }
-                    }
-                }
-                return true;
-            };
-
-            $scope.cancelContribution = function(project, contribution) {
-                ProjectService.cancelContribution(project, contribution).then(function (data) {
-                    $scope.setProject(data);
-                });
-            };
 
             $scope.vote = function(project, card) {
 
@@ -228,11 +187,23 @@ angular.module('fixit').controller('DateCardController',
         }
     ]);
 
-
-
 angular.module('fixit').controller('EditParticipantCardController',
     ['ProjectService', '$scope',
         function (ProjectService, $scope) {
 
         }
     ]);
+
+angular.module('fixit').controller('ParticipantCardController', ['CardService', '$scope',
+    function (CardService, $scope) {
+
+        $scope.participate = function(project, card) {
+            console.log("participate projectId=" + project.id + " cardId=" + card.id);
+            CardService.participate(project, card, 1).then(function (data) {
+                $scope.setProject(data);
+                $scope.toastMe('Thanks for participating!');
+            });
+        };
+
+    }
+]);

@@ -1,6 +1,7 @@
 package com.fixit.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 
@@ -12,9 +13,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fixit.model.card.DateContribution;
 import com.fixit.model.card.ItemContribution;
 import com.fixit.model.card.ParticipantContribution;
+import com.fixit.util.ObjectIdDeSerializer;
+import com.fixit.util.ObjectIdSerializer;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
@@ -28,25 +33,21 @@ public abstract class Contribution {
 
 	public static final String STATUS_NEW = "New";
 	public static final String STATUS_CANCELED = "Canceled";
+	public static final String STATUS_UPDATED = "Updated";
 
 	public String type = "default";
 	public String status = STATUS_NEW;
 
 	private String contributor;
 	private Date date;
+	
+	@Id
+	@ObjectId
 	public String id;
 	
+	public abstract boolean merge(List<Contribution> contributions);
+
 	public Contribution() {
-	}
-
-	@ObjectId
-	public String getId() {
-		return id;
-	}
-
-	@ObjectId
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getContributor() {
@@ -101,10 +102,6 @@ public abstract class Contribution {
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
-	
-	
-	
-	
 	
 
 }

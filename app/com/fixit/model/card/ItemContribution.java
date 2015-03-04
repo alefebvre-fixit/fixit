@@ -1,5 +1,7 @@
 package com.fixit.model.card;
 
+import java.util.List;
+
 import com.fixit.model.Contribution;
 
 public class ItemContribution extends Contribution {
@@ -20,4 +22,16 @@ public class ItemContribution extends Contribution {
 		this.quantityProvided = quantityProvided;
 	}
 
+	@Override
+	public boolean merge(List<Contribution> contributions) {
+		if (contributions != null && contributions.size() > 0){
+			ItemContribution itemContribution = (ItemContribution) contributions.get(0);
+			quantityProvided += itemContribution.getQuantityProvided();
+			setStatus(STATUS_UPDATED);
+			this.id = itemContribution.id;
+			return true;
+		}
+		return false;
+	}
+	
 }

@@ -1,0 +1,32 @@
+<div class="list card">
+	<div class="item item-divider" ng-show="summary.userContributionNumber > 0">
+		My contributions
+		<span class="badge badge-light">{{summary.userContributionNumber}}</span>
+	</div>
+	<ion-list>
+		<ion-item ng-repeat="contribution in summary.lastUserContributions"
+				  item="contribution"
+				  class="item item-avatar item-remove-animate">
+			<img ng-src="img/{{contribution.contributor}}.jpg" ng-click="goToUser(contribution.contributor)">
+			<h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
+			<p ng-show="contribution.participants == 1">will participate</p>
+			<p ng-show="contribution.participants > 1">will participate with {{contribution.participants - 1}} others</p>
+			<ion-option-button class="button-assertive"
+							   ng-click="cancelContribution(project, contribution)">
+				Cancel
+			</ion-option-button>
+		</ion-item>
+	</ion-list>
+	<div class="item item-divider" ng-show="summary.otherContributionNumber > 0">
+		Other contributions
+		<span class="badge badge-light">{{summary.otherContributionNumber}}</span>
+	</div>
+	<div ng-repeat="contribution in summary.lastOtherContributions">
+		<div class="item item-avatar">
+			<img ng-src="img/{{contribution.contributor}}.jpg" ng-click="goToUser(contribution.contributor)">
+			<h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
+			<p ng-show="contribution.participants == 1">will participate</p>
+			<p ng-show="contribution.participants > 1">will participate with {{contribution.participants - 1}} others</p>
+		</div>
+	</div>
+</div>

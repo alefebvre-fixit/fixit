@@ -10,27 +10,14 @@
         Required : {{card.minimumParticipant}}
         <br>
         </div>
-        Provided : {{card.participantNumber}}
+        Participants : {{card.participants}}
         <div ng-show="card.minimum">
         
-        Remaining : {{card.minimumParticipant - card.participantNumber}}
+        Remaining : {{card.minimumParticipant - card.participants}}
         </div>
         <p>
             <a href="#" class="subdued">{{card.contributions}} Contributions</a>
         </p>
-    </div>
-
-    <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="#">
-
-        </a>
-        <a class="tab-item" href="#">
-
-        </a>
-        <a class="tab-item" ng-click="provide(project, card)">
-            <i class="icon ion-navigate"></i>
-      		Contribute
-        </a>
     </div>
 
 </div>

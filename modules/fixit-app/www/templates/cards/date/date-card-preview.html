@@ -6,21 +6,10 @@
     </a>
 
     <div class="item item-text-wrap">
-
         {{ card.date | date:'short' }}
-
         <p>
             <a href="#" class="subdued">{{card.contributions}} Contributions</a>
         </p>
-    </div>
-    <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item">
-        </a>
-        <a class="tab-item">
-        </a>
-        <a class="tab-item" ui-sref="app.card-edit({ projectId: project.id, cardId : card.id })">
-            Edit
-        </a>
     </div>
 
 </div>

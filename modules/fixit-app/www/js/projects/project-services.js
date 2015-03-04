@@ -68,27 +68,6 @@ angular.module('fixit').factory('ProjectService',
                     return $http.delete($rootScope.baseUrl + '/api/projects/' + projectId + '/cards/' + card.id).then(function (response) {
                         return response.data;
                     });
-                },
-                provide: function (project, card, quantity) {
-                    return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id + '/provide?quantity=' + quantity).then(function (response) {
-                        return response.data;
-                    });
-                },
-                vote: function (project, card, ids) {
-                    var vote = {proposals: ids};
-                    return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id + '/vote', vote).then(function (response) {
-                        return response.data;
-                    });
-                },
-                cancelContribution: function (project, contribution) {
-                    return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/contributions/' + contribution.id + '/cancel').then(function (response) {
-                        return response.data;
-                    });
-                },
-                instanciateCard: function (project, type) {
-                    return $http.get($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/new/' + type).then(function (response) {
-                        return response.data;
-                    });
                 }
             };
 

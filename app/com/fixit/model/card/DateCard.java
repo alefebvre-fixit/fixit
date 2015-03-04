@@ -5,11 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import com.fixit.model.Card;
-import com.fixit.model.Votable;
-import com.fixit.model.Vote;
+import com.fixit.model.Contribution;
 
-public class DateCard extends Card<DateContribution> implements
-		Votable<DateContribution> {
+public class DateCard extends Card {
 
 	public static final String TYPE = "date";
 
@@ -75,46 +73,63 @@ public class DateCard extends Card<DateContribution> implements
 	}
 
 	@Override
-	public DateContribution submit(Vote vote) {
-
-		List<String> proposalIds = vote.getProposals();
-
-		DateContribution contribution = new DateContribution();
-		contribution.setCardId(getId());
-		contribution.setContributor(vote.getUsername());
-
-		for (String proposalId : proposalIds) {
-			DateProposal proposal = getProposal(proposalId);
-			if (proposal != null) {
-				contribution.getVotes().add(proposalId);
-				proposal.vote();
+	public boolean cancel(Contribution contribution) {
+		boolean result = false;
+		if (contribution instanceof DateContribution) {
+			DateContribution dateContribution = (DateContribution) contribution;
+			List<String> proposalIds = dateContribution.getVotes();
+			for (String proposalId : proposalIds) {
+				DateProposal proposal = getProposal(proposalId);
+				if (proposal != null) {
+					if (proposal.cancel(dateContribution)) {
+						result = true;
+					}
+				}
 			}
+			return result;
 		}
-
-		if (contribution.getVotes().size() > 0) {
-			votes++;
-			incrementContributions();
-			return contribution;
-		}
-
-		return null;
+		return result;
 	}
 
 	@Override
-	public boolean cancel(DateContribution contribution) {
-		boolean result = false;
-
-		List<String> proposalIds = contribution.getVotes();
-		for (String proposalId : proposalIds) {
-			DateProposal proposal = getProposal(proposalId);
-			if (proposal != null) {
-				if (proposal.cancel(contribution)) {
-					result = true;
+	public boolean contribute(Contribution contribution, List<Contribution> contributions) {
+		
+		if (!isOpenForContribution(contributions)){
+			return false;
+		}
+		
+		if (contribution instanceof DateContribution) {
+			DateContribution dateContribution = (DateContribution) contribution;
+			List<String> proposalIds = dateContribution.getVotes();
+			for (String proposalId : proposalIds) {
+				DateProposal proposal = getProposal(proposalId);
+				if (proposal != null) {
+					proposal.vote();
 				}
+			}
+
+			if (dateContribution.getVotes().size() > 0) {
+				votes++;
+				incrementContributions();
+				return true;
 			}
 		}
 
-		return result;
+		return false;
+	}
+
+	@Override
+	public boolean isOpenForContribution(List<Contribution> contributions) {
+		
+		if (!open){
+			return false;
+		}
+		
+		if (contributions != null && contributions.size() > 0){
+			return false;
+		}
+		
+		return true;
 	}
 
 }

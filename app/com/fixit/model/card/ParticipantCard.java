@@ -1,13 +1,12 @@
 package com.fixit.model.card;
 
-import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.Card;
 import com.fixit.model.Contribution;
 
-public class ParticipantCard extends Card<ParticipantContribution> {
+public class ParticipantCard extends Card {
 
 	public static final String TYPE = "participant";
 
@@ -143,39 +142,48 @@ public class ParticipantCard extends Card<ParticipantContribution> {
 	}
 
 	@Override
-	public boolean cancel(ParticipantContribution contribution) {
-
-		contribution.setStatus(Contribution.STATUS_CANCELED);
-		participants -= contribution.getParticipants();
-		decrementContributions();
-
-		return true;
-	}
-
-	private boolean contribute(ParticipantContribution contribution) {
-
-		if (isMaximum() && (getRemaining() >= contribution.getParticipants())) {
-			participants += contribution.getParticipants();
-			incrementContributions();
+	public boolean cancel(Contribution contribution) {
+		if (contribution instanceof ParticipantContribution) {
+			ParticipantContribution participantContribution = (ParticipantContribution) contribution;
+			participantContribution.setStatus(Contribution.STATUS_CANCELED);
+			participants -= participantContribution.getParticipants();
+			decrementContributions();
 			return true;
 		}
-
 		return false;
 	}
 
-	public ParticipantContribution participate(String username, int participants) {
-		ParticipantContribution contribution = new ParticipantContribution();
-
-		contribution = new ParticipantContribution();
-		contribution.setDate(new Date());
-		contribution.setContributor(username);
-		contribution.setParticipants(participants);
-
-		if (contribute(contribution)) {
-			return contribution;
-		} else {
-			return null;
+	@Override
+	public boolean contribute(Contribution contribution, List<Contribution> contributions) {
+		if (contribution instanceof ParticipantContribution) {
+			
+			if (!isOpenForContribution(contributions)){
+				return false;
+			}
+			
+			ParticipantContribution participantContribution = (ParticipantContribution) contribution;
+			if (!isMaximum()
+					|| (getRemaining() >= participantContribution
+							.getParticipants())) {
+				participants += participantContribution.getParticipants();
+				if (!contribution.merge(contributions)){
+					incrementContributions();					
+				}
+				return true;
+			}
 		}
+		return false;
+	}
+	
+	
+	@Override
+	public boolean isOpenForContribution(List<Contribution> contributions) {
+		
+		if (isMaximum() && getRemaining() <= 0){
+			return false;
+		}
+		
+		return true;
 	}
 
 }

@@ -1,0 +1,11 @@
+<div ng-repeat="card in project.cards">
+    <div ng-if="card.type == 'date' ">
+        <div ng-include data-src="'templates/cards/date/date-card-view.html'"></div>
+    </div>
+    <div ng-if="card.type == 'item' ">
+        <div ng-include src="'templates/cards/item/item-card-view.html'"></div>
+    </div>
+    <div ng-if="card.type == 'participant' ">
+        <div ng-include src="'templates/cards/participant/participant-card-view.html'"></div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div ng-controller="ItemCardController">
+
+<div class="card">
+    <a class="item item-divider item-calm" href="#/app/projects/{{project.id}}/cards/{{summary.card.id}}">
+        <i class="icon ion-bag"></i>
+        {{summary.card.name}}
+    </a>
+    <div class="item item-text-wrap">
+        <div ng-show="summary.card.minimum">
+        Required : {{summary.card.minimumItem}}
+        <br>
+        </div>
+        Provided : {{summary.card.items}}
+        <div ng-show="summary.card.maximum">
+            Remaining : {{summary.card.maximumItem - summary.card.items}}
+        </div>
+        <p>
+            <a href="#" class="subdued">{{summary.card.contributions}} Contributions</a>
+        </p>
+    </div>
+    <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="#">
+        </a>
+        <a class="tab-item" href="#">
+        </a>
+        <a class="tab-item" ng-click="provide(project, summary.card)">
+            <i class="icon ion-navigate"></i>
+      		Contribute
+        </a>
+    </div>
+</div>
+    <div data-ng-include data-src="'templates/cards/item/item-card-contribution.html'"></div>
+</div>

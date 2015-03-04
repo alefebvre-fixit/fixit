@@ -10,20 +10,17 @@ import org.mongojack.WriteResult;
 
 import play.Logger;
 
-import com.fixit.model.Contribution;
 import com.fixit.model.Favorite;
 import com.fixit.model.Project;
-import com.fixit.model.TestProject;
 import com.fixit.service.ProjectService;
 
 public class MongoProjectService extends BaseProjectService implements
 		ProjectService {
 
-	private static final String USER_NAME = "username";
-	private static final String PROJECT_ID = "projectId";
-	private static final String CARD_ID = "cardId";
-	private static final String CONTRIBUTION_ID = "contributionId";
-	private static final String CONTRIBUTOR = "contributor";
+	public static final String USER_NAME = "username";
+	public static final String PROJECT_ID = "projectId";
+	public static final String CARD_ID = "cardId";
+
 
 	private JacksonDBCollection<Project, String> getCollection() {
 		return MongoDBPersistence.getProjectCollection();
@@ -31,14 +28,6 @@ public class MongoProjectService extends BaseProjectService implements
 
 	private JacksonDBCollection<Favorite, String> getFavoritesCollection() {
 		return MongoDBPersistence.getFavoritesCollection();
-	}
-
-	private JacksonDBCollection<Contribution, String> getContributionsCollection() {
-		return MongoDBPersistence.getContributionsCollection();
-	}
-
-	private JacksonDBCollection<TestProject, String> getTestProjectCollection() {
-		return MongoDBPersistence.getTestProjectCollection();
 	}
 
 	@Override
@@ -80,7 +69,7 @@ public class MongoProjectService extends BaseProjectService implements
 	}
 
 	@Override
-	public Project load(String id) {
+	public Project getProject(String id) {
 		Logger.debug("MongoProjectService.load(String id) id=" + id);
 		Project result = getCollection().findOneById(id);
 		return result;
@@ -95,29 +84,9 @@ public class MongoProjectService extends BaseProjectService implements
 	}
 
 	@Override
-	public int countContributionsByOwner(String username) {
-		return getContributionsCollection().find().is(CONTRIBUTOR, username)
-				.count();
-	}
-
-	@Override
 	public List<Project> getUserProjects(String username, int offset, int length) {
 		DBCursor<Project> cursor = getCollection().find().is(USER_NAME,
 				username);
-		if (offset > 0) {
-			cursor.skip(offset);
-		}
-		if (length > 0) {
-			cursor.limit(length);
-		}
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
-	}
-
-	@Override
-	public List<Contribution> getUserContributions(String username, int offset,
-			int length) {
-		DBCursor<Contribution> cursor = getContributionsCollection().find().is(
-				CONTRIBUTOR, username);
 		if (offset > 0) {
 			cursor.skip(offset);
 		}
@@ -139,12 +108,10 @@ public class MongoProjectService extends BaseProjectService implements
 		if (count <= 0) {
 			getFavoritesCollection().insert(favorite);
 		}
-
 	}
 
 	@Override
 	public void unfollow(String username, String projectId) {
-		// TODO Find a better way
 		List<Favorite> favorites = getFavoritesCollection().find()
 				.is(USER_NAME, username).is(PROJECT_ID, projectId).toArray();
 		if (favorites != null) {
@@ -168,49 +135,6 @@ public class MongoProjectService extends BaseProjectService implements
 		return result;
 	}
 
-	@Override
-	public List<Contribution> getProjectContributions(String username,
-			String projectId) {
-		return getContributionsCollection().find().is(CONTRIBUTOR, username)
-				.is(PROJECT_ID, projectId).toArray();
-	}
 
-	@Override
-	public List<Contribution> getCardContributions(String cardId) {
-		return getContributionsCollection().find().is(CARD_ID, cardId)
-				.toArray();
-	}
-
-	@Override
-	public Contribution getContribution(String contributionId) {
-		return getContributionsCollection().findOneById(contributionId);
-	}
-
-	@Override
-	public Contribution saveContribution(Contribution contribution) {
-		WriteResult<Contribution, String> result = null;
-		if (contribution.getId() == null) {
-			result = getContributionsCollection().insert(contribution);
-			contribution.setId(result.getSavedId());
-
-		} else {
-			result = getContributionsCollection().updateById(
-					contribution.getId(), contribution);
-		}
-
-		return contribution;
-	}
-
-	@Override
-	public void deleteContribution(String contributionId) {
-		getContributionsCollection().removeById(contributionId);
-	}
-
-	@Override
-	public List<Contribution> getProjectContributions(String projectId) {
-		return getContributionsCollection().find().is(PROJECT_ID, projectId)
-				.toArray();
-
-	}
 
 }

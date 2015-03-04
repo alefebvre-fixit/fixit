@@ -1,0 +1,43 @@
+<div ng-controller="ParticipantCardController">
+    <div class="card">
+
+        <a class="item item-divider item-calm" href="#/app/projects/{{project.id}}/cards/{{card.id}}">
+            <i class="icon ion-person-stalker"></i>
+            {{summary.card.name}}
+        </a>
+
+        <div class="item item-text-wrap">
+            <div ng-show="summary.card.minimum">
+                Required : {{summary.card.minimumParticipant}}
+                <br>
+            </div>
+            Participants : {{summary.card.participants}}
+            <div ng-show="summary.card.minimum">
+
+                Remaining : {{summary.card.minimumParticipant - summary.card.participants}}
+            </div>
+            <p>
+                <a href="#" class="subdued">{{summary.card.contributions}} Contributions</a>
+            </p>
+        </div>
+
+        <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="#">
+
+            </a>
+            <a class="tab-item" href="#">
+
+            </a>
+            <a class="tab-item" ng-click="participate(project, summary.card)">
+                <i class="icon ion-navigate"></i>
+                Participate
+            </a>
+        </div>
+    </div>
+    <div data-ng-include data-src="'templates/cards/participant/participant-card-contribution.html'"></div>
+</div>
+
+
+
+
+

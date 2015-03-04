@@ -16,13 +16,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Project {
 
-	private static final long serialVersionUID = 1L;
-
 	public static final String STATUS_NEW = "New";
 	public static final String STATUS_PUBLISHED = "Published";
 	public static final String STATUS_DRAFT = "Draft";
 
-	
 	public String id;
 	public double version = 0;
 	private String status = STATUS_NEW;
@@ -54,7 +51,7 @@ public class Project {
 	public String country;
 
 	public String username;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -99,18 +96,18 @@ public class Project {
 		this.version = version;
 	}
 
-	public List<Card<? extends Contribution>> cards = new ArrayList<Card<? extends Contribution>>();
+	public List<Card> cards = new ArrayList<Card>();
 
-	public List<Card<? extends Contribution>> getCards() {
+	public List<Card> getCards() {
 		return cards;
 	}
 
-	public void setCards(List<Card<? extends Contribution>> cards) {
+	public void setCards(List<Card> cards) {
 		this.cards = cards;
 	}
 
-	public Card<? extends Contribution> getCard(String cardId) {
-		for (Card<? extends Contribution> card : cards) {
+	public Card getCard(String cardId) {
+		for (Card card : cards) {
 			if (cardId.equals(card.getId())) {
 				return card;
 			}
@@ -129,7 +126,7 @@ public class Project {
 		return false;
 	}
 
-	public boolean addCard(Card<? extends Contribution> card) {
+	public boolean addCard(Card card) {
 		// TODO Change this implementation
 		if (card.getId() != null) {
 			for (int i = 0; i < cards.size(); i++) {
@@ -147,18 +144,24 @@ public class Project {
 
 	public int getContributions() {
 		int result = 0;
-		for (Card<? extends Contribution> card : cards) {
+		for (Card card : cards) {
 			result += card.getContributions();
 		}
 		return result;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public boolean cancelContribution(Contribution contribution) {
-		for (Card card : cards) {
-			if (card.cancel(contribution)){
-				return true;
-			}
+		Card card = getCard(contribution.getCardId());
+		if (card != null) {
+			return card.cancel(contribution);
+		}
+		return false;
+	}
+
+	public boolean contribute(Contribution contribution, List<Contribution> contributions) {
+		Card card = getCard(contribution.getCardId());
+		if (card != null) {
+			return card.contribute(contribution, contributions);
 		}
 		return false;
 	}

@@ -1,15 +1,12 @@
 package com.fixit.service;
 
-import java.util.List;
-
-import com.fixit.model.Project;
+import com.fixit.model.Card;
+import com.fixit.model.card.CardSummary;
 
 public interface CardService {
 	
-	public void delete(String id);
-
-	public Project load(String id);
+	public CardSummary getCardSummary(String username, String projectId, String cardId);
 	
-	public List<Project> loadByProject(String projectId);
+	public Card getCard(String projectId, String cardId);
 
 }

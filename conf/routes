@@ -47,9 +47,8 @@ POST    /api/projects/:id/publish  			controllers.api.ProjectAPIController.publi
 
 GET     /api/projects/:projectId/cards/:cardId          				controllers.api.ProjectAPIController.card(projectId: String, cardId: String)
 GET    	/api/projects/:projectId/cards/new/:type						controllers.api.ProjectAPIController.createCard(projectId: String, type: String)
+GET    	/api/projects/:projectId/cards/:cardId/summary					controllers.api.ProjectAPIController.getCardSummary(projectId: String, cardId: String)
 
-POST    /api/projects/:projectId/cards/:cardId/provide  				controllers.api.ProjectAPIController.provide(projectId: String, cardId: String, quantity: Integer ?= 1)
-POST    /api/projects/:projectId/cards/:cardId/vote  					controllers.api.ProjectAPIController.vote(projectId: String, cardId: String)
 POST    /api/projects/:projectId/cards  								controllers.api.ProjectAPIController.addCard(projectId: String)
 POST 	/api/projects/:projectId/follow 								controllers.api.ProjectAPIController.follow(projectId: String)
 POST 	/api/projects/:projectId/unfollow 								controllers.api.ProjectAPIController.unfollow(projectId: String)
@@ -60,15 +59,20 @@ DELETE 	/api/projects/:projectId/cards/:cardId 							controllers.api.ProjectAPI
 
 # API Contributions
 
-POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers.api.ProjectAPIController.cancelContribution(projectId: String, contributionId: String)
+POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers.api.ContributionAPIController.cancelContribution(projectId: String, contributionId: String)
+POST    /api/projects/:projectId/cards/:cardId/contributions  			controllers.api.ContributionAPIController.contribute(projectId: String, cardId: String)
 
-GET 	/api/projects/:projectId/contributions 							controllers.api.ProjectAPIController.getProjectContributions(projectId: String)
-GET 	/api/projects/:projectId/contributions/:contributionId 			controllers.api.ProjectAPIController.getContribution(projectId: String, contributionId: String)
-GET    	/api/projects/:projectId/cards/:cardId/contributions  			controllers.api.ProjectAPIController.getCardContributions(projectId: String, cardId: String)
+GET 	/api/projects/:projectId/contributions 							controllers.api.ContributionAPIController.getProjectContributions(projectId: String)
+GET 	/api/projects/:projectId/contributions/:contributionId 			controllers.api.ContributionAPIController.getContribution(projectId: String, contributionId: String)
+GET    	/api/projects/:projectId/cards/:cardId/contributions  			controllers.api.ContributionAPIController.getCardContributions(projectId: String, cardId: String)
+GET    	/api/projects/:projectId/cards/:cardId/contributions/new/:type  controllers.api.ContributionAPIController.createContribution(projectId: String, cardId: String, type: String)
+
+
+GET    	/api/projects/:projectId/cards/new/:type						controllers.api.ProjectAPIController.createCard(projectId: String, type: String)
 
 
 # API Account
-GET     /api/users/:user/contributions     		controllers.api.ProjectAPIController.getUserContributions(user: String)
+GET     /api/users/:user/contributions     		controllers.api.ContributionAPIController.getUserContributions(user: String)
 GET     /api/users/:user/projects     			controllers.api.ProjectAPIController.getUserProjects(user: String)
 GET     /api/users/:user/favorites     			controllers.api.ProjectAPIController.favorites(user: String)
 GET     /api/users/:user/summary       	    	controllers.api.AccountAPIController.userSummary(user: String)

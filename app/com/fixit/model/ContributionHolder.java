@@ -41,7 +41,7 @@ public class ContributionHolder<C extends Contribution> {
 
 	public C getContribution(String contributionId) {
 		for (C contribution : contributions) {
-			if (contribution.getId().equals(contributionId)) {
+			if (contribution.id.equals(contributionId)) {
 				return contribution;
 			}
 		}
