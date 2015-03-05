@@ -23,6 +23,9 @@ public abstract class Card {
 	public String type = "default";
 
 	private String id;
+	private String projectId;
+	private String username;
+	private String status;
 	private int contributions;
 
 	@Id
@@ -37,9 +40,10 @@ public abstract class Card {
 
 	@JsonIgnore
 	public abstract boolean cancel(Contribution contribution);
-	
+
 	@JsonIgnore
-	public abstract boolean isOpenForContribution(List<Contribution> contributions);
+	public abstract boolean isOpenForContribution(
+			List<Contribution> contributions);
 
 	@JsonIgnore
 	public abstract boolean contribute(Contribution contribution,
@@ -63,6 +67,38 @@ public abstract class Card {
 		if (contributions >= 0) {
 			this.contributions -= 1;
 		}
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

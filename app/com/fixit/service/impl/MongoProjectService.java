@@ -21,7 +21,6 @@ public class MongoProjectService extends BaseProjectService implements
 	public static final String PROJECT_ID = "projectId";
 	public static final String CARD_ID = "cardId";
 
-
 	private JacksonDBCollection<Project, String> getCollection() {
 		return MongoDBPersistence.getProjectCollection();
 	}
@@ -132,6 +131,37 @@ public class MongoProjectService extends BaseProjectService implements
 				result.add(favorite.getProjectId());
 			}
 		}
+		return result;
+	}
+
+	@Override
+	public List<String> getProjectFollowers(String projectId) {
+		// TODO Improve implementation by loading only the username
+		
+		List<String> result = new ArrayList<String>();
+
+		List<Favorite> favorites = getFavoritesCollection().find()
+				.is(PROJECT_ID, projectId).toArray();
+		if (favorites != null) {
+			for (Favorite favorite : favorites) {
+				result.add(favorite.getUsername());
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public String getProjectOwner(String projectId) {
+		// TODO Improve implementation by loading only the username
+		
+		String result = null;
+		
+		Project project = getProject(projectId);
+		if (project != null){
+			result = project.getUsername();
+		}
+		
 		return result;
 	}
 

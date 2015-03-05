@@ -102,6 +102,14 @@ public abstract class Contribution {
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 
 }

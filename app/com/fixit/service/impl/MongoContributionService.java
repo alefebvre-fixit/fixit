@@ -15,7 +15,6 @@ import com.mongodb.DBObject;
 
 public class MongoContributionService implements ContributionService {
 
-	public static final String CONTRIBUTION_ID = "contributionId";
 	public static final String CONTRIBUTOR = "contributor";
 
 	private DBObject convertToDBId(String contributionId) {

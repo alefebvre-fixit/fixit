@@ -26,8 +26,9 @@ public interface ProjectService {
 	
 	public List<String> favorites(String username);
 	
+	public List<String> getProjectFollowers(String projectId);
 	
-	
+	public String getProjectOwner(String projectId);
 
 
 }

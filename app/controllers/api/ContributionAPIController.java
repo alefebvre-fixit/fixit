@@ -86,6 +86,7 @@ public class ContributionAPIController extends FixItController {
 		List<Contribution> userContributions = getContributionService().getUserContributionForCard(getUserName(), cardId);
 		if (project != null) {
 			if (project.contribute(contribution, userContributions)) {
+				getNotificationService().publishNotification(contribution);
 				getContributionService().saveContribution(contribution);
 				getProjectService().save(project);
 			}

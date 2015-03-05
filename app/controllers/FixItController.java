@@ -5,10 +5,12 @@ import play.mvc.Controller;
 import com.fixit.model.User;
 import com.fixit.service.CardService;
 import com.fixit.service.ContributionService;
+import com.fixit.service.NotificationService;
 import com.fixit.service.ProjectService;
 import com.fixit.service.UserService;
 import com.fixit.service.impl.MongoCardService;
 import com.fixit.service.impl.MongoContributionService;
+import com.fixit.service.impl.MongoNotificationService;
 import com.fixit.service.impl.MongoProjectService;
 import com.fixit.service.impl.MongoUserService;
 
@@ -21,6 +23,8 @@ public class FixItController extends Controller {
 	private static ContributionService contributionService = new MongoContributionService();
 	private static CardService cardService = new MongoCardService(
 			new MongoContributionService(), new MongoProjectService());
+	private static NotificationService notificationService = new MongoNotificationService();
+	
 
 	protected static UserService getUserService() {
 		return userService;
@@ -36,6 +40,10 @@ public class FixItController extends Controller {
 
 	public static CardService getCardService() {
 		return cardService;
+	}
+	
+	public static NotificationService getNotificationService() {
+		return notificationService;
 	}
 
 	protected static User getUser() {

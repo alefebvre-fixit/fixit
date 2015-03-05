@@ -8,6 +8,7 @@ import com.fixit.model.Contribution;
 import com.fixit.model.Favorite;
 import com.fixit.model.Project;
 import com.fixit.model.User;
+import com.fixit.model.notification.Notification;
 
 public class MongoDBPersistence {
 
@@ -15,6 +16,7 @@ public class MongoDBPersistence {
 	private static final String FAVORITES_COLLECTION = "Favorites";
 	private static final String USER_COLLECTION = "User";
 	private static final String PROJECT_COLLECTION = "Project";
+	private static final String NOTIFICATION_COLLECTION = "Notification";
 
 	public static final int MAX_OBJECT = 1000;
 
@@ -46,16 +48,13 @@ public class MongoDBPersistence {
 	public static final JacksonDBCollection<Contribution, String> getContributionsCollection() {
 		return contributions;
 	}
-	
-	
-	/*
-	private static JacksonDBCollection<Contribution, ObjectId> alternateContributions = MongoDB
-			.getCollection(CONTRIBUTIONS_COLLECTION, Contribution.class,
-					ObjectId.class);
 
-	public static final JacksonDBCollection<Contribution, ObjectId> getAlternateContributionsCollection() {
-		return alternateContributions;
+	private static JacksonDBCollection<Notification, String> notifications = MongoDB
+			.getCollection(NOTIFICATION_COLLECTION, Notification.class,
+					String.class);
+
+	public static final JacksonDBCollection<Notification, String> getNotificationsCollection() {
+		return notifications;
 	}
-	*/
 
 }

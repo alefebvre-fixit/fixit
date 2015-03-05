@@ -1,0 +1,30 @@
+
+<ion-view title="Notifications" hide-back-button="true">
+
+
+<ion-nav-buttons side="left">
+<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+</ion-nav-buttons>
+
+<ion-content class="has-header">
+	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+
+	<ion-list>
+		<ion-item ng-repeat="notification in notifications"
+				  item="contribution"
+				  class="item item-avatar item-remove-animate">
+			<img ng-src="img/{{notification.actor}}.jpg" ng-click="goToUser(notification.actor)">
+			<p>has voted {{notification.date | date:'short'}}</p>
+			<ion-option-button class="button-assertive"
+							   ng-click="cancelContribution(project, contribution)">
+				Cancel
+			</ion-option-button>
+		</ion-item>
+	</ion-list>
+
+
+</ion-content>
+
+
+</ion-view>
