@@ -11,15 +11,21 @@
 
 
 	<ion-list>
+
 		<ion-item ng-repeat="notification in notifications"
-				  item="contribution"
+				  item="notification"
 				  class="item item-avatar item-remove-animate">
-			<img ng-src="img/{{notification.actor}}.jpg" ng-click="goToUser(notification.actor)">
-			<p>has voted {{notification.date | date:'short'}}</p>
-			<ion-option-button class="button-assertive"
-							   ng-click="cancelContribution(project, contribution)">
-				Cancel
-			</ion-option-button>
+				<img ng-src="img/{{notification.actor}}.jpg" ng-click="goToUser(notification.actor)">
+
+				<h2>{{notification.actor}}</h2>
+				<p ng-show="notification.subtype=='item'">has provided an item {{notification.notificationDate | date:'short'}}</p>
+
+
+
+				<ion-option-button class="button-assertive"
+								   ng-click="archive(notification)">
+					Archive
+				</ion-option-button>
 		</ion-item>
 	</ion-list>
 
