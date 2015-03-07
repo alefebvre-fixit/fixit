@@ -121,7 +121,7 @@ angular.module('fixit').controller('EditProjectController',
 				// Show the action sheet
 				$ionicActionSheet.show({
 					buttons: [
-						{ text: 'Update' },
+						{ text: 'Apply' },
 						{ text: 'Publish' }
 					],
 					destructiveText: 'Delete',

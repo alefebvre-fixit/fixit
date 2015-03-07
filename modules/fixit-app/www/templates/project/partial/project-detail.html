@@ -1,6 +1,6 @@
 <div class="card">
 	<a class="item item-avatar">
-		<img ng-src="img/{{project.username}}.jpg" ng-click="goToUser(project.username)">
+		<img ng-src="img/{{::project.username}}.jpg" ng-click="goToUser(project.username)">
 		<h2 ng-click="goToProject(project.id)">{{::project.name}}</h2>
 		<p ng-click="goToProject(project.id)">{{::project.username}}</p>
 	</a>
@@ -22,13 +22,11 @@
             Following
         </a>
     </div>
-        <div ng-show="isMine(project)">
+        <div ng-show="::isMine(project)">
             <a class="tab-item">
                 <i class="icon ion-star calm"></i>
             </a>
         </div>
-
-
     <a class="tab-item" href="#">
       <i class="icon ion-chatbox"></i>
       Comment

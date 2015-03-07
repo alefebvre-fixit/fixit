@@ -3,7 +3,7 @@
     <div class="item" style="background-color: #387ef5;">
     </div>
 	<a class="item item-avatar" ui-sref="app.project-single({ projectId: project.id })">
-		<img ng-src="img/{{project.username}}.jpg">
+		<img ng-src="img/{{::project.username}}.jpg">
 		<h2>{{::project.name}}</h2>
 		<p>{{::project.username}}</p>
 	</a>

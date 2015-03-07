@@ -19,12 +19,12 @@ angular.module('fixit').run(
 			    .ready(function() {
 
 				var localFixitURL = 'http://localhost:9000';
-				var herokuFixitURL = 'http://intense-meadow-9097.herokuapp.com';
-				var herokuFixitURL2 = 'http://vast-gorge-2883.herokuapp.com';
+				var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com';
 
 				$rootScope.user = {};
-				$rootScope.baseUrl = localFixitURL;
-				$rootScope.isToastEnabled = false;
+				$rootScope.baseUrl = localFixitURL
+				//$rootScope.baseUrl = herokuFixitURL;
+				$rootScope.isPluginEnabled = false;
 
 				// Hide the accessory bar by default (remove
 				// this to show the accessory

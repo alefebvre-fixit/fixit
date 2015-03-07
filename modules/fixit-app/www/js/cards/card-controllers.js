@@ -101,7 +101,7 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
             // Show the action sheet
             $ionicActionSheet.show({
                 buttons: [
-                    { text: 'Update' }
+                    { text: 'Apply' }
                 ],
                 destructiveText: 'Delete',
                 titleText: 'Update your card',
@@ -129,8 +129,12 @@ angular.module('fixit').controller('EditDateCardController',
             $scope.addDateProposal = function() {
 
                 var proposal = {date:new Date()};
+
+                if (!$scope.isPluginActivated()){
+                    $scope.card.proposals.push(proposal);
+                    return;
+                }
                 //To be removed
-                $scope.card.proposals.push(proposal);
 
                 var options = {
                     date: new Date(),

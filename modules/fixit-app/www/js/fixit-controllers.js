@@ -3,7 +3,7 @@ angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '
 	function ($scope, $rootScope, $window,  $cordovaToast, $state) {
 	$scope.toastMe = function(message) {
 
-		if ($rootScope.isToastEnabled){
+		if (isPluginActivated()){
 			$cordovaToast.show(message, 'short', 'center').then(
 				function(success) {
 					// success
@@ -15,7 +15,9 @@ angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '
 		}
 
 	};
-
+	$scope.isPluginActivated = function(){
+		return $rootScope.isPluginEnabled;
+	};
 
 	$scope.setUser = function(user){
 		$rootScope.user = user;
@@ -27,7 +29,8 @@ angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '
 	};
 
 	$scope.isFavorite = function(project){
-		return ($rootScope.favorites.indexOf(project.id) > 0);
+		console.log("isFavorite " + project.id);
+		return ($rootScope.favorites.indexOf(project.id) >= 0);
 	};
 
 	$scope.isMine = function(project){
