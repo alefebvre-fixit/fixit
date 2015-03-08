@@ -14,11 +14,14 @@
 
 		<ion-item ng-repeat="notification in notifications"
 				  item="notification"
-				  class="item item-avatar item-remove-animate">
+				  class="item item-avatar">
+
 				<img ng-src="img/{{notification.actor}}.jpg" ng-click="goToUser(notification.actor)">
 
 				<h2>{{notification.actor}}</h2>
-				<p ng-show="notification.subtype=='item'">has provided an item {{notification.notificationDate | date:'short'}}</p>
+				<p ng-show="notification.subtype=='date'" ng-click="goToCard(notification.projectId, notification.cardId)">new vote - <span am-time-ago="notification.notificationDate"></span></p>
+				<p ng-show="notification.subtype=='item'" ng-click="goToCard(notification.projectId, notification.cardId)">new item provided - <span am-time-ago="notification.notificationDate"></span></p>
+				<p ng-show="notification.subtype=='participant'" ng-click="goToCard(notification.projectId, notification.cardId)">new participation - <span am-time-ago="notification.notificationDate"></span></p>
 
 
 
