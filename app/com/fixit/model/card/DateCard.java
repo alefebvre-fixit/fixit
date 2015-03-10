@@ -83,6 +83,7 @@ public class DateCard extends Card {
 				DateProposal proposal = getProposal(proposalId);
 				if (proposal != null) {
 					if (proposal.cancel(dateContribution)) {
+						decrementContributions();
 						result = true;
 					}
 				}

@@ -73,6 +73,7 @@ public class SurveyCard extends Card {
 				SurveyProposal proposal = getProposal(proposalId);
 				if (proposal != null) {
 					if (proposal.cancel(surveyContribution)) {
+						decrementContributions();
 						result = true;
 					}
 				}
