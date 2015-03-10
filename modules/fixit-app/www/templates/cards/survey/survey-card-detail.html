@@ -1,0 +1,51 @@
+
+<div ng-controller="SurveyCardController">
+	<div class="card">
+		<a class="item item-divider item-calm" ui-sref="app.card-view({ projectId: project.id, cardId : summary.card.id })">
+			<i class="icon ion-stats-bars"></i>
+			{{summary.card.name}}
+		</a>
+		<div ng-show="!summary.openForContribution">
+			<li class="item item-checkbox" ng-repeat="proposal in summary.card.proposals">
+				{{ proposal.name}}
+				<span class="badge badge-calm">{{proposal.votes}}</span>
+			</li>
+		</div>
+		<div ng-show="summary.openForContribution">
+			<li class="item item-checkbox" ng-repeat="proposal in summary.card.proposals">
+				<label class="checkbox">
+					<input type="checkbox" ng-model="proposal.selected" value="{{proposal.id}}">
+				</label>
+				{{ proposal.name}}
+				<span class="badge badge-calm">{{proposal.votes}}</span>
+			</li>
+		</div>
+		<div class="item item-text-wrap">
+			<p>
+				<a href="#" class="subdued">{{summary.card.contributions}} Votes</a>
+			</p>
+		</div>
+		<div class="item tabs tabs-secondary tabs-icon-left">
+			<a class="tab-item" href="#">
+			</a>
+			<a class="tab-item" href="#">
+			</a>
+			<a class="tab-item" ng-click="vote(project, summary.card)" ng-show="summary.openForContribution">
+				<i class="icon ion-navigate"></i>
+				Vote
+			</a>
+			<a class="tab-item" href="#" ng-show="!summary.openForContribution">
+			</a>
+		</div>
+	</div>
+
+	<canvas id="doughnut" class="chart chart-doughnut" data="summary.graphData.datas"
+			labels="summary.graphData.labels"></canvas>
+
+	<div data-ng-include data-src="'templates/cards/survey/survey-card-contribution.html'"></div>
+</div>
+
+
+
+
+

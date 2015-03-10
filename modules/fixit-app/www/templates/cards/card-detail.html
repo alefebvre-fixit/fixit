@@ -17,5 +17,14 @@
         <div ng-if="summary.card.type == 'participant' ">
             <div ng-include src="'templates/cards/participant/participant-card-detail.html'"></div>
         </div>
+        <div ng-if="summary.card.type == 'money' ">
+            <div ng-include src="'templates/cards/money/money-card-detail.html'"></div>
+        </div>
+        <div ng-if="summary.card.type == 'idea' ">
+            <div ng-include src="'templates/cards/idea/idea-card-detail.html'"></div>
+        </div>
+        <div ng-if="summary.card.type == 'survey' ">
+            <div ng-include src="'templates/cards/survey/survey-card-detail.html'"></div>
+        </div>
 
 </ion-content> </ion-view>

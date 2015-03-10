@@ -6,7 +6,8 @@ import com.fixit.model.Contribution;
 
 public class ContributionFactory {
 
-	public static final Contribution createContribution(String type, String projectId, String cardId, String username) {
+	public static final Contribution createContribution(String type,
+			String projectId, String cardId, String username) {
 
 		Contribution result = null;
 
@@ -16,15 +17,17 @@ public class ContributionFactory {
 			result = new DateContribution();
 		} else if (ParticipantContribution.TYPE.equals(type)) {
 			result = new ParticipantContribution();
+		} else if (SurveyContribution.TYPE.equals(type)) {
+			result = new SurveyContribution();
 		}
 
-		if (result != null){
+		if (result != null) {
 			result.setCardId(cardId);
 			result.setProjectId(projectId);
 			result.setDate(new Date());
 			result.setContributor(username);
 		}
-		
+
 		return result;
 	}
 

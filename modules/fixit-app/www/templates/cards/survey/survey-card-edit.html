@@ -1,0 +1,38 @@
+<div ng-controller="EditSurveyCardController">
+
+	<div class="item item-divider item-calm">
+		<i class="icon ion-stats-bars"></i> Survey Card
+	</div>
+
+	<label class="item item-input"> <span class="input-label">Description</span>
+		<input type="text" ng-model="card.name">
+	</label>
+
+	<a href="#" class="item item-button-right">
+		<li class="button button-small"
+			ng-click="addDateProposal()">Add</li>
+		Proposals
+	</a>
+
+	<ion-list show-delete="true" show-reorder="shouldShowReorder">
+		<ion-item ng-repeat="proposal in card.proposals">
+			{{proposal.name}}
+			<ion-delete-button
+					class="ion-minus-circled" ng-click="card.proposals.splice($index, 1)">
+			</ion-delete-button>
+			<ion-reorder-button class="ion-navicon"
+								on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+			</ion-reorder-button>
+		</ion-item>
+	</ion-list>
+
+</div>
+
+
+
+
+
+
+
+
+

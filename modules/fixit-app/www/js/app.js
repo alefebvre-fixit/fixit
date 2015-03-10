@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('fixit', [ 'ionic', 'ngCordova', 'angularMoment']);
+angular.module('fixit', [ 'ionic', 'ngCordova', 'angularMoment', 'chart.js']);
 
 
 angular.module('fixit').constant('fixitSettings', {

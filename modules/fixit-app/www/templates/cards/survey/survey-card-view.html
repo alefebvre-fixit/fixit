@@ -1,0 +1,21 @@
+<div class="card" ng-controller="SurveyCardController">
+    <a class="item item-divider item-calm" ui-sref="app.card-view({ projectId: project.id, cardId : card.id })">
+        <i class="icon ion-stats-bars"></i>
+        {{card.name}}
+    </a>
+    <li class="item item-checkbox" ng-repeat="proposal in card.proposals">
+         {{ proposal.name}}
+         <span class="badge badge-calm">{{proposal.votes}}</span>
+    </li>
+    <div class="item item-text-wrap">
+        <p>
+            <a href="#" class="subdued">{{card.contributions}} Votes</a>
+        </p>
+    </div>
+
+</div>
+
+
+
+
+

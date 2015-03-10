@@ -19,6 +19,7 @@ public class DateCard extends Card {
 	private boolean open = false;
 	private Date date;
 	private int votes = 0;
+	
 	private List<DateProposal> proposals = new ArrayList<DateProposal>();
 
 	public String getName() {

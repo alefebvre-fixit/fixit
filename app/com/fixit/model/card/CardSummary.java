@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fixit.model.Card;
 import com.fixit.model.Contribution;
+import com.fixit.model.card.graph.GraphData;
 
 public class CardSummary{
 	
@@ -17,6 +18,8 @@ public class CardSummary{
 	
 	private boolean openForContribution = false;
 
+	private GraphData graphData = null;
+	
 	public CardSummary(Card card){
 		this.card = card;
 	}
@@ -63,6 +66,14 @@ public class CardSummary{
 
 	public void setOpenForContribution(boolean openForContribution) {
 		this.openForContribution = openForContribution;
+	}
+
+	public GraphData getGraphData() {
+		return graphData;
+	}
+
+	public void setGraphData(GraphData graphData) {
+		this.graphData = graphData;
 	}
 	
 	

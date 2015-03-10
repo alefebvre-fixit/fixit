@@ -3,7 +3,7 @@ angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '
 	function ($scope, $rootScope, $window,  $cordovaToast, $state) {
 	$scope.toastMe = function(message) {
 
-		if (isPluginActivated()){
+		if ($scope.isPluginActivated()){
 			$cordovaToast.show(message, 'short', 'center').then(
 				function(success) {
 					// success

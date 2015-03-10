@@ -27,8 +27,16 @@ angular.module('fixit').factory('CardService',
                         });
                     });
                 },
-                vote: function (project, card, ids) {
+                availabilities: function (project, card, ids) {
                     return resultService.instanciateContribution(project, card, 'date').then(function (contribution) {
+                        contribution.votes = ids;
+                        return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id + '/contributions', contribution).then(function (response) {
+                            return response.data;
+                        });
+                    });
+                },
+                vote: function (project, card, ids) {
+                    return resultService.instanciateContribution(project, card, 'survey').then(function (contribution) {
                         contribution.votes = ids;
                         return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id + '/contributions', contribution).then(function (response) {
                             return response.data;
@@ -43,8 +51,6 @@ angular.module('fixit').factory('CardService',
                         });
                     });
                 },
-
-
                 cancelContribution: function (project, contribution) {
                     return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/contributions/' + contribution.id + '/cancel').then(function (response) {
                         return response.data;

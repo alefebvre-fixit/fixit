@@ -6,6 +6,8 @@ import com.fixit.model.Card;
 import com.fixit.model.Project;
 import com.fixit.model.card.DateCard;
 import com.fixit.model.card.DateProposal;
+import com.fixit.model.card.SurveyCard;
+import com.fixit.model.card.SurveyProposal;
 
 public class BaseProjectService {
 
@@ -37,7 +39,14 @@ public class BaseProjectService {
 					}
 				}
 			}
-			
+			else if (card instanceof SurveyCard){
+				SurveyCard surveyCard = (SurveyCard) card;
+				for (SurveyProposal proposal : surveyCard.getProposals()) {
+					if (proposal.getId() == null) {
+						proposal.setId(java.util.UUID.randomUUID().toString());
+					}
+				}
+			}
 			
 		}
 	}

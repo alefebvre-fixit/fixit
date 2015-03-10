@@ -39,7 +39,7 @@ public class DateProposal {
 	}
 
 	public boolean cancel(DateContribution contribution) {
-		if (contribution != null && contribution.getVotes().equals(getId())) {
+		if (contribution != null && contribution.getVotes().contains(getId())) {
 			contribution.setStatus(Contribution.STATUS_CANCELED);
 			this.votes -= 1;
 			return true;

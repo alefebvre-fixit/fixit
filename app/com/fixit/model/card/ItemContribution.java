@@ -6,7 +6,7 @@ import com.fixit.model.Contribution;
 
 public class ItemContribution extends Contribution {
 	
-	public static final String TYPE = "item";
+	public static final String TYPE = ItemCard.TYPE;
 
 	public ItemContribution() {
 		this.type = TYPE;

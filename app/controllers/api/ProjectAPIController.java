@@ -149,7 +149,7 @@ public class ProjectAPIController extends FixItController {
 	}
 
 	public static Result createCard(String projectId, String type) {
-		return ok(Json.toJson(CardFactory.createCard(type)));
+		return ok(Json.toJson(CardFactory.createCard(projectId, type, getUserName())));
 	}
 	
 	public static Result getCardSummary(String projectId, String cardId) {

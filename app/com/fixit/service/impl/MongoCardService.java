@@ -3,6 +3,7 @@ package com.fixit.service.impl;
 import com.fixit.model.Card;
 import com.fixit.model.Project;
 import com.fixit.model.card.CardSummary;
+import com.fixit.model.card.graph.GraphDataFactory;
 import com.fixit.service.CardService;
 import com.fixit.service.ContributionService;
 import com.fixit.service.ProjectService;
@@ -41,7 +42,10 @@ public class MongoCardService implements CardService {
 		summary.setOtherContributionNumber(contributionService.countOtherContributionForCard(username, cardId));
 		summary.setLastOtherContributions(contributionService.getOtherContributionForCard(username, cardId, 0, 10));
 		
-		summary.setOpenForContribution(card.isOpenForContribution(summary.getLastOtherContributions()));
+		summary.setOpenForContribution(card.isOpenForContribution(summary.getLastUserContributions()));
+		
+		summary.setGraphData(GraphDataFactory.getInstance(card).createGraphData(card));
+		
 		
 		return summary;
 	}

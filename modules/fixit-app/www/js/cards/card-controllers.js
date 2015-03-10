@@ -17,8 +17,10 @@ angular.module('fixit').controller('CardController',
 
             $scope.setProject =function(newProject){
                 $scope.project = newProject;
-
+                console.log("setProject=" + project.id);
                 CardService.getCardSummary(project.id, $scope.summary.card.id).then(function (data) {
+                    console.log("getCardSummary=" + project.id + " cardId=" + $scope.summary.card.id);
+
                     $scope.summary = data;
                 });
             };
@@ -29,6 +31,9 @@ angular.module('fixit').controller('CardController',
                     $scope.toastMe('Participation canceled.');
                 });
             };
+
+
+
 
         }
     ]);
@@ -165,8 +170,8 @@ angular.module('fixit').controller('EditDateCardController',
     ]);
 
 angular.module('fixit').controller('DateCardController',
-    ['ProjectService', '$scope',
-        function (ProjectService, $scope) {
+    ['CardService', '$scope',
+        function (CardService, $scope) {
 
             $scope.votes = [];
 
@@ -179,14 +184,13 @@ angular.module('fixit').controller('DateCardController',
                     }
                 }
 
-                ProjectService.vote(project, card, $scope.votes).then(function (data) {
+                CardService.vote(project, card, $scope.votes).then(function (data) {
                     $scope.setProject(data);
                     $scope.toastMe(card.name + ' voted.');
                 });
 
 
             };
-
 
         }
     ]);

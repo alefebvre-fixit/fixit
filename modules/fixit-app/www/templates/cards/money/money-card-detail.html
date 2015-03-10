@@ -1,0 +1,37 @@
+
+<div ng-controller="MoneyCardController">
+	<div class="card">
+		<a class="item item-divider item-calm" ui-sref="app.card-view({ projectId: project.id, cardId : summary.card.id })">
+			<i class="icon ion-clock"></i>
+			{{summary.card.name}}
+		</a>
+		<div>
+			//TODO
+		</div>
+		<div class="item item-text-wrap">
+			<p>
+				<a href="#" class="subdued">{{summary.card.contributions}} Votes</a>
+			</p>
+		</div>
+		<div class="item tabs tabs-secondary tabs-icon-left">
+			<a class="tab-item" href="#">
+			</a>
+			<a class="tab-item" href="#">
+			</a>
+			<a class="tab-item" ng-click="donate(project, summary.card)" ng-show="summary.openForContribution">
+				<i class="icon ion-navigate"></i>
+				Vote
+			</a>
+			<a class="tab-item" href="#" ng-show="!summary.openForContribution">
+			</a>
+		</div>
+	</div>
+
+
+	<div data-ng-include data-src="'templates/cards/money/money-card-contribution.html'"></div>
+</div>
+
+
+
+
+

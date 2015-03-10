@@ -8,12 +8,15 @@
 
         <div class="item item-text-wrap">
             <div ng-show="summary.card.minimum">
-                Required : {{summary.card.minimumParticipant}}
+                Minimum : {{summary.card.minimumParticipant}}
+                <br>
+            </div>
+            <div ng-show="summary.card.maximum">
+                Maximum : {{summary.card.maximumParticipant}}
                 <br>
             </div>
             Participants : {{summary.card.participants}}
             <div ng-show="summary.card.minimum">
-
                 Remaining : {{summary.card.minimumParticipant - summary.card.participants}}
             </div>
             <p>
