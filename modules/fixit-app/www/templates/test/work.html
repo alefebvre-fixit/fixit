@@ -3,12 +3,15 @@
     .module .avatar {
         border-radius: 50%;
         box-shadow: 0 0 0 3px #fff, 0 0 0 2px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+
         display: block;
         margin-left: auto;
         margin-right: auto;
         position: relative;
         top: 15px;
+
     }
+
     .module {
         background:
         linear-gradient(
@@ -40,6 +43,7 @@
         color: white;
         text-shadow: 0 1px 0 black;
     }
+
     .statistic{
         margin: 0;
         color: #387ef5;
@@ -54,6 +58,7 @@
 </style>
 
 
+
 <ion-view title="Profile">
 
     <ion-nav-buttons side="left">
@@ -62,13 +67,13 @@
     <ion-content class="has-header">
 
         <div class="module">
-            <img ng-src="img/{{::summary.user.username}}-100.jpg" class="avatar" width="100">
+            <img ng-src="img/antoinelefebvre-100.jpg" class="avatar" width="100">
             <header>
                 <h3>
-                    {{summary.user.profile.name}}
+                    Antoine Lefebvre
                 </h3>
                 <h5>
-                    @{{summary.user.username}}
+                    @antoinelefebvre
                 </h5>
             </header>
         </div>
@@ -76,22 +81,22 @@
         <div class="row">
             <div class="col">
                 <p class="statistic">
-                    <b>{{summary.projectNumber}}</b>
+                    <b>543</b>
                     <br>
-                <p class="statistic-label">Projects</p>
+                    <p class="statistic-label">Projects</p>
                 </p>
 
             </div>
             <div class="col">
                 <p class="statistic">
-                    <b>{{summary.contributionNumber}}</b>
+                    <b>56</b>
                     <br>
-                <p class="statistic-label">Contributions</p>
+                    <p class="statistic-label">Contributions</p>
                 </p>
             </div>
             <div class="col" ng-click="goToFollowers(summary.user.username)">
                 <p class="statistic">
-                    <b>{{summary.user.followers.length}}</b>
+                    <b>12</b>
                     <br>
                 <p class="statistic-label">Followers</p>
                 </p>
@@ -100,9 +105,9 @@
         <div class="row">
             <div class="col">
                 <h5>
-                    <i class="icon ion-location"> {{::summary.user.profile.city}}, {{::summary.user.profile.country}}</i>
+                    <i class="icon ion-location"> Paris{{::project.city}}, France{{::project.country}}</i>
                 </h5>
-                {{summary.user.profile.biography}}
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
             </div>
         </div>
 
@@ -130,6 +135,25 @@
         <div ng-repeat="project in summary.lastProjects">
             <div ng-include data-src="'templates/project/partial/project-view.html'"></div>
         </div>
+
+
+        <div class="card" style="border-left: 5px solid #387ef5;">
+
+            <a class="item item-avatar" ui-sref="app.project-single({ projectId: project.id })">
+                <img ng-src="img/antoinelefebvre.jpg">
+                <h2>Poker Night{{::project.name}}</h2>
+                <p>antoinelefebvre{{::project.username}}</p>
+            </a>
+            <div class="item item-text-wrap">
+                This is going to be a great.{{::project.description}} <br> <br>
+                <i class="icon ion-location"> {{::project.city}}, {{::project.country}}</i>
+                <p>
+                    <a href="#" class="subdued">{{::project.contributions}} Contributions</a>
+                    <a href="#" class="subdued">5 Comments</a>
+                </p>
+            </div>
+        </div>
+
 
         <div class="item item-divider">
             View all Projects...
