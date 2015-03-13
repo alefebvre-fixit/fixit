@@ -7,11 +7,28 @@
 </ion-nav-buttons>
 
 <ion-nav-buttons side="right">
-	<a class="button button-icon icon ion-plus" href="#/app/projects/new"></a>
+	<a class="button button-icon icon ion-plus" ui-sref="project-new"></a>
 </ion-nav-buttons>
 
 <ion-content class="has-header">
 	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+
+	<div class="item" style="text-align: center" ng-show="projects.length <= 0">
+		<br>
+		<br>
+		<br>
+		<br>
+
+		You have no project yet!
+		<a class="button icon-left ion-plus button-positive button-block" href="#/app/projects/new">Create a New Project</a>
+		<br>
+		<br>
+		<br>
+		<br>
+
+	</div>
+
 	<div ng-repeat="project in projects">	
 		<div ng-include data-src="'templates/project/partial/project-view.html'"></div>	
 	</div>

@@ -59,6 +59,12 @@
     <ion-nav-buttons side="left">
     </ion-nav-buttons>
 
+    <ion-nav-buttons side="right">
+        <a class="button" ng-show="user.username==summary.user.username" href="#/app/projects/{{project.id}}/edit">
+            Edit
+        </a>
+    </ion-nav-buttons>
+
     <ion-content class="has-header">
 
         <div class="module">
@@ -108,11 +114,6 @@
 
         <div class="row">
             <div class="col">
-                <div ng-show="user.username==summary.user.username">
-                    <button class="button button-positive button-small icon-left ion-person" ng-click="goToSettings()">
-                        Edit
-                    </button>
-                </div>
             </div>
             <div class="col"></div>
             <div class="col">

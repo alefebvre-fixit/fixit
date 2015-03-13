@@ -22,7 +22,6 @@ angular.module('fixit').run(
 				var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com';
 
 				$rootScope.user = {};
-				//$rootScope.baseUrl = localFixitURL
 				$rootScope.baseUrl = localFixitURL;
 				$rootScope.isPluginEnabled = false;
 
