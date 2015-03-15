@@ -9,5 +9,38 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 				}
 			},
 			authenticate: false
-		});
+		})
+
+		.state('app.work1', {
+			url: "/work1",
+			views: {
+				'menuContent': {
+					templateUrl: "templates/test/work-1.html"
+				}
+
+			},
+			authenticate: false
+		})
+
+		.state('app.work2', {
+			url: "/work2",
+			views: {
+				'menuContent': {
+					templateUrl: "templates/test/work-2.html"
+				}
+
+			},
+			authenticate: false
+		})
+		.state('app.work3', {
+			url: "/work3",
+			views: {
+				'menuContent': {
+					templateUrl: "templates/test/work-3.html"
+				}
+
+			},
+			authenticate: false
+		})
+	;
 });

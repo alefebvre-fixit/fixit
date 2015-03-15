@@ -177,23 +177,11 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			authenticate: true
 		})
 
-		.state('app.work', {
-			url: "/work",
-			views: {
-				'menuContent': {
-					templateUrl: "templates/test/work.html"
-				}
-
-			},
-			authenticate: true
-		})
-
-
 		;
 
 		
 
 	// if none of the above states are matched, use this as the fallback
-	$urlRouterProvider.otherwise('/app/signin');
-	//$urlRouterProvider.otherwise('/app/work');
+	//$urlRouterProvider.otherwise('/app/signin');
+	$urlRouterProvider.otherwise('/app/work3');
 });

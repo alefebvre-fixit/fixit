@@ -50,7 +50,11 @@
         text-align: center;
     }
 
-
+    .button-follow{
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
 </style>
 
 
@@ -77,6 +81,14 @@
                     @{{summary.user.username}}
                 </h5>
             </header>
+            <div ng-show="user.username!=summary.user.username">
+                <button class="button button-positive button-small button-follow ion-person" ng-click="follow(summary.user.username)" ng-show="!isFollowing(summary)">
+                    Follow
+                </button>
+                <button class="button button-positive button-small button-follow ion-person" ng-click="unfollow(summary.user.username)" ng-show="isFollowing(summary)">
+                    Following
+                </button>
+            </div>
         </div>
 
         <div class="row">
@@ -112,31 +124,17 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-            </div>
-            <div class="col"></div>
-            <div class="col">
-                <div ng-show="user.username!=summary.user.username">
-                    <button class="button button-positive button-small icon-left ion-person" ng-click="follow(summary.user.username)" ng-show="!isFollowing(summary)">
-                        Follow
-                    </button>
-                    <button class="button button-positive button-small icon-left ion-person" ng-click="unfollow(summary.user.username)" ng-show="isFollowing(summary)">
-                        Following
-                    </button>
-                </div>
-            </div>
-        </div>
 
         <div ng-repeat="project in summary.lastProjects">
             <div ng-include data-src="'templates/project/partial/project-view.html'"></div>
         </div>
 
-        <div class="item item-divider">
+
+        <a class="item item-icon-right" href="#">
             View all Projects...
-        </div>
-
-
+            <span class="icon ion-chevron-right positive"></span>
+        </a>
+        <br>
 
     </ion-content>
 </ion-view>
