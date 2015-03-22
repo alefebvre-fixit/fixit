@@ -1,5 +1,5 @@
-angular.module('fixit').controller('SignUpController', ['SettingService', '$scope', '$http', '$state', 'signup',
-    function (SettingService, $scope, $http, $state, signup) {
+angular.module('fixit').controller('SignUpController', ['SettingService', '$scope', '$state', 'signup', '$ionicLoading',
+    function (SettingService, $scope, $state, signup, $ionicLoading) {
 
         $scope.signup = signup;
 
@@ -20,21 +20,27 @@ angular.module('fixit').controller('SignUpController', ['SettingService', '$scop
     }
 ]);
 
-angular.module('fixit').controller('SignInController', ['SettingService', '$scope', '$state',
-    function (SettingService, $scope, $state) {
+angular.module('fixit').controller('SignInController', ['SettingService', '$scope', '$state', '$ionicLoading',
+    function (SettingService, $scope, $state, $ionicLoading) {
 
         $scope.signin = {username: 'antoinelefebvre', password: 'password'};
         // Perform the login action when the user submits the login for
         $scope.doSignIn = function () {
+
+            $ionicLoading.show({
+                template: 'Loading...'
+            });
 
             SettingService.signinUser($scope.signin).success(function (user) {
                 SettingService.getFavorites(user.username).then(function(favorites) {
                         $scope.setFavorites(favorites);
                         $scope.setUser(user);
                         $state.transitionTo('app.projects');
+                        $ionicLoading.hide();
                     }
                 );
             }).error(function (response, status) {
+                $ionicLoading.hide();
                 console.log("Invalid username or password");
                 $scope.signin.error = 'Invalid username or password';
             });
