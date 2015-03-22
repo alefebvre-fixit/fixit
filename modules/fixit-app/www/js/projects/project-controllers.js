@@ -142,6 +142,19 @@ angular.module('fixit').controller('EditProjectController',
 			};
 
 
+			$scope.data = {
+				showReorder: false,
+				showDelete: false
+			};
+
+			$scope.reorderCard = function(card, fromIndex, toIndex) {
+
+				console.log("reorderCard fromIndex = " + fromIndex + ' toIndex=' + toIndex);
+
+				$scope.project.cards.splice(fromIndex, 1)
+				$scope.project.cards.splice(toIndex, 0, card)
+			}
+
 		}
 	]);
 

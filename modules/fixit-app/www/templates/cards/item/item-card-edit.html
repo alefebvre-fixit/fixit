@@ -3,11 +3,12 @@
     <div class="item item-divider item-calm">
         <i class="icon ion-bag"></i> Item Card
     </div>
-    <label class="item item-input">
-        <span class="input-label">Description</span>
+    <label class="item item-input"> <span class="input-label">Name</span>
         <input type="text" ng-model="card.name">
     </label>
-
+    <label class="item item-input"> <span class="input-label">Description</span>
+        <input type="text" ng-model="card.description">
+    </label>
     <li class="item item-toggle">
         <div ng-show="card.minimum">Minimum required</div>
         <div ng-show="!card.minimum">No minimum required</div>
@@ -21,7 +22,6 @@
     <label class="item item-input" ng-show="card.minimum">
         <input type="number" placeholder="Minimum quantity" ng-model="card.minimumItem">
     </label>
-
     <li class="item item-toggle">
         <div ng-show="card.maximum">Maximum allowed</div>
         <div ng-show="!card.maximum">No maximum</div>
@@ -35,7 +35,6 @@
     <label class="item item-input" ng-show="card.maximum">
         <input type="number" placeholder="Maximum allowed" ng-model="card.maximumItem">
     </label>
-
 
 </div>
 

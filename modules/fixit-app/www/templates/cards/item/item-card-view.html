@@ -1,26 +1,41 @@
-<div class="card" ng-controller="ItemCardController">
 
-    <a class="item item-divider item-calm" href="#/app/projects/{{project.id}}/cards/{{card.id}}">
+<div class="card card-header" ng-controller="ItemCardController" ng-click="goToCard(project.id, card.id)">
+    <a class="item item-avatar item-avatar-icon calm">
         <i class="icon ion-bag"></i>
-        {{card.name}}
+        <h2>{{card.name}}</h2>
+        <p>{{card.description}}</p>
     </a>
-
+    <div class="row">
+        <div class="col">
+            <div ng-show="card.minimum">
+                <p class="statistic">
+                    <b>{{card.minimumItem}}</b>
+                    <br>
+                    <p class="statistic-label">Required</p>
+                </p>
+            </div>
+        </div>
+        <div class="col">
+            <p class="statistic">
+                <b>{{card.items}}</b>
+                <br>
+            <p class="statistic-label">Provided</p>
+            </p>
+        </div>
+        <div class="col">
+            <p class="statistic">
+                <b>{{card.maximumItem - card.items}}</b>
+                <br>
+            <p class="statistic-label">Remaining</p>
+            </p>
+        </div>
+    </div>
     <div class="item item-text-wrap">
-        <div ng-show="card.minimum">
-        Required : {{card.minimumItem}}
-        <br>
-        </div>
-        Provided : {{card.items}}
-        <div ng-show="card.maximum">
-            Remaining : {{card.maximumItem - card.items}}
-        </div>
         <p>
             <a href="#" class="subdued">{{card.contributions}} Contributions</a>
         </p>
     </div>
-
 </div>
-
 
 
 

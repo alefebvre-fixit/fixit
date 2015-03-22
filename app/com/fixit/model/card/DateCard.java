@@ -29,6 +29,8 @@ public class DateCard extends Card {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+
 
 	public Date getDate() {
 		return date;

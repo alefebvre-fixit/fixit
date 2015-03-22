@@ -1,46 +1,55 @@
+
 <div ng-controller="ParticipantCardController">
-    <div class="card">
-
-        <a class="item item-divider item-calm" href="#/app/projects/{{project.id}}/cards/{{card.id}}">
-            <i class="icon ion-person-stalker"></i>
-            {{summary.card.name}}
-        </a>
-
-        <div class="item item-text-wrap">
+    <a class="item item-avatar item-avatar-icon positive">
+        <i class="icon ion-person-stalker"></i>
+        <h2>{{summary.card.name}}</h2>
+        <p>{{summary.card.description}}</p>
+    </a>
+    <div class="row">
+        <div class="col">
             <div ng-show="summary.card.minimum">
-                Minimum : {{summary.card.minimumParticipant}}
+                <p class="statistic">
+                    <b>{{summary.card.minimumParticipant}}</b>
+                    <br>
+                <p class="statistic-label">Minimum</p>
+                </p>
+            </div>
+        </div>
+        <div class="col">
+            <p class="statistic">
+                <b>{{summary.card.participants}}</b>
                 <br>
-            </div>
-            <div ng-show="summary.card.maximum">
-                Maximum : {{summary.card.maximumParticipant}}
-                <br>
-            </div>
-            Participants : {{summary.card.participants}}
-            <div ng-show="summary.card.minimum">
-                Remaining : {{summary.card.minimumParticipant - summary.card.participants}}
-            </div>
-            <p>
-                <a href="#" class="subdued">{{summary.card.contributions}} Contributions</a>
+            <p class="statistic-label">Participants</p>
             </p>
         </div>
-
-        <div class="item tabs tabs-secondary tabs-icon-left">
-            <a class="tab-item" href="#">
-
-            </a>
-            <a class="tab-item" href="#">
-
-            </a>
-            <a class="tab-item" ng-click="participate(project, summary.card)">
-                <i class="icon ion-navigate"></i>
-                Participate
-            </a>
+        <div class="col">
+            <p class="statistic">
+                <b>{{summary.card.maximumParticipant - summary.card.participants}}</b>
+                <br>
+            <p class="statistic-label">Remaining</p>
+            </p>
         </div>
     </div>
-    <div ng-if=""></div>
+    <div class="row">
+        <div class="col col-center">
+            <p class="statistic">
+                <b>{{summary.card.contributions}}</b>
+                <br>
+            <p class="statistic-label">Votes</p>
+            </p>
+
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col col-center" ng-click="participate(project, summary.card)">
+            <button class="button button-clear button-positive">
+                Participate
+            </button>
+        </div>
+    </div>
     <div data-ng-include data-src="'templates/cards/participant/participant-card-contribution.html'"></div>
 </div>
-
 
 
 

@@ -1,20 +1,45 @@
-<div ng-repeat="card in project.cards">
-    <div ng-if="card.type == 'date' ">
-        <div ng-include data-src="'templates/cards/date/date-card-preview.html'"></div>
+
+<ion-item class="item item-button-right item-calm">
+    <b>Cards</b>
+    &nbsp;
+    <div class="buttons">
+        <button class="button button-small button-calm" ng-click="addDateProposal()">
+            Add
+        </button>
+        <button class="button button-small button-calm" ng-click="data.showReorder = !data.showReorder">
+            Reorder
+        </button>
     </div>
-    <div ng-if="card.type == 'item' ">
-        <div ng-include src="'templates/cards/item/item-card-preview.html'"></div>
-    </div>
-    <div ng-if="card.type == 'participant' ">
-        <div ng-include src="'templates/cards/participant/participant-card-preview.html'"></div>
-    </div>
-    <div ng-if="card.type == 'money' ">
-        <div ng-include src="'templates/cards/money/money-card-preview.html'"></div>
-    </div>
-    <div ng-if="card.type == 'idea' ">
-        <div ng-include src="'templates/cards/idea/idea-card-preview.html'"></div>
-    </div>
-    <div ng-if="card.type == 'survey' ">
-        <div ng-include src="'templates/cards/survey/survey-card-preview.html'"></div>
-    </div>
-</div>
+</ion-item>
+
+<ion-list show-reorder="data.showReorder" show-delete="data.showDelete">
+        <ion-item ng-repeat="card in project.cards" class="item item-avatar item-avatar-icon calm">
+
+            <div ng-click="goToEditCard(project.id, card.id)">
+                <div ng-if="card.type == 'date' ">
+                    <div ng-include data-src="'templates/cards/date/date-card-preview.html'"></div>
+                </div>
+                <div ng-if="card.type == 'item' ">
+                    <div ng-include src="'templates/cards/item/item-card-preview.html'"></div>
+                </div>
+                <div ng-if="card.type == 'participant' ">
+                    <div ng-include src="'templates/cards/participant/participant-card-preview.html'"></div>
+                </div>
+                <div ng-if="card.type == 'money' ">
+                    <div ng-include src="'templates/cards/money/money-card-preview.html'"></div>
+                </div>
+                <div ng-if="card.type == 'idea' ">
+                    <div ng-include src="'templates/cards/idea/idea-card-preview.html'"></div>
+                </div>
+                <div ng-if="card.type == 'survey' ">
+                    <div ng-include src="'templates/cards/survey/survey-card-preview.html'"></div>
+                </div>
+            </div>
+
+            <ion-delete-button class="ion-minus-circled" ng-click="card.proposals.splice($index, 1)">
+            </ion-delete-button>
+
+            <ion-reorder-button class="ion-navicon" on-reorder="reorderCard(card, $fromIndex, $toIndex)">
+            </ion-reorder-button>
+        </ion-item>
+</ion-list>

@@ -35,6 +35,7 @@ public abstract class Card {
 	private String username;
 	private String status = STATUS_NEW;
 	private int contributions;
+	private String description;
 
 	@Id
 	public String getId() {
@@ -45,6 +46,15 @@ public abstract class Card {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 
 	@JsonIgnore
 	public abstract boolean cancel(Contribution contribution);

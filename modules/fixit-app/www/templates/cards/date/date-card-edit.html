@@ -3,42 +3,61 @@
 	<div class="item item-divider item-calm">
 		<i class="icon ion-clock"></i> Date Card
 	</div>
-	<label class="item item-input"> <span class="input-label">Description</span>
+	<label class="item item-input"> <span class="input-label">Name</span>
 		<input type="text" ng-model="card.name">
+	</label>
+	<label class="item item-input"> <span class="input-label">Description</span>
+		<input type="text" ng-model="card.description">
 	</label>
 
 	<li class="item item-toggle">
 		<div ng-show="card.open">Open</div>
-		<div ng-show="!card.open">Fixed</div> <label
-		class="toggle toggle-assertive"> <input type="checkbox"
-			ng-model="card.open">
+		<div ng-show="!card.open">Fixed</div>
+		<label class="toggle toggle-assertive">
+			<input type="checkbox" ng-model="card.open">
 			<div class="track">
 				<div class="handle"></div>
 			</div>
-	</label>
-	
+		</label>
 	</li>
-	
+
 	<div ng-show="card.open">
-	<a href="#" class="item item-button-right">
-		<li class="button button-small"
-		ng-click="addDateProposal()">Add</li> 
-		Date Proposals
-	</a>
-		<ion-list show-delete="true" show-reorder="shouldShowReorder">
-		<ion-item ng-repeat="proposal in card.proposals">
-		{{proposal.date | date:'short' }} <ion-delete-button
-			class="ion-minus-circled" ng-click="card.proposals.splice($index, 1)">
-		</ion-delete-button> <ion-reorder-button class="ion-navicon"
-			on-reorder="reorderItem(item, $fromIndex, $toIndex)">
-		</ion-reorder-button> </ion-item> </ion-list>
+		<ion-item class="item item-button-right">
+			<b>Date Proposals</b>
+			&nbsp;
+			<div class="buttons">
+				<button class="button button-small button-calm" ng-click="addProposal()">
+					Add
+				</button>
+				<button class="button button-small button-calm" ng-click="data.showReorder = !data.showReorder">
+					Reorder
+				</button>
+			</div>
+		</ion-item>
+
+		<ion-list show-delete="false" show-reorder="data.showReorder" show-delete="data.showDelete">
+			<ion-item ng-repeat="proposal in card.proposals">
+				<h2>{{proposal.date | date:'short' }}</h2>
+
+				<ion-reorder-button class="ion-navicon"
+									on-reorder="reorderProposal(proposal, $fromIndex, $toIndex)">
+				</ion-reorder-button>
+
+				<ion-option-button class="button-assertive"
+								   ng-click="deleteProposal($index)">
+					Delete
+				</ion-option-button>
+
+			</ion-item>
+		</ion-list>
+		
 	</div>
-	
-	
+
+
 	<label class="item item-input" ng-show="!card.open"> <span
-        class="input-label">Date</span> <input type="date"
-        placeholder="Date" ng-model="card.date" />
-      </label>
+			class="input-label">Date</span> <input type="date"
+												   placeholder="Date" ng-model="card.date" />
+	</label>
 
 </div>
 

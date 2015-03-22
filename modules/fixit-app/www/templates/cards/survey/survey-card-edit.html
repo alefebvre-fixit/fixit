@@ -4,31 +4,69 @@
 		<i class="icon ion-stats-bars"></i> Survey Card
 	</div>
 
-	<label class="item item-input"> <span class="input-label">Description</span>
+	<label class="item item-input"> <span class="input-label">Name</span>
 		<input type="text" ng-model="card.name">
 	</label>
+	<label class="item item-input"> <span class="input-label">Description</span>
+		<input type="text" ng-model="card.description">
+	</label>
 
-	<a href="#" class="item item-button-right">
-		<li class="button button-small"
-			ng-click="addDateProposal()">Add</li>
-		Proposals
-	</a>
+	<ion-item class="item item-button-right">
+		<b>Proposals</b>
+		&nbsp;
+		<div class="buttons">
+			<button class="button button-small button-calm" ng-click="modal.show()">
+				Add
+			</button>
+			<button class="button button-small button-calm" ng-click="data.showReorder = !data.showReorder">
+				Reorder
+			</button>
+		</div>
+	</ion-item>
 
-	<ion-list show-delete="true" show-reorder="shouldShowReorder">
+	<ion-list show-delete="false" show-reorder="data.showReorder" show-delete="data.showDelete">
 		<ion-item ng-repeat="proposal in card.proposals">
-			{{proposal.name}}
-			<ion-delete-button
-					class="ion-minus-circled" ng-click="card.proposals.splice($index, 1)">
-			</ion-delete-button>
+			<h2>{{proposal.name}}</h2>
+			<p>{{proposal.description}}</p>
+
 			<ion-reorder-button class="ion-navicon"
-								on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+								on-reorder="reorderProposal(proposal, $fromIndex, $toIndex)">
 			</ion-reorder-button>
+
+			<ion-option-button class="button-assertive"
+							   ng-click="deleteProposal($index)">
+				Delete
+			</ion-option-button>
+
 		</ion-item>
 	</ion-list>
 
 </div>
 
+<script id="templates/edit-proposal.html" type="text/ng-template">
+	<ion-modal-view>
+		<ion-header-bar class="bar bar-header bar-positive">
+			<h1 class="title">New Proposal</h1>
+			<button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+		</ion-header-bar>
+		<ion-content class="padding">
 
+			<div class="list">
+				<label class="item item-input">
+					<span class="input-label">Name</span>
+					<input ng-model="newProposal.name" type="text">
+				</label>
+				<label class="item item-input">
+					<span class="input-label">Description</span>
+					<input ng-model="newProposal.description" type="text">
+				</label>
+
+				<button class="button button-full button-positive" ng-click="addProposal(newProposal)">Create</button>
+
+			</div>
+		</ion-content>
+	</ion-modal-view>
+</script>
 
 
 

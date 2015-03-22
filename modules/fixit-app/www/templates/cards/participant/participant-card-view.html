@@ -1,28 +1,38 @@
-<div class="card" ng-controller="ItemCardController">
 
-    <a class="item item-divider item-calm" href="#/app/projects/{{project.id}}/cards/{{card.id}}">
+<div class="card card-header" ng-controller="ParticipantCardController" ng-click="goToCard(project.id, card.id)">
+    <a class="item item-avatar item-avatar-icon calm">
         <i class="icon ion-person-stalker"></i>
-        {{card.name}}
+        <h2>{{card.name}}</h2>
+        <p>{{card.description}}</p>
     </a>
-
+    <div class="row">
+        <div class="col">
+            <div ng-show="card.minimum">
+                <p class="statistic">
+                    <b>{{card.minimumParticipant}}</b>
+                    <br>
+                <p class="statistic-label">Required</p>
+                </p>
+            </div>
+        </div>
+        <div class="col">
+            <p class="statistic">
+                <b>{{card.participants}}</b>
+                <br>
+            <p class="statistic-label">Participants</p>
+            </p>
+        </div>
+        <div class="col">
+            <p class="statistic">
+                <b>{{card.minimumParticipant - card.participants}}</b>
+                <br>
+            <p class="statistic-label">Remaining</p>
+            </p>
+        </div>
+    </div>
     <div class="item item-text-wrap">
-        <div ng-show="card.minimum">
-        Required : {{card.minimumParticipant}}
-        <br>
-        </div>
-        Participants : {{card.participants}}
-        <div ng-show="card.minimum">
-        
-        Remaining : {{card.minimumParticipant - card.participants}}
-        </div>
         <p>
-            <a href="#" class="subdued">{{card.contributions}} Contributions</a>
+            <a href="#" class="subdued">{{card.contributions}} Participations</a>
         </p>
     </div>
-
 </div>
-
-
-
-
-

@@ -7,7 +7,16 @@ public class SurveyProposal {
 	private String id;
 	private String name;
 	private String description;
+	private String color;
 	private int votes;
+	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 
 	public String getId() {
 		return id;

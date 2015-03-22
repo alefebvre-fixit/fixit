@@ -3,7 +3,7 @@ angular.module('fixit').controller('EditDateCardController',
     ['ProjectService', '$scope', '$cordovaDatePicker',
         function (ProjectService, $scope, $cordovaDatePicker) {
 
-            $scope.addDateProposal = function() {
+            $scope.addProposal = function() {
 
                 var proposal = {date:new Date()};
 
@@ -36,7 +36,23 @@ angular.module('fixit').controller('EditDateCardController',
                 }, false);
             };
 
+            $scope.deleteProposal = function(index){
+                $scope.card.proposals.splice(index, 1);
+            };
 
+
+            $scope.data = {
+                showReorder: false,
+                showDelete: false
+            };
+
+            $scope.reorderProposal = function(proposal, fromIndex, toIndex) {
+
+                console.log("reorderProposal fromIndex = " + fromIndex + ' toIndex=' + toIndex);
+
+                $scope.card.proposals.splice(fromIndex, 1);
+                $scope.card.proposals.splice(toIndex, 0, proposal);
+            };
 
         }
     ]);

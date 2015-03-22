@@ -1,14 +1,17 @@
-<div class="card" ng-controller="DateCardController">
-    <a class="item item-divider item-calm" ui-sref="app.card-view({ projectId: project.id, cardId : card.id })">
+
+
+
+<div class="card card-header" ng-controller="DateCardController" ng-click="goToCard(project.id, card.id)">
+    <a class="item item-avatar item-avatar-icon calm">
         <i class="icon ion-clock"></i>
-        {{card.name}}
+        <h2>{{card.name}}</h2>
+        <p>{{card.description}}</p>
     </a>
-    
 	<div ng-show="card.open">
-  		<li class="item item-checkbox" ng-repeat="proposal in card.proposals">
+  		<li class="item " ng-repeat="proposal in card.proposals">
 		     {{ proposal.date | date:'short' }}
 		     <span class="badge badge-calm">{{proposal.votes}}</span>
-		  </li>
+        </li>
 	</div>
 	<div ng-show="!card.open">
 		Date is {{ card.date | date:'short' }}

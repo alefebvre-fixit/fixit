@@ -1,13 +1,60 @@
 
 angular.module('fixit').controller('EditSurveyCardController',
-    ['ProjectService', '$scope',
-        function (ProjectService, $scope) {
+    ['ProjectService', '$scope', '$ionicModal',
+        function (ProjectService, $scope, $ionicModal) {
 
-            var proposalName = 1;
+            $ionicModal.fromTemplateUrl('templates/edit-proposal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
+                $scope.modal = modal;
+            });
 
-            $scope.addDateProposal = function() {
-                var proposal = {name:proposalName++};
+            $scope.openModal = function() {
+                $scope.modal.show();
+            };
+
+            $scope.closeModal = function() {
+                $scope.modal.hide();
+            };
+
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modal.remove();
+            });
+
+            // Execute action on hide modal
+            $scope.$on('modal.hidden', function() {
+                // Execute action
+            });
+
+            // Execute action on remove modal
+            $scope.$on('modal.removed', function() {
+                // Execute action
+            });
+
+
+            $scope.deleteProposal = function(index){
+                $scope.card.proposals.splice(index, 1);
+            };
+
+            $scope.addProposal = function(proposal) {
                 $scope.card.proposals.push(proposal);
+                $scope.modal.hide();
+            };
+
+
+            $scope.data = {
+                showReorder: false,
+                showDelete: false
+            };
+
+            $scope.reorderProposal = function(proposal, fromIndex, toIndex) {
+
+                console.log("reorderProposal fromIndex = " + fromIndex + ' toIndex=' + toIndex);
+
+                $scope.card.proposals.splice(fromIndex, 1);
+                $scope.card.proposals.splice(toIndex, 0, proposal);
             };
 
         }

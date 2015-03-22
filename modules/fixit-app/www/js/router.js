@@ -182,6 +182,6 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 		
 
 	// if none of the above states are matched, use this as the fallback
-	//$urlRouterProvider.otherwise('/app/signin');
-	$urlRouterProvider.otherwise('/app/work3');
+	$urlRouterProvider.otherwise('/app/signin');
+	//$urlRouterProvider.otherwise('/app/work3');
 });

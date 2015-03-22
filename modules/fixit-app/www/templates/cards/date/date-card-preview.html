@@ -1,20 +1,3 @@
-<div class="card" ng-controller="DateCardController">
-
-    <a class="item item-divider item-calm" ui-sref="app.card-edit({ projectId: project.id, cardId : card.id })">
-        <i class="icon ion-clock"></i>
-        {{card.name}}
-    </a>
-
-    <div class="item item-text-wrap">
-        {{ card.date | date:'short' }}
-        <p>
-            <a href="#" class="subdued">{{card.contributions}} Contributions</a>
-        </p>
-    </div>
-
-</div>
-
-
-
-
-
+<i class="icon ion-clock" ng-show="card.type == 'date' "></i>
+<h2>{{card.name}}</h2>
+<p>{{card.description}}</p>

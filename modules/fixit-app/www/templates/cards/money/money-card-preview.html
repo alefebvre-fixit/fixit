@@ -1,20 +1,3 @@
-<div class="card" ng-controller="MoneyCardController">
-
-    <a class="item item-divider item-calm" ui-sref="app.card-edit({ projectId: project.id, cardId : card.id })">
-        <i class="icon ion-cash"></i>
-        {{card.name}}
-    </a>
-
-    <div class="item item-text-wrap">
-        //TODO
-        <p>
-            <a href="#" class="subdued">{{card.contributions}} Contributions</a>
-        </p>
-    </div>
-
-</div>
-
-
-
-
-
+<i class="icon ion-cash" ng-show="card.type == 'money' "></i>
+<h2>{{card.name}}</h2>
+<p>{{card.description}}</p>

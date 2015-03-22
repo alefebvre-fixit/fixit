@@ -103,7 +103,7 @@ public class ParticipantCard extends Card {
 	@JsonIgnore
 	public int getRemaining() {
 
-		if (isMaximum) {
+		if (!isMaximum) {
 			return -1;
 		}
 
@@ -118,7 +118,7 @@ public class ParticipantCard extends Card {
 	@JsonIgnore
 	public int getRequired() {
 
-		if (isMinimum) {
+		if (!isMinimum) {
 			return -1;
 		}
 

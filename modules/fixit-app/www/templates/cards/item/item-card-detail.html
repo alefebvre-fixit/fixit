@@ -1,33 +1,55 @@
-<div ng-controller="ItemCardController">
 
-<div class="card">
-    <a class="item item-divider item-calm" href="#/app/projects/{{project.id}}/cards/{{summary.card.id}}">
+<div ng-controller="ItemCardController">
+    <a class="item item-avatar item-avatar-icon positive">
         <i class="icon ion-bag"></i>
-        {{summary.card.name}}
+        <h2>{{summary.card.name}}</h2>
+        <p>{{summary.card.description}}</p>
     </a>
-    <div class="item item-text-wrap">
-        <div ng-show="summary.card.minimum">
-        Required : {{summary.card.minimumItem}}
-        <br>
+
+    <div class="row">
+        <div class="col">
+            <div ng-show="summary.card.minimum">
+                <p class="statistic">
+                    <b>{{summary.card.minimumItem}}</b>
+                    <br>
+                <p class="statistic-label">Required</p>
+                </p>
+            </div>
         </div>
-        Provided : {{summary.card.items}}
-        <div ng-show="summary.card.maximum">
-            Remaining : {{summary.card.maximumItem - summary.card.items}}
+        <div class="col">
+            <p class="statistic">
+                <b>{{summary.card.items}}</b>
+                <br>
+            <p class="statistic-label">Provided</p>
+            </p>
         </div>
-        <p>
-            <a href="#" class="subdued">{{summary.card.contributions}} Contributions</a>
-        </p>
+        <div class="col">
+            <p class="statistic">
+                <b>{{summary.card.maximumItem - summary.card.items}}</b>
+                <br>
+            <p class="statistic-label">Remaining</p>
+            </p>
+        </div>
     </div>
-    <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="#">
-        </a>
-        <a class="tab-item" href="#">
-        </a>
-        <a class="tab-item" ng-click="provide(project, summary.card)">
-            <i class="icon ion-navigate"></i>
-      		Contribute
-        </a>
+
+    <div class="row">
+        <div class="col col-center">
+            <p class="statistic">
+                <b>{{summary.card.contributions}}</b>
+                <br>
+            <p class="statistic-label">Votes</p>
+            </p>
+
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col col-center" ng-click="provide(project, summary.card)">
+            <button class="button button-clear button-positive">
+                Provide
+            </button>
+        </div>
     </div>
-</div>
+
     <div data-ng-include data-src="'templates/cards/item/item-card-contribution.html'"></div>
 </div>

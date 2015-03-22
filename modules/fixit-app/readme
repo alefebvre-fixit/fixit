@@ -4,15 +4,7 @@ open -a Google\ Chrome --args --disable-web-security
 
 http://localhost:8100/#/app/signin
 
-mongo ds029821.mongolab.com:29821/fixit-mg -u <dbuser> -p <dbpassword>
-fixit-admin AZERTy75
-https://mongolab.com/databases/fixit-mg/collections/Project
 
-MongoLab@Heroku
-ds029831.mongolab.com:29831
-
-
-mongo ds029831.mongolab.com:2983/fixit-mg -u fixit-admin -p AZERTy75
 
 
 //Install homebrew
@@ -63,6 +55,6 @@ export SBT_OPTS="-Xms1024M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:Ma
 
 export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk
 
-
+http://www.colourlovers.com/palette/580974/Adrift_in_Dreams
 
 ./activator -jvm-debug 4444 ~run

@@ -59,6 +59,10 @@ angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '
 		$state.go('app.card-view', {projectId: projectId, cardId: cardId});
 	};
 
+	$scope.goToEditCard = function(projectId, cardId){
+		$state.go('app.card-edit', {projectId: projectId, cardId: cardId});
+	};
+
 	$scope.goToSettings = function(){
 		$state.go('app.settings');
 	};
