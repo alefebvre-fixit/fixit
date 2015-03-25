@@ -28,7 +28,7 @@ angular.module('fixit').controller('SignInController', ['SettingService', '$scop
         $scope.doSignIn = function () {
 
             $ionicLoading.show({
-                template: 'Loading...'
+                template: '<ion-spinner class="spinner-positive"></ion-spinner>'
             });
 
             SettingService.signinUser($scope.signin).success(function (user) {

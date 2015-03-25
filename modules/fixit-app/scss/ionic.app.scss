@@ -14,8 +14,10 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
-$positive:                        #387ef5 !default;
-$base-background-color:           #fafafa !default;
+$positive:                        #3FB8AF !default;
+$calm:                            #7FC7AF !default;
+
+$base-background-color:           #EEF1F1 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -23,3 +25,65 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+
+//http://www.colourlovers.com/palette/932683/Compatible
+
+
+$palette-1:                        #3FB8AF !default;
+$palette-2:                        #7FC7AF !default;
+$palette-3:                        #DAD8A7 !default;
+$palette-4:                        #FF9E9D !default;
+$palette-5:                        #FF3D7F !default;
+
+.palette-1{
+  color: $palette-1;
+}
+.palette-2{
+  color: $palette-2;
+}
+.palette-3{
+  color: $palette-3;
+}
+.palette-4{
+  color: $palette-4;
+}
+.palette-5{
+  color: $palette-5;
+}
+
+
+
+.statistic{
+  margin: 0;
+  color: $positive;
+  text-align: center;
+}
+
+.project-header{
+  border-left: 5px solid $positive;
+}
+
+.card-header{
+  border-top: 5px solid $calm;
+}
+
+.statistic-label{
+  margin: 0;
+  text-align: center;
+}
+
+.item-avatar-icon i:first-child, .item-avatar .item-img {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 36px;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.col-center{
+  margin: 0;
+  text-align: center;
+}

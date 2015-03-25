@@ -1,16 +1,19 @@
 package controllers.api;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import play.Logger;
 import play.libs.Json;
+import play.mvc.Http;
 import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 import play.mvc.Results;
 import play.mvc.Security;
 
 import com.fixit.model.Profile;
+import com.fixit.model.S3File;
 import com.fixit.model.User;
 import com.fixit.model.UserSummary;
 import com.fixit.model.account.SignIn;
@@ -48,7 +51,7 @@ public class AccountAPIController extends FixItController {
 		Logger.debug("AccountAPIController.user(username)");
 		return ok(play.libs.Json.toJson(getUserService().load(username)));
 	}
-
+	
 	public static Result signUp() {
 		Logger.debug("AccountAPIController.signup()");
 
@@ -159,6 +162,30 @@ public class AccountAPIController extends FixItController {
 		List<User> result = getUserService().getFollowers(username);
 
 		return ok(play.libs.Json.toJson(result));
+	}
+	
+	
+	
+	public static Result uploadPicture() {
+		Logger.debug("AccountAPIController.uploadPicture()");
+		
+		Http.MultipartFormData body = request().body().asMultipartFormData();
+		List<Http.MultipartFormData.FilePart> parts = body.getFiles();
+		for (Http.MultipartFormData.FilePart filePart : parts) {
+			Logger.debug("filePart.getKey()" + filePart.getKey());
+		}
+        Http.MultipartFormData.FilePart uploadFilePart = body.getFile("file");
+        if (uploadFilePart != null) {
+            S3File s3File = new S3File();
+            s3File.name = uploadFilePart.getFilename();
+            s3File.file = uploadFilePart.getFile();
+            s3File.save();
+            return ok("File uploaded to S3");
+        }
+        else {
+            return badRequest("File upload error");
+        }
+		
 	}
 
 }

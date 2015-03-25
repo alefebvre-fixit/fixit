@@ -116,6 +116,11 @@ angular.module('fixit').controller('EditProjectController',
 				$scope.project.cards.splice(index, 1);
 			};
 
+			$scope.addNewCard = function(project) {
+				console.log('addNewCard');
+				$state.go('app.card-selector', {projectId: project.id});
+			};
+
 			// Triggered on a button click, or some other target
 			$scope.showAction = function(projectToUpdate) {
 				// Show the action sheet

@@ -7,7 +7,7 @@
 </ion-nav-buttons>
 
 <ion-content class="has-header">
-	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+	<ion-refresher on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
 
 
 	<ion-list>
@@ -22,8 +22,6 @@
 				<p ng-show="notification.subtype=='date'" ng-click="goToCard(notification.projectId, notification.cardId)">new vote - <span am-time-ago="notification.notificationDate"></span></p>
 				<p ng-show="notification.subtype=='item'" ng-click="goToCard(notification.projectId, notification.cardId)">new item provided - <span am-time-ago="notification.notificationDate"></span></p>
 				<p ng-show="notification.subtype=='participant'" ng-click="goToCard(notification.projectId, notification.cardId)">new participation - <span am-time-ago="notification.notificationDate"></span></p>
-
-
 
 				<ion-option-button class="button-assertive"
 								   ng-click="archive(notification)">

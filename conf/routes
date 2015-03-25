@@ -83,12 +83,13 @@ POST    /api/users/:user/follow       	    	controllers.api.AccountAPIController
 POST    /api/users/:user/unfollow       		controllers.api.AccountAPIController.unFollow(user: String)
 
 
-GET     /api/account/summary     		controllers.api.AccountAPIController.accountSummary()
-GET     /api/account     				controllers.api.AccountAPIController.account()
-GET     /api/accounts     				controllers.api.AccountAPIController.accounts()
-GET     /api/notifications     			controllers.api.NotificationAPIController.notifications()
+GET     /api/account/summary     				controllers.api.AccountAPIController.accountSummary()
+GET     /api/account     						controllers.api.AccountAPIController.account()
+GET     /api/accounts     						controllers.api.AccountAPIController.accounts()
+GET     /api/notifications     					controllers.api.NotificationAPIController.notifications()
 
-POST    /api/signup     				controllers.api.AccountAPIController.signUp()
-POST    /api/signin     				controllers.api.AccountAPIController.signIn()
-POST    /api/profile     				controllers.api.AccountAPIController.updateProfile()
+POST    /api/signup     						controllers.api.AccountAPIController.signUp()
+POST    /api/signin     						controllers.api.AccountAPIController.signIn()
+POST    /api/profile     						controllers.api.AccountAPIController.updateProfile()
+POST    /api/profile/picture     				controllers.api.AccountAPIController.uploadPicture()
 

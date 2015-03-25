@@ -10,11 +10,22 @@
 		</div>
 	
 	
-			<div class="item item-divider">
+        <div class="item item-divider">
 			<button class="button button-block button-positive" ng-click="callDatePicker()">Date Picker</button>
 		</div>
-	
-		<br>
+        <div class="item item-divider">
+            <button class="button button-energized" ng-click="addImage()">
+                Add image
+            </button>
+        </div>
+
+
+    <br>
+    <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+
+
+
+    <br>
 		
       <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
 
