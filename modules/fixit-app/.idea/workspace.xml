@@ -182,8 +182,8 @@
     </gulpfiles>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="893" />
-    <option name="y" value="38" />
+    <option name="x" value="259" />
+    <option name="y" value="23" />
     <option name="width" value="1729" />
     <option name="height" value="1201" />
   </component>
@@ -764,7 +764,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="893" y="38" width="1729" height="1201" extended-state="0" />
+    <frame x="259" y="23" width="1729" height="1201" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
