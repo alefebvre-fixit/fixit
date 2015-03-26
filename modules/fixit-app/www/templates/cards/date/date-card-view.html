@@ -10,7 +10,8 @@
 	<div ng-show="card.open">
   		<li class="item " ng-repeat="proposal in card.proposals">
 		     {{ proposal.date | date:'short' }}
-		     <span class="badge badge-calm">{{proposal.votes}}</span>
+		     <span ng-class="['badge badge-palette-2', 'badge badge-palette-3', 'badge badge-palette-4', 'badge badge-palette-5', 'badge badge-palette-6'][$index]">
+                 {{proposal.votes}}</span>
         </li>
 	</div>
 	<div ng-show="!card.open">

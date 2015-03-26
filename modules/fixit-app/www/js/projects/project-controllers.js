@@ -79,13 +79,15 @@ angular.module('fixit').controller('EditProjectController',
 			$scope.saveProject = function(projectToSave) {
 				ProjectService.saveProject(projectToSave).then(function (data) {
 					$scope.project = data;
+					$scope.toastMe('Project ' + projectToSave.name + ' updated!');
+					$state.go('app.project-single', {projectId: project.id});
 				});
 			};
 
 			$scope.createProject = function(projectToSave) {
 				ProjectService.saveProject(projectToSave).then(function (data) {
 					$scope.project = data;
-					$scope.toastMe('Project ' + projectToSave.name + ' updated.');
+					$scope.toastMe('Project ' + projectToSave.name + ' created!');
 					$state.go('app.project-edit', {projectId: $scope.project.id});
 				});
 			};

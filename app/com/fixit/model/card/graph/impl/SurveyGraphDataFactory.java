@@ -25,7 +25,7 @@ public class SurveyGraphDataFactory extends GraphDataFactory {
 				}
 			}
 		}
-
+		assignColors(result);
 		return result;
 	}
 

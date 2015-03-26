@@ -7617,6 +7617,26 @@ a.button {
 .palette-5 {
   color: #FF3D7F; }
 
+.badge.badge-palette-1 {
+  background-color: #3FB8AF;
+  color: #fff; }
+
+.badge.badge-palette-2 {
+  background-color: #7FC7AF;
+  color: #fff; }
+
+.badge.badge-palette-3 {
+  background-color: #DAD8A7;
+  color: #fff; }
+
+.badge.badge-palette-4 {
+  background-color: #FF9E9D;
+  color: #fff; }
+
+.badge.badge-palette-5 {
+  background-color: #FF3D7F;
+  color: #fff; }
+
 .statistic {
   margin: 0;
   color: #3FB8AF;

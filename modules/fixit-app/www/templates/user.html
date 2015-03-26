@@ -40,15 +40,6 @@
         color: white;
         text-shadow: 0 1px 0 black;
     }
-    .statistic{
-        margin: 0;
-        color: #387ef5;
-        text-align: center;
-    }
-    .statistic-label{
-        margin: 0;
-        text-align: center;
-    }
 
     .button-follow{
         position: absolute;
@@ -64,7 +55,7 @@
     </ion-nav-buttons>
 
     <ion-nav-buttons side="right">
-        <a class="button" ng-show="user.username==summary.user.username" href="#/app/projects/{{project.id}}/edit">
+        <a class="button" ng-show="user.username==summary.user.username" ui-sref="app.settings">
             Edit
         </a>
     </ion-nav-buttons>
@@ -124,11 +115,9 @@
             </div>
         </div>
 
-
         <div ng-repeat="project in summary.lastProjects">
             <div ng-include data-src="'templates/project/partial/project-view.html'"></div>
         </div>
-
 
         <a class="item item-icon-right" href="#">
             View all Projects...

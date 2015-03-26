@@ -26,7 +26,7 @@ public class DateGraphDataFactory extends GraphDataFactory {
 				}
 			}
 		}
-
+		assignColors(result);
 		return result;
 	}
 

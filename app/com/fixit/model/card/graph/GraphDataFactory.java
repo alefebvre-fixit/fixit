@@ -29,4 +29,27 @@ public abstract class GraphDataFactory {
 		return result;
 	}
 
+	public void assignColors(GraphData graph) {
+
+		int size = graph.getDatas().size();
+		for (int i = 0; i < size; i++) {
+			graph.getColours().add(getColor(i));
+		}
+
+	}
+
+	//see http://www.colourlovers.com/palette/932683/Compatible
+	private static final String COLOR_1 = "#7FC7AF";
+	private static final String COLOR_2 = "#DAD8A7";
+	private static final String COLOR_3 = "#FF9E9D";
+	private static final String COLOR_4 = "#FF3D7F";
+	private static final String COLOR_5 = "#3FB8AF";
+
+	private static String[] COLORS = { COLOR_1, COLOR_2, COLOR_3, COLOR_4,
+			COLOR_5 };
+
+	private String getColor(int i) {
+		return COLORS[i % COLORS.length];
+	}
+
 }
