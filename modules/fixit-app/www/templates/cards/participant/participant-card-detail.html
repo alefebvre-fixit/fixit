@@ -35,22 +35,16 @@
             <p class="statistic">
                 <b>{{summary.card.contributions}}</b>
                 <br>
-            <p class="statistic-label">Votes</p>
+            <p class="statistic-label">Participations</p>
             </p>
-
         </div>
         <div class="col">
-
         </div>
-        <div class="col col-center" ng-click="participate(project, summary.card)">
-            <button class="button button-clear button-positive">
-                Participate
-            </button>
+        <div class="col">
         </div>
     </div>
+    <label class="item " ng-show="summary.openForContribution">
+        <button class="button button-block button-outline button-positive" ng-click="openModal()">Participate</button>
+    </label>
     <div data-ng-include data-src="'templates/cards/participant/participant-card-contribution.html'"></div>
 </div>
-
-
-
-

@@ -1,8 +1,6 @@
 
-
-
-<div class="card card-header" ng-controller="DateCardController" ng-click="goToCard(project.id, card.id)">
-    <a class="item item-avatar item-avatar-icon calm">
+<div class="card card-header" ng-controller="DateCardController" >
+    <a class="item item-avatar item-avatar-icon calm" ui-sref="app.card-view({ projectId: project.id, cardId: card.id})">
         <i class="icon ion-clock"></i>
         <h2>{{card.name}}</h2>
         <p>{{card.description}}</p>
@@ -24,8 +22,4 @@
     </div>
 
 </div>
-
-
-
-
 

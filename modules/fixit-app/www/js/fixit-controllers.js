@@ -29,16 +29,21 @@ angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '
 	};
 
 	$scope.isFavorite = function(project){
-		console.log("isFavorite " + project.id);
-		return ($rootScope.favorites.indexOf(project.id) >= 0);
+		if (project){
+			console.log("isFavorite " + project.id);
+			return ($rootScope.favorites.indexOf(project.id) >= 0);
+		}
+		return false;
 	};
 
 	$scope.isMine = function(project){
-		if (project.username){
-			return (project.username == $rootScope.user.username);
-		}
-		else if (project.contributor){
-			return (project.contributor == $rootScope.user.username);
+		if (project){
+			if (project.username){
+				return (project.username == $rootScope.user.username);
+			}
+			else if (project.contributor){
+				return (project.contributor == $rootScope.user.username);
+			}
 		}
 		return false;
 	};
@@ -70,7 +75,7 @@ angular.module('fixit').controller('FixItController', ['$scope', '$rootScope', '
 	$scope.goToFollowers = function(username){
 		$state.go('app.followers', {username: username});
 	};
-	    	  
+
 }
 ]);
 

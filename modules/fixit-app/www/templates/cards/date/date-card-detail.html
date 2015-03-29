@@ -7,7 +7,7 @@
 		<p>{{summary.card.description}}</p>
 	</a>
 	<div class="item">
-		<canvas id="doughnut" class="chart chart-doughnut" data="summary.graphData.datas" labels="summary.graphData.labels"></canvas>
+		<canvas id="doughnut" class="chart chart-doughnut" data="summary.graphData.datas" labels="summary.graphData.labels" colours="summary.graphData.colours"></canvas>
 	</div>
 	<div ng-show="summary.card.open">
 		<div ng-show="!summary.openForContribution">
@@ -38,17 +38,15 @@
 				<br>
 			<p class="statistic-label">Votes</p>
 			</p>
-
 		</div>
 		<div class="col">
-
 		</div>
-		<div class="col col-center" ng-click="vote(project, summary.card)">
-			<button class="button button-clear button-positive" ng-show="summary.openForContribution">
-				Vote
-			</button>
+		<div class="col">
 		</div>
 	</div>
+	<label class="item " ng-show="summary.openForContribution">
+		<button class="button button-block button-outline button-positive" ng-click="vote(project, summary.card)">Vote</button>
+	</label>
 	<div data-ng-include data-src="'templates/cards/date/date-card-contribution.html'"></div>
 </div>
 

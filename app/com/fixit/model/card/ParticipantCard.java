@@ -183,6 +183,10 @@ public class ParticipantCard extends Card {
 			return false;
 		}
 		
+		if (contributions != null && contributions.size() > 0){
+			return false;
+		}
+		
 		return true;
 	}
 

@@ -33,16 +33,16 @@
 				<br>
 			<p class="statistic-label">Votes</p>
 			</p>
-
 		</div>
 		<div class="col">
+		</div>
+		<div class="col">
+		</div>
+	</div>
 
-		</div>
-		<div class="col col-center" ng-click="vote(project, summary.card)">
-			<button class="button button-clear button-positive" ng-show="summary.openForContribution">
-				Vote
-			</button>
-		</div>
+	<label class="item " ng-show="summary.openForContribution">
+			<button class="button button-block button-outline button-positive" ng-click="vote(project, summary.card)">Vote</button>
+		</label>
 	</div>
 	<div data-ng-include data-src="'templates/cards/date/date-card-contribution.html'"></div>
 </div>

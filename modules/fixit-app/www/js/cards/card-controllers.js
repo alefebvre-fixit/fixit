@@ -9,18 +9,21 @@ angular.module('fixit').controller('CardSelectorController',
     ]);
 
 angular.module('fixit').controller('CardController',
-    ['$scope', 'project', 'summary', 'CardService',
-        function ($scope, project, summary, CardService) {
+    ['$scope', 'projectId', 'cardId', 'CardService', 'ProjectService',
+        function ($scope, projectId, cardId, CardService, ProjectService) {
 
-            $scope.project = project;
-            $scope.summary = summary;
+            ProjectService.getProject(projectId).then(function (data) {
+                $scope.project = data;
+            });
+            CardService.getCardSummary(projectId, cardId).then(function (data) {
+                $scope.summary = data;
+            });
 
-            $scope.setProject =function(newProject){
-                $scope.project = newProject;
+            $scope.setProject =function(project){
+                $scope.project = project;
                 console.log("setProject=" + project.id);
                 CardService.getCardSummary(project.id, $scope.summary.card.id).then(function (data) {
                     console.log("getCardSummary=" + project.id + " cardId=" + $scope.summary.card.id);
-
                     $scope.summary = data;
                 });
             };
@@ -34,9 +37,9 @@ angular.module('fixit').controller('CardController',
 
 
 
-
         }
     ]);
+
 
 angular.module('fixit').controller('ItemCardController', ['CardService', '$scope',
     function (CardService, $scope) {
@@ -123,95 +126,6 @@ angular.module('fixit').controller('EditCardController', ['ProjectService',
             });
         };
 
-
-    }
-]);
-
-angular.module('fixit').controller('EditDateCardController',
-    ['ProjectService', '$scope', '$cordovaDatePicker',
-        function (ProjectService, $scope, $cordovaDatePicker) {
-
-            $scope.addDateProposal = function() {
-
-                var proposal = {date:new Date()};
-
-                if (!$scope.isPluginActivated()){
-                    $scope.card.proposals.push(proposal);
-                    return;
-                }
-                //To be removed
-
-                var options = {
-                    date: new Date(),
-                    mode: 'date', // or 'time'
-                    minDate: new Date() - 10000,
-                    allowOldDates: true,
-                    allowFutureDates: false,
-                    doneButtonLabel: 'DONE',
-                    doneButtonColor: '#F2F3F4',
-                    cancelButtonLabel: 'CANCEL',
-                    cancelButtonColor: '#000000'
-                };
-
-                document.addEventListener("deviceready", function () {
-
-                    $cordovaDatePicker.show(options).then(function(date){
-                        var newProposal = {date:new Date()};
-                        newProposal.date = date;
-                        $scope.card.proposals.push(newProposal);
-                    });
-
-                }, false);
-            };
-
-
-
-        }
-    ]);
-
-angular.module('fixit').controller('DateCardController',
-    ['CardService', '$scope',
-        function (CardService, $scope) {
-
-            $scope.votes = [];
-
-            $scope.vote = function(project, card) {
-
-                var arrayLength = card.proposals.length;
-                for (var i = 0; i < arrayLength; i++) {
-                    if (card.proposals[i].selected){
-                        $scope.votes.push(card.proposals[i].id);
-                    }
-                }
-
-                CardService.vote(project, card, $scope.votes).then(function (data) {
-                    $scope.setProject(data);
-                    $scope.toastMe(card.name + ' voted.');
-                });
-
-
-            };
-
-        }
-    ]);
-
-angular.module('fixit').controller('EditParticipantCardController',
-    ['ProjectService', '$scope',
-        function (ProjectService, $scope) {
-
-        }
-    ]);
-
-angular.module('fixit').controller('ParticipantCardController', ['CardService', '$scope',
-    function (CardService, $scope) {
-
-        $scope.participate = function(project, card) {
-            console.log("participate projectId=" + project.id + " cardId=" + card.id);
-            CardService.participate(project, card, 1).then(function (data) {
-                $scope.setProject(data);
-                $scope.toastMe('Thanks for participating!');
-            });
-        };
 
     }
 ]);

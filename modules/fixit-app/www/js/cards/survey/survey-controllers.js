@@ -20,7 +20,9 @@ angular.module('fixit').controller('EditSurveyCardController',
 
             //Cleanup the modal when we're done with it!
             $scope.$on('$destroy', function() {
-                $scope.modal.remove();
+                if (modal){
+                    $scope.modal.remove();
+                }
             });
 
             // Execute action on hide modal
@@ -32,7 +34,6 @@ angular.module('fixit').controller('EditSurveyCardController',
             $scope.$on('modal.removed', function() {
                 // Execute action
             });
-
 
             $scope.deleteProposal = function(index){
                 $scope.card.proposals.splice(index, 1);

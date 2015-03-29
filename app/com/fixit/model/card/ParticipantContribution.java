@@ -13,6 +13,15 @@ public class ParticipantContribution extends Contribution {
 	}
 
 	private int participants;
+	private boolean participate;
+	
+	public boolean isParticipate() {
+		return participate;
+	}
+
+	public void setParticipate(boolean participate) {
+		this.participate = participate;
+	}
 
 	public int getParticipants() {
 		return participants;

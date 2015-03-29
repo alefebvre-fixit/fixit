@@ -17,7 +17,7 @@ $dark:                            #444 !default;
 $positive:                        #3FB8AF !default;
 $calm:                            #7FC7AF !default;
 
-$base-background-color:           #EEF1F1 !default;
+$base-background-color:           #F5F5F5 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -75,7 +75,7 @@ $palette-5:                        #FF3D7F !default;
 
 .statistic{
   margin: 0;
-  color: $positive;
+  color: $palette-5;
   text-align: center;
 }
 

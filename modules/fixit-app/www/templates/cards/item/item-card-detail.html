@@ -39,17 +39,15 @@
                 <br>
             <p class="statistic-label">Votes</p>
             </p>
-
         </div>
         <div class="col">
-
         </div>
-        <div class="col col-center" ng-click="provide(project, summary.card)">
-            <button class="button button-clear button-positive">
-                Provide
-            </button>
+        <div class="col col-center" ng-click="">
         </div>
     </div>
 
+    <label class="item " ng-show="summary.openForContribution">
+        <button class="button button-block button-outline button-positive" ng-click="provide(project, summary.card)">Provide</button>
+    </label>
     <div data-ng-include data-src="'templates/cards/item/item-card-contribution.html'"></div>
 </div>

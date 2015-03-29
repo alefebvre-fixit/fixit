@@ -1,10 +1,13 @@
 
 
 angular.module('fixit').controller('MyProjectController',
-	['ProjectService', '$scope', 'projects',
-		function (ProjectService, $scope, projects) {
+	['ProjectService', '$scope',
+		function (ProjectService, $scope) {
 
-			$scope.projects = projects;
+			ProjectService.getProjectsByOwner($scope.getUsername()).then(function (projects) {
+				console.log("MyProjectController-2 getProjectsByOwner is called ");
+				$scope.projects = projects;
+			});
 
 			$scope.doRefresh = function() {
 				ProjectService.getProjectsByOwner($scope.getUsername()).then(function (projects) {
@@ -34,10 +37,15 @@ angular.module('fixit').controller('DiscoverProjectController',
 	]);
 
 angular.module('fixit').controller('ViewProjectController',
-	['$scope', '$ionicPopup', 'ProjectService', 'project',
-		function ($scope, $ionicPopup, ProjectService, project) {
-			console.log(project);
-			$scope.project = project;
+	['$scope', '$ionicPopup', 'ProjectService', 'projectId',
+		function ($scope, $ionicPopup, ProjectService, projectId) {
+			console.log("ViewProjectController projectId=" + projectId);
+
+			ProjectService.getProject(projectId).then(function (project) {
+				console.log("ViewProjectController getProject is called projectId=" + projectId);
+				$scope.project = project;
+			});
+
 
 			$scope.setProject =function(newProject){
 				$scope.project = newProject;
@@ -165,3 +173,38 @@ angular.module('fixit').controller('EditProjectController',
 		}
 	]);
 
+
+
+
+
+angular.module('fixit').controller('MyProjectController-2',
+	['ProjectService', '$scope',
+		function (ProjectService, $scope) {
+
+
+			console.log("MyProjectController-2 is called ");
+
+			ProjectService.getProjectsByOwner($scope.getUsername()).then(function (projects) {
+				console.log("MyProjectController-2 getProjectsByOwner is called ");
+				$scope.projects = projects;
+			});
+
+			$scope.doRefresh = function() {
+				ProjectService.getProjectsByOwner($scope.getUsername()).then(function (projects) {
+					$scope.projects = projects;
+				});
+				$scope.$broadcast('scroll.refreshComplete');
+			};
+
+
+			$scope.$on('$stateChangeSuccess',
+				function(event, toState, toParams, fromState, fromParams){
+					console.log("MyProjectController-2 $stateChangeSuccess called ");
+
+
+				});
+
+
+
+		}
+	]);

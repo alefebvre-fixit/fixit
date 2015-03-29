@@ -1,0 +1,33 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Participation</h1>
+        <button class="button button-clear button-primary" ng-click="participateModal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+
+        <div class="list">
+            <li class="item item-toggle">
+                <div>Are you going?</div>
+                <label class="toggle toggle-calm">
+                    <input type="checkbox" ng-model="myParticipation.participate">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+
+
+            <label class="item item-input item-select" ng-show="participate && summary.card.plusAllowed">
+                <div class="input-label">
+                    Guest
+                </div>
+                <select ng-model="myParticipation.guest" ng-options="guest.name for guest in guestList">
+                </select>
+
+            </label>
+
+            <button class="button button-full button-positive" ng-click="participate(myParticipation)">Validate</button>
+
+        </div>
+    </ion-content>
+</ion-modal-view>
