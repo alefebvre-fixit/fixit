@@ -93,9 +93,8 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 					templateUrl: "templates/accounts/account-summary.html",
 					controller: 'UserController',
 					resolve: {
-						summary: function (SettingService, $stateParams) {
-							console.log('app.user: resolve profile');
-							return SettingService.getUserSummary($stateParams.username);
+						username: function ($stateParams) {
+							return $stateParams.username;
 						}
 					}
 				}

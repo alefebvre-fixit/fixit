@@ -3,6 +3,7 @@ package com.fixit.service;
 import java.util.List;
 
 import com.fixit.model.Project;
+import com.fixit.model.User;
 import com.fixit.model.account.UserCard;
 
 public interface ProjectService {
@@ -27,8 +28,10 @@ public interface ProjectService {
 
 	public List<String> projectFollowed(String username);
 
-	public List<UserCard> projectFollowers(String projectId);
+	public List<User> projectFollowers(String projectId);
 
+	public List<String> projectFollowerNames(String projectId);
+	
 	public int projectFollowersSize(String projectId);
 
 	public String getProjectOwner(String projectId);

@@ -13,6 +13,7 @@ public abstract class MongoSubscriptionService {
 	private static final SubscriptionService contributionSubscriptionService = new MongoContributionSubscriptionService();
 	private static final SubscriptionService favoriteSubscriptionService = new MongoFavoriteSubscriptionService();
 	private static final SubscriptionService followersSubscriptionService = new MongoFollowersSubscriptionService();
+	private static final SubscriptionService commentsSubscriptionService = new MongoCommentsSubscriptionService();
 
 	private static final ProjectService projectService = new MongoProjectService(new MongoUserService());
 	
@@ -37,6 +38,9 @@ public abstract class MongoSubscriptionService {
 		}
 		else if (Notification.TYPE_FOLLOWERS.equals(notification.getType())){
 			result = followersSubscriptionService;
+		}
+		else if (Notification.TYPE_COMMENTS.equals(notification.getType())){
+			result = commentsSubscriptionService;
 		}
 		
 		return result;

@@ -9,6 +9,7 @@ import com.fixit.model.Favorite;
 import com.fixit.model.Project;
 import com.fixit.model.User;
 import com.fixit.model.notification.Notification;
+import com.fixit.model.project.ProjectComment;
 
 public class MongoDBPersistence {
 
@@ -17,6 +18,7 @@ public class MongoDBPersistence {
 	private static final String USER_COLLECTION = "User";
 	private static final String PROJECT_COLLECTION = "Project";
 	private static final String NOTIFICATION_COLLECTION = "Notification";
+	private static final String COMMENTS_COLLECTION = "comments";
 
 	public static final int MAX_OBJECT = 1000;
 
@@ -57,4 +59,12 @@ public class MongoDBPersistence {
 		return notifications;
 	}
 
+	private static JacksonDBCollection<ProjectComment, String> comments = MongoDB
+			.getCollection(COMMENTS_COLLECTION, ProjectComment.class,
+					String.class);
+
+	public static final JacksonDBCollection<ProjectComment, String> getCommentsCollection() {
+		return comments;
+	}
+	
 }

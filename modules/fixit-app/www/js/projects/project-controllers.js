@@ -70,6 +70,9 @@ angular.module('fixit').controller('ViewProjectController',
 				ProjectService.getFollowerSize(projectId).then(function (data) {
 					$scope.summary.followerSize = data;
 				});
+				ProjectService.getCommentSize(projectId).then(function (data) {
+					$scope.summary.commentSize = data;
+				});
 			});
 
 
@@ -210,4 +213,46 @@ angular.module('fixit').controller('EditProjectController',
 
 
 
+angular.module('fixit').controller('ProjectFollowersController', ['ProjectService', '$scope', 'projectId',
+	function (ProjectService, $scope, projectId) {
 
+		ProjectService.getFollowers(projectId).then(function (followers) {
+			$scope.followers = followers;
+		});
+
+	}
+]);
+
+angular.module('fixit').controller('ProjectContributionsController', ['ProjectService', '$scope', 'projectId',
+	function (ProjectService, $scope, projectId) {
+
+		ProjectService.getContributions(projectId).then(function (contributions) {
+			$scope.contributions = contributions;
+		});
+
+	}
+]);
+
+angular.module('fixit').controller('ProjectCommentsController', ['ProjectService', '$scope', 'projectId',
+	function (ProjectService, $scope, projectId) {
+
+		$scope.comment = {projectId: projectId, content: ''};
+
+		ProjectService.getComments(projectId).then(function (comments) {
+			$scope.comments = comments;
+		});
+
+
+		$scope.postComment = function(comment) {
+			ProjectService.postComment(comment.projectId, comment.content).then(function (comment) {
+				$scope.comments.push(comment);
+				$scope.comment = {projectId: projectId, content: ''};
+			});
+		};
+
+
+
+
+
+	}
+]);

@@ -70,10 +70,12 @@ angular.module('fixit').controller('EditSettingController', ['SettingService', '
 ]);
 
 
-angular.module('fixit').controller('UserController', ['$scope', 'SettingService', 'summary', '$ionicPopup',
-    function ($scope, SettingService, summary, $ionicPopup) {
+angular.module('fixit').controller('UserController', ['$scope', 'SettingService', 'username', '$ionicPopup',
+    function ($scope, SettingService, username, $ionicPopup) {
 
-        $scope.summary = summary;
+        SettingService.getUserSummary(username).then(function (summary) {
+            $scope.summary = summary;
+        });
 
         $scope.follow = function(username){
             console.log("follow=" + username);

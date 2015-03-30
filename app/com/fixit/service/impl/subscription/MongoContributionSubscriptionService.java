@@ -27,11 +27,10 @@ public class MongoContributionSubscriptionService extends
 			}
 			
 			//Followers want to receive notification about project they follow
-			List<UserCard> followers = getProjectService().projectFollowers(notification.getProjectId());
-			if (followers != null && followers.size() > 0){
-				for (UserCard userCard : followers) {
-					result.add(userCard.userName);
-				}
+			List<String> followers = getProjectService().projectFollowerNames(
+					notification.getProjectId());
+			if (followers != null && followers.size() > 0) {
+				result.addAll(followers);
 			}
 			
 		}

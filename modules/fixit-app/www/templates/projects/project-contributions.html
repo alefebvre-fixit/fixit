@@ -1,0 +1,19 @@
+<ion-view title="Project Contributions">
+
+    <ion-nav-buttons side="left">
+    </ion-nav-buttons>
+
+    <ion-content class="has-header">
+
+        <div class="list">
+            <a class="item item-avatar"  collection-repeat="contribution in contributions"
+               ui-sref="app.card-view({projectId: contribution.projectId, cardId: contribution.cardId})">
+                <img ng-src="img/{{contribution.contributor}}.jpg">
+                <h2>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h2>
+                <p><i class="icon ion-location"> description to be done</i></p>
+            </a>
+        </div>
+
+    </ion-content>
+
+</ion-view>

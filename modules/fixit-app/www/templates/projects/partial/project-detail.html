@@ -76,28 +76,29 @@
 </div>
 
 <div class="row">
-    <div class="col">
+    <a class="col statistic" ui-sref="app.project-contributions({projectId: project.id})">
         <p class="statistic">
-            <b>{{::project.contributions}}</b>
+            <b>{{project.contributions}}</b>
             <br>
         <p class="statistic-label">Contributions</p>
         </p>
-    </div>
-    <div class="col" ng-click="goToProjectFollowers(project.id)">
+    </a>
+    <a class="col statistic" ui-sref="app.project-followers({projectId: project.id})">
         <p class="statistic">
             <b>{{summary.followerSize}}</b>
             <br>
         <p class="statistic-label">Followers</p>
         </p>
-    </div>
-    <div class="col" ng-click="goToProjectFollowers(project.id)">
+    </a>
+    <a class="col statistic" ui-sref="app.project-comments({projectId: project.id})">
         <p class="statistic">
             <b>{{summary.commentSize}}</b>
             <br>
         <p class="statistic-label">Comments</p>
         </p>
-    </div>
+    </a>
 </div>
+
 <div class="row">
     <div class="col">
         <h5>

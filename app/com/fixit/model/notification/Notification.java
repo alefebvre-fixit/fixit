@@ -12,6 +12,7 @@ public class Notification implements Cloneable {
 	public static final String TYPE_CARD = "Card";
 	public static final String TYPE_FAVORITE = "Favorite";
 	public static final String TYPE_FOLLOWERS = "Follow";
+	public static final String TYPE_COMMENTS = "Comment";
 
 	private String id;
 	private String username;

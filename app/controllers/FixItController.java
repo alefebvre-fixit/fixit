@@ -6,11 +6,13 @@ import com.fixit.model.User;
 import com.fixit.service.CardService;
 import com.fixit.service.ContributionService;
 import com.fixit.service.NotificationService;
+import com.fixit.service.ProjectCommentService;
 import com.fixit.service.ProjectService;
 import com.fixit.service.UserService;
 import com.fixit.service.impl.MongoCardService;
 import com.fixit.service.impl.MongoContributionService;
 import com.fixit.service.impl.MongoNotificationService;
+import com.fixit.service.impl.MongoProjectCommentService;
 import com.fixit.service.impl.MongoProjectService;
 import com.fixit.service.impl.MongoUserService;
 
@@ -24,7 +26,7 @@ public class FixItController extends Controller {
 	private static CardService cardService = new MongoCardService(
 			new MongoContributionService(), new MongoProjectService(new MongoUserService()));
 	private static NotificationService notificationService = new MongoNotificationService();
-	
+	private static ProjectCommentService commentService = new MongoProjectCommentService();
 
 	protected static UserService getUserService() {
 		return userService;
@@ -44,6 +46,10 @@ public class FixItController extends Controller {
 	
 	public static NotificationService getNotificationService() {
 		return notificationService;
+	}
+	
+	public static ProjectCommentService getCommentService() {
+		return commentService;
 	}
 
 	protected static User getUser() {

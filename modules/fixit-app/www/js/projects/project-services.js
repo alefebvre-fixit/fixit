@@ -44,6 +44,26 @@ angular.module('fixit').factory('ProjectService',
                         return response.data;
                     });
                 },
+                getCommentSize: function (projectId) {
+                    return $http.get($rootScope.baseUrl + '/api/projects/' + projectId + '/comments/size').then(function (response) {
+                        return response.data;
+                    });
+                },
+                getComments: function (projectId) {
+                    return $http.get($rootScope.baseUrl + '/api/projects/' + projectId + '/comments').then(function (response) {
+                        return response.data;
+                    });
+                },
+                postComment: function (projectId, content) {
+                    return $http.post($rootScope.baseUrl + '/api/projects/' + projectId + '/comments/' + content).then(function (response) {
+                        return response.data;
+                    });
+                },
+                getContributions: function (projectId) {
+                    return $http.get($rootScope.baseUrl + '/api/projects/' + projectId + '/contributions').then(function (response) {
+                        return response.data;
+                    });
+                },
                 unfollowProject: function (project) {
                     return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/unfollow').then(function (response) {
                         return response.data;

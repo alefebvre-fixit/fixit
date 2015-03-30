@@ -1,12 +1,10 @@
-
-
-
-
 angular.module('fixit').controller('NotificationListController',
-	['NotificationService', '$scope', 'notifications',
-		function (NotificationService, $scope, notifications) {
+	['NotificationService', '$scope',
+		function (NotificationService, $scope) {
 
-			$scope.notifications = notifications;
+			NotificationService.getNotifications().then(function (data) {
+				$scope.notifications = data;
+			});
 
 			$scope.doRefresh = function() {
 				NotificationService.getNotifications().then(function (data) {
