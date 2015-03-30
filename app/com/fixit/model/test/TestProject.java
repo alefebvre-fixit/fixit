@@ -1,4 +1,4 @@
-package com.fixit.model;
+package com.fixit.model.test;
 
 import javax.persistence.Entity;
 

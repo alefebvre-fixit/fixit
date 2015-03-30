@@ -12,7 +12,10 @@ import play.Logger;
 
 import com.fixit.model.Favorite;
 import com.fixit.model.Project;
+import com.fixit.model.account.UserCard;
+import com.fixit.service.ContributionService;
 import com.fixit.service.ProjectService;
+import com.fixit.service.UserService;
 
 public class MongoProjectService extends BaseProjectService implements
 		ProjectService {
@@ -28,6 +31,17 @@ public class MongoProjectService extends BaseProjectService implements
 	private JacksonDBCollection<Favorite, String> getFavoritesCollection() {
 		return MongoDBPersistence.getFavoritesCollection();
 	}
+	
+	private UserService userService;
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+	
+	public MongoProjectService(UserService userService){
+		this.userService = userService;
+	}
+	
 
 	@Override
 	public List<Project> getAll() {
@@ -121,7 +135,7 @@ public class MongoProjectService extends BaseProjectService implements
 	}
 
 	@Override
-	public List<String> favorites(String username) {
+	public List<String> projectFollowed(String username) {
 		List<String> result = new ArrayList<String>();
 
 		List<Favorite> favorites = getFavoritesCollection().find()
@@ -135,16 +149,19 @@ public class MongoProjectService extends BaseProjectService implements
 	}
 
 	@Override
-	public List<String> getProjectFollowers(String projectId) {
+	public List<UserCard> projectFollowers(String projectId) {
 		// TODO Improve implementation by loading only the username
 		
-		List<String> result = new ArrayList<String>();
+		List<UserCard> result = new ArrayList<UserCard>();
 
 		List<Favorite> favorites = getFavoritesCollection().find()
 				.is(PROJECT_ID, projectId).toArray();
 		if (favorites != null) {
 			for (Favorite favorite : favorites) {
-				result.add(favorite.getUsername());
+				UserCard userCard = userService.getUserCard(favorite.getUsername());
+				if (userCard != null){
+					result.add(userCard);
+				}
 			}
 		}
 		
@@ -163,6 +180,12 @@ public class MongoProjectService extends BaseProjectService implements
 		}
 		
 		return result;
+	}
+
+	@Override
+	public int projectFollowersSize(String projectId) {
+		return getFavoritesCollection().find()
+				.is(PROJECT_ID, projectId).count();
 	}
 
 

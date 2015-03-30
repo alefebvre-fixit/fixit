@@ -5,10 +5,13 @@ import java.util.List;
 import com.fixit.model.User;
 import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
+import com.fixit.model.account.UserCard;
 
 public interface UserService {
 
 	public User load(String userName);
+	
+	public UserCard getUserCard(String userName);
 	
 	public User authenticate(SignIn signin);
 

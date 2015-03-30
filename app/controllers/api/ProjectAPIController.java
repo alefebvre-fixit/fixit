@@ -77,21 +77,34 @@ public class ProjectAPIController extends FixItController {
 
 		getProjectService().follow(getUserName(), projectId);
 
-		return ok(Json.toJson(getProjectService().favorites(getUserName())));
+		return ok(Json.toJson(getProjectService().projectFollowed(getUserName())));
 	}
+	
+	public static Result followerSize(String projectId) {
+		Logger.debug("ProjectAPIController.followerSize projectId =" + projectId);
+
+		return ok(Json.toJson(getProjectService().projectFollowersSize(projectId)));
+	}
+	
+	public static Result followers(String projectId) {
+		Logger.debug("ProjectAPIController.followers projectId =" + projectId);
+
+		return ok(Json.toJson(getProjectService().projectFollowers(projectId)));
+	}
+	
 
 	public static Result unfollow(String projectId) {
 		Logger.debug("ProjectAPIController.unfollow projectId =" + projectId);
 
 		getProjectService().unfollow(getUserName(), projectId);
 
-		return ok(Json.toJson(getProjectService().favorites(getUserName())));
+		return ok(Json.toJson(getProjectService().projectFollowed(getUserName())));
 	}
 
 	public static Result favorites(String username) {
 		Logger.debug("ProjectAPIController.favorites username =" + username);
 
-		return ok(Json.toJson(getProjectService().favorites(username)));
+		return ok(Json.toJson(getProjectService().projectFollowed(username)));
 	}
 
 	public static Result project(String projectId) {

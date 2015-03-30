@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fixit.model.account.UserCard;
 import com.fixit.model.notification.Notification;
 import com.fixit.service.SubscriptionService;
 
@@ -26,9 +27,11 @@ public class MongoContributionSubscriptionService extends
 			}
 			
 			//Followers want to receive notification about project they follow
-			List<String> followers = getProjectService().getProjectFollowers(notification.getProjectId());
+			List<UserCard> followers = getProjectService().projectFollowers(notification.getProjectId());
 			if (followers != null && followers.size() > 0){
-				result.addAll(followers);
+				for (UserCard userCard : followers) {
+					result.add(userCard.userName);
+				}
 			}
 			
 		}

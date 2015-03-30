@@ -34,6 +34,16 @@ angular.module('fixit').factory('ProjectService',
                         return response.data;
                     });
                 },
+                getFollowerSize: function (projectId) {
+                    return $http.get($rootScope.baseUrl + '/api/projects/' + projectId + '/followers/size').then(function (response) {
+                        return response.data;
+                    });
+                },
+                getFollowers: function (projectId) {
+                    return $http.get($rootScope.baseUrl + '/api/projects/' + projectId + '/followers').then(function (response) {
+                        return response.data;
+                    });
+                },
                 unfollowProject: function (project) {
                     return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/unfollow').then(function (response) {
                         return response.data;

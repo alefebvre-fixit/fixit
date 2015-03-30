@@ -61,7 +61,6 @@
     </ion-nav-buttons>
 
     <ion-content class="has-header">
-
         <div class="module">
             <img ng-src="img/{{::summary.user.username}}-100.jpg" class="avatar" width="100">
             <header>
@@ -81,30 +80,28 @@
                 </button>
             </div>
         </div>
-
         <div class="row">
-            <div class="col">
+            <a class="col statistic" ui-sref="app.user-projects({username: summary.user.username})">
                 <p class="statistic">
                     <b>{{summary.projectNumber}}</b>
                     <br>
                 <p class="statistic-label">Projects</p>
                 </p>
-
-            </div>
-            <div class="col">
+            </a>
+            <a class="col statistic" ui-sref="app.user-contributions({username: summary.user.username})">
                 <p class="statistic">
                     <b>{{summary.contributionNumber}}</b>
                     <br>
                 <p class="statistic-label">Contributions</p>
                 </p>
-            </div>
-            <div class="col" ng-click="goToFollowers(summary.user.username)">
+            </a>
+            <a class="col statistic" ui-sref="app.user-followers({username: summary.user.username})">
                 <p class="statistic">
-                    <b>{{summary.user.followers.length}}</b>
+                    <b>{{summary.projectNumber}}</b>
                     <br>
                 <p class="statistic-label">Followers</p>
                 </p>
-            </div>
+            </a>
         </div>
         <div class="row">
             <div class="col">

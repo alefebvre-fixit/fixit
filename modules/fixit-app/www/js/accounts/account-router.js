@@ -41,36 +41,66 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: true
 		})
-		.state('app.followers', {
+		.state('app.user-followers', {
 			url: "/user/:username/followers",
 			views: {
 				'menuContent': {
-					templateUrl: "templates/followers.html",
+					templateUrl: "templates/accounts/account-followers.html",
 					controller: 'FollowersController',
 					resolve: {
-						followers: function ($stateParams, SettingService) {
-							return SettingService.getFollowers($stateParams.username);
+						username: function ($stateParams) {
+							return $stateParams.username;
 						}
 					}
 				}
 			},
 			authenticate: true
 		})
-	.state('app.user', {
-		url: "/user/:username",
-		views: {
-			'menuContent': {
-				templateUrl: "templates/user.html",
-				controller: 'UserController',
-				resolve: {
-					summary: function (SettingService, $stateParams) {
-						console.log('app.user: resolve profile');
-						return SettingService.getUserSummary($stateParams.username);
+		.state('app.user-projects', {
+			url: "/user/:username/projects",
+			views: {
+				'menuContent': {
+					templateUrl: "templates/accounts/account-projects.html",
+					controller: 'UserProjectController',
+					resolve: {
+						username: function ($stateParams) {
+							return $stateParams.username;
+						}
 					}
 				}
-			}
-		},
-		authenticate: true
-	});
+			},
+			authenticate: true
+		})
+		.state('app.user-contributions', {
+			url: "/user/:username/projects",
+			views: {
+				'menuContent': {
+					templateUrl: "templates/accounts/account-contributions.html",
+					controller: 'UserContributionController',
+					resolve: {
+						username: function ($stateParams) {
+							return $stateParams.username;
+						}
+					}
+				}
+			},
+			authenticate: true
+		})
+		.state('app.user', {
+			url: "/user/:username",
+			views: {
+				'menuContent': {
+					templateUrl: "templates/accounts/account-summary.html",
+					controller: 'UserController',
+					resolve: {
+						summary: function (SettingService, $stateParams) {
+							console.log('app.user: resolve profile');
+							return SettingService.getUserSummary($stateParams.username);
+						}
+					}
+				}
+			},
+			authenticate: true
+		});
 
 });

@@ -19,6 +19,26 @@ angular.module('fixit').controller('MyProjectController',
 		}
 	]);
 
+angular.module('fixit').controller('UserProjectController',
+	['ProjectService', '$scope', 'username',
+		function (ProjectService, $scope, username) {
+
+			ProjectService.getProjectsByOwner(username).then(function (projects) {
+				$scope.projects = projects;
+			});
+
+			$scope.doRefresh = function() {
+				ProjectService.getProjectsByOwner(username).then(function (projects) {
+					$scope.projects = projects;
+				});
+				$scope.$broadcast('scroll.refreshComplete');
+			};
+
+		}
+	]);
+
+
+
 angular.module('fixit').controller('DiscoverProjectController',
 	['ProjectService', '$scope', 'projects',
 		function (ProjectService, $scope, projects) {
@@ -41,19 +61,31 @@ angular.module('fixit').controller('ViewProjectController',
 		function ($scope, $ionicPopup, ProjectService, projectId) {
 			console.log("ViewProjectController projectId=" + projectId);
 
+
+			$scope.summary = {followerSize : 0, commentSize : 0};
+
 			ProjectService.getProject(projectId).then(function (project) {
 				console.log("ViewProjectController getProject is called projectId=" + projectId);
 				$scope.project = project;
+				ProjectService.getFollowerSize(projectId).then(function (data) {
+					$scope.summary.followerSize = data;
+				});
 			});
 
 
 			$scope.setProject =function(newProject){
 				$scope.project = newProject;
+				ProjectService.getFollowerSize(projectId).then(function (data) {
+					$scope.summary.followerSize = data;
+				});
 			};
 
 			$scope.follow = function(project){
 				ProjectService.followProject(project).then(function (favorites) {
 					$scope.setFavorites(favorites);
+					ProjectService.getFollowerSize(projectId).then(function (data) {
+						$scope.summary.followerSize = data;
+					});
 					$scope.toastMe('Project ' + project.name + ' is added to your favorites.');
 				});
 			};
@@ -67,6 +99,9 @@ angular.module('fixit').controller('ViewProjectController',
 					if(res) {
 						ProjectService.unfollowProject(project).then(function (favorites) {
 							$scope.setFavorites(favorites);
+							ProjectService.getFollowerSize(projectId).then(function (data) {
+								$scope.summary.followerSize = data;
+							});
 							$scope.toastMe('Project ' + project.name + ' is removed from your favorites.');
 						});
 					}
@@ -176,35 +211,3 @@ angular.module('fixit').controller('EditProjectController',
 
 
 
-
-angular.module('fixit').controller('MyProjectController-2',
-	['ProjectService', '$scope',
-		function (ProjectService, $scope) {
-
-
-			console.log("MyProjectController-2 is called ");
-
-			ProjectService.getProjectsByOwner($scope.getUsername()).then(function (projects) {
-				console.log("MyProjectController-2 getProjectsByOwner is called ");
-				$scope.projects = projects;
-			});
-
-			$scope.doRefresh = function() {
-				ProjectService.getProjectsByOwner($scope.getUsername()).then(function (projects) {
-					$scope.projects = projects;
-				});
-				$scope.$broadcast('scroll.refreshComplete');
-			};
-
-
-			$scope.$on('$stateChangeSuccess',
-				function(event, toState, toParams, fromState, fromParams){
-					console.log("MyProjectController-2 $stateChangeSuccess called ");
-
-
-				});
-
-
-
-		}
-	]);

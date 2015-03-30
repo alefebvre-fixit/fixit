@@ -1,0 +1,16 @@
+
+<ion-view title="Projects">
+	<ion-nav-buttons side="left">
+	</ion-nav-buttons>
+
+	<ion-content class="has-header">
+		<ion-refresher on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
+
+		<div ng-repeat="project in projects">
+			<div ng-include data-src="'templates/project/partial/project-view.html'"></div>
+		</div>
+
+	</ion-content>
+
+
+</ion-view>

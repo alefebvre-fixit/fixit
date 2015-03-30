@@ -6,7 +6,6 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: "templates/menu.html",
 			controller: 'FixItController'
 		})
-
 		.state('app.project-new', {
 			url: "/projects/new",
 			views: {
@@ -41,9 +40,6 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			authenticate: true
 
 		})
-
-
-
 		.state('app.discover', {
 			url: "/discover",
 			views: {

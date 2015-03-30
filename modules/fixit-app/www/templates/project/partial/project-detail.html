@@ -82,18 +82,17 @@
             <br>
         <p class="statistic-label">Contributions</p>
         </p>
-
     </div>
-    <div class="col">
+    <div class="col" ng-click="goToProjectFollowers(project.id)">
         <p class="statistic">
-            <b>xx</b>
+            <b>{{summary.followerSize}}</b>
             <br>
         <p class="statistic-label">Followers</p>
         </p>
     </div>
-    <div class="col" ng-click="goToFollowers(summary.user.username)">
+    <div class="col" ng-click="goToProjectFollowers(project.id)">
         <p class="statistic">
-            <b>{{::project.comments}}</b>
+            <b>{{summary.commentSize}}</b>
             <br>
         <p class="statistic-label">Comments</p>
         </p>

@@ -11,6 +11,7 @@ import play.Logger;
 import com.fixit.model.User;
 import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
+import com.fixit.model.account.UserCard;
 import com.fixit.service.UserService;
 
 public class MongoUserService implements UserService {
@@ -183,6 +184,18 @@ public class MongoUserService implements UserService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public UserCard getUserCard(String userName) {
+		
+		User user = load(userName);
+		if (user != null){
+			return user.getUserCard();
+		} else {
+			return null;
+		}
+		
 	}
 
 	

@@ -33,14 +33,19 @@ GET     /projects/test/         controllers.ProjectController.testProject()
 
 
 # API Project
-GET     /api/projects              			controllers.api.ProjectAPIController.projects()
-GET     /api/projects/new          			controllers.api.ProjectAPIController.createNewProject()
-GET     /api/projects/:id          			controllers.api.ProjectAPIController.project(id: String)
+GET     /api/projects              							controllers.api.ProjectAPIController.projects()
+GET     /api/projects/new          							controllers.api.ProjectAPIController.createNewProject()
+GET     /api/projects/:id          							controllers.api.ProjectAPIController.project(id: String)
+GET     /api/projects/:id          							controllers.api.ProjectAPIController.project(id: String)
+GET 	/api/projects/:projectId/followers/size 			controllers.api.ProjectAPIController.followerSize(projectId: String)
+GET 	/api/projects/:projectId/followers 					controllers.api.ProjectAPIController.followers(projectId: String)
 
-POST 	/api/projects			   			controllers.api.ProjectAPIController.save()
-POST    /api/projects/:id/delete   			controllers.api.ProjectAPIController.deleteProject(id: String)
-POST    /api/projects/:id/publish  			controllers.api.ProjectAPIController.publishProject(id: String)
 
+POST 	/api/projects			   					controllers.api.ProjectAPIController.save()
+POST    /api/projects/:projectId/delete   			controllers.api.ProjectAPIController.deleteProject(projectId: String)
+POST    /api/projects/:projectId/publish  			controllers.api.ProjectAPIController.publishProject(projectId: String)
+POST 	/api/projects/:projectId/follow 			controllers.api.ProjectAPIController.follow(projectId: String)
+POST 	/api/projects/:projectId/unfollow 			controllers.api.ProjectAPIController.unfollow(projectId: String)
 
 
 # API Cards
@@ -50,8 +55,7 @@ GET    	/api/projects/:projectId/cards/new/:type						controllers.api.ProjectAPI
 GET    	/api/projects/:projectId/cards/:cardId/summary					controllers.api.ProjectAPIController.getCardSummary(projectId: String, cardId: String)
 
 POST    /api/projects/:projectId/cards  								controllers.api.ProjectAPIController.addCard(projectId: String)
-POST 	/api/projects/:projectId/follow 								controllers.api.ProjectAPIController.follow(projectId: String)
-POST 	/api/projects/:projectId/unfollow 								controllers.api.ProjectAPIController.unfollow(projectId: String)
+
 
 PUT    	/api/projects/:projectId/cards/:cardId  						controllers.api.ProjectAPIController.updateCard(projectId: String, cardId: String)
 

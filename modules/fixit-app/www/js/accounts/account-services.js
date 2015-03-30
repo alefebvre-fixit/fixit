@@ -52,6 +52,11 @@ angular.module('fixit').factory('SettingService', ['$http', '$rootScope', functi
             return $http.get($rootScope.baseUrl + '/api/users/' + username + '/favorites').then(function (response) {
                 return response.data;
             });
+        },
+        getContributions: function (username) {
+            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/contributions').then(function (response) {
+                return response.data;
+            });
         }
     };
 

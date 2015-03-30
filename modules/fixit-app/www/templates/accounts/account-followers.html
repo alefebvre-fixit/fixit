@@ -1,6 +1,6 @@
-<ion-view title="Followers" class="view-positive"> <ion-nav-buttons side="left">
-<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-</ion-nav-buttons>
+<ion-view title="Followers" class="view-positive">
+	<ion-nav-buttons side="left">
+	</ion-nav-buttons>
 
 	<ion-header-bar class="bar-subheader item-input-inset">
 		<label class="item-input-wrapper">
@@ -14,17 +14,12 @@
 
 	<div class="list">
 		<a class="item item-avatar"  collection-repeat="follower in followers | filter:filter"
-		   collection-item-height="78"
-		   collection-item-width="'100%'"
-		   style="width: 101%"
 		   ui-sref="app.user({username: follower.username})">
 			<img ng-src="img/{{follower.username}}.jpg">
 			<h2>{{follower.profile.name}}</h2>
 			<p><i class="icon ion-location"> {{follower.profile.city}}, {{follower.profile.country}}</i></p>
 		</a>
-
 	</div>
-
 	
 </ion-content>
 

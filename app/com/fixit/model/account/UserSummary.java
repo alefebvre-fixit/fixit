@@ -1,6 +1,10 @@
-package com.fixit.model;
+package com.fixit.model.account;
 
 import java.util.List;
+
+import com.fixit.model.Contribution;
+import com.fixit.model.Project;
+import com.fixit.model.User;
 
 public class UserSummary {
 		

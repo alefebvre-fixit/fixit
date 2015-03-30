@@ -119,11 +119,23 @@ angular.module('fixit').controller('UserController', ['$scope', 'SettingService'
 ]);
 
 
-angular.module('fixit').controller('FollowersController', ['SettingService', '$scope', 'followers',
-    function (SettingService, $scope, followers) {
+angular.module('fixit').controller('FollowersController', ['SettingService', '$scope', 'username',
+    function (SettingService, $scope, username) {
 
-        $scope.followers = followers;
-
+        SettingService.getFollowers(username).then(function (followers) {
+            $scope.followers = followers;
+        });
 
     }
 ]);
+
+angular.module('fixit').controller('UserContributionController', ['SettingService', '$scope', 'username',
+    function (SettingService, $scope, username) {
+
+        SettingService.getContributions(username).then(function (contributions) {
+            $scope.contributions = contributions;
+        });
+
+    }
+]);
+

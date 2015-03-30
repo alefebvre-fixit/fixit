@@ -15,9 +15,9 @@ import play.mvc.Security;
 import com.fixit.model.Profile;
 import com.fixit.model.S3File;
 import com.fixit.model.User;
-import com.fixit.model.UserSummary;
 import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
+import com.fixit.model.account.UserSummary;
 
 import controllers.FixItController;
 import controllers.Secured;
@@ -30,7 +30,7 @@ public class AccountAPIController extends FixItController {
 
 		User user = getUserService().load(session().get("username"));
 
-		return ok(play.libs.Json.toJson(user.getSummary()));
+		return ok(play.libs.Json.toJson(user.getUserCard()));
 	}
 
 	@Security.Authenticated(Secured.class)

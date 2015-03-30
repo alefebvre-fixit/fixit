@@ -4,6 +4,7 @@ import com.fixit.model.notification.Notification;
 import com.fixit.service.ProjectService;
 import com.fixit.service.SubscriptionService;
 import com.fixit.service.impl.MongoProjectService;
+import com.fixit.service.impl.MongoUserService;
 
 public abstract class MongoSubscriptionService {
 	
@@ -13,7 +14,7 @@ public abstract class MongoSubscriptionService {
 	private static final SubscriptionService favoriteSubscriptionService = new MongoFavoriteSubscriptionService();
 	private static final SubscriptionService followersSubscriptionService = new MongoFollowersSubscriptionService();
 
-	private static final ProjectService projectService = new MongoProjectService();
+	private static final ProjectService projectService = new MongoProjectService(new MongoUserService());
 	
 	protected ProjectService getProjectService(){
 		return projectService;

@@ -13,6 +13,7 @@ import org.mongojack.ObjectId;
 import play.data.validation.Constraints.Required;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fixit.model.account.UserCard;
 import com.fixit.model.account.SignUp;
 
 @Entity
@@ -87,8 +88,8 @@ public class User {
 	}
 
 	@JsonIgnore
-	public AccountSummary getSummary() {
-		return new AccountSummary(this);
+	public UserCard getUserCard() {
+		return new UserCard(this);
 	}
 
 	public Profile getProfile() {

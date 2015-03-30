@@ -19,10 +19,10 @@ public class FixItController extends Controller {
 	public static final String SESSION_ATTRIBUTE_USERNAME = "username";
 
 	private static UserService userService = new MongoUserService();
-	private static ProjectService projectService = new MongoProjectService();
+	private static ProjectService projectService = new MongoProjectService(new MongoUserService());
 	private static ContributionService contributionService = new MongoContributionService();
 	private static CardService cardService = new MongoCardService(
-			new MongoContributionService(), new MongoProjectService());
+			new MongoContributionService(), new MongoProjectService(new MongoUserService()));
 	private static NotificationService notificationService = new MongoNotificationService();
 	
 

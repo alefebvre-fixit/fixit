@@ -1,14 +1,13 @@
-package com.fixit.model;
+package com.fixit.model.account;
 
+import com.fixit.model.User;
 
-public class AccountSummary {
-
-	private static final long serialVersionUID = 1L;
+public class UserCard {
 	
 	public final String fullName;
 	public final String userName;
 	
-	public AccountSummary(User user){
+	public UserCard(User user){
 		fullName = user.getProfile().getName();
 		userName = user.getUsername();
 	}

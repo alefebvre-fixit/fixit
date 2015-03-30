@@ -35,8 +35,6 @@ angular.module('fixit').controller('CardController',
                 });
             };
 
-
-
         }
     ]);
 
