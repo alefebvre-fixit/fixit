@@ -13,12 +13,14 @@ public class ContributionFactory {
 
 		if (ItemContribution.TYPE.equals(type)) {
 			result = new ItemContribution();
-		} else if (DateContribution.TYPE.equals(type)) {
-			result = new DateContribution();
+		} else if (AvailabilityContribution.TYPE.equals(type)) {
+			result = new AvailabilityContribution();
 		} else if (ParticipantContribution.TYPE.equals(type)) {
 			result = new ParticipantContribution();
 		} else if (SurveyContribution.TYPE.equals(type)) {
 			result = new SurveyContribution();
+		} else if (MoneyContribution.TYPE.equals(type)) {
+			result = new MoneyContribution();
 		}
 
 		if (result != null) {

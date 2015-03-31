@@ -5,13 +5,13 @@ import java.util.List;
 
 import com.fixit.model.Contribution;
 
-public class DateContribution extends Contribution {
+public class AvailabilityContribution extends Contribution {
 
-	public static final String TYPE = DateCard.TYPE;
+	public static final String TYPE = AvailabilityCard.TYPE;
 
 	private List<String> votes = new ArrayList<String>();
 
-	public DateContribution() {
+	public AvailabilityContribution() {
 		this.type = TYPE;
 	}
 

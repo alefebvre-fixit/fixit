@@ -1,5 +1,5 @@
 
-angular.module('fixit').controller('EditDateCardController',
+angular.module('fixit').controller('EditAvailabilityCardController',
     ['ProjectService', '$scope', '$cordovaDatePicker',
         function (ProjectService, $scope, $cordovaDatePicker) {
 
@@ -57,7 +57,7 @@ angular.module('fixit').controller('EditDateCardController',
         }
     ]);
 
-angular.module('fixit').controller('DateCardController',
+angular.module('fixit').controller('AvailabilityCardController',
     ['CardService', '$scope',
         function (CardService, $scope) {
 

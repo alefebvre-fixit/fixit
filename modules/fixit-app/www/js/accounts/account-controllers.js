@@ -107,10 +107,12 @@ angular.module('fixit').controller('UserController', ['$scope', 'SettingService'
 
         $scope.isFollowing = function(summary){
             console.log('Call isFollowing');
-            var arrayLength = summary.user.followers.length;
-            for (var i = 0; i < arrayLength; i++) {
-                if ($scope.user.username == summary.user.followers[i]){
-                    return true;
+            if (summary){
+                var arrayLength = summary.user.followers.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    if ($scope.user.username == summary.user.followers[i]){
+                        return true;
+                    }
                 }
             }
             return false;

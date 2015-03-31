@@ -9,17 +9,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fixit.model.card.DateCard;
+import com.fixit.model.card.AvailabilityCard;
 import com.fixit.model.card.ItemCard;
+import com.fixit.model.card.MoneyCard;
 import com.fixit.model.card.ParticipantCard;
 import com.fixit.model.card.SurveyCard;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ 
-		@Type(value = DateCard.class, name = DateCard.TYPE),
+		@Type(value = AvailabilityCard.class, name = AvailabilityCard.TYPE),
 		@Type(value = ItemCard.class, name = ItemCard.TYPE),
 		@Type(value = ParticipantCard.class, name = ParticipantCard.TYPE),
-		@Type(value = SurveyCard.class, name = SurveyCard.TYPE) 
+		@Type(value = SurveyCard.class, name = SurveyCard.TYPE),
+		@Type(value = MoneyCard.class, name = MoneyCard.TYPE) 
 
 })
 @JsonIgnoreProperties(ignoreUnknown = true)

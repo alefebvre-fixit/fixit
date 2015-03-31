@@ -1,19 +1,48 @@
-<div ng-controller="EditMoneyCardController">
+<div ng-controller="MoneyCardController">
 
-	<div class="item item-divider item-calm">
-		<i class="icon ion-cash"></i> Money Card
-	</div>
-	<label class="item item-input"> <span class="input-label">Description</span>
-		<input type="text" ng-model="card.name">
-	</label>
-
-
-
+    <div class="item item-divider item-calm">
+        <i class="icon ion-cash"></i> Money Card
+    </div>
+    <label class="item item-input"> <span class="input-label">Name</span>
+        <input type="text" ng-model="card.name">
+    </label>
+    <label class="item item-input"> <span class="input-label">Description</span>
+        <input type="text" ng-model="card.description">
+    </label>
+    <li class="item item-toggle">
+        <div ng-show="card.minimum">Minimum required</div>
+        <div ng-show="!card.minimum">No minimum required</div>
+        <label class="toggle toggle-assertive">
+            <input type="checkbox" ng-model="card.minimum">
+            <div class="track">
+                <div class="handle"></div>
+            </div>
+        </label>
+    </li>
+    <label class="item item-input" ng-show="card.minimum">
+        <input type="number" placeholder="Minimum quantity" ng-model="card.minimumItem">
+    </label>
+    <li class="item item-toggle">
+        <div ng-show="card.maximum">Maximum allowed</div>
+        <div ng-show="!card.maximum">No maximum</div>
+        <label class="toggle toggle-assertive">
+            <input type="checkbox" ng-model="card.maximum">
+            <div class="track">
+                <div class="handle"></div>
+            </div>
+        </label>
+    </li>
+    <label class="item item-input" ng-show="card.maximum">
+        <input type="number" placeholder="Maximum allowed" ng-model="card.maximumItem">
+    </label>
+    <label class="item item-input item-select">
+        <div class="input-label">
+            Increment
+        </div>
+        <select ng-model="card.increment" ng-options="guest.name for guest in guestList">
+        </select>
+    </label>
 </div>
-
-
-
-
 
 
 

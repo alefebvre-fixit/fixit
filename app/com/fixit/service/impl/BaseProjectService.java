@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.fixit.model.Card;
 import com.fixit.model.Project;
-import com.fixit.model.card.DateCard;
-import com.fixit.model.card.DateProposal;
+import com.fixit.model.card.AvailabilityCard;
+import com.fixit.model.card.AvailabilityProposal;
 import com.fixit.model.card.SurveyCard;
 import com.fixit.model.card.SurveyProposal;
 
@@ -31,9 +31,9 @@ public class BaseProjectService {
 			}
 			*/
 			
-			if (card instanceof DateCard){
-				DateCard dateCard = (DateCard) card;
-				for (DateProposal proposal : dateCard.getProposals()) {
+			if (card instanceof AvailabilityCard){
+				AvailabilityCard dateCard = (AvailabilityCard) card;
+				for (AvailabilityProposal proposal : dateCard.getProposals()) {
 					if (proposal.getId() == null) {
 						proposal.setId(java.util.UUID.randomUUID().toString());
 					}

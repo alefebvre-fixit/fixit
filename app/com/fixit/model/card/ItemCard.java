@@ -22,6 +22,8 @@ public class ItemCard extends Card {
 	private boolean isMaximum = false;
 	private int maximumItem = 0;
 
+	private int increment = 1;
+	
 	private int items = 0;
 
 	public String getName() {
@@ -70,6 +72,14 @@ public class ItemCard extends Card {
 
 	public void setItems(int items) {
 		this.items = items;
+	}
+	
+	public int getIncrement() {
+		return increment;
+	}
+
+	public void setIncrement(int increment) {
+		this.increment = increment;
 	}
 
 	@JsonIgnore

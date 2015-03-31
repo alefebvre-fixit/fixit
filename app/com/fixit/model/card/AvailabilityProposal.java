@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.fixit.model.Contribution;
 
-public class DateProposal {
+public class AvailabilityProposal {
 
 	private String id;
 	private Date date;
@@ -38,7 +38,7 @@ public class DateProposal {
 		this.votes += 1;
 	}
 
-	public boolean cancel(DateContribution contribution) {
+	public boolean cancel(AvailabilityContribution contribution) {
 		if (contribution != null && contribution.getVotes().contains(getId())) {
 			contribution.setStatus(Contribution.STATUS_CANCELED);
 			this.votes -= 1;

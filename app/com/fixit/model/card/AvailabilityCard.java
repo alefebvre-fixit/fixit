@@ -7,20 +7,20 @@ import java.util.List;
 import com.fixit.model.Card;
 import com.fixit.model.Contribution;
 
-public class DateCard extends Card {
+public class AvailabilityCard extends Card {
 
-	public static final String TYPE = "date";
+	public static final String TYPE = "availability";
 
-	public DateCard() {
+	public AvailabilityCard() {
 		this.type = TYPE;
 	}
 
 	private String name;
-	private boolean open = false;
+	private boolean open = true;
 	private Date date;
 	private int votes = 0;
 	
-	private List<DateProposal> proposals = new ArrayList<DateProposal>();
+	private List<AvailabilityProposal> proposals = new ArrayList<AvailabilityProposal>();
 
 	public String getName() {
 		return name;
@@ -40,21 +40,21 @@ public class DateCard extends Card {
 		this.date = date;
 	}
 
-	public List<DateProposal> getProposals() {
+	public List<AvailabilityProposal> getProposals() {
 		return proposals;
 	}
 
-	public void setProposals(List<DateProposal> proposals) {
+	public void setProposals(List<AvailabilityProposal> proposals) {
 		this.proposals = proposals;
 	}
 
-	public DateProposal getProposal(String proposalId) {
+	public AvailabilityProposal getProposal(String proposalId) {
 
 		if (proposalId == null) {
 			return null;
 		}
 
-		for (DateProposal proposal : proposals) {
+		for (AvailabilityProposal proposal : proposals) {
 			if (proposalId.equals(proposal.getId())) {
 				return proposal;
 			}
@@ -78,11 +78,11 @@ public class DateCard extends Card {
 	@Override
 	public boolean cancel(Contribution contribution) {
 		boolean result = false;
-		if (contribution instanceof DateContribution) {
-			DateContribution dateContribution = (DateContribution) contribution;
+		if (contribution instanceof AvailabilityContribution) {
+			AvailabilityContribution dateContribution = (AvailabilityContribution) contribution;
 			List<String> proposalIds = dateContribution.getVotes();
 			for (String proposalId : proposalIds) {
-				DateProposal proposal = getProposal(proposalId);
+				AvailabilityProposal proposal = getProposal(proposalId);
 				if (proposal != null) {
 					if (proposal.cancel(dateContribution)) {
 						decrementContributions();
@@ -102,11 +102,11 @@ public class DateCard extends Card {
 			return false;
 		}
 		
-		if (contribution instanceof DateContribution) {
-			DateContribution dateContribution = (DateContribution) contribution;
+		if (contribution instanceof AvailabilityContribution) {
+			AvailabilityContribution dateContribution = (AvailabilityContribution) contribution;
 			List<String> proposalIds = dateContribution.getVotes();
 			for (String proposalId : proposalIds) {
-				DateProposal proposal = getProposal(proposalId);
+				AvailabilityProposal proposal = getProposal(proposalId);
 				if (proposal != null) {
 					proposal.vote();
 				}

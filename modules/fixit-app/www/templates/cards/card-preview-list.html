@@ -16,8 +16,8 @@
         <ion-item ng-repeat="card in project.cards" class="item item-avatar item-avatar-icon calm">
 
             <div ng-click="goToEditCard(project.id, card.id)">
-                <div ng-if="card.type == 'date' ">
-                    <div ng-include data-src="'templates/cards/date/date-card-preview.html'"></div>
+                <div ng-if="card.type == 'availability' ">
+                    <div ng-include data-src="'templates/cards/availability/availability-card-preview.html'"></div>
                 </div>
                 <div ng-if="card.type == 'item' ">
                     <div ng-include src="'templates/cards/item/item-card-preview.html'"></div>

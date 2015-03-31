@@ -1,7 +1,7 @@
-<div ng-controller="EditDateCardController">
+<div ng-controller="EditAvailabilityCardController">
 
 	<div class="item item-divider item-calm">
-		<i class="icon ion-clock"></i> Date Card
+		<i class="icon ion-clock"></i> Availability Card
 	</div>
 	<label class="item item-input"> <span class="input-label">Name</span>
 		<input type="text" ng-model="card.name">
@@ -10,7 +10,7 @@
 		<input type="text" ng-model="card.description">
 	</label>
 
-	<li class="item item-toggle">
+<!--	<li class="item item-toggle">
 		<div ng-show="card.open">Open</div>
 		<div ng-show="!card.open">Fixed</div>
 		<label class="toggle toggle-assertive">
@@ -19,7 +19,7 @@
 				<div class="handle"></div>
 			</div>
 		</label>
-	</li>
+	</li>-->
 
 	<div ng-show="card.open">
 		<ion-item class="item item-button-right">

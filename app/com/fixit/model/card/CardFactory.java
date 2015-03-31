@@ -12,14 +12,17 @@ public class CardFactory {
 		if (ItemCard.TYPE.equals(type)){
 			result = new ItemCard();
 		}
-		else if (DateCard.TYPE.equals(type)){
-			result = new DateCard();
+		else if (AvailabilityCard.TYPE.equals(type)){
+			result = new AvailabilityCard();
 		}
 		else if (ParticipantCard.TYPE.equals(type)){
 			result = new ParticipantCard();
 		}
 		else if (SurveyCard.TYPE.equals(type)){
 			result = new SurveyCard();
+		}
+		else if (MoneyCard.TYPE.equals(type)){
+			result = new MoneyCard();
 		}
 		
 		if (result != null){
