@@ -74,7 +74,7 @@ angular.module('fixit').controller('AvailabilityCardController',
 
                 CardService.availabilities(project, card, $scope.votes).then(function (data) {
                     $scope.setProject(data);
-                    $scope.toastMe(card.name + ' voted.');
+                    $scope.toastMe(card.name + ' rsvp.');
                 });
 
 

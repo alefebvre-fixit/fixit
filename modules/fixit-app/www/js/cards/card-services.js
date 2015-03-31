@@ -27,8 +27,16 @@ angular.module('fixit').factory('CardService',
                         });
                     });
                 },
+                donate: function (project, card, quantity) {
+                    return resultService.instanciateContribution(project, card, 'money').then(function (contribution) {
+                        contribution.quantityProvided = quantity;
+                        return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id + '/contributions', contribution).then(function (response) {
+                            return response.data;
+                        });
+                    });
+                },
                 availabilities: function (project, card, ids) {
-                    return resultService.instanciateContribution(project, card, 'date').then(function (contribution) {
+                    return resultService.instanciateContribution(project, card, 'availability').then(function (contribution) {
                         contribution.votes = ids;
                         return $http.post($rootScope.baseUrl + '/api/projects/' + project.id + '/cards/' + card.id + '/contributions', contribution).then(function (response) {
                             return response.data;

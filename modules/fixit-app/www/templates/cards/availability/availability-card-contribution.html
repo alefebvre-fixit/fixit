@@ -9,7 +9,7 @@
 			<img ng-src="img/{{contribution.contributor}}.jpg" ng-click="goToUser(contribution.contributor)">
 
 			<h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
-			<p>has voted {{contribution.proposalDate | date:'short'}}</p>
+			<p>has rsvp {{contribution.proposalDate | date:'short'}}</p>
 			<ion-option-button class="button-assertive"
 							   ng-click="cancelContribution(project, contribution)">
 				Cancel
@@ -24,6 +24,6 @@
 		<div class="item item-avatar">
 			<img ng-src="img/{{contribution.contributor}}.jpg" ng-click="goToUser(contribution.contributor)">
 			<h3>{{contribution.contributor}} - {{ contribution.date | date:'short' }}</h3>
-			<p>has voted {{contribution.proposalDate | date:'short'}}</p>
+			<p>has rsvp {{contribution.proposalDate | date:'short'}}</p>
 		</div>
 	</div>
