@@ -62,7 +62,7 @@ angular.module('fixit').controller('ViewProjectController',
 			console.log("ViewProjectController projectId=" + projectId);
 
 
-			$scope.summary = {followerSize : 0, commentSize : 0};
+			$scope.summary = {followerSize : 0, commentSize : 0, comments: []};
 
 			ProjectService.getProject(projectId).then(function (project) {
 				console.log("ViewProjectController getProject is called projectId=" + projectId);
@@ -70,16 +70,40 @@ angular.module('fixit').controller('ViewProjectController',
 				ProjectService.getFollowerSize(projectId).then(function (data) {
 					$scope.summary.followerSize = data;
 				});
+
 				ProjectService.getCommentSize(projectId).then(function (data) {
 					$scope.summary.commentSize = data;
 				});
+
+				ProjectService.getComments(projectId).then(function (data) {
+					$scope.summary.comments = data;
+				});
+
 			});
+
+			$scope.comment = {projectId: projectId, content: ''};
+
+			$scope.postComment = function(comment) {
+				ProjectService.postComment(comment.projectId, comment.content).then(function (comment) {
+					$scope.summary.comments.push(comment);
+					$scope.comment = {projectId: projectId, content: ''};
+					ProjectService.getCommentSize(projectId).then(function (data) {
+						$scope.summary.commentSize = data;
+					});
+				});
+			};
 
 
 			$scope.setProject =function(newProject){
 				$scope.project = newProject;
 				ProjectService.getFollowerSize(projectId).then(function (data) {
 					$scope.summary.followerSize = data;
+				});
+				ProjectService.getCommentSize(projectId).then(function (data) {
+					$scope.summary.commentSize = data;
+				});
+				ProjectService.getComments(projectId).then(function (data) {
+					$scope.summary.comments = data;
 				});
 			};
 

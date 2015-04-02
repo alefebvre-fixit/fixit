@@ -16,6 +16,8 @@ $dark:                            #444 !default;
 */
 $positive:                        #3FB8AF !default;
 $calm:                            #7FC7AF !default;
+$royal:                           #FF3D7F !default;
+
 
 $base-background-color:           #F5F5F5 !default;
 
@@ -109,4 +111,15 @@ $palette-5:                        #FF3D7F !default;
 .col-center{
   margin: 0;
   text-align: center;
+}
+
+.bar-header {
+  top: 0;
+  border-top-width: 0;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+.bar-subheader{
+  box-shadow: none;
 }

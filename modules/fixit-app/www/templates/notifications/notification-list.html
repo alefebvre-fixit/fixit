@@ -16,9 +16,11 @@
 				<img ng-src="img/{{notification.actor}}.jpg" ng-click="goToUser(notification.actor)">
 
 				<h2>{{notification.actor}}</h2>
-				<p ng-show="notification.subtype=='date'" ng-click="goToCard(notification.projectId, notification.cardId)">new vote - <span am-time-ago="notification.notificationDate"></span></p>
+				<p ng-show="notification.subtype=='availability'" ng-click="goToCard(notification.projectId, notification.cardId)">new availability - <span am-time-ago="notification.notificationDate"></span></p>
 				<p ng-show="notification.subtype=='item'" ng-click="goToCard(notification.projectId, notification.cardId)">new item provided - <span am-time-ago="notification.notificationDate"></span></p>
 				<p ng-show="notification.subtype=='participant'" ng-click="goToCard(notification.projectId, notification.cardId)">new participation - <span am-time-ago="notification.notificationDate"></span></p>
+				<p ng-show="notification.subtype=='money'" ng-click="goToCard(notification.projectId, notification.cardId)">new donation - <span am-time-ago="notification.notificationDate"></span></p>
+				<p ng-show="notification.subtype=='survey'" ng-click="goToCard(notification.projectId, notification.cardId)">new vote - <span am-time-ago="notification.notificationDate"></span></p>
 
 			</a>
 

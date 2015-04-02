@@ -1,5 +1,5 @@
 
-<div ng-controller="ItemCardController">
+<div ng-controller="MoneyCardController">
     <a class="item item-avatar item-avatar-icon positive">
         <i class="icon ion-cash"></i>
         <h2>{{summary.card.name}}</h2>
@@ -47,7 +47,7 @@
     </div>
 
     <label class="item " ng-show="summary.openForContribution">
-        <button class="button button-block button-outline button-positive" ng-click="donate(project, summary.card)">Donate</button>
+        <button class="button button-block button-outline button-positive" ng-click="openModal()">Donate</button>
     </label>
     <div data-ng-include data-src="'templates/cards/money/money-card-contribution.html'"></div>
 </div>

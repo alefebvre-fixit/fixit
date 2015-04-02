@@ -1,0 +1,22 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Donation</h1>
+        <button class="button button-clear button-primary" ng-click="donationModal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+
+        <div class="list">
+                <label class="item item-input"> <span class="input-label">Donation</span>
+                    <input type="text" ng-model="myDonation.amount">
+                </label>
+            <div class="item">
+                <button class="button button-block button-outline button-positive" ng-click="more(myDonation)">More!</button>
+
+            </div>
+            <div class="item">
+                <button class="button button-block button-positive" ng-click="donate(myDonation)">Donate</button>
+            </div>
+
+        </div>
+    </ion-content>
+</ion-modal-view>

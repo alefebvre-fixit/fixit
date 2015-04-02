@@ -12,15 +12,18 @@ angular.module('fixit').controller('EditSurveyCardController',
 
             $scope.openModal = function() {
                 $scope.modal.show();
+                $scope.newProposal = {name:'', description:''};
             };
 
             $scope.closeModal = function() {
-                $scope.modal.hide();
+                if ($scope.modal){
+                    $scope.modal.hide();
+                }
             };
 
             //Cleanup the modal when we're done with it!
             $scope.$on('$destroy', function() {
-                if (modal){
+                if ($scope.modal){
                     $scope.modal.remove();
                 }
             });

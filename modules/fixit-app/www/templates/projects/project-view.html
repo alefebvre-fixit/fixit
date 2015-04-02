@@ -9,11 +9,34 @@
         </a>
     </ion-nav-buttons>
 
-    <ion-content class="has-header">
+    <ion-tabs class="tabs-striped tabs-color-positive">
 
-        <div ng-include data-src="'templates/projects/partial/project-detail.html'"></div>
+        <ion-tab title="Home" icon-on="ion-ios-information" icon-off="ion-ios-information-outline">
+            <ion-view>
+                <ion-content has-header="true" padding="false">
+                    <div ng-include data-src="'templates/projects/partial/project-detail.html'"></div>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
 
-        <div ng-include data-src="'templates/cards/card-view-list.html'"></div>
+        <ion-tab title="About" icon-on="ion-ios-albums" icon-off="ion-ios-albums-outline">
+            <ion-view>
+                <ion-content has-header="true" padding="true">
+                    <div ng-include data-src="'templates/cards/card-view-list.html'"></div>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
 
-    </ion-content>
+        <ion-tab title="Settings" icon-on="ion-ios-chatboxes" icon-off="ion-ios-chatboxes-outline">
+            <ion-view>
+                <ion-content has-header="true" padding="false">
+                    <div ng-include data-src="'templates/projects/partial/project-comments.html'"></div>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
+
+    </ion-tabs>
+
+
+
 </ion-view>
