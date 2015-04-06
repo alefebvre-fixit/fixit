@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.fixit.model.Card;
 import com.fixit.model.Project;
-import com.fixit.model.card.AvailabilityCard;
-import com.fixit.model.card.AvailabilityProposal;
-import com.fixit.model.card.SurveyCard;
-import com.fixit.model.card.SurveyProposal;
+import com.fixit.model.card.availability.AvailabilityCard;
+import com.fixit.model.card.availability.AvailabilityProposal;
+import com.fixit.model.card.survey.SurveyCard;
+import com.fixit.model.card.survey.SurveyProposal;
 
 public class BaseProjectService {
 

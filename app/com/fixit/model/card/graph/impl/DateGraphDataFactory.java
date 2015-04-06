@@ -3,8 +3,8 @@ package com.fixit.model.card.graph.impl;
 import java.util.List;
 
 import com.fixit.model.Card;
-import com.fixit.model.card.AvailabilityCard;
-import com.fixit.model.card.AvailabilityProposal;
+import com.fixit.model.card.availability.AvailabilityCard;
+import com.fixit.model.card.availability.AvailabilityProposal;
 import com.fixit.model.card.graph.GraphData;
 import com.fixit.model.card.graph.GraphDataFactory;
 

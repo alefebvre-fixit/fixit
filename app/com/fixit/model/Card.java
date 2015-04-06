@@ -9,11 +9,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fixit.model.card.AvailabilityCard;
-import com.fixit.model.card.ItemCard;
-import com.fixit.model.card.MoneyCard;
-import com.fixit.model.card.ParticipantCard;
-import com.fixit.model.card.SurveyCard;
+import com.fixit.model.card.advice.AdviceCard;
+import com.fixit.model.card.availability.AvailabilityCard;
+import com.fixit.model.card.item.ItemCard;
+import com.fixit.model.card.money.MoneyCard;
+import com.fixit.model.card.participant.ParticipantCard;
+import com.fixit.model.card.survey.SurveyCard;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ 
@@ -21,6 +22,7 @@ import com.fixit.model.card.SurveyCard;
 		@Type(value = ItemCard.class, name = ItemCard.TYPE),
 		@Type(value = ParticipantCard.class, name = ParticipantCard.TYPE),
 		@Type(value = SurveyCard.class, name = SurveyCard.TYPE),
+		@Type(value = AdviceCard.class, name = AdviceCard.TYPE),
 		@Type(value = MoneyCard.class, name = MoneyCard.TYPE) 
 
 })
@@ -37,6 +39,7 @@ public abstract class Card {
 	private String username;
 	private String status = STATUS_NEW;
 	private int contributions;
+	private String name;
 	private String description;
 
 	@Id
@@ -120,5 +123,15 @@ public abstract class Card {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public final String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 
 }

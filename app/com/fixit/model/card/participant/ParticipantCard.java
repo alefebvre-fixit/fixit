@@ -1,4 +1,4 @@
-package com.fixit.model.card;
+package com.fixit.model.card.participant;
 
 import java.util.List;
 
@@ -14,8 +14,6 @@ public class ParticipantCard extends Card {
 		this.type = TYPE;
 	}
 
-	private String name;
-
 	private boolean isMinimum = false;
 	private int minimumParticipant = 0;
 
@@ -27,14 +25,6 @@ public class ParticipantCard extends Card {
 	private int plusMaximumParticipant = 4;
 
 	private int participants = 0;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public boolean isMinimum() {
 		return isMinimum;

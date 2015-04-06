@@ -1,4 +1,4 @@
-package com.fixit.model.card;
+package com.fixit.model.card.survey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +14,10 @@ public class SurveyCard extends Card {
 		this.type = TYPE;
 	}
 
-	private String name;
 	private String proposal;
 	private int votes = 0;
 
 	private List<SurveyProposal> proposals = new ArrayList<SurveyProposal>();
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getProposal() {
 		return proposal;

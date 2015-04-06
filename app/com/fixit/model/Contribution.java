@@ -13,11 +13,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fixit.model.card.AvailabilityContribution;
-import com.fixit.model.card.ItemContribution;
-import com.fixit.model.card.MoneyContribution;
-import com.fixit.model.card.ParticipantContribution;
-import com.fixit.model.card.SurveyContribution;
+import com.fixit.model.card.advice.AdviceContribution;
+import com.fixit.model.card.advice.AdviceLikeContribution;
+import com.fixit.model.card.availability.AvailabilityContribution;
+import com.fixit.model.card.item.ItemContribution;
+import com.fixit.model.card.money.MoneyContribution;
+import com.fixit.model.card.participant.ParticipantContribution;
+import com.fixit.model.card.survey.SurveyContribution;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
@@ -25,6 +27,8 @@ import com.fixit.model.card.SurveyContribution;
 		@Type(value = AvailabilityContribution.class, name = AvailabilityContribution.TYPE),
 		@Type(value = ParticipantContribution.class, name = ParticipantContribution.TYPE),
 		@Type(value = SurveyContribution.class, name = SurveyContribution.TYPE),
+		@Type(value = AdviceContribution.class, name = AdviceContribution.TYPE),
+		@Type(value = AdviceLikeContribution.class, name = AdviceLikeContribution.TYPE),
 		@Type(value = MoneyContribution.class, name = MoneyContribution.TYPE)
 		})
 @Entity

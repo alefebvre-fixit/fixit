@@ -1,17 +1,17 @@
-package com.fixit.model.card;
+package com.fixit.model.card.survey;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fixit.model.Contribution;
 
-public class AvailabilityContribution extends Contribution {
+public class SurveyContribution extends Contribution {
 
-	public static final String TYPE = AvailabilityCard.TYPE;
+	public static final String TYPE = SurveyCard.TYPE;
 
 	private List<String> votes = new ArrayList<String>();
 
-	public AvailabilityContribution() {
+	public SurveyContribution() {
 		this.type = TYPE;
 	}
 

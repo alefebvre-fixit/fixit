@@ -1,0 +1,28 @@
+ss
+<div ng-controller="AdviceCardController">
+    <a class="item item-avatar item-avatar-icon positive">
+        <i class="icon ion-lightbulb"></i>
+        <h2>{{summary.card.name}}</h2>
+        <p>{{summary.card.description}}</p>
+    </a>
+
+
+    <div class="row">
+        <div class="col col-center">
+            <p class="statistic">
+                <b>{{summary.card.contributions}}</b>
+                <br>
+            <p class="statistic-label">Advices</p>
+            </p>
+        </div>
+        <div class="col">
+        </div>
+        <div class="col col-center" ng-click="">
+        </div>
+    </div>
+
+    <label class="item " ng-show="summary.openForContribution">
+        <button class="button button-block button-outline button-positive" ng-click="donate(project, summary.card)">Advice</button>
+    </label>
+    <div data-ng-include data-src="'templates/cards/advice/advice-card-contribution.html'"></div>
+</div>

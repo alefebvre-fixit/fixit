@@ -1,11 +1,11 @@
 package com.fixit.model.card.graph;
 
 import com.fixit.model.Card;
-import com.fixit.model.card.AvailabilityCard;
-import com.fixit.model.card.SurveyCard;
+import com.fixit.model.card.availability.AvailabilityCard;
 import com.fixit.model.card.graph.impl.DateGraphDataFactory;
 import com.fixit.model.card.graph.impl.DefaultGraphDataFactory;
 import com.fixit.model.card.graph.impl.SurveyGraphDataFactory;
+import com.fixit.model.card.survey.SurveyCard;
 
 public abstract class GraphDataFactory {
 

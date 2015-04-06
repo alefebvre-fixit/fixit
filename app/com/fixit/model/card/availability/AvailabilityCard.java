@@ -1,4 +1,4 @@
-package com.fixit.model.card;
+package com.fixit.model.card.availability;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,22 +15,11 @@ public class AvailabilityCard extends Card {
 		this.type = TYPE;
 	}
 
-	private String name;
 	private boolean open = true;
 	private Date date;
 	private int votes = 0;
 	
 	private List<AvailabilityProposal> proposals = new ArrayList<AvailabilityProposal>();
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-
 
 	public Date getDate() {
 		return date;

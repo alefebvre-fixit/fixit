@@ -1,4 +1,4 @@
-package com.fixit.model.card;
+package com.fixit.model.card.participant;
 
 import java.util.List;
 

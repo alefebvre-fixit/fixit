@@ -1,3 +1,10 @@
+angular.module('fixit').controller('EditMoneyCardController',
+    ['ProjectService', '$scope',
+        function (ProjectService, $scope) {
+
+        }
+    ]);
+
 
 angular.module('fixit').controller('EditMoneyCardController', ['CardService', '$scope',
     function (CardService, $scope) {

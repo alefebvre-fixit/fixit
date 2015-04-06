@@ -1,4 +1,4 @@
-package com.fixit.model.card;
+package com.fixit.model.card.item;
 
 import java.util.List;
 
@@ -14,8 +14,6 @@ public class ItemCard extends Card {
 		this.type = TYPE;
 	}
 
-	private String name;
-
 	private boolean isMinimum = false;
 	private int minimumItem = 0;
 
@@ -25,14 +23,6 @@ public class ItemCard extends Card {
 	private int increment = 1;
 	
 	private int items = 0;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public boolean isMinimum() {
 		return isMinimum;

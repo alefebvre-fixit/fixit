@@ -3,10 +3,10 @@ package com.fixit.model.card.graph.impl;
 import java.util.List;
 
 import com.fixit.model.Card;
-import com.fixit.model.card.SurveyCard;
-import com.fixit.model.card.SurveyProposal;
 import com.fixit.model.card.graph.GraphData;
 import com.fixit.model.card.graph.GraphDataFactory;
+import com.fixit.model.card.survey.SurveyCard;
+import com.fixit.model.card.survey.SurveyProposal;
 
 public class SurveyGraphDataFactory extends GraphDataFactory {
 

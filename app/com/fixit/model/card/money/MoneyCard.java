@@ -1,4 +1,6 @@
-package com.fixit.model.card;
+package com.fixit.model.card.money;
+
+import com.fixit.model.card.item.ItemCard;
 
 public class MoneyCard extends ItemCard {
 

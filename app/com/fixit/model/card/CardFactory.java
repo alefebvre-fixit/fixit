@@ -1,9 +1,14 @@
 package com.fixit.model.card;
 
 import com.fixit.model.Card;
+import com.fixit.model.card.advice.AdviceCard;
+import com.fixit.model.card.availability.AvailabilityCard;
+import com.fixit.model.card.item.ItemCard;
+import com.fixit.model.card.money.MoneyCard;
+import com.fixit.model.card.participant.ParticipantCard;
+import com.fixit.model.card.survey.SurveyCard;
 
 public class CardFactory {
-	
 	
 	public static final Card createCard(String projectId, String type, String username){
 		
@@ -23,6 +28,9 @@ public class CardFactory {
 		}
 		else if (MoneyCard.TYPE.equals(type)){
 			result = new MoneyCard();
+		}
+		else if (AdviceCard.TYPE.equals(type)){
+			result = new AdviceCard();
 		}
 		
 		if (result != null){

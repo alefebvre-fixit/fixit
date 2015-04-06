@@ -1,0 +1,42 @@
+ddd
+<div class="card card-header" ng-controller="AdviceCardController">
+    <a class="item item-avatar item-avatar-icon calm" ui-sref="app.card-view({ projectId: project.id, cardId: card.id})">
+        <i class="icon ion-lightbulb"></i>
+        <h2>{{card.name}}</h2>
+        <p>{{card.description}}</p>
+    </a>
+    <div class="row">
+        <div class="col">
+            <div ng-show="card.minimum">
+                <p class="statistic">
+                    <b>{{card.minimumItem}}</b>
+                    <br>
+                    <p class="statistic-label">Required</p>
+                </p>
+            </div>
+        </div>
+        <div class="col">
+            <p class="statistic">
+                <b>{{card.items}}</b>
+                <br>
+            <p class="statistic-label">Provided</p>
+            </p>
+        </div>
+        <div class="col">
+            <p class="statistic">
+                <b>{{card.maximumItem - card.items}}</b>
+                <br>
+            <p class="statistic-label">Remaining</p>
+            </p>
+        </div>
+    </div>
+    <div class="item item-text-wrap">
+        <p>
+            <a href="#" class="subdued">{{card.contributions}} Contributions</a>
+        </p>
+    </div>
+</div>
+
+
+
+
