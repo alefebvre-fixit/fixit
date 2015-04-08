@@ -1,27 +1,89 @@
-<ion-view title="SignIn"> <ion-content class="has-header">
+<style>
+
+
+	.fixit-logo{
+		text-align: center;
+		color: white;
+	}
+
+	.login {
+		background:
+		url('img/login-bg.jpg') center;
+	}
+
+	.list-login{
+		background-color: transparent !important; ;
+		border: 0  !important;
+		color: #3FB8AF;
+	}
+
+	.item-login{
+		background-color: rgba(50, 50, 50, 0.7) !important; ;
+		border: 0  !important;
+		color: #3FB8AF;
+	}
+
+	.item-transparent{
+		background-color: transparent !important;
+		border: 0  !important;
+
+	}
+
+	.no-padding {
+		padding: 0px !important;
+	}
+
+
+	.item-input-login{
+		background-color: transparent !important; ;
+		border: 0  !important;
+		color: #3FB8AF !important;
+		@include input-placeholder(#3FB8AF)
+	}
+
+
+
+</style>
+
+
+<ion-view title="SignIn" class="login"> <ion-content class="has-header login">
 
 <ion-nav-buttons side="left">
 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
 </ion-nav-buttons>
 
-	<div class="list" ng-controller="SignInController">
-		<form ng-submit="doSignIn()" >
+	<br>
+	<br>
+	<br>
+	<h1 class="fixit-logo">Feex-it</h1>
+	<br>
+	<br>
 
-		<label class="item item-input"> <span class="input-label">Username</span>
-			<input type="text" ng-model="signin.username">
+	<div class="list list-inset list-login" ng-controller="SignInController">
+
+		<label class="item item-input item-login">
+			<input type="text" ng-model="signin.username" placeholder="Username" class="item-input-login">
 		</label>
-		<label class="item item-input"> <span class="input-label">Password</span>
-			<input type="password" ng-model="signin.password">
+		<label class="item item-input item-login">
+			<input type="password" ng-model="signin.password" placeholder="Password" class="item-input-login">
 		</label>
-		<label class="item">
-			<button class="button button-block button-positive" type="submit"><b>Sign In</b></button>
+		<label class="item item-transparent no-padding">
+			<button class="button button-block button-positive" ng-click="doSignIn()"><b>Sign In</b></button>
 			<p ng-show="signin.error" class="help-block">{{signin.error}}</p>
 		</label>
-
-		</form>
-		<label class="item ">
-		<button class="button button-block button-outline button-positive" ng-click="goToSignUp()">Create Free Account</button>
-		</label>
+		<a class="button button-block button-clear button-positive" ng-click="goToSignUp()">Create Free Account</a>
 	</div>
+
+	<div class="list list-inset list-login">
+	<div class="button-bar">
+		<a class="button icon-left ion-social-googleplus">google+</a>
+		<a class="button icon-left ion-social-facebook">facebook</a>
+	</div>
+
+
+	</div>
+
+
+
 
 </ion-content> </ion-view>

@@ -9,6 +9,15 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: false
 		})
+		.state('app.sign-out', {
+			url: "/signout",
+			views: {
+				'menuContent': {
+					templateUrl: "templates/sign-in.html"
+				}
+			},
+			authenticate: false
+		})
 		.state('app.sign-up', {
 			url: "/signup",
 			views: {

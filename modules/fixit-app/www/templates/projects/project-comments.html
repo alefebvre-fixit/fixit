@@ -1,0 +1,30 @@
+<ion-view title="Project Comments">
+
+    <ion-nav-buttons side="left">
+    </ion-nav-buttons>
+
+
+    <ion-content class="has-header">
+
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <input type="search" placeholder="Add a comment..." ng-model="comment.content">
+            </label>
+            <button class="button button-clear" ng-click="postComment(comment)">
+                <i class="icon ion-paper-airplane positive"></i>
+            </button>
+        </div>
+
+        <div class="list">
+            <a class="item item-avatar"  collection-repeat="comment in summary.comments">
+                <img ng-src="img/{{comment.username}}.jpg">
+                <p>{{comment.username}} - <span am-time-ago="comment.commentDate"></span></p>
+                <h2><i class="icon ion-ios-chatbubble royal"></i> {{comment.content}}</h2>
+            </a>
+        </div>
+
+    </ion-content>
+
+
+
+</ion-view>
