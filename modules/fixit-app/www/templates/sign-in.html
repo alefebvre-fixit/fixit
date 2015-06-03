@@ -58,30 +58,31 @@
 	<h1 class="fixit-logo">Feex-it</h1>
 	<br>
 	<br>
+	<div ng-controller="SignInController">
 
-	<div class="list list-inset list-login" ng-controller="SignInController">
+		<div class="list list-inset list-login" >
 
-		<label class="item item-input item-login">
-			<input type="text" ng-model="signin.username" placeholder="Username" class="item-input-login">
-		</label>
-		<label class="item item-input item-login">
-			<input type="password" ng-model="signin.password" placeholder="Password" class="item-input-login">
-		</label>
-		<label class="item item-transparent no-padding">
-			<button class="button button-block button-positive" ng-click="doSignIn()"><b>Sign In</b></button>
-			<p ng-show="signin.error" class="help-block">{{signin.error}}</p>
-		</label>
-		<a class="button button-block button-clear button-positive" ng-click="goToSignUp()">Create Free Account</a>
+			<label class="item item-input item-login">
+				<input type="text" ng-model="signin.username" placeholder="Username" class="item-input-login">
+			</label>
+			<label class="item item-input item-login">
+				<input type="password" ng-model="signin.password" placeholder="Password" class="item-input-login">
+			</label>
+			<label class="item item-transparent no-padding">
+				<button class="button button-block button-positive" ng-click="doSignIn()"><b>Sign In</b></button>
+				<p ng-show="signin.error" class="help-block">{{signin.error}}</p>
+			</label>
+			<a class="button button-block button-clear button-positive" ng-click="goToSignUp()">Create Free Account</a>
+		</div>
+		<div class="list list-inset list-login">
+			<div class="button-bar">
+				<a class="button icon-left ion-social-googleplus" ng-click="googleLogin()">google+</a>
+				<a class="button icon-left ion-social-facebook" ng-click="facebookLogin()">facebook</a>
+			</div>
+		</div>
+
 	</div>
 
-	<div class="list list-inset list-login">
-	<div class="button-bar">
-		<a class="button icon-left ion-social-googleplus">google+</a>
-		<a class="button icon-left ion-social-facebook">facebook</a>
-	</div>
-
-
-	</div>
 
 
 

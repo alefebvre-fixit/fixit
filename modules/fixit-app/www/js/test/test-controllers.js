@@ -33,8 +33,11 @@ angular.module('fixit').controller('TesterController', ['$scope', '$rootScope', 
 				});
 
 			}, false);
-		}
+		};
 
+		$scope.inAppBrowser = function() {
+
+		};
 
 
 

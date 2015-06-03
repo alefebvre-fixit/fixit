@@ -20,8 +20,8 @@ angular.module('fixit').controller('SignUpController', ['SettingService', '$scop
     }
 ]);
 
-angular.module('fixit').controller('SignInController', ['SettingService', '$scope', '$state', '$ionicLoading',
-    function (SettingService, $scope, $state, $ionicLoading) {
+angular.module('fixit').controller('SignInController', ['SettingService', '$scope', '$state', '$ionicLoading', '$cordovaOauth',
+    function (SettingService, $scope, $state, $ionicLoading, $cordovaOauth) {
 
         $scope.signin = {username: 'antoinelefebvre', password: 'password'};
         // Perform the login action when the user submits the login for
@@ -45,9 +45,42 @@ angular.module('fixit').controller('SignInController', ['SettingService', '$scop
                 $scope.signin.error = 'Invalid username or password';
             });
         };
+
+
         $scope.goToSignUp = function () {
             $state.transitionTo('app.sign-up');
         };
+
+        $scope.googleLogin = function() {
+            $ionicLoading.show({
+                template: '<ion-spinner class="spinner-positive"></ion-spinner>'
+            });
+            $cordovaOauth.google("55883713895-e9egmn26h1ilo7n8msj9ptsfs48dagp3.apps.googleusercontent.com", ["https://www.googleapis.com/auth/urlshortener", "https://www.googleapis.com/auth/userinfo.email"]).then(function(result) {
+                console.log(JSON.stringify(result));
+                $scope.signin.error = JSON.stringify(result);
+                $ionicLoading.hide();
+            }, function(error) {
+                console.log(error);
+                $ionicLoading.hide();
+                $scope.signin.error = error;
+            });
+        };
+
+        $scope.facebookLogin = function() {
+            $ionicLoading.show({
+                template: '<ion-spinner class="spinner-positive"></ion-spinner>'
+            });
+            $cordovaOauth.facebook("CLIENT_ID_HERE", ["email"]).then(function(result) {
+                // results
+            }, function(error) {
+                $ionicLoading.hide();
+                $scope.signin.error = 'Invalid username or password';
+                // error
+            });
+        };
+
+
+
     }
 ]);
 

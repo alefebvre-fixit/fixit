@@ -75,22 +75,6 @@ $palette-5:                        #FF3D7F !default;
 }
 
 
-@mixin input-placeholder($color){
-  &:-webkit-input-placeholder
-color: $color
-&:-moz-placeholder
-color: $color
-&::-moz-placeholder //for newer versions of Firefox
-color: $color
-&:-ms-input-placeholder
-color: $color
-}
-
-
-
-
-
-
 
 .statistic{
   margin: 0;

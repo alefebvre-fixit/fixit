@@ -17,5 +17,7 @@
   "cordovaPlugins": [
     "org.apache.cordova.camera"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "android"
+  ]
 }

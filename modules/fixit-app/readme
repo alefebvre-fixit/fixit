@@ -25,7 +25,10 @@ ionic setup sass
 cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
 //To add Date picker plugin
 cordova plugin add http://github.com/VitaliiBlagodir/cordova-plugin-datepicker
-
+//To install OAuth plugin
+cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
+//To install In App browser:
+cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
 
 #Start android in debug mode
 o see the option for USB debugging mode in Nexus 4 or Android 4.2 or higher OS, do the following:
