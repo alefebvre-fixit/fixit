@@ -28,6 +28,9 @@ angular.module('fixit').factory('SettingService', ['$http', '$rootScope', functi
         signinUser: function (signin) {
             return $http.post($rootScope.baseUrl + '/api/signin', signin);
         },
+        signInGoogle: function (signin) {
+            return $http.post($rootScope.baseUrl + '/api/signin/google', signin);
+        },
         getUserProfile: function (username) {
             return $http.get($rootScope.baseUrl + '/api/users/' + username).then(function (response) {
                 return response.data;

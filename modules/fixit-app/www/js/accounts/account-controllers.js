@@ -55,9 +55,21 @@ angular.module('fixit').controller('SignInController', ['SettingService', '$scop
             $ionicLoading.show({
                 template: '<ion-spinner class="spinner-positive"></ion-spinner>'
             });
-            $cordovaOauth.google("55883713895-e9egmn26h1ilo7n8msj9ptsfs48dagp3.apps.googleusercontent.com", ["https://www.googleapis.com/auth/urlshortener", "https://www.googleapis.com/auth/userinfo.email"]).then(function(result) {
+            $cordovaOauth.google("55883713895-e9egmn26h1ilo7n8msj9ptsfs48dagp3.apps.googleusercontent.com", ["profile"]).then(function(result) {
                 console.log(JSON.stringify(result));
                 $scope.signin.error = JSON.stringify(result);
+
+
+                SettingService.signInGoogle(result).success(function (user) {
+                    $ionicLoading.hide();
+
+                }).error(function (response, status) {
+                    $ionicLoading.hide();
+                    console.log("Invalid username or password");
+                    $scope.signin.error = 'Invalid username or password';
+                });
+
+
                 $ionicLoading.hide();
             }, function(error) {
                 console.log(error);

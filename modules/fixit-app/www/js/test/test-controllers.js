@@ -1,6 +1,8 @@
 angular.module('fixit').controller('TesterController', ['$scope', '$rootScope', '$cordovaToast', '$cordovaDatePicker','$cordovaCamera', '$http',
 	function ($scope, $rootScope, $cordovaToast, $cordovaDatePicker, $cordovaCamera, $http) {
 
+		$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+
 		$scope.callToast = function() {
 			console.log('Calling callToast');
 			$cordovaToast.show('Hello', 'long', 'center').then(
@@ -9,7 +11,7 @@ angular.module('fixit').controller('TesterController', ['$scope', '$rootScope', 
 				}, function(error) {
 					// error
 				});
-		}
+		};
 
 		$scope.callDatePicker = function() {
 			console.log('Calling callDatePicker');
@@ -139,7 +141,7 @@ angular.module('fixit').controller('TesterController', ['$scope', '$rootScope', 
 			});
 
 
-			$scope.urlForImage = function (imageName) {
+			$scope.urlForImage = function () {
 				console.log("get correct path for image");
 			}
 
@@ -166,5 +168,46 @@ angular.module('fixit').controller('TesterController', ['$scope', '$rootScope', 
 	}
 ]);
 
+//This is a test for https://angular-ui.github.io/angular-google-maps/#
+angular.module('fixit').controller('MapController', ['$scope', '$cordovaGeolocation', '$ionicSideMenuDelegate',
+	function ($scope, $cordovaGeolocation, $ionicSideMenuDelegate) {
 
+        $ionicSideMenuDelegate.canDragContent(false);
+        //map variable containing the map details, will be referenced from the html
+        $scope.map = {center: {latitude: 51.219053, longitude: 4.404418 }, zoom: 14 };
+        //map options
+        $scope.options = {scrollwheel: false};
+        $scope.markers = [];
+
+        $scope.centerOnMe = function(){
+
+            // get position of user and then set the center of the map to that position
+            $cordovaGeolocation
+                .getCurrentPosition()
+                .then(function (position) {
+                    var lat  = position.coords.latitude
+                    var long = position.coords.longitude
+                    $scope.map = {center: {latitude: lat, longitude: long}, zoom: 16 };
+                    //just want to create this loop to make more markers
+                    for(var i=0; i<3; i++) {
+                        $scope.markers.push({
+                            id: $scope.markers.length,
+                            latitude: lat + (i * 0.002),
+                            longitude: long + (i * 0.002),
+                            title: 'm' + i
+                        })
+                    }
+
+                }, function(err) {
+                    // error
+                });
+
+
+
+        };
+
+
+
+    }
+]);
 

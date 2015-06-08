@@ -1,112 +1,36 @@
 <style>
-
-    .item-avatar-icon i:first-child, .item-avatar .item-img {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        font-size: 36px;
-        max-width: 40px;
-        max-height: 40px;
+    #map_canvas {
         width: 100%;
-        border-radius: 4px;
+        height: 100%;
+        margin: 0;
+        position: relative;
     }
 
-    .item-proposal {
-        border-left: 8px solid #387ef5;
+    .scroll {
+        height: 100%;
     }
+
+    .angular-google-map-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+
 
 </style>
 
 
 
-<ion-view title="Profile">
+<ion-view title="Map">
+    <ion-content data-tap-disabled="true">
 
-    <ion-nav-buttons side="left">
-    </ion-nav-buttons>
-
-    <ion-content class="has-header">
-        <a class="item item-avatar item-avatar-icon calm" href="#">
-            <i class="icon ion-clock"></i>
-            <h2>Card Name</h2>
-            <p>Card Description</p>
-        </a>
-        <li class="item item-proposal">
-            proposal 1
-            <span class="badge badge-calm">12</span>
-        </li>
-        <li class="item item-proposal">
-            proposal 1
-            <span class="badge badge-calm">12</span>
-        </li>
-        <div class="row">
-            <div class="col">
-                <p class="statistic">
-                    <b>543{{::project.contributions}}</b>
-                    <br>
-                <p class="statistic-label">Contributions</p>
-            </div>
-            <div class="col">
-                <p class="statistic">
-                    <b>12</b>
-                    <br>
-                <p class="statistic-label">Comments</p>
-            </div>
-            <div class="col" ng-click="provide(project, summary.card)">
-                <button class="button button-clear button-positive">
-                    Contribute
-                </button>
-            </div>
-        </div>
-
-        <div ng-controller="DateCardController">
-            <div class="card">
-                <a class="item item-divider item-calm" ui-sref="app.card-view({ projectId: project.id, cardId : summary.card.id })">
-                    <i class="icon ion-clock"></i>
-                    {{summary.card.name}}
-                </a>
-                <div ng-show="summary.card.open">
-                    <div ng-show="!summary.openForContribution">
-                        <li class="item item-checkbox" ng-repeat="proposal in summary.card.proposals">
-                            {{ proposal.date | date:'short' }}
-                            <span class="badge badge-calm">{{proposal.votes}}</span>
-                        </li>
-                    </div>
-                    <div ng-show="summary.openForContribution">
-                        <li class="item item-checkbox" ng-repeat="proposal in summary.card.proposals">
-                            <label class="checkbox">
-                                <input type="checkbox" ng-model="proposal.selected" value="{{proposal.id}}">
-                            </label>
-                            {{ proposal.date | date:'short' }}
-                            <span class="badge badge-calm">{{proposal.votes}}</span>
-                        </li>
-                    </div>
-                </div>
-                <div ng-show="!summary.card.open">
-                    Date is {{ summary.card.date | date:'short' }}
-                </div>
-                <div class="item item-text-wrap">
-                    <p>
-                        <a href="#" class="subdued">{{summary.card.contributions}} Votes</a>
-                    </p>
-                </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item" href="#">
-                    </a>
-                    <a class="tab-item" href="#">
-                    </a>
-                    <a class="tab-item" ng-click="vote(project, summary.card)" ng-show="summary.openForContribution">
-                        <i class="icon ion-navigate"></i>
-                        Vote
-                    </a>
-                    <a class="tab-item" href="#" ng-show="!summary.openForContribution">
-                    </a>
-                </div>
-            </div>
-
-            <canvas id="doughnut" class="chart chart-doughnut" data="summary.graphData.datas" labels="summary.graphData.labels"></canvas>
-
-            <div data-ng-include data-src="'templates/cards/date/date-card-contribution.html'"></div>
-        </div>
+        <ui-gmap-google-map center='map.center' zoom='map.zoom' events="map.markersEvents">
+        </ui-gmap-google-map>
 
     </ion-content>
+    <ion-footer-bar class="bar-stable">
+        <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a>
+    </ion-footer-bar>
 </ion-view>

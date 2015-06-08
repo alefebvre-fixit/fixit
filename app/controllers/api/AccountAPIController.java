@@ -1,6 +1,5 @@
 package controllers.api;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class AccountAPIController extends FixItController {
 	public static Result accountSummary() {
 		Logger.debug("AccountAPIController.accountSummary");
 
-		User user = getUserService().load(session().get("username"));
+		User user = getUserService().load(getUserName());
 
 		return ok(play.libs.Json.toJson(user.getUserCard()));
 	}
@@ -37,7 +36,7 @@ public class AccountAPIController extends FixItController {
 	public static Result account() {
 		Logger.debug("AccountAPIController.account");
 
-		User user = getUserService().load(session().get("username"));
+		User user = getUserService().load(getUserName());
 
 		return ok(play.libs.Json.toJson(user));
 	}
@@ -88,6 +87,32 @@ public class AccountAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(user));
 
 	}
+	
+	public static Result googleSignIn() {
+
+		Logger.debug("AccountAPIController.googleSignIn()");
+
+		RequestBody body = request().body();
+		Logger.debug("AccountAPIController.googleSignIn()" + body.asJson());
+
+		
+		//SignIn signin = Json.fromJson(body.asJson(), SignIn.class);
+		/*
+		User user = getUserService().authenticate(signin);
+
+		if (user == null) {
+			return forbidden("Invalid password");
+		}
+		session().clear();
+		session(SESSION_ATTRIBUTE_USERNAME, user.getUsername());
+		*/
+		
+		return ok(body.asJson());
+
+	}
+	
+	
+	
 
 	// TODO use bean validation
 	public static List<String> validate(SignUp signup) {

@@ -19,6 +19,8 @@ import com.fixit.service.impl.MongoUserService;
 public class FixItController extends Controller {
 
 	public static final String SESSION_ATTRIBUTE_USERNAME = "username";
+	public static final String SESSION_ATTRIBUTE_ACCESS_TOKEN = "access_token";
+
 
 	private static UserService userService = new MongoUserService();
 	private static ProjectService projectService = new MongoProjectService(new MongoUserService());
@@ -58,6 +60,10 @@ public class FixItController extends Controller {
 
 	protected static String getUserName() {
 		return session().get(SESSION_ATTRIBUTE_USERNAME);
+	}
+	
+	protected static String getAccessToken() {
+		return session().get(SESSION_ATTRIBUTE_ACCESS_TOKEN);
 	}
 
 }

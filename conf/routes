@@ -96,7 +96,18 @@ GET     /api/accounts     						controllers.api.AccountAPIController.accounts()
 GET     /api/notifications     					controllers.api.NotificationAPIController.notifications()
 
 POST    /api/signup     						controllers.api.AccountAPIController.signUp()
+POST 	/api/signin/google						controllers.api.AccountAPIController.googleSignIn()
 POST    /api/signin     						controllers.api.AccountAPIController.signIn()
 POST    /api/profile     						controllers.api.AccountAPIController.updateProfile()
 POST    /api/profile/picture     				controllers.api.AccountAPIController.uploadPicture()
+
+
+# API Test 
+
+GET    /api/test     							controllers.api.TestController.test()
+GET    /api/external/google/profile/:username     		controllers.api.TestController.googlePlusProfile(username: String)
+
+
+
+
 

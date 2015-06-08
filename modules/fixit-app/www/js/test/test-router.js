@@ -36,7 +36,8 @@ angular.module('fixit').config(function ($stateProvider, $urlRouterProvider) {
 			url: "/work3",
 			views: {
 				'menuContent': {
-					templateUrl: "templates/test/work-3.html"
+					templateUrl: "templates/test/work-3.html",
+					controller: 'MapController'
 				}
 
 			},

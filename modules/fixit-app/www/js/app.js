@@ -5,12 +5,24 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('fixit', [ 'ionic', 'ngCordova', 'angularMoment', 'chart.js']);
+angular.module('fixit', [ 'ionic', 'ngCordova', 'angularMoment', 'chart.js', 'uiGmapgoogle-maps']);
 
 
 angular.module('fixit').constant('fixitSettings', {
 	apiRrl: 'http://localhost:9000'
 });
+
+
+angular.module('fixit').config(
+	function(uiGmapGoogleMapApiProvider) {
+	uiGmapGoogleMapApiProvider.configure({
+		key: '55883713895-e9egmn26h1ilo7n8msj9ptsfs48dagp3.apps.googleusercontent.com',
+		v: '3.17',
+		libraries: '',
+		language: 'en',
+		sensor: 'false',
+	})});
+
 
 
 angular.module('fixit').run(
@@ -19,6 +31,7 @@ angular.module('fixit').run(
 			    .ready(function() {
 
 				var localFixitURL = 'http://localhost:9000';
+				var emulatorFixitURL = 'http://10.0.2.2:9000';
 				var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com';
 
 				$rootScope.user = {};
