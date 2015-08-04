@@ -65,5 +65,8 @@ public class FixItController extends Controller {
 	protected static String getAccessToken() {
 		return session().get(SESSION_ATTRIBUTE_ACCESS_TOKEN);
 	}
+	
+	
+	
 
 }

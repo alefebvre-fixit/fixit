@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('fixit', [ 'ionic', 'ngCordova', 'angularMoment', 'chart.js', 'uiGmapgoogle-maps']);
+angular.module('fixit', [ 'ionic', 'ngCordova', 'angularMoment', 'chart.js', 'uiGmapgoogle-maps', 'ion-google-place']);
 
 
 angular.module('fixit').constant('fixitSettings', {
@@ -35,8 +35,8 @@ angular.module('fixit').run(
 				var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com';
 
 				$rootScope.user = {};
-				$rootScope.baseUrl = herokuFixitURL;
-				$rootScope.isPluginEnabled = true;
+				$rootScope.baseUrl = localFixitURL;
+				$rootScope.isPluginEnabled = false;
 
 				// Hide the accessory bar by default (remove
 				// this to show the accessory

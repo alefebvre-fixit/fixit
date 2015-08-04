@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fixit.model.Project;
 import com.fixit.model.User;
-import com.fixit.model.account.UserCard;
 
 public interface ProjectService {
 

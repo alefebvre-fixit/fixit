@@ -1,0 +1,15 @@
+<div class="card group-header">
+    <a class="item item-avatar" ui-sref="ya.group-view({ groupId: group.id })">
+        <img ng-src="img/{{::group.username}}.jpg">
+        <h2>{{::group.name}}</h2>
+        <p>{{::group.username}}</p>
+    </a>
+    <div class="item item-text-wrap">
+        {{::group.description}} <br> <br>
+        <i class="icon ion-location"> {{::group.city}}, {{::group.country}}</i>
+        <p>
+            <a href="#" class="subdued">{{::group.events}} Events</a>
+            <a href="#" class="subdued">5 Comments</a>
+        </p>
+    </div>
+</div>

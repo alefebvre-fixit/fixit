@@ -8,6 +8,7 @@ import org.mongojack.ObjectId;
 public class Favorite {
 
 	private String projectId;
+	private String groupId;
 	private String username;
 	private Date creationDate;
 	public String id;
@@ -30,6 +31,14 @@ public class Favorite {
 
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
+	}
+	
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 	public String getUsername() {

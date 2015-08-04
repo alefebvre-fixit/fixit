@@ -1,0 +1,23 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-calm">
+        <h1 class="title">New Group</h1>
+        <button class="button button-clear button-primary" ng-click="closeEditModal()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+
+        <div class="list">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Group Name</span>
+                <input type="text" placeholder="Type group name here..." ng-model="myGroup.name">
+            </label>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Location</span>
+                <input type="text" placeholder="Type group location here..." ng-model="myGroup.city">
+            </label>
+
+            <button class="button button-full button-calm" ng-click="create(myGroup)">Create</button>
+
+        </div>
+    </ion-content>
+</ion-modal-view>

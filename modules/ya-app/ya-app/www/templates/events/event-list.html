@@ -1,0 +1,37 @@
+
+<ion-view title="Activity" hide-back-button="true">
+
+
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <a class="button button-icon icon ion-plus" ng-click="createGroup()"></a>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header">
+        <ion-refresher on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
+
+        <div class="item" style="text-align: center" ng-show="groups.length <= 0">
+            <br>
+            <br>
+            <br>
+            <br>
+
+            You have no event yet!
+            <a class="button icon-left ion-plus button-positive button-block" ui-sref="app.event-new">Create a New Event</a>
+            <br>
+            <br>
+            <br>
+            <br>
+
+        </div>
+
+        <div ng-repeat="group in groups">
+            <div ng-include data-src="'templates/events/partial/event-view.html'"></div>
+        </div>
+    </ion-content>
+
+
+</ion-view>

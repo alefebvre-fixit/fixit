@@ -1,0 +1,115 @@
+<style>
+
+    .module {
+        background:
+        linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0),
+                rgba(0, 0, 0, 0.4)
+        ),
+        url('img/coffee-bg.jpg') center;
+        height:150px;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 5px solid #dddddd;
+    }
+    .module > header {
+        position: absolute;
+        top: 10px;
+        left: 100px;
+        width: 100%;
+        text-align: left;
+    }
+    .module > header > h3  {
+        margin: 0;
+        color: white;
+        text-shadow: 0 1px 0 black;
+    }
+    .module > header > h5  {
+        margin: 0;
+        color: white;
+        text-shadow: 0 1px 0 black;
+    }
+
+    .module.avatar {
+        border-radius: 50%;
+        box-shadow: 0 0 0 3px #fff, 0 0 0 2px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+
+    }
+
+    .button-follow{
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+
+</style>
+
+
+<ion-view view-title="Activity">
+    <ion-content>
+
+
+<div class="module">
+    <div ng-show="!isMine(group)">
+        <button class="button button-calm button-small ion-star button-follow" ng-click="follow(group)" ng-show="!isFavorite(group)">
+            Follow
+        </button>
+        <button class="button button-calm button-small ion-star energized button-follow" ng-click="unfollow(group)" ng-show="isFavorite(group)">
+            Following
+        </button>
+    </div>
+
+    <img ng-src="img/antoinelefebvre-50.jpg" class="avatar" width="50" ng-click="goToUser(group.username)">
+    <header>
+        <h3>
+            {{::group.name}}
+        </h3>
+        <h5>
+            @{{::group.username}}
+        </h5>
+    </header>
+</div>
+
+<div class="row">
+    <a class="col statistic" ui-sref="app.group-contributions({groupId: group.id})">
+        <p class="statistic">
+            <b>{{group.contributions}}</b>
+            <br>
+        <p class="statistic-label">Contributions</p>
+        </p>
+    </a>
+    <a class="col statistic" ui-sref="app.group-followers({groupId: group.id})">
+        <p class="statistic">
+            <b>{{summary.followerSize}}</b>
+            <br>
+        <p class="statistic-label">Followers</p>
+        </p>
+    </a>
+    <a class="col statistic" ui-sref="app.group-comments({groupId: group.id})">
+        <p class="statistic">
+            <b>{{summary.commentSize}}</b>
+            <br>
+        <p class="statistic-label">Comments</p>
+        </p>
+    </a>
+</div>
+
+<div class="row">
+    <div class="col">
+        <h5>
+            <i class="icon ion-location"> {{::group.city}}, {{::group.country}}</i>
+        </h5>
+        {{::group.description}}
+    </div>
+</div>
+
+    </ion-content>
+</ion-view>

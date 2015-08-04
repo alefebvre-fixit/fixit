@@ -108,6 +108,16 @@ GET    /api/test     							controllers.api.TestController.test()
 GET    /api/external/google/profile/:username     		controllers.api.TestController.googlePlusProfile(username: String)
 
 
+# API Group
+GET     /api/groups              							controllers.api.GroupAPIController.groups()
+GET     /api/groups/new          							controllers.api.GroupAPIController.createNewGroup()
+GET     /api/groups/:id          							controllers.api.GroupAPIController.group(id: String)
+GET     /api/groups/:id          							controllers.api.GroupAPIController.group(id: String)
+GET 	/api/groups/:id/followers/size 						controllers.api.GroupAPIController.followerSize(id: String)
+GET 	/api/groups/:id/followers 							controllers.api.GroupAPIController.followers(id: String)
 
-
+POST 	/api/groups			   								controllers.api.GroupAPIController.save()
+POST    /api/groups/:id/delete   							controllers.api.GroupAPIController.deleteGroup(id: String)
+POST 	/api/groups/:id/follow 								controllers.api.GroupAPIController.follow(id: String)
+POST 	/api/groups/:id/unfollow 							controllers.api.GroupAPIController.unfollow(id: String)
 
