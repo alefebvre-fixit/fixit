@@ -3,7 +3,9 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		.state('ya', {
 			url: "/ya",
 			abstract: true,
-			templateUrl: "templates/tabs.html"
+			templateUrl: "templates/tabs.html",
+			controller: 'FixItController'
+
 		})
 
 		// Each tab has its own nav history stack:

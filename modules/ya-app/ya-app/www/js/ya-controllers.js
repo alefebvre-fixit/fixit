@@ -1,5 +1,5 @@
 
-angular.module('fixit').controller('YaController', ['$scope', '$rootScope', '$window', '$cordovaToast', '$state',
+angular.module('ya-app').controller('YaController', ['$scope', '$rootScope', '$window', '$cordovaToast', '$state',
 	function ($scope, $rootScope, $window,  $cordovaToast, $state) {
 	$scope.toastMe = function(message) {
 

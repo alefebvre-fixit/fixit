@@ -3,6 +3,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		.state('sign-in', {
 			url: "/signin",
 			templateUrl: "templates/sign-in.html",
+			controller: 'YaController',
 			authenticate: false
 		})
 		.state('ya.sign-out', {
