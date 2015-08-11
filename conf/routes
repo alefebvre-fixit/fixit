@@ -36,7 +36,6 @@ GET     /projects/test/         controllers.ProjectController.testProject()
 GET     /api/projects              							controllers.api.ProjectAPIController.projects()
 GET     /api/projects/new          							controllers.api.ProjectAPIController.createNewProject()
 GET     /api/projects/:id          							controllers.api.ProjectAPIController.project(id: String)
-GET     /api/projects/:id          							controllers.api.ProjectAPIController.project(id: String)
 GET 	/api/projects/:projectId/followers/size 			controllers.api.ProjectAPIController.followerSize(projectId: String)
 GET 	/api/projects/:projectId/followers 					controllers.api.ProjectAPIController.followers(projectId: String)
 GET 	/api/projects/:projectId/comments/size 				controllers.api.CommentAPIController.commentSize(projectId: String)
@@ -109,15 +108,35 @@ GET    /api/external/google/profile/:username     		controllers.api.TestControll
 
 
 # API Group
-GET     /api/groups              							controllers.api.GroupAPIController.groups()
-GET     /api/groups/new          							controllers.api.GroupAPIController.createNewGroup()
-GET     /api/groups/:id          							controllers.api.GroupAPIController.group(id: String)
-GET     /api/groups/:id          							controllers.api.GroupAPIController.group(id: String)
-GET 	/api/groups/:id/followers/size 						controllers.api.GroupAPIController.followerSize(id: String)
-GET 	/api/groups/:id/followers 							controllers.api.GroupAPIController.followers(id: String)
+GET     /api/groups              								controllers.api.GroupAPIController.groups()
+GET     /api/groups/new          								controllers.api.GroupAPIController.createNewGroup()
+GET     /api/groups/:groupId          							controllers.api.GroupAPIController.group(groupId: String)
+GET     /api/groups/:groupId          							controllers.api.GroupAPIController.group(groupId: String)
+GET 	/api/groups/:groupId/followers/size 					controllers.api.GroupAPIController.followerSize(groupId: String)
+GET 	/api/groups/:groupId/followers 							controllers.api.GroupAPIController.followers(groupId: String)
 
-POST 	/api/groups			   								controllers.api.GroupAPIController.save()
-POST    /api/groups/:id/delete   							controllers.api.GroupAPIController.deleteGroup(id: String)
-POST 	/api/groups/:id/follow 								controllers.api.GroupAPIController.follow(id: String)
-POST 	/api/groups/:id/unfollow 							controllers.api.GroupAPIController.unfollow(id: String)
+POST 	/api/groups			   									controllers.api.GroupAPIController.save()
+POST    /api/groups/:groupId/delete   							controllers.api.GroupAPIController.deleteGroup(groupId: String)
+POST 	/api/groups/:groupId/follow 							controllers.api.GroupAPIController.follow(groupId: String)
+POST 	/api/groups/:groupId/unfollow 							controllers.api.GroupAPIController.unfollow(groupId: String)
+
+
+# API Event
+GET     /api/events              									controllers.api.EventAPIController.events()
+GET     /api/groups/:groupId/events/new          					controllers.api.EventAPIController.getGroupEvents(groupId: String)
+GET     /api/groups/:groupId/events          						controllers.api.EventAPIController.createNewEvent(groupId: String)
+GET     /api/events/:eventId          								controllers.api.EventAPIController.event(eventId: String)
+GET 	/api/events/:eventId/comments/size 								controllers.api.CommentAPIController.commentSize(eventId: String)
+GET 	/api/events/:eventId/comments 									controllers.api.CommentAPIController.comments(eventId: String)
+
+
+POST 	/api/events			   										controllers.api.EventAPIController.save()
+POST    /api/events/:eventId/delete   									controllers.api.EventAPIController.deleteEvent(eventId: String)
+POST    /api/events/:eventId/publish  									controllers.api.EventAPIController.publishEvent(eventId: String)
+POST 	/api/events/:eventId/comments/:content 							controllers.api.CommentAPIController.post(eventId: String, content: String)
+
+
+
+
+
 

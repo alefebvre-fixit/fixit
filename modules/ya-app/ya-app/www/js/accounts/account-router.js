@@ -8,25 +8,18 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		})
 		.state('ya.sign-out', {
 			url: "/signout",
-			views: {
-				'menuContent': {
-					templateUrl: "templates/sign-in.html"
-				}
-			},
+			templateUrl: "templates/sign-in.html",
+			controller: 'YaController',
 			authenticate: false
 		})
 		.state('ya.sign-up', {
 			url: "/signup",
-			views: {
-				'menuContent': {
-					templateUrl: "templates/sign-up.html",
-					controller: 'SignUpController',
-					resolve: {
-						signup: function ($stateParams) {
-							console.log('sign-up: resolve signup');
-							return {};
-						}
-					}
+			templateUrl: "templates/sign-up.html",
+			controller: 'SignUpController',
+			resolve: {
+				signup: function ($stateParams) {
+					console.log('sign-up: resolve signup');
+					return {};
 				}
 			},
 			authenticate: false
@@ -34,7 +27,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		.state('ya.settings', {
 			url: "/settings",
 			views: {
-				'menuContent': {
+				'tab-account': {
 					templateUrl: "templates/settings.html",
 					controller: 'EditSettingController',
 					resolve: {
@@ -50,7 +43,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		.state('ya.user-followers', {
 			url: "/user/:username/followers",
 			views: {
-				'menuContent': {
+				'tab-account': {
 					templateUrl: "templates/accounts/account-followers.html",
 					controller: 'FollowersController',
 					resolve: {
@@ -65,7 +58,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		.state('ya.user-groups', {
 			url: "/user/:username/groups",
 			views: {
-				'menuContent': {
+				'tab-account': {
 					templateUrl: "templates/accounts/account-groups.html",
 					controller: 'UserProjectController',
 					resolve: {
@@ -80,7 +73,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		.state('ya.user', {
 			url: "/user/:username",
 			views: {
-				'menuContent': {
+				'tab-groups': {
 					templateUrl: "templates/accounts/account-summary.html",
 					controller: 'UserController',
 					resolve: {

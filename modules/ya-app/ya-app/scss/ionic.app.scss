@@ -21,13 +21,111 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+$base-background-color:           #DAD8A7 !default;
+
+
+//http://www.colourlovers.com/palette/932683/Compatible
+
+$palette-1:                        #11c1f3 !default;
+$palette-2:                        #7FC7AF !default;
+$palette-3:                        #DAD8A7 !default;
+$palette-4:                        #FF9E9D !default;
+$palette-5:                        #FF3D7F !default;
+
+.palette-1{
+  color: $palette-1;
+}
+.palette-2{
+  color: $palette-2;
+}
+.palette-3{
+  color: $palette-3;
+}
+.palette-4{
+  color: $palette-4;
+}
+.palette-5{
+  color: $palette-5;
+}
+
+.badge.badge-palette-1 {
+  background-color: $palette-1;
+  color: #fff;
+}
+.badge.badge-palette-2 {
+  background-color: $palette-2;
+  color: #fff;
+}
+.badge.badge-palette-3 {
+  background-color: $palette-3;
+  color: #fff;
+}
+.badge.badge-palette-4 {
+  background-color: $palette-4;
+  color: #fff;
+}
+.badge.badge-palette-5 {
+  background-color: $palette-5;
+  color: #fff;
+}
+
+
+
+.statistic{
+  margin: 0;
+  color: $palette-5;
+  text-align: center;
+  text-decoration: none !important;
+}
+
+.project-header{
+  border-left: 5px solid $positive;
+}
+
+.card-header{
+  border-top: 5px solid $calm;
+}
+
+.statistic-label{
+  margin: 0;
+  text-align: center;
+  text-decoration: none !important;
+  color: $dark;
+}
+
+.item-avatar-icon i:first-child, .item-avatar .item-img {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 36px;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.col-center{
+  margin: 0;
+  text-align: center;
+}
+
 .bar-header {
   top: 0;
   border-top-width: 0;
-  border-bottom: 0;
+  border-bottom-width: 0;
+  box-shadow: none;
 }
 
 
 .bar-subheader{
   box-shadow: none;
 }
+
+

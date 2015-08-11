@@ -1,15 +1,15 @@
 <ion-modal-view>
     <ion-header-bar class="bar bar-header bar-calm">
-        <h1 class="title">Edit Group</h1>
-        <button class="button button-clear button-primary" ng-click="closeEditGroup()">Cancel</button>
+        <h1 class="title">New Group</h1>
+        <button class="button button-clear button-primary" ng-click="closeCreateGroup()">Cancel</button>
     </ion-header-bar>
     <ion-content>
 
         <div ng-include data-src="'templates/groups/partial/group-edit-core.html'"></div>
 
         <div class="list">
-            <button class="button button-full button-calm" ng-click="save(myGroup)">Apply</button>
+            <button class="button button-full button-calm" ng-click="save(myGroup)">Create</button>
         </div>
-
+        
     </ion-content>
 </ion-modal-view>

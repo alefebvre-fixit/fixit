@@ -1,0 +1,15 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-calm">
+        <h1 class="title">New Event</h1>
+        <button class="button button-clear button-primary" ng-click="closeCreateEvent()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+
+        <div ng-include data-src="'templates/events/partial/event-edit-core.html'"></div>
+
+        <div class="list">
+            <button class="button button-full button-calm" ng-click="save(myEvent)">Create</button>
+        </div>
+        
+    </ion-content>
+</ion-modal-view>

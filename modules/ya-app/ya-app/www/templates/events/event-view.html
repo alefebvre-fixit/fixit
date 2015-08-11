@@ -53,52 +53,51 @@
 </style>
 
 
-<ion-view view-title="Group">
+<ion-view view-title="Event">
     <ion-nav-buttons side="right">
-        <a class="button button-icon icon ion-android-more-vertical" ng-click="showGroupAction(group)"></a>
+        <a class="button button-icon icon ion-android-more-vertical" ng-click="showEventAction(event)"></a>
     </ion-nav-buttons>
-
     <ion-content>
 
 
 
 <div class="module">
-    <div ng-show="!isMine(group)">
-        <button class="button button-calm button-small ion-star button-follow" ng-click="follow(group)" ng-show="!isFavorite(group)">
+    <div ng-show="!isMine(event)">
+        <button class="button button-calm button-small ion-star button-follow" ng-click="follow(event)" ng-show="!isFavorite(event)">
             Follow
         </button>
-        <button class="button button-calm button-small ion-star energized button-follow" ng-click="unfollow(group)" ng-show="isFavorite(group)">
+        <button class="button button-calm button-small ion-star energized button-follow" ng-click="unfollow(event)" ng-show="isFavorite(event)">
             Following
         </button>
     </div>
 
-    <img ng-src="img/antoinelefebvre-50.jpg" class="avatar" width="50" ng-click="goToUser(group.username)">
+    <img ng-src="img/antoinelefebvre-50.jpg" class="avatar" width="50" ng-click="goToUser(event.username)">
     <header>
         <h3>
-            {{group.name}}
+            {{event.name}}
         </h3>
         <h5>
-            @{{group.username}}
+            @{{event.username}}
         </h5>
     </header>
 </div>
 
 <div class="row">
-    <a class="col statistic" ui-sref="ya.group-contributions({groupId: group.id})">
+    <a class="col statistic" ui-sref="ya.event-contributions({eventId: event.id})">
         <p class="statistic">
             <b>{{summary.events}}</b>
             <br>
         <p class="statistic-label">Events</p>
         </p>
     </a>
-    <a class="col statistic" ui-sref="ya.group-followers({groupId: group.id})">
+    <a class="col statistic" ui-sref="ya.event-followers({eventId: event.id})">
         <p class="statistic">
             <b>{{summary.followerSize}}</b>
             <br>
         <p class="statistic-label">Followers</p>
         </p>
     </a>
-    <a class="col statistic" ui-sref="ya.group-comments({groupId: group.id})">
+    <a class="col statistic" ui-sref="ya.event-comments({eventId: event.id})">
         <p class="statistic">
             <b>{{summary.commentSize}}</b>
             <br>
@@ -110,9 +109,9 @@
 <div class="row">
     <div class="col">
         <h5>
-            <i class="icon ion-location"> {{group.city}}, {{group.country}}</i>
+            <i class="icon ion-location"> {{event.city}}, {{event.country}}</i>
         </h5>
-        {{group.description}}
+        {{event.description}}
     </div>
 </div>
 

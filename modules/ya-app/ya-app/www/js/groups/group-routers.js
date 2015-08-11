@@ -3,7 +3,7 @@ angular.module('ya-app').config(function ($stateProvider) {
         .state('ya.groups', {
             url: "/groups",
             views: {
-                'ya-groups': {
+                'tab-groups': {
                     templateUrl: "templates/groups/group-list.html",
                     controller: 'ListGroupsController'
                 }
@@ -14,7 +14,7 @@ angular.module('ya-app').config(function ($stateProvider) {
             cache: false,
             url: "/groups/:groupId",
             views: {
-                'ya-groups': {
+                'tab-groups': {
                     templateUrl: "templates/groups/group-view.html",
                     controller: 'ViewGroupController',
                     resolve: {
@@ -29,45 +29,10 @@ angular.module('ya-app').config(function ($stateProvider) {
             authenticate: true
         })
         /*
-        .state('ya.group-new', {
-            url: "/groups/new",
-            views: {
-                'menuContent': {
-                    templateUrl: "templates/groups/group-new.html",
-                    controller: 'EditGroupController',
-                    resolve: {
-                        group: function ($rootScope, groupService) {
-                            console.log('groupService.instanciateGroup()' + JSON.stringify(groupService.instanciateGroup()));
-                            return groupService.instanciateGroup();
-                        }
-                    }
-                }
-            },
-            authenticate: false
-        })
-
-        .state('ya.group-edit', {
-            cache: false,
-            url: "/groups/:groupId/edit",
-            views: {
-                'menuContent': {
-                    templateUrl: "templates/groups/group-edit.html",
-                    controller: 'EditGroupController',
-                    resolve: {
-                        group: function ($stateParams, groupService) {
-                            console.log('edit-group: resolve single group');
-                            return groupService.getGroup($stateParams.groupId);
-                        }
-                    }
-                }
-            },
-            authenticate: true
-
-        })
         .state('ya.discover', {
             url: "/discover",
             views: {
-                'menuContent': {
+                'tab-groups': {
                     templateUrl: "templates/groups/discover.html",
                     controller: 'DiscoverGroupController',
                     resolve: {
@@ -85,7 +50,7 @@ angular.module('ya-app').config(function ($stateProvider) {
             cache: false,
             url: "/groups/:groupId/comments",
             views: {
-                'menuContent': {
+                'tab-groups': {
                     templateUrl: "templates/groups/group-comments.html",
                     controller: 'groupCommentsController',
                     resolve: {
@@ -101,7 +66,7 @@ angular.module('ya-app').config(function ($stateProvider) {
             cache: false,
             url: "/groups/:groupId/followers",
             views: {
-                'menuContent': {
+                'tab-groups': {
                     templateUrl: "templates/groups/group-followers.html",
                     controller: 'groupFollowersController',
                     resolve: {

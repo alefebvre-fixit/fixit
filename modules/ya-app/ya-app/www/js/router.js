@@ -4,7 +4,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			url: "/ya",
 			abstract: true,
 			templateUrl: "templates/tabs.html",
-			controller: 'FixItController'
+			controller: 'YaController'
 
 		})
 
@@ -25,7 +25,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			url: '/account',
 			views: {
 				'ya-account': {
-					templateUrl: 'templates/tab-account.html',
+					templateUrl: 'templates/accounts/account-summary.html',
 					controller: 'AccountCtrl'
 				}
 			},

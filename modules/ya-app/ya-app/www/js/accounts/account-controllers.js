@@ -1,5 +1,6 @@
 angular.module('ya-app').controller('SignUpController', ['SettingService', '$scope', '$state', 'signup', '$ionicLoading',
     function (SettingService, $scope, $state, signup, $ionicLoading) {
+        console.log("Enter SignUpController");
 
         $scope.signup = signup;
 
@@ -48,7 +49,7 @@ angular.module('ya-app').controller('SignInController', ['SettingService', '$sco
 
 
         $scope.goToSignUp = function () {
-            $state.transitionTo('app.sign-up');
+            $state.transitionTo('ya.sign-up');
         };
 
         $scope.googleLogin = function() {

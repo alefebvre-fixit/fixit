@@ -53,27 +53,27 @@ angular.module('ya-app').controller('YaController', ['$scope', '$rootScope', '$w
 	};
 
 	$scope.goToUser = function(username){
-		$state.go('app.user', {username: username});
+		$state.go('ya.user', {username: username});
 	};
 
 	$scope.goToGroup = function(groupId){
-		$state.go('app.group-single', {groupId: groupId});
+		$state.go('ya.group-single', {groupId: groupId});
 	};
 
 	$scope.goToCard = function(groupId, cardId){
-		$state.go('app.card-view', {groupId: groupId, cardId: cardId});
+		$state.go('ya.card-view', {groupId: groupId, cardId: cardId});
 	};
 
 	$scope.goToEditCard = function(groupId, cardId){
-		$state.go('app.card-edit', {groupId: groupId, cardId: cardId});
+		$state.go('ya.card-edit', {groupId: groupId, cardId: cardId});
 	};
 
 	$scope.goToSettings = function(){
-		$state.go('app.settings');
+		$state.go('ya.settings');
 	};
 
 	$scope.goToFollowers = function(username){
-		$state.go('app.followers', {username: username});
+		$state.go('ya.followers', {username: username});
 	};
 
 }
