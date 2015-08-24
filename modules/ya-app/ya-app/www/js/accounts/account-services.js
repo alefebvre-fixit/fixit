@@ -2,16 +2,6 @@ angular.module('ya-app').factory('SettingService', ['$http', '$rootScope', funct
 
     var resultService;
     resultService = {
-        getAccount: function () {
-            return $http.get($rootScope.baseUrl + '/api/account').then(function (response) {
-                return response.data;
-            });
-        },
-        getAccountSummary: function () {
-            return $http.get($rootScope.baseUrl + '/api/account/summary').then(function (response) {
-                return response.data;
-            });
-        },
         getUserSummary: function (username) {
             return $http.get($rootScope.baseUrl + '/api/users/' + username + '/summary').then(function (response) {
                 return response.data;
@@ -31,11 +21,6 @@ angular.module('ya-app').factory('SettingService', ['$http', '$rootScope', funct
         signInGoogle: function (signin) {
             return $http.post($rootScope.baseUrl + '/api/signin/google', signin);
         },
-        getUserProfile: function (username) {
-            return $http.get($rootScope.baseUrl + '/api/users/' + username).then(function (response) {
-                return response.data;
-            });
-        },
         follow: function (username) {
             return $http.post($rootScope.baseUrl + '/api/users/'+ username +'/follow').then(function (response) {
                 return response.data;
@@ -52,7 +37,7 @@ angular.module('ya-app').factory('SettingService', ['$http', '$rootScope', funct
             });
         },
         getFavorites: function (username) {
-            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/favorites').then(function (response) {
+            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/favorites/groups').then(function (response) {
                 return response.data;
             });
         }

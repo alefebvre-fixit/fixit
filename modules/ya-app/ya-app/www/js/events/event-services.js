@@ -1,6 +1,6 @@
 angular.module('ya-app').factory('EventService',
-    ['$http', '$rootScope',
-        function($http, $rootScope) {
+    ['$http', '$rootScope', 'YaService',
+        function($http, $rootScope, YaService) {
 
             var resultService;
             resultService = {
@@ -39,11 +39,41 @@ angular.module('ya-app').factory('EventService',
                         return response.data;
                     });
                 },
-                instanciateEvent: function () {
-                    return $http.get($rootScope.baseUrl + '/api/events/new').then(function (response) {
+                instanciateEvent: function (group) {
+                    return $http.get($rootScope.baseUrl + '/api/groups/' + group.id +'/events/new').then(function (response) {
+                        return response.data;
+                    });
+                },
+                instanciateParticipation: function(event){
+                  participation = {eventId : event.id, userName : $rootScope.user.username};
+                },
+                getEventParticipations: function(eventId) {
+                    return $http.get($rootScope.baseUrl + '/api/events/' + eventId +'/participations').then(function (response) {
+                        return response.data;
+                    });
+                },
+                getLastParticipations: function(event) {
+                    return $http.get($rootScope.baseUrl + '/api/events/' + event.id +'/participations/last').then(function (response) {
+                        return response.data;
+                    });
+                },
+                getUserParticipation: function(event) {
+                    return $http.get($rootScope.baseUrl + '/api/users/' + $rootScope.user.username + '/events/' + event.id + '/participation').then(function (response) {
+                        return response.data;
+                    });
+                },
+                participate: function(participation){
+                    return $http.post($rootScope.baseUrl + '/api/events/' + participation.eventId + '/participations', participation).then(function (response) {
+                        return response.data;
+                    });
+                },
+                getParticipationsSize: function(event) {
+                    return $http.get($rootScope.baseUrl + '/api/events/' + event.id +'/participations/size').then(function (response) {
                         return response.data;
                     });
                 }
+
+
             };
 
             return resultService;

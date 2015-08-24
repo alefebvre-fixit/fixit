@@ -72,7 +72,7 @@
         </button>
     </div>
 
-    <img ng-src="img/antoinelefebvre-50.jpg" class="avatar" width="50" ng-click="goToUser(group.username)">
+    <img ng-src="img/{{group.username}}-50.jpg" class="avatar" width="50" ng-click="goToUser(group.username)">
     <header>
         <h3>
             {{group.name}}
@@ -84,26 +84,23 @@
 </div>
 
 <div class="row">
-    <a class="col statistic" ui-sref="ya.group-contributions({groupId: group.id})">
+    <a class="col statistic" ui-sref="group-events({groupId: group.id})">
         <p class="statistic">
-            <b>{{summary.events}}</b>
+            <b>{{summary.eventSize}}</b>
             <br>
         <p class="statistic-label">Events</p>
-        </p>
     </a>
-    <a class="col statistic" ui-sref="ya.group-followers({groupId: group.id})">
+    <a class="col statistic" ui-sref="group-followers({groupId: group.id})">
         <p class="statistic">
             <b>{{summary.followerSize}}</b>
             <br>
         <p class="statistic-label">Followers</p>
-        </p>
     </a>
-    <a class="col statistic" ui-sref="ya.group-comments({groupId: group.id})">
+    <a class="col statistic" ui-sref="group-comments({groupId: group.id})">
         <p class="statistic">
             <b>{{summary.commentSize}}</b>
             <br>
         <p class="statistic-label">Comments</p>
-        </p>
     </a>
 </div>
 
@@ -115,6 +112,18 @@
         {{group.description}}
     </div>
 </div>
+
+        <div ng-repeat="event in summary.lastEvents">
+            <div ng-include data-src="'templates/events/partial/event-view.html'"></div>
+        </div>
+
+        <a class="item item-icon-right" ui-sref="group-events({groupId: group.id})">
+            View all Events...
+            <span class="icon ion-chevron-right calm"></span>
+        </a>
+        <br>
+
+
 
     </ion-content>
 </ion-view>

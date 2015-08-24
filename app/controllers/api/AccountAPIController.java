@@ -150,11 +150,19 @@ public class AccountAPIController extends FixItController {
 				5));
 		result.setProjectNumber(getProjectService().countProjectsByOwner(
 				username));
+		
+		
+		result.setLastGroups(getGroupService().getUserGroups(username, 0, 5));
+		result.setGroupNumber(getGroupService().countGroupsByOwner(username));
+		
 
 		result.setLastContribution(getContributionService()
 				.getUserContributions(username, 0, 5));
 		result.setContributionNumber(getContributionService()
 				.countContributionsByOwner(username));
+		
+		result.setFollowerNumber(getUserService().countFollowers(username));
+		
 
 		return ok(play.libs.Json.toJson(result));
 	}

@@ -87,7 +87,8 @@ public class MongoGroupService implements
 
 	@Override
 	public int countGroupsByOwner(String username) {
-		int result = getCollection().find().count();
+		int result = getCollection().find().is(USER_NAME,
+				username).count();
 		Logger.debug("countGroupsByOwner(String owner) owner=" + username
 				+ "result = " + result);
 		return result;

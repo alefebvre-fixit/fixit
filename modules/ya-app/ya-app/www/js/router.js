@@ -1,19 +1,20 @@
 angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
-		.state('ya', {
-			url: "/ya",
-			abstract: true,
-			templateUrl: "templates/tabs.html",
-			controller: 'YaController'
-
-		})
-
 		// Each tab has its own nav history stack:
-
-		.state('ya.activity', {
+		.state('tabs', {
+			url: "/tabs",
+			abstract: true,
+			templateUrl: "templates/tabs.html"
+		})
+		.state('test', {
+			url: "/test",
+			templateUrl: "templates/test.html",
+			authenticate: false
+		})
+		.state('tabs.activity', {
 			url: '/activity',
 			views: {
-				'ya-activity': {
+				'tab-activity': {
 					templateUrl: 'templates/tab-activity.html',
 					controller: 'DashCtrl'
 				}
@@ -21,10 +22,10 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			authenticate: false
 		})
 
-		.state('ya.account', {
+		.state('tabs.account', {
 			url: '/account',
 			views: {
-				'ya-account': {
+				'tab-account': {
 					templateUrl: 'templates/accounts/account-summary.html',
 					controller: 'AccountCtrl'
 				}

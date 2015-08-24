@@ -1,0 +1,8 @@
+        <div class="list">
+            <a class="item item-avatar"
+               ui-sref="app.card-view({projectId: contribution.projectId, cardId: contribution.cardId})">
+                <img ng-src="img/{{participation.username}}.jpg">
+                <h2>{{participation.username}} - {{ participation.modificationDate | date:'short' }}</h2>
+                <p><i class="icon ion-location"> {{participation.comment}}</i></p>
+            </a>
+        </div>

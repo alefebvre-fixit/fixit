@@ -29,6 +29,7 @@ angular.module('ya-app', ['ionic', 'ya-app.controllers', 'ya-app.services', 'ngC
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+      /*
       $rootScope.$on("$stateChangeStart", function(event,
                                                    toState, toParams, fromState, fromParams) {
           console.log("Check Authentication authenticate="
@@ -36,11 +37,12 @@ angular.module('ya-app', ['ionic', 'ya-app.controllers', 'ya-app.services', 'ngC
 
           if (toState.authenticate) {
               if (!$rootScope.user || !$rootScope.user.username){
-                  $state.go("signin");
+                  $state.go("ya.signin");
                   event.preventDefault();
               }
           }
       });
+      */
   });
 }
 );

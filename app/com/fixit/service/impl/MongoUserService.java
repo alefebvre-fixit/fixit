@@ -185,6 +185,19 @@ public class MongoUserService implements UserService {
 		
 		return result;
 	}
+	
+	@Override
+	public int countFollowers(String username) {
+		
+		int result = 0;
+		
+		User user = load(username);
+		if (user != null){
+			result = user.getFollowers().size();
+		}
+		
+		return result;
+	}
 
 	@Override
 	public UserCard getUserCard(String userName) {

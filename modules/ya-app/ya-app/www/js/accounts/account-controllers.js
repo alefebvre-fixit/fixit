@@ -1,5 +1,5 @@
-angular.module('ya-app').controller('SignUpController', ['SettingService', '$scope', '$state', 'signup', '$ionicLoading',
-    function (SettingService, $scope, $state, signup, $ionicLoading) {
+angular.module('ya-app').controller('SignUpController', ['YaService', 'SettingService', '$scope', '$state', 'signup', '$ionicLoading',
+    function (YaService, SettingService, $scope, $state, signup, $ionicLoading) {
         console.log("Enter SignUpController");
 
         $scope.signup = signup;
@@ -8,7 +8,7 @@ angular.module('ya-app').controller('SignUpController', ['SettingService', '$sco
 
             SettingService.signupUser($scope.signup).success(function (data) {
                 $scope.setUser(data);
-                $state.transitionTo('ya.groups');
+                $state.transitionTo('tabs.groups');
             }).error(function (response, status) {
                 console.log("Invalid sign-up");
                 $scope.signup.error = 'Invalid sign-up';
@@ -16,27 +16,27 @@ angular.module('ya-app').controller('SignUpController', ['SettingService', '$sco
         };
 
         $scope.goToSignIn = function () {
-            $state.transitionTo('app.sign-in');
+            $state.transitionTo('sign-in');
         };
     }
 ]);
 
-angular.module('ya-app').controller('SignInController', ['SettingService', '$scope', '$state', '$ionicLoading',
-    function (SettingService, $scope, $state, $ionicLoading) {
+angular.module('ya-app').controller('SignInController', ['YaService', 'SettingService', '$scope', '$state', '$ionicLoading',
+    function (YaService, SettingService, $scope, $state, $ionicLoading) {
 
         $scope.signin = {username: 'antoinelefebvre', password: 'password'};
         // Perform the login action when the user submits the login for
         $scope.doSignIn = function () {
 
             $ionicLoading.show({
-                template: '<ion-spinner class="spinner-positive"></ion-spinner>'
+                template: '<ion-spinner class="spinner-calm"></ion-spinner>'
             });
 
             SettingService.signinUser($scope.signin).success(function (user) {
                 SettingService.getFavorites(user.username).then(function(favorites) {
-                        $scope.setFavorites(favorites);
+                        YaService.setFavorites(favorites);
                         $scope.setUser(user);
-                        $state.transitionTo('ya.groups');
+                        $state.transitionTo('tabs.groups');
                         $ionicLoading.hide();
                     }
                 );
@@ -49,7 +49,7 @@ angular.module('ya-app').controller('SignInController', ['SettingService', '$sco
 
 
         $scope.goToSignUp = function () {
-            $state.transitionTo('ya.sign-up');
+            $state.go('sign-up');
         };
 
         $scope.googleLogin = function() {
@@ -99,16 +99,16 @@ angular.module('ya-app').controller('SignInController', ['SettingService', '$sco
 
 
 
-angular.module('ya-app').controller('EditSettingController', ['SettingService', '$scope', 'profile', '$cordovaToast',
-    function (SettingService, $scope, profile, $cordovaToast) {
+angular.module('ya-app').controller('EditSettingController', ['YaService', 'SettingService', '$scope', 'profile', '$cordovaToast',
+    function (YaService, SettingService, $scope, profile, $cordovaToast) {
 
         $scope.profile = profile;
 
         $scope.saveProfile = function(profile) {
             SettingService.saveProfile(profile).then(function (data) {
-                $scope.setUser(data);
+                YaService.setUser(data);
                 $scope.profile = data.profile;
-                $scope.toastMe('Setting Updated');
+                YaService.toastMe('Setting Updated');
             });
         };
 
@@ -116,8 +116,8 @@ angular.module('ya-app').controller('EditSettingController', ['SettingService', 
 ]);
 
 
-angular.module('ya-app').controller('UserController', ['$scope', 'SettingService', 'username', '$ionicPopup',
-    function ($scope, SettingService, username, $ionicPopup) {
+angular.module('ya-app').controller('UserController', ['YaService', '$scope', 'SettingService', 'username', '$ionicPopup',
+    function (YaService, $scope, SettingService, username, $ionicPopup) {
 
         SettingService.getUserSummary(username).then(function (summary) {
             $scope.summary = summary;
@@ -126,7 +126,7 @@ angular.module('ya-app').controller('UserController', ['$scope', 'SettingService
         $scope.follow = function(username){
             console.log("follow=" + username);
             SettingService.follow(username).then(function (data) {
-                $scope.setUser(data);
+                YaService.setUser(data);
                 SettingService.getUserSummary(username).then(function (data) {
                     $scope.summary = data;
                 });
@@ -142,7 +142,7 @@ angular.module('ya-app').controller('UserController', ['$scope', 'SettingService
                 if(res) {
                     console.log("unfollow=" + username);
                     SettingService.unfollow(username).then(function (data) {
-                        $scope.setUser(data);
+                        YaService.setUser(data);
                         SettingService.getUserSummary(username).then(function (data) {
                             $scope.summary = data;
                         });

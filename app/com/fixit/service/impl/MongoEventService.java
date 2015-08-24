@@ -1,5 +1,6 @@
 package com.fixit.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.mongojack.DBCursor;
@@ -9,15 +10,22 @@ import org.mongojack.WriteResult;
 import play.Logger;
 
 import com.fixit.model.event.Event;
+import com.fixit.model.event.Participation;
 import com.fixit.service.EventService;
 
 public class MongoEventService implements EventService {
 
 	public static final String USER_NAME = "username";
 	public static final String GROUP_ID = "groupId";
+	public static final String EVENT_ID = "eventId";
+	public static final String STATUS = "status";
 
 	private JacksonDBCollection<Event, String> getCollection() {
 		return MongoDBPersistence.getEventCollection();
+	}
+
+	private JacksonDBCollection<Participation, String> getParticipationCollection() {
+		return MongoDBPersistence.getParticipationCollection();
 	}
 
 	@Override
@@ -97,6 +105,14 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
+	public int countEventsByGroup(String groupId) {
+		int result = getCollection().find().is(GROUP_ID, groupId).count();
+		Logger.debug("countEventsByGroup(String groupId) owner=" + groupId
+				+ "result = " + result);
+		return result;
+	}
+
+	@Override
 	public String getEventOwner(String eventId) {
 		// TODO Improve implementation by loading only the username
 
@@ -108,6 +124,98 @@ public class MongoEventService implements EventService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public List<Participation> getParticipations(String eventId, int offset,
+			int length) {
+		// TODO Auto-generated method stub
+		DBCursor<Participation> cursor = getParticipationCollection().find()
+				.is(EVENT_ID, eventId);
+		if (offset > 0) {
+			cursor.skip(offset);
+		}
+		if (length > 0) {
+			cursor.limit(length);
+		}
+		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+	}
+
+	@Override
+	public Participation save(Participation participation) {
+		WriteResult<Participation, String> result = null;
+		participation.incrementVersion();
+		if (participation.getId() == null) {
+			Logger.debug("MongoEventService.save.insert()");
+			Participation existing = getParticipation(
+					participation.getEventId(), participation.getUsername());
+			if (existing != null) {
+				Logger.debug("MongoEventService.save.reconcile with id="
+						+ existing.id);
+				participation.reconcile(existing);
+				participation.setModificationDate(new Date());
+				result = getParticipationCollection().updateById(
+						participation.id, participation);
+			} else {
+				participation.setCreationDate(new Date());
+				participation.setModificationDate(participation.getCreationDate());
+				result = getParticipationCollection().insert(participation);
+				participation.setId(result.getSavedId());
+			}
+		} else {
+			Logger.debug("MongoEventService.save.updateById(String id) id="
+					+ participation.id);
+			participation.setModificationDate(new Date());
+			result = getParticipationCollection().updateById(participation.id,
+					participation);
+		}
+
+		return participation;
+	}
+
+	@Override
+	public Participation getParticipation(String participationId) {
+		Participation result = getParticipationCollection().findOneById(
+				participationId);
+
+		return result;
+	}
+
+	@Override
+	public Participation getParticipation(String eventId, String username) {
+		Participation result = null;
+
+		DBCursor<Participation> cursor = getParticipationCollection().find()
+				.is(EVENT_ID, eventId).is(USER_NAME, username);
+		
+		if (cursor.hasNext()){
+			result = cursor.next();			
+		}
+
+		return result;
+	}
+
+	@Override
+	public List<Participation> getUserParticipations(String username) {
+		DBCursor<Participation> cursor = getParticipationCollection().find()
+				.is(USER_NAME, username);
+		
+		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+	}
+
+	@Override
+	public List<Participation> getParticipations(String eventId) {
+		DBCursor<Participation> cursor = getParticipationCollection().find()
+				.is(EVENT_ID, eventId);
+		
+		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+
+	}
+	
+	@Override
+	public int countParticipations(String eventId) {
+		return getParticipationCollection().find()
+				.is(EVENT_ID, eventId).is(STATUS, Participation.STATUS_IN).count();
 	}
 
 }

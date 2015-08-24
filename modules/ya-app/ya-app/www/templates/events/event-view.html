@@ -63,46 +63,47 @@
 
 <div class="module">
     <div ng-show="!isMine(event)">
-        <button class="button button-calm button-small ion-star button-follow" ng-click="follow(event)" ng-show="!isFavorite(event)">
-            Follow
+        <button class="button button-calm button-small button-follow" ng-click="openRSVP(summary.myParticipation)" ng-show="summary.myParticipation.status=='RSVP'">
+            RSVP
         </button>
-        <button class="button button-calm button-small ion-star energized button-follow" ng-click="unfollow(event)" ng-show="isFavorite(event)">
-            Following
+        <button class="button button-assertive button-small button-follow" ng-click="openRSVP(summary.myParticipation)" ng-show="summary.myParticipation.status=='OUT'">
+            I'm out...
+        </button>
+        <button class="button button-balanced button-small energized button-follow" ng-click="openRSVP(summary.myParticipation)" ng-show="summary.myParticipation.status=='IN'">
+            I'm In!
         </button>
     </div>
 
-    <img ng-src="img/antoinelefebvre-50.jpg" class="avatar" width="50" ng-click="goToUser(event.username)">
+    <img ng-src="img/coffee-512px.svg" class="avatar" width="64" ng-click="goToUser(event.username)">
     <header>
         <h3>
             {{event.name}}
         </h3>
         <h5>
-            @{{event.username}}
+            @{{event.groupName}}
         </h5>
     </header>
 </div>
 
 <div class="row">
-    <a class="col statistic" ui-sref="ya.event-contributions({eventId: event.id})">
+    <a class="col statistic" ui-sref="event-participation({eventId: event.id})">
         <p class="statistic">
-            <b>{{summary.events}}</b>
+            <b>{{summary.participationsSize}}</b>
             <br>
-        <p class="statistic-label">Events</p>
-        </p>
+        <p class="statistic-label">Participants</p>
     </a>
-    <a class="col statistic" ui-sref="ya.event-followers({eventId: event.id})">
+    <a class="col statistic" ui-sref="event-followers({eventId: event.id})">
         <p class="statistic">
             <b>{{summary.followerSize}}</b>
             <br>
         <p class="statistic-label">Followers</p>
         </p>
     </a>
-    <a class="col statistic" ui-sref="ya.event-comments({eventId: event.id})">
+    <a class="col statistic" ui-sref="event-comments({eventId: event.id})">
         <p class="statistic">
             <b>{{summary.commentSize}}</b>
             <br>
         <p class="statistic-label">Comments</p>
-        </p>
     </a>
 </div>
 

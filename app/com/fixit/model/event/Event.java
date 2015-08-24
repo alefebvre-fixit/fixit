@@ -20,6 +20,7 @@ public class Event {
 
 	public String id;
 	public String groupId;
+	public String groupName;
 	public double version = 0;
 	private String status = STATUS_NEW;
 
@@ -50,6 +51,18 @@ public class Event {
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
+	
+	
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+
 
 	public String name;
 	public String description;
@@ -121,6 +134,10 @@ public class Event {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public boolean accept(Participation participation){
+		return true;
 	}
 
 }

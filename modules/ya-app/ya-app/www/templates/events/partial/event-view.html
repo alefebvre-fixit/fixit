@@ -1,8 +1,8 @@
 <div class="card group-header">
-    <a class="item item-avatar" ui-sref="ya.event-view({ eventId: event.id })">
-        <img ng-src="img/{{::event.username}}.jpg">
+    <a class="item item-avatar" ui-sref="event({ eventId: event.id })">
+        <img ng-src="img/coffee-64-000000.png">
         <h2>{{::event.name}}</h2>
-        <p>{{::event.username}}</p>
+        <p>@{{::event.groupName}}</p>
     </a>
     <div class="item item-text-wrap">
         {{::event.description}} <br> <br>

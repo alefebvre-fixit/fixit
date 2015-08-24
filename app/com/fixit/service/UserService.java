@@ -28,6 +28,8 @@ public interface UserService {
 	public List<User> getAll();
 	
 	public List<User> getFollowers(String user);
+	
+	public int countFollowers(String user);
 		
 	public User signup(SignUp signup);
 	

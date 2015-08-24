@@ -1,4 +1,5 @@
-<ion-view title="Sign-Up"> <ion-content class="has-header">
+<ion-view title="Sign-Up">
+	<ion-content class="has-header">
 
 <ion-nav-buttons side="left">
 <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
@@ -27,12 +28,12 @@
 		</label>
 
 		<label class="item">
-			<button class="button button-block button-positive" type="button" ng-click="doSignUp()">Sign Up</button>
+			<button class="button button-block button-calm" type="button" ng-click="doSignUp()">Sign Up</button>
 		</label>
 		<p ng-show="signup.error" class="help-block">{{signup.error}}</p>
 
 		<label class="item ">
-			<button class="button button-block button-outline button-positive" ng-click="goToSignIn()">Already member? Sign In.</button>
+			<button class="button button-block button-outline button-calm" ng-click="goToSignIn()">Already member? Sign In.</button>
 		</label>
 	</div>
 	<pre>signup = {{signup | json}}</pre>

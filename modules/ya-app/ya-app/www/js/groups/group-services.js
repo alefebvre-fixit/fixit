@@ -29,6 +29,22 @@ angular.module('ya-app').factory('GroupService',
                         return response.data;
                     });
                 },
+
+                getEventSize: function (groupId) {
+                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events/size').then(function (response) {
+                        return response.data;
+                    });
+                },
+                getEvents: function (groupId) {
+                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events').then(function (response) {
+                        return response.data;
+                    });
+                },
+                getLastEvents: function (groupId) {
+                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events/last').then(function (response) {
+                        return response.data;
+                    });
+                },
                 getFollowerSize: function (groupId) {
                     return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/followers/size').then(function (response) {
                         return response.data;

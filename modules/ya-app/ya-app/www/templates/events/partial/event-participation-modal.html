@@ -1,0 +1,29 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-calm">
+        <h1 class="title">RSVP</h1>
+        <button class="button button-clear button-primary" ng-click="closeRSVP()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+
+        <div class="list">
+            <li class="item item-toggle">
+                <div>Are you in?</div>
+                <label class="toggle toggle-calm">
+                    <input type="checkbox" ng-model="rsvp.participation">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Comment</span>
+                <input type="text" placeholder="Type a short comment here..." ng-model="rsvp.comment">
+            </label>
+        </div>
+
+        <div class="list">
+            <button class="button button-full button-calm" ng-click="saveRSVP(rsvp)">Apply</button>
+        </div>
+
+    </ion-content>
+</ion-modal-view>

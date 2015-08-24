@@ -20,17 +20,20 @@ angular.module('ya-app').controller('YaController', ['$scope', '$rootScope', '$w
 	};
 
 	$scope.setUser = function(user){
+		console.log("setUser from controller" + user);
+
 		$rootScope.user = user;
 		localStorage.setItem("username",user.username);
 	};
 
 	$scope.setFavorites = function(favorites){
+		console.log("setFavorites from controller" + favorites);
 		$rootScope.favorites = favorites;
 	};
 
 	$scope.isFavorite = function(group){
 		if (group){
-			console.log("isFavorite " + group.id);
+			console.log("isFavorite from controller" + group.id);
 			return ($rootScope.favorites.indexOf(group.id) >= 0);
 		}
 		return false;

@@ -6,13 +6,13 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			controller: 'YaController',
 			authenticate: false
 		})
-		.state('ya.sign-out', {
+		.state('sign-out', {
 			url: "/signout",
 			templateUrl: "templates/sign-in.html",
 			controller: 'YaController',
 			authenticate: false
 		})
-		.state('ya.sign-up', {
+		.state('sign-up', {
 			url: "/signup",
 			templateUrl: "templates/sign-up.html",
 			controller: 'SignUpController',
@@ -24,7 +24,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: false
 		})
-		.state('ya.settings', {
+		.state('tabs.settings', {
 			url: "/settings",
 			views: {
 				'tab-account': {
@@ -32,7 +32,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 					controller: 'EditSettingController',
 					resolve: {
 						profile: function ($rootScope) {
-							console.log('sign-up: resolve profile');
+							console.log('settings: resolve profile');
 							return JSON.parse(JSON.stringify($rootScope.user.profile));
 						}
 					}
@@ -40,7 +40,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: true
 		})
-		.state('ya.user-followers', {
+		.state('user-followers', {
 			url: "/user/:username/followers",
 			views: {
 				'tab-account': {
@@ -55,7 +55,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: true
 		})
-		.state('ya.user-groups', {
+		.state('user-groups', {
 			url: "/user/:username/groups",
 			views: {
 				'tab-account': {
@@ -70,17 +70,13 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: true
 		})
-		.state('ya.user', {
+		.state('user', {
 			url: "/user/:username",
-			views: {
-				'tab-groups': {
-					templateUrl: "templates/accounts/account-summary.html",
-					controller: 'UserController',
-					resolve: {
-						username: function ($stateParams) {
-							return $stateParams.username;
-						}
-					}
+			templateUrl: "templates/accounts/account-summary.html",
+			controller: 'UserController',
+			resolve: {
+				username: function ($stateParams) {
+					return $stateParams.username;
 				}
 			},
 			authenticate: true

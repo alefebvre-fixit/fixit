@@ -1,6 +1,6 @@
 angular.module('ya-app').config(function ($stateProvider) {
     $stateProvider
-        .state('ya.groups', {
+        .state('tabs.groups', {
             url: "/groups",
             views: {
                 'tab-groups': {
@@ -10,20 +10,44 @@ angular.module('ya-app').config(function ($stateProvider) {
             },
             authenticate: true
         })
-        .state('ya.group-view', {
+        .state('group', {
             cache: false,
             url: "/groups/:groupId",
-            views: {
-                'tab-groups': {
-                    templateUrl: "templates/groups/group-view.html",
-                    controller: 'ViewGroupController',
-                    resolve: {
-                        groupId: function ($stateParams) {
-                            console.log('Hello group nb=' + $stateParams.groupId);
+            templateUrl: "templates/groups/group-view.html",
+            controller: 'ViewGroupController',
+            resolve: {
+                groupId: function ($stateParams) {
+                    console.log('Hello group nb=' + $stateParams.groupId);
 
-                            return $stateParams.groupId;
-                        }
-                    }
+                    return $stateParams.groupId;
+                }
+            },
+            authenticate: true
+        })
+        .state('group-followers', {
+            cache: false,
+            url: "/groups/:groupId/followers",
+            templateUrl: "templates/groups/group-followers.html",
+            controller: 'GroupFollowersController',
+            resolve: {
+                groupId: function ($stateParams) {
+                    console.log('Hello group nb=' + $stateParams.groupId);
+                    return $stateParams.groupId;
+                }
+            },
+            authenticate: true
+        })
+        .state('group-events', {
+            url: "/groups/:groupId/events",
+            templateUrl: "templates/events/event-list.html",
+            controller: 'GroupEventsController',
+            resolve: {
+                events: function ($stateParams, GroupService) {
+                    console.log('Hello event nb=' + $stateParams.groupId);
+                    return GroupService.getEvents($stateParams.groupId);
+                },
+                groupId: function ($stateParams) {
+                    return $stateParams.groupId;
                 }
             },
             authenticate: true

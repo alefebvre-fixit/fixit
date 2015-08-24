@@ -41,7 +41,15 @@
 		@include input-placeholder(#11c1f3)
 	}
 
-
+	.avatar {
+		border-radius: 50%;
+		box-shadow: 0 0 0 3px #fff, 0 0 0 1px #999, 0 2px 5px 4px rgba(0,0,0,.1);
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		position: relative;
+		top: 15px;
+	}
 
 </style>
 
@@ -56,7 +64,8 @@
 	<br>
 	<br>
 	<br>
-	<h1 class="fixit-logo">Ya!</h1>
+		<img ng-src="img/ya-logo.png" class="avatar" width="150">
+	<br>
 	<br>
 	<br>
 	<div ng-controller="SignInController">
@@ -73,7 +82,7 @@
 				<button class="button button-block button-calm" ng-click="doSignIn()"><b>Sign In</b></button>
 				<p ng-show="signin.error" class="help-block">{{signin.error}}</p>
 			</label>
-			<a class="button button-block button-clear button-calm" ng-click="goToSignUp()">Create Free Account</a>
+			<a class="button button-block button-clear button-calm" ui-sref="sign-up">Create Free Account</a>
 		</div>
 		<div class="list list-inset list-login">
 			<div class="button-bar">

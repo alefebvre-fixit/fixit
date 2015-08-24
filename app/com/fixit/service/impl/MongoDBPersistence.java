@@ -9,6 +9,7 @@ import com.fixit.model.Favorite;
 import com.fixit.model.Project;
 import com.fixit.model.User;
 import com.fixit.model.event.Event;
+import com.fixit.model.event.Participation;
 import com.fixit.model.group.Group;
 import com.fixit.model.notification.Notification;
 import com.fixit.model.project.ProjectComment;
@@ -24,8 +25,9 @@ public class MongoDBPersistence {
 
 	private static final String GROUP_COLLECTION = "Group";
 	private static final String EVENT_COLLECTION = "Event";
+	private static final String PARTICIPATION_COLLECTION = "Participation";
 
-	
+
 	public static final int MAX_OBJECT = 1000;
 
 	private static JacksonDBCollection<Project, String> projects = MongoDB
@@ -33,6 +35,13 @@ public class MongoDBPersistence {
 
 	public static final JacksonDBCollection<Project, String> getProjectCollection() {
 		return projects;
+	}
+	
+	private static JacksonDBCollection<Participation, String> participations = MongoDB
+			.getCollection(PARTICIPATION_COLLECTION, Participation.class, String.class);
+
+	public static final JacksonDBCollection<Participation, String> getParticipationCollection() {
+		return participations;
 	}
 	
 	private static JacksonDBCollection<Event, String> events = MongoDB

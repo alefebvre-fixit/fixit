@@ -62,36 +62,49 @@ angular.module('ya-app').controller('ListGroupsController',
 
             //End Modal for group editing
 
-
-
-
-
-
-
-
-
-
         }
     ]);
 
 
 angular.module('ya-app').controller('ViewGroupController',
-    ['$scope', '$state', '$ionicPopup', '$ionicActionSheet', '$ionicModal', 'GroupService', 'EventService', 'groupId',
-        function ($scope, $state, $ionicPopup, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
+    ['YaService', '$scope', '$state', '$ionicPopup', '$ionicActionSheet', '$ionicModal', 'GroupService', 'EventService', 'groupId',
+        function (YaService, $scope, $state, $ionicPopup, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
             console.log("ViewGroupController groupId=" + groupId);
 
 
-            $scope.summary = {followerSize : 0, commentSize : 0, comments: []};
+            $scope.isFavorite = function(group){
+                return YaService.isFavorite(group);
+            };
+
+            //To insure the back button is displayed
+            $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+                viewData.enableBack = true;
+            });
+
+            $scope.summary = {followerSize : '-', commentSize : '-', comments: [], lastEvents: []};
 
             GroupService.getGroup(groupId).then(function (group) {
                 console.log("ViewGroupController getGroup is called groupId=" + groupId);
                 $scope.group = group;
+
+
+                GroupService.getEventSize(groupId).then(function (data) {
+                    $scope.summary.eventSize = data;
+                });
+
+                GroupService.getLastEvents(groupId).then(function (data) {
+                    $scope.summary.lastEvents = data;
+                });
+
                 GroupService.getFollowerSize(groupId).then(function (data) {
                     $scope.summary.followerSize = data;
                 });
 
-            });
+                GroupService.getCommentSize(groupId).then(function (data) {
+                    $scope.summary.commentSize = data;
+                });
 
+            });
 
             $scope.setGroup =function(newGroup){
                 $scope.group = newGroup;
@@ -108,11 +121,11 @@ angular.module('ya-app').controller('ViewGroupController',
 
             $scope.follow = function(group){
                 GroupService.followGroup(group).then(function (favorites) {
-                    $scope.setFavorites(favorites);
+                    YaService.setFavorites(favorites);
                     GroupService.getFollowerSize(groupId).then(function (data) {
                         $scope.summary.followerSize = data;
                     });
-                    $scope.toastMe('Group ' + group.name + ' is added to your favorites.');
+                    YaService.toastMe('You are now following group ' + group.name);
                 });
             };
 
@@ -124,11 +137,11 @@ angular.module('ya-app').controller('ViewGroupController',
                 confirmPopup.then(function(res) {
                     if(res) {
                         GroupService.unfollowGroup(group).then(function (favorites) {
-                            $scope.setFavorites(favorites);
+                            YaService.setFavorites(favorites);
                             GroupService.getFollowerSize(groupId).then(function (data) {
                                 $scope.summary.followerSize = data;
                             });
-                            $scope.toastMe('Group ' + group.name + ' is removed from your favorites.');
+                            YaService.toastMe('You are no longer following group ' + group.name);
                         });
                     }
                 });
@@ -142,8 +155,8 @@ angular.module('ya-app').controller('ViewGroupController',
                 confirmPopup.then(function(res) {
                     if(res) {
                         GroupService.deleteGroup(groupToDelete).then(function () {
-                            $scope.toastMe('Group ' + groupToDelete.name + ' deleted.');
-                            $state.go('ya.groups');
+                            YaService.toastMe('Group ' + groupToDelete.name + ' deleted.');
+                            $state.go('tabs.groups');
                         });
                     }
                 });
@@ -212,7 +225,7 @@ angular.module('ya-app').controller('ViewGroupController',
                 // Execute action
             });
 
-            $scope.save = function(myGroup) {
+            $scope.saveGroup = function(myGroup) {
                 GroupService.saveGroup(myGroup).then(function(data){
                     $scope.group = data;
                     $scope.closeEditGroup();
@@ -229,9 +242,11 @@ angular.module('ya-app').controller('ViewGroupController',
                 $scope.eventCreateModal = modal;
             });
 
-            $scope.openCreateEvent = function() {
-                $scope.myEvent = {};
-                $scope.eventCreateModal.show();
+            $scope.openCreateEvent = function(group) {
+                EventService.instanciateEvent(group).then(function(data){
+                    $scope.myEvent = data;
+                    $scope.eventCreateModal.show();
+                });
             };
 
             $scope.closeCreateEvent = function() {
@@ -255,19 +270,59 @@ angular.module('ya-app').controller('ViewGroupController',
                 // Execute action
             });
 
-            $scope.save = function(myEvent) {
+            $scope.saveEvent = function(myEvent) {
                 //TODO Do some validation
                 console.log(myEvent);
 
                 EventService.saveEvent(myEvent).then(function(data){
                     $scope.closeCreateEvent();
-                    $state.go('ya.event-view', {eventId: data.id});
+                    $state.go('event', {eventId: data.id});
                 });
 
 
             };
 
             //End Modal for event creation
+
+        }
+    ]);
+
+angular.module('ya-app').controller('GroupFollowersController', ['GroupService', '$scope', 'groupId',
+    function (GroupService, $scope, groupId) {
+
+        //To insure the back button is displayed
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            viewData.enableBack = true;
+        });
+
+        GroupService.getFollowers(groupId).then(function (followers) {
+            $scope.followers = followers;
+        });
+
+    }
+]);
+
+
+angular.module('ya-app').controller('GroupEventsController',
+    ['events', 'groupId', 'GroupService', '$scope',
+        function (events, groupId, GroupService, $scope) {
+
+            //To insure the back button is displayed
+            $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+                viewData.enableBack = true;
+            });
+
+            console.log("GroupEventsController is called");
+
+            $scope.events = events;
+            $scope.groupId = groupId;
+
+            $scope.doRefresh = function() {
+                GroupService.getEvents($scope.groupId).then(function (events) {
+                    $scope.events = events;
+                });
+                $scope.$broadcast('scroll.refreshComplete');
+            };
 
         }
     ]);

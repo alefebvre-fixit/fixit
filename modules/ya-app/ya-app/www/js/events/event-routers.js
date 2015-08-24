@@ -1,6 +1,6 @@
 angular.module('ya-app').config(function ($stateProvider) {
     $stateProvider
-        .state('ya.events', {
+        .state('tabs.events', {
             url: "/events",
             views: {
                 'tab-events': {
@@ -10,24 +10,35 @@ angular.module('ya-app').config(function ($stateProvider) {
             },
             authenticate: true
         })
-        .state('ya.event-view', {
+        .state('event', {
             cache: false,
-            url: "/events/:eventId",
-            views: {
-                'tab-events': {
-                    templateUrl: "templates/events/event-view.html",
-                    controller: 'ViewEventController',
-                    resolve: {
-                        eventId: function ($stateParams) {
-                            console.log('Hello event nb=' + $stateParams.eventId);
-
-                            return $stateParams.eventId;
-                        }
-                    }
+            url: "/event/:eventId",
+            templateUrl: "templates/events/event-view.html",
+            controller: 'ViewEventController',
+            resolve: {
+                eventId: function ($stateParams) {
+                    console.log('Hello event nb=' + $stateParams.eventId);
+                    return $stateParams.eventId;
                 }
-            },
+            }
+            ,
             authenticate: true
         })
+        .state('event-participation', {
+            cache: false,
+            url: "/event/:eventId",
+            templateUrl: "templates/events/participations-list.html",
+            controller: 'ParticipationListController',
+            resolve: {
+                eventId: function ($stateParams) {
+                    console.log('Hello event nb=' + $stateParams.eventId);
+                    return $stateParams.eventId;
+                }
+            }
+            ,
+            authenticate: true
+        })
+
         /*
         .state('ya.discover', {
             url: "/discover",
