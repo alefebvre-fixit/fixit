@@ -25,7 +25,10 @@ public class Notification implements Cloneable {
 	private Date notificationDate;
 	private String title;
 	private String description;
-
+	private String eventId;
+	private String groupId;
+	
+	
 	@Id
 	@ObjectId
 	public String getId() {
@@ -116,6 +119,24 @@ public class Notification implements Cloneable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	
+
+	public String getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
+	}
+
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 	@Override

@@ -183,6 +183,7 @@ angular.module('ya-app').controller('ViewEventController',
                     $scope.summary.myParticipation = data;
                     $scope.closeRSVP();
                     YaService.toastMe('You are now ' + data.status);
+                    $scope.reload(rsvp.eventId);
                 });
             };
 

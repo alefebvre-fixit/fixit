@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('ya-app', ['ionic', 'ya-app.controllers', 'ya-app.services', 'ngCordova'])
+angular.module('ya-app', ['ionic', 'ngCordova', 'angularMoment'])
 
 .run(function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
@@ -29,7 +29,7 @@ angular.module('ya-app', ['ionic', 'ya-app.controllers', 'ya-app.services', 'ngC
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-      /*
+
       $rootScope.$on("$stateChangeStart", function(event,
                                                    toState, toParams, fromState, fromParams) {
           console.log("Check Authentication authenticate="
@@ -42,7 +42,7 @@ angular.module('ya-app', ['ionic', 'ya-app.controllers', 'ya-app.services', 'ngC
               }
           }
       });
-      */
+
   });
 }
 );

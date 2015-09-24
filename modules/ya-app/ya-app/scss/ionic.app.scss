@@ -15,16 +15,12 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
-$calm:                            #00bfff !default;
+$calm:                            #11c1f3 !default;
+$assertive:                       #FF3D7F !default;
+$balanced:                        #7FC7AF !default;
 
 
-
-// The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../lib/ionic/fonts" !default;
-
-// Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
-
+$base-background-color:           #F6F9F9 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -32,7 +28,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-$base-background-color:           #DAD8A7 !default;
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
 
 
 //http://www.colourlovers.com/palette/932683/Compatible
@@ -89,8 +90,8 @@ $palette-5:                        #FF3D7F !default;
   text-decoration: none !important;
 }
 
-.project-header{
-  border-left: 5px solid $positive;
+.group-header{
+  border-left: 5px solid $calm;
 }
 
 .card-header{

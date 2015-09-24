@@ -15,7 +15,8 @@ libraryDependencies ++= Seq(
     "org.mongojack" % "play-mongojack_2.10" % "2.0.0-RC2" ,
     "com.amazonaws" % "aws-java-sdk" % "1.3.11" ,
     "com.google.apis" % "google-api-services-plus" % "v1-rev219-1.20.0" ,
-  	"com.google.inject" % "guice" % "3.0" 	
+  	"com.google.inject" % "guice" % "3.0",
+  	"org.atmosphere" % "atmosphere-play" % "2.1.2" 	
   )
 
 

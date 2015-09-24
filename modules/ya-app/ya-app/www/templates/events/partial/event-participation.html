@@ -2,7 +2,7 @@
             <a class="item item-avatar"
                ui-sref="app.card-view({projectId: contribution.projectId, cardId: contribution.cardId})">
                 <img ng-src="img/{{participation.username}}.jpg">
-                <h2>{{participation.username}} - {{ participation.modificationDate | date:'short' }}</h2>
-                <p><i class="icon ion-location"> {{participation.comment}}</i></p>
+                <h2 class="icon ion-record">  {{participation.username}} - <span am-time-ago="participation.modificationDate"></span></h2>
+                <p><i class="icon ion-chatbubble calm"> {{participation.comment}}</i></p>
             </a>
         </div>
