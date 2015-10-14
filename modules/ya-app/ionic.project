@@ -1,4 +1,12 @@
 {
-  "name": "example",
-  "app_id": ""
+  "name": "ya-app",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }
