@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.fixit.model.SpringUser;
+import com.fixit.model.test.SpringUser;
 
 public interface UserRepository extends MongoRepository<SpringUser, String> {
 

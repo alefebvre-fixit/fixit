@@ -1,26 +1,13 @@
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import play.Application;
 import play.GlobalSettings;
 import play.api.mvc.EssentialFilter;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import filters.LogFilter;
+import com.fixit.config.AppConfig;
 
 public class Global extends GlobalSettings {
-
-	private Injector injector;
-
-	@Override
-	public void onStart(Application app) {
-		injector = Guice.createInjector(new AbstractModule() {
-			@Override
-			protected void configure() {
-				// bind(ProjectService.class).to(MongoProjectService.class);
-			}
-		});
-	}
 
 	@Override
 	public void onStop(Application app) {
@@ -28,17 +15,23 @@ public class Global extends GlobalSettings {
 	}
 
 	@Override
-	public <A> A getControllerInstance(Class<A> controllerClass)
-			throws Exception {
-		// Logger.info("Fix-It - getControllerInstance controllerClass..."+
-		// controllerClass.getName());
-		return injector.getInstance(controllerClass);
+	public <T extends EssentialFilter> Class<T>[] filters() {
+		// return new Class[] { LogFilter.class };
+		return new Class[] {};
 	}
 
-	
+	protected ApplicationContext applicationContext;
+
 	@Override
-	public <T extends EssentialFilter> Class<T>[] filters() {
-		//return new Class[] { LogFilter.class };
-		return new Class[] {};
+	public void onStart(Application app) {
+		/*
+		applicationContext = new AnnotationConfigApplicationContext(
+				AppConfig.class);
+		*/
+	}
+
+	@Override
+	public final <A> A getControllerInstance(Class<A> clazz) {
+		return applicationContext.getBean(clazz);
 	}
 }

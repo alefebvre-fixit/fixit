@@ -146,7 +146,8 @@ POST 	/api/events/:eventId/comments/:content 						controllers.api.CommentAPICon
 POST	/api/events/:eventId/participations							controllers.api.EventAPIController.participate(eventId: String)
 
 
-GET     /pingWs                     controllers.Application.pingWs()
+GET     /pingWs                     								controllers.Application.pingWs()
+GET     /testSpring                     								@controllers.test.Test.index()
 
 
 

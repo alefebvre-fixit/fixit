@@ -1,10 +1,10 @@
-package com.fixit.service;
+package com.fixit.service.test;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.fixit.dao.UserRepository;
-import com.fixit.model.SpringUser;
+import com.fixit.model.test.SpringUser;
 
 /**
  * Created by saeed on 9/March/15 AD.
