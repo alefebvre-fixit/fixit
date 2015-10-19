@@ -2,9 +2,6 @@ package com.fixit.model.test;
 
 import javax.persistence.Entity;
 
-import org.mongojack.Id;
-import org.mongojack.ObjectId;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -15,14 +12,10 @@ public class TestProject {
 	public double version = 0;
 	private String comment = "Hello";
 
-	@Id
-	@ObjectId
 	public String getId() {
 		return id;
 	}
 
-	@Id
-	@ObjectId
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -34,7 +27,5 @@ public class TestProject {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
-	
 
 }

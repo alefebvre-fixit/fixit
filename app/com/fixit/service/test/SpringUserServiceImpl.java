@@ -19,5 +19,6 @@ public class SpringUserServiceImpl implements SpringUserService {
 	@Override
 	public void addUser(SpringUser user) {
 		userRepository.save(user);
+		
 	}
 }

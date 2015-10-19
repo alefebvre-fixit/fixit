@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 
-import org.mongojack.Id;
-import org.mongojack.ObjectId;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -45,8 +43,6 @@ public abstract class Contribution {
 	private String contributor;
 	private Date date;
 	
-	@Id
-	@ObjectId
 	public String id;
 	
 	public abstract boolean merge(List<Contribution> contributions);

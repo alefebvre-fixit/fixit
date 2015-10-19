@@ -81,8 +81,8 @@ GET    	/api/projects/:projectId/cards/new/:type						controllers.api.ProjectAPI
 GET     /api/users/:user/contributions     		controllers.api.ContributionAPIController.getUserContributions(user: String)
 GET     /api/users/:user/projects     			controllers.api.ProjectAPIController.getUserProjects(user: String)
 GET     /api/users/:user/favorites/projects     controllers.api.ProjectAPIController.favorites(user: String)
-GET     /api/users/:user/favorites/groups    	controllers.api.GroupAPIController.favorites(user: String)
-GET     /api/users/:user/summary       	    	controllers.api.AccountAPIController.userSummary(user: String)
+GET     /api/users/:user/favorites/groups    	@controllers.api.GroupAPIController.favorites(user: String)
+GET     /api/users/:user/summary       	    	@controllers.api.AccountAPIController.userSummary(user: String)
 GET     /api/users/:user/followers       		controllers.api.AccountAPIController.followers(user: String)
 GET     /api/users/:user       	    			controllers.api.AccountAPIController.user(user: String)
 
@@ -109,22 +109,22 @@ GET    /api/external/google/profile/:username     		controllers.api.TestControll
 
 
 # API Group
-GET     /api/groups              								controllers.api.GroupAPIController.groups()
-GET     /api/groups/new          								controllers.api.GroupAPIController.createNewGroup()
-GET     /api/groups/:groupId          							controllers.api.GroupAPIController.group(groupId: String)
-GET     /api/groups/:groupId          							controllers.api.GroupAPIController.group(groupId: String)
-GET 	/api/groups/:groupId/followers/size 					controllers.api.GroupAPIController.followerSize(groupId: String)
-GET 	/api/groups/:groupId/followers 							controllers.api.GroupAPIController.followers(groupId: String)
+GET     /api/groups              								@controllers.api.GroupAPIController.groups()
+GET     /api/groups/new          								@controllers.api.GroupAPIController.createNewGroup()
+GET     /api/groups/:groupId          							@controllers.api.GroupAPIController.group(groupId: String)
+GET     /api/groups/:groupId          							@controllers.api.GroupAPIController.group(groupId: String)
+GET 	/api/groups/:groupId/followers/size 					@controllers.api.GroupAPIController.followerSize(groupId: String)
+GET 	/api/groups/:groupId/followers 							@controllers.api.GroupAPIController.followers(groupId: String)
 
-POST 	/api/groups			   									controllers.api.GroupAPIController.save()
-POST    /api/groups/:groupId/delete   							controllers.api.GroupAPIController.deleteGroup(groupId: String)
-POST 	/api/groups/:groupId/follow 							controllers.api.GroupAPIController.follow(groupId: String)
-POST 	/api/groups/:groupId/unfollow 							controllers.api.GroupAPIController.unfollow(groupId: String)
+POST 	/api/groups			   									@controllers.api.GroupAPIController.save()
+POST    /api/groups/:groupId/delete   							@controllers.api.GroupAPIController.deleteGroup(groupId: String)
+POST 	/api/groups/:groupId/follow 							@controllers.api.GroupAPIController.follow(groupId: String)
+POST 	/api/groups/:groupId/unfollow 							@controllers.api.GroupAPIController.unfollow(groupId: String)
 
 
 # API Event
 GET     /api/events              									controllers.api.EventAPIController.events()
-GET     /api/groups/:groupId/events/new          					controllers.api.EventAPIController.createNewEvent(groupId: String)
+GET     /api/groups/:groupId/events/new          					@controllers.api.EventAPIController.createNewEvent(groupId: String)
 GET     /api/groups/:groupId/events/size          					controllers.api.EventAPIController.eventSizeByGroup(groupId: String)
 GET     /api/groups/:groupId/events/last          					controllers.api.EventAPIController.lastGroupEvents(groupId: String)
 GET     /api/groups/:groupId/events          						controllers.api.EventAPIController.groupEvents(groupId: String)
@@ -147,7 +147,7 @@ POST	/api/events/:eventId/participations							controllers.api.EventAPIControlle
 
 
 GET     /pingWs                     								controllers.Application.pingWs()
-GET     /testSpring                     								@controllers.test.Test.index()
+GET     /testSpring                     							@controllers.SpringController.index()
 
 
 

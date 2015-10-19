@@ -2,9 +2,6 @@ package com.fixit.model.notification;
 
 import java.util.Date;
 
-import org.mongojack.Id;
-import org.mongojack.ObjectId;
-
 public class Notification implements Cloneable {
 
 	public static final String TYPE_CONTRIBUTION = "Contribution";
@@ -29,14 +26,10 @@ public class Notification implements Cloneable {
 	private String groupId;
 	
 	
-	@Id
-	@ObjectId
 	public String getId() {
 		return id;
 	}
 
-	@Id
-	@ObjectId
 	public void setId(String id) {
 		this.id = id;
 	}

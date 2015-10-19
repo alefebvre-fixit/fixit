@@ -2,9 +2,6 @@ package com.fixit.model.project;
 
 import java.util.Date;
 
-import org.mongojack.Id;
-import org.mongojack.ObjectId;
-
 public class ProjectComment {
 
 	private String id;
@@ -13,14 +10,10 @@ public class ProjectComment {
 	private Date commentDate;
 	private String content;
 
-	@Id
-	@ObjectId
 	public String getId() {
 		return id;
 	}
 
-	@Id
-	@ObjectId
 	public void setId(String id) {
 		this.id = id;
 	}

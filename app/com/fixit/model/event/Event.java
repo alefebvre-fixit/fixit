@@ -1,10 +1,8 @@
 package com.fixit.model.event;
 
-
 import javax.persistence.Entity;
 
-import org.mongojack.Id;
-import org.mongojack.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fixit.model.User;
@@ -12,6 +10,7 @@ import com.fixit.model.group.Group;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Document(collection = "Event")
 public class Event {
 
 	public static final String STATUS_NEW = "New";
@@ -24,14 +23,10 @@ public class Event {
 	public double version = 0;
 	private String status = STATUS_NEW;
 
-	@Id
-	@ObjectId
 	public String getId() {
 		return id;
 	}
 
-	@Id
-	@ObjectId
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -51,8 +46,6 @@ public class Event {
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
-	
-	
 
 	public String getGroupName() {
 		return groupName;
@@ -61,8 +54,6 @@ public class Event {
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-
-
 
 	public String name;
 	public String description;
@@ -135,8 +126,8 @@ public class Event {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	public boolean accept(Participation participation){
+
+	public boolean accept(Participation participation) {
 		return true;
 	}
 

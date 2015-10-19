@@ -2,16 +2,12 @@ package com.fixit.model.event;
 
 import java.util.Date;
 
-import org.mongojack.Id;
-import org.mongojack.ObjectId;
-
 public class Participation {
 
 	public static final String STATUS_RSVP = "RSVP";
 	public static final String STATUS_IN = "IN";
 	public static final String STATUS_OUT = "OUT";
 
-	
 	private String eventId;
 	private String username;
 	private Date creationDate;
@@ -22,14 +18,10 @@ public class Participation {
 	public String id;
 	public double version = 0;
 
-	@Id
-	@ObjectId
 	public String getId() {
 		return id;
 	}
 
-	@Id
-	@ObjectId
 	public void setId(String id) {
 		this.id = id;
 	}

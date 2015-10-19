@@ -2,6 +2,8 @@ package controllers.api;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Http.RequestBody;
@@ -10,19 +12,28 @@ import play.mvc.Result;
 import com.fixit.model.event.Event;
 import com.fixit.model.event.EventFactory;
 import com.fixit.model.event.Participation;
+import com.fixit.service.GroupService;
 
 import controllers.YaController;
 
 //@Security.Authenticated(Secured.class)
 public class EventAPIController extends YaController {
 
+	
+	@Inject
+	private GroupService groupService;
+	
+	protected GroupService getGroupService() {
+		return groupService;
+	}
+	
 	public static Result events() {
 		Logger.debug("EventAPIController.events()");
 
 		return ok(play.libs.Json.toJson(getEventService().getAll()));
 	}
 
-	public static Result createNewEvent(String groupId) {
+	public Result createNewEvent(String groupId) {
 		Logger.debug("EventAPIController.createNewEvent() gor groupId" + groupId);
 
 		return ok(Json.toJson(EventFactory.createEvent(getGroupService().getGroup(groupId), getUser())));

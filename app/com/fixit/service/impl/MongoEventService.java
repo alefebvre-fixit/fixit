@@ -1,11 +1,7 @@
 package com.fixit.service.impl;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-
-import org.mongojack.DBCursor;
-import org.mongojack.JacksonDBCollection;
-import org.mongojack.WriteResult;
 
 import play.Logger;
 
@@ -20,25 +16,19 @@ public class MongoEventService implements EventService {
 	public static final String EVENT_ID = "eventId";
 	public static final String STATUS = "status";
 
-	private JacksonDBCollection<Event, String> getCollection() {
-		return MongoDBPersistence.getEventCollection();
-	}
-
-	private JacksonDBCollection<Participation, String> getParticipationCollection() {
-		return MongoDBPersistence.getParticipationCollection();
-	}
-
 	@Override
 	public List<Event> getAll() {
 		Logger.debug("MongoEventService.getAll()");
-		return getCollection().find().toArray();
+		
+		return new ArrayList<Event>();
+		//return getCollection().find().toArray();
 	}
 
 	@Override
 	public void delete(String id) {
 		Logger.debug("MongoEventService.delete(String id) id=" + id);
 
-		getCollection().removeById(id);
+		//getCollection().removeById(id);
 	}
 
 	@Override
@@ -49,7 +39,8 @@ public class MongoEventService implements EventService {
 
 	@Override
 	public Event save(Event event) {
-		WriteResult<Event, String> result = null;
+		return null;
+		/*WriteResult<Event, String> result = null;
 		event.incrementVersion();
 		if (event.getId() == null) {
 			Logger.debug("MongoEventService.save.insert()");
@@ -62,54 +53,61 @@ public class MongoEventService implements EventService {
 			result = getCollection().updateById(event.id, event);
 		}
 
-		return event;
+		return event;*/
 	}
 
 	@Override
 	public Event getEvent(String id) {
-		Logger.debug("MongoEventService.load(String id) id=" + id);
+		return null;
+	/*	Logger.debug("MongoEventService.load(String id) id=" + id);
 		Event result = getCollection().findOneById(id);
-		return result;
+		return result;*/
 	}
 
 	@Override
 	public int countEventsByOwner(String username) {
-		int result = getCollection().find().count();
+		return 0;
+		/*int result = getCollection().find().count();
 		Logger.debug("countEventsByOwner(String owner) owner=" + username
 				+ "result = " + result);
-		return result;
+		return result;*/
 	}
 
 	@Override
 	public List<Event> getUserEvents(String username, int offset, int length) {
-		DBCursor<Event> cursor = getCollection().find().is(USER_NAME, username);
+		return new ArrayList<Event>();
+
+	/*	DBCursor<Event> cursor = getCollection().find().is(USER_NAME, username);
 		if (offset > 0) {
 			cursor.skip(offset);
 		}
 		if (length > 0) {
 			cursor.limit(length);
 		}
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);*/
 	}
 
 	@Override
 	public List<Event> getGroupEvents(String groupId, int offset, int length) {
-		DBCursor<Event> cursor = getCollection().find().is(GROUP_ID, groupId);
+		return new ArrayList<Event>();
+
+	/*	DBCursor<Event> cursor = getCollection().find().is(GROUP_ID, groupId);
 		if (offset > 0) {
 			cursor.skip(offset);
 		}
 		if (length > 0) {
 			cursor.limit(length);
 		}
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);*/
 	}
 
 	@Override
 	public int countEventsByGroup(String groupId) {
-		int result = getCollection().find().is(GROUP_ID, groupId).count();
+		return 0;
+	/*	int result = getCollection().find().is(GROUP_ID, groupId).count();
 		Logger.debug("countEventsByGroup(String groupId) owner=" + groupId
 				+ "result = " + result);
-		return result;
+		return result;*/
 	}
 
 	@Override
@@ -129,8 +127,10 @@ public class MongoEventService implements EventService {
 	@Override
 	public List<Participation> getParticipations(String eventId, int offset,
 			int length) {
+		return new ArrayList<Participation>();
+
 		// TODO Auto-generated method stub
-		DBCursor<Participation> cursor = getParticipationCollection().find()
+		/*DBCursor<Participation> cursor = getParticipationCollection().find()
 				.is(EVENT_ID, eventId);
 		if (offset > 0) {
 			cursor.skip(offset);
@@ -138,12 +138,14 @@ public class MongoEventService implements EventService {
 		if (length > 0) {
 			cursor.limit(length);
 		}
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);*/
 	}
 
 	@Override
 	public Participation save(Participation participation) {
-		WriteResult<Participation, String> result = null;
+		return null;
+
+		/*WriteResult<Participation, String> result = null;
 		participation.incrementVersion();
 		if (participation.getId() == null) {
 			Logger.debug("MongoEventService.save.insert()");
@@ -170,20 +172,21 @@ public class MongoEventService implements EventService {
 					participation);
 		}
 
-		return participation;
+		return participation;*/
 	}
 
 	@Override
 	public Participation getParticipation(String participationId) {
-		Participation result = getParticipationCollection().findOneById(
+		/*Participation result = getParticipationCollection().findOneById(
 				participationId);
 
-		return result;
+		return result;*/
+		return null;
 	}
 
 	@Override
 	public Participation getParticipation(String eventId, String username) {
-		Participation result = null;
+		/*Participation result = null;
 
 		DBCursor<Participation> cursor = getParticipationCollection().find()
 				.is(EVENT_ID, eventId).is(USER_NAME, username);
@@ -192,30 +195,36 @@ public class MongoEventService implements EventService {
 			result = cursor.next();			
 		}
 
-		return result;
+		return result;*/
+		return null;
 	}
 
 	@Override
 	public List<Participation> getUserParticipations(String username) {
-		DBCursor<Participation> cursor = getParticipationCollection().find()
+		/*DBCursor<Participation> cursor = getParticipationCollection().find()
 				.is(USER_NAME, username);
 		
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);*/
+		return new ArrayList<Participation>();
+
 	}
 
 	@Override
 	public List<Participation> getParticipations(String eventId) {
-		DBCursor<Participation> cursor = getParticipationCollection().find()
+		/*DBCursor<Participation> cursor = getParticipationCollection().find()
 				.is(EVENT_ID, eventId);
 		
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);*/
+		return new ArrayList<Participation>();
+
 
 	}
 	
 	@Override
 	public int countParticipations(String eventId) {
-		return getParticipationCollection().find()
-				.is(EVENT_ID, eventId).is(STATUS, Participation.STATUS_IN).count();
+		/*return getParticipationCollection().find()
+				.is(EVENT_ID, eventId).is(STATUS, Participation.STATUS_IN).count();*/
+		return 0;
 	}
 
 }

@@ -6,4 +6,5 @@ public interface SpringUserService {
 
 	void addUser(SpringUser user);
 
+	
 }

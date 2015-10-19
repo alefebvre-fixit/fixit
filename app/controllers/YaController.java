@@ -17,8 +17,7 @@ public class YaController extends Controller {
 
 	private static UserService userService = new MongoUserService();
 
-	private static GroupService groupService = new MongoGroupService(
-			new MongoUserService());
+
 
 	private static EventService eventService = new MongoEventService();
 
@@ -26,9 +25,6 @@ public class YaController extends Controller {
 		return userService;
 	}
 
-	protected static GroupService getGroupService() {
-		return groupService;
-	}
 
 	protected static EventService getEventService() {
 		return eventService;

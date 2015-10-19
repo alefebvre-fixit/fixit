@@ -10,12 +10,16 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import play.Play;
 
+import com.fixit.dao.UserRepository;
+import com.fixit.service.YaService;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 
+import controllers.YaController;
+
 @Configuration
-@EnableMongoRepositories("daos")
-@ComponentScan({ "controllers", "services" })
+@EnableMongoRepositories(basePackageClasses = {UserRepository.class})
+@ComponentScan(basePackageClasses = {YaController.class, YaService.class})
 public class AppConfig {
 
 	@Bean

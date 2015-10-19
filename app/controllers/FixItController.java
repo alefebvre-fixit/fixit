@@ -25,20 +25,18 @@ public class FixItController extends Controller {
 
 
 	private static UserService userService = new MongoUserService();
+	
+	
 	private static ProjectService projectService = new MongoProjectService(new MongoUserService());
+	
 	private static ContributionService contributionService = new MongoContributionService();
 	private static CardService cardService = new MongoCardService(
 			new MongoContributionService(), new MongoProjectService(new MongoUserService()));
 	private static NotificationService notificationService = new MongoNotificationService();
 	private static ProjectCommentService commentService = new MongoProjectCommentService();
-	private static GroupService groupService = new MongoGroupService(new MongoUserService());
 	
 	protected static UserService getUserService() {
 		return userService;
-	}
-	
-	protected static GroupService getGroupService() {
-		return groupService;
 	}
 
 	protected static ProjectService getProjectService() {

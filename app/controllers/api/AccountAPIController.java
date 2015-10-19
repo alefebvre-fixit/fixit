@@ -3,6 +3,8 @@ package controllers.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Http;
@@ -17,12 +19,20 @@ import com.fixit.model.User;
 import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 import com.fixit.model.account.UserSummary;
+import com.fixit.service.GroupService;
 
 import controllers.FixItController;
 import controllers.Secured;
 
 public class AccountAPIController extends FixItController {
 
+	@Inject
+	private GroupService groupService;
+	
+	protected GroupService getGroupService() {
+		return groupService;
+	}
+	
 	@Security.Authenticated(Secured.class)
 	public static Result accountSummary() {
 		Logger.debug("AccountAPIController.accountSummary");
@@ -140,7 +150,7 @@ public class AccountAPIController extends FixItController {
 
 	}
 
-	public static Result userSummary(String username) {
+	public Result userSummary(String username) {
 		Logger.debug("AccountAPIController.user(username)");
 
 		UserSummary result = new UserSummary();

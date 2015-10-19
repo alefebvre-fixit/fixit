@@ -4,54 +4,44 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.mongojack.DBCursor;
-import org.mongojack.JacksonDBCollection;
-import org.mongojack.WriteResult;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import play.Logger;
 
+import com.fixit.dao.FavoriteRepository;
+import com.fixit.dao.GroupRepository;
 import com.fixit.model.Favorite;
-import com.fixit.model.group.Group;
 import com.fixit.model.User;
+import com.fixit.model.group.Group;
 import com.fixit.service.GroupService;
 import com.fixit.service.UserService;
 
-public class MongoGroupService implements
-		GroupService {
+@Named
+public class MongoGroupService implements GroupService {
 
-	public static final String USER_NAME = "username";
-	public static final String GROUP_ID = "groupId";
-	public static final String CARD_ID = "cardId";
+	@Inject
+	GroupRepository groupRepository;
 
-	private JacksonDBCollection<Group, String> getCollection() {
-		return MongoDBPersistence.getGroupCollection();
-	}
+	@Inject
+	FavoriteRepository favoriteRepository;
 
-	private JacksonDBCollection<Favorite, String> getFavoritesCollection() {
-		return MongoDBPersistence.getFavoritesCollection();
-	}
-
+	@Inject
 	private UserService userService;
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
-	public MongoGroupService(UserService userService) {
-		this.userService = userService;
-	}
 
 	@Override
 	public List<Group> getAll() {
 		Logger.debug("MongoGroupService.getAll()");
-		return getCollection().find().toArray();
+		return groupRepository.findAll();
 	}
 
 	@Override
 	public void delete(String id) {
 		Logger.debug("MongoGroupService.delete(String id) id=" + id);
-
-		getCollection().removeById(id);
+		groupRepository.delete(id);
 	}
 
 	@Override
@@ -62,49 +52,32 @@ public class MongoGroupService implements
 
 	@Override
 	public Group save(Group group) {
-		WriteResult<Group, String> result = null;
-		group.incrementVersion();
-		if (group.getId() == null) {
-			Logger.debug("MongoGroupService.save.insert()");
-			result = getCollection().insert(group);
-			group.setId(result.getSavedId());
-		} else {
-			Logger.debug("MongoGroupService.save.updateById(String id) id="
-					+ group.id);
-
-			result = getCollection().updateById(group.id, group);
-		}
-
-		return group;
+		return groupRepository.save(group);
 	}
 
 	@Override
 	public Group getGroup(String id) {
-		Logger.debug("MongoGroupService.load(String id) id=" + id);
-		Group result = getCollection().findOneById(id);
-		return result;
+		return groupRepository.findOne(id);
 	}
 
 	@Override
 	public int countGroupsByOwner(String username) {
-		int result = getCollection().find().is(USER_NAME,
-				username).count();
-		Logger.debug("countGroupsByOwner(String owner) owner=" + username
-				+ "result = " + result);
-		return result;
+		return groupRepository.countByUsername();
 	}
 
 	@Override
 	public List<Group> getUserGroups(String username, int offset, int length) {
-		DBCursor<Group> cursor = getCollection().find().is(USER_NAME,
-				username);
-		if (offset > 0) {
-			cursor.skip(offset);
-		}
+		List<Group> result = null;
+
 		if (length > 0) {
-			cursor.limit(length);
+			Page<Group> pages = groupRepository.findByUserName(username,
+					new PageRequest(offset, length));
+			result = pages.getContent();
+		} else {
+			result = groupRepository.findAll();
 		}
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+
+		return result;
 	}
 
 	@Override
@@ -114,35 +87,36 @@ public class MongoGroupService implements
 		favorite.setUsername(username);
 		favorite.setGroupId(groupId);
 
-		int count = getFavoritesCollection().find().is(USER_NAME, username)
-				.is(GROUP_ID, groupId).count();
+		int count = favoriteRepository.countByUsernameAndGroupId(username,
+				groupId);
+
 		if (count <= 0) {
-			getFavoritesCollection().insert(favorite);
+			favoriteRepository.save(favorite);
 		}
 	}
 
 	@Override
 	public void unfollow(String username, String groupId) {
-		List<Favorite> favorites = getFavoritesCollection().find()
-				.is(USER_NAME, username).is(GROUP_ID, groupId).toArray();
+		List<Favorite> favorites = favoriteRepository.findByUsernameAndGroupId(
+				username, groupId);
+
 		if (favorites != null) {
-			for (Favorite favorite : favorites) {
-				getFavoritesCollection().removeById(favorite.getId());
-			}
+			favoriteRepository.delete(favorites);
 		}
+
 	}
 
 	@Override
 	public List<String> groupFollowed(String username) {
 		List<String> result = new ArrayList<String>();
 
-		List<Favorite> favorites = getFavoritesCollection().find()
-				.is(USER_NAME, username).toArray();
+		List<Favorite> favorites = favoriteRepository.findByUsername(username);
 		if (favorites != null) {
 			for (Favorite favorite : favorites) {
 				result.add(favorite.getGroupId());
 			}
 		}
+
 		return result;
 	}
 
@@ -162,8 +136,7 @@ public class MongoGroupService implements
 
 	@Override
 	public int groupFollowersSize(String groupId) {
-		return getFavoritesCollection().find().is(GROUP_ID, groupId)
-				.count();
+		return favoriteRepository.countByGroupId(groupId);
 	}
 
 	@Override
@@ -172,8 +145,7 @@ public class MongoGroupService implements
 
 		List<String> result = new ArrayList<String>();
 
-		List<Favorite> favorites = getFavoritesCollection().find()
-				.is(GROUP_ID, groupId).toArray();
+		List<Favorite> favorites = favoriteRepository.findByGroupId(groupId);
 		if (favorites != null) {
 			for (Favorite favorite : favorites) {
 				if (favorite != null) {
@@ -187,12 +159,12 @@ public class MongoGroupService implements
 
 	@Override
 	public List<User> groupFollowers(String groupId) {
-		// TODO Improve implementation by loading only the username
 
+		// TODO Improve implementation by loading only the username
 		List<User> result = new ArrayList<User>();
 
-		List<Favorite> favorites = getFavoritesCollection().find()
-				.is(GROUP_ID, groupId).toArray();
+		List<Favorite> favorites = favoriteRepository.findByGroupId(groupId);
+
 		if (favorites != null) {
 			for (Favorite favorite : favorites) {
 				User user = userService.load(favorite.getUsername());

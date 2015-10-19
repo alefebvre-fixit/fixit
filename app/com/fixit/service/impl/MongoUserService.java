@@ -2,11 +2,7 @@ package com.fixit.service.impl;
 
 import java.util.List;
 
-import org.mongojack.DBCursor;
-import org.mongojack.JacksonDBCollection;
-import org.mongojack.WriteResult;
-
-import play.Logger;
+import javax.inject.Named;
 
 import com.fixit.model.User;
 import com.fixit.model.account.SignIn;
@@ -14,15 +10,16 @@ import com.fixit.model.account.SignUp;
 import com.fixit.model.account.UserCard;
 import com.fixit.service.UserService;
 
+@Named
 public class MongoUserService implements UserService {
 	
 	private static final String USER_NAME = "username";
 	private static final String EMAIL = "email";
-
 	
 	@Override
 	public User load(String username) {
-		Logger.debug("MongoUserService.load(String userName) username=" + username);
+		return null;
+/*		Logger.debug("MongoUserService.load(String userName) username=" + username);
 
 		User result = null;
 		DBCursor<User> cursor = getCollection().find().is("username", username);
@@ -30,13 +27,14 @@ public class MongoUserService implements UserService {
 			result = cursor.next();
 		}
 		
-		return result;
+		return result;*/
 	}
 
 	@Override
 	public User authenticateByEmail(String email, String password) {
-		
-		User user = null;
+		return null;
+
+/*		User user = null;
 				
 		DBCursor<User> cursor = getCollection().find().is(EMAIL, email);
 		if (cursor.hasNext()){
@@ -46,7 +44,7 @@ public class MongoUserService implements UserService {
 			}
 		}
 		
-		return null;
+		return null;*/
 		
 	}
 
@@ -82,7 +80,9 @@ public class MongoUserService implements UserService {
 
 	@Override
 	public User save(User user) {
-		WriteResult<User, String> result = null;
+		return null;
+
+/*		WriteResult<User, String> result = null;
 		if (user.getId() == null) {
 			Logger.debug("MongoUserService.save()");
 			result = getCollection().insert(user);
@@ -94,20 +94,22 @@ public class MongoUserService implements UserService {
 			result = getCollection().updateById(user.getId(), user);
 		}
 
-		return user;
+		return user;*/
 	}
 	
 	
 	@Override
 	public List<User> getAll() {
-		Logger.debug("MongoUserService.getAll()");
-		return getCollection().find().toArray();
+		return null;
+
+/*		Logger.debug("MongoUserService.getAll()");
+		return getCollection().find().toArray();*/
 	}
 
 	@Override
 	public void delete(String id) {
-		Logger.debug("MongoUserService.delete(String id) id=" + id);
-		getCollection().removeById(id);
+/*		Logger.debug("MongoUserService.delete(String id) id=" + id);
+		getCollection().removeById(id);*/
 	}
 
 	@Override
@@ -123,9 +125,9 @@ public class MongoUserService implements UserService {
 	}
 	
 	
-	private JacksonDBCollection<User, String> getCollection() {
+/*	private JacksonDBCollection<User, String> getCollection() {
 		return MongoDBPersistence.getUserCollection();
-	}
+	}*/
 
 	@Override
 	public User follow(String follower, String followee) {
@@ -142,9 +144,9 @@ public class MongoUserService implements UserService {
 		if (!followeeUser.getFollowers().contains(follower)){
 			followeeUser.getFollowers().add(follower);
 		}
-		
+		/*
 		getCollection().updateById(followerUser.getId(), followerUser);
-		getCollection().updateById(followeeUser.getId(), followeeUser);
+		getCollection().updateById(followeeUser.getId(), followeeUser);*/
 
 		
 		return followerUser;
@@ -165,8 +167,8 @@ public class MongoUserService implements UserService {
 			followeeUser.getFollowers().remove(follower);
 		}
 		
-		getCollection().updateById(followerUser.getId(), followerUser);
-		getCollection().updateById(followeeUser.getId(), followeeUser);
+/*		getCollection().updateById(followerUser.getId(), followerUser);
+		getCollection().updateById(followeeUser.getId(), followeeUser);*/
 
 		
 		return followerUser;
@@ -174,8 +176,9 @@ public class MongoUserService implements UserService {
 
 	@Override
 	public List<User> getFollowers(String username) {
-		
-		List<User> result = null;
+		return null;
+
+/*		List<User> result = null;
 		
 		User user = load(username);
 		if (user != null){
@@ -183,7 +186,7 @@ public class MongoUserService implements UserService {
 			result = getCollection().find().in(USER_NAME, followers).toArray();
 		}
 		
-		return result;
+		return result;*/
 	}
 	
 	@Override

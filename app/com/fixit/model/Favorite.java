@@ -2,25 +2,24 @@ package com.fixit.model;
 
 import java.util.Date;
 
-import org.mongojack.Id;
-import org.mongojack.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "Favorite")
 public class Favorite {
 
 	private String projectId;
 	private String groupId;
 	private String username;
 	private Date creationDate;
+	
+	@Id
 	public String id;
 
-	@Id
-	@ObjectId
 	public String getId() {
 		return id;
 	}
 
-	@Id
-	@ObjectId
 	public void setId(String id) {
 		this.id = id;
 	}
