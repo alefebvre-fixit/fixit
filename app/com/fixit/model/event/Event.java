@@ -2,6 +2,7 @@ package com.fixit.model.event;
 
 import javax.persistence.Entity;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,6 +18,7 @@ public class Event {
 	public static final String STATUS_PUBLISHED = "Published";
 	public static final String STATUS_DRAFT = "Draft";
 
+	@Id
 	public String id;
 	public String groupId;
 	public String groupName;

@@ -1,12 +1,15 @@
 package com.fixit.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.fixit.model.event.Event;
+import com.fixit.model.event.Participation;
 
-public interface EventRepository extends MongoRepository<Event, String> {
+public interface ParticipationRepository extends MongoRepository<Participation, String> {
 
 	public int countByUsername(String username);
 
@@ -14,6 +17,9 @@ public interface EventRepository extends MongoRepository<Event, String> {
 	
 	public int countByGroupId(String groupId);
 	
-	public Page<Event> findByGroupId(String groupId, Pageable pageable);
+	public Page<Participation> findByEventId(String eventId, Pageable pageable);
+	
+	public List<Participation> findByEventIdAndUsername(String eventId, String username);
+
 
 }

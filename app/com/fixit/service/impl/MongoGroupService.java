@@ -62,7 +62,7 @@ public class MongoGroupService implements GroupService {
 
 	@Override
 	public int countGroupsByOwner(String username) {
-		return groupRepository.countByUsername();
+		return groupRepository.countByUsername(username);
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import com.fixit.model.group.Group;
 
 public interface GroupRepository extends MongoRepository<Group, String> {
 
-	public int countByUsername();
+	public int countByUsername(String username);
 
 	public Page<Group> findByUserName(String username, Pageable pageable);
 
