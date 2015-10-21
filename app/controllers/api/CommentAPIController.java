@@ -6,16 +6,13 @@ import java.util.List;
 import play.Logger;
 import play.mvc.Result;
 import play.mvc.Results;
-import play.mvc.Security;
 
 import com.fixit.model.project.ProjectComment;
 
 import controllers.FixItController;
-import controllers.Secured;
 
 public class CommentAPIController extends FixItController {
 
-	@Security.Authenticated(Secured.class)
 	public static Result comments(String projectId) {
 		Logger.debug("NotificationAPIController.comments");
 
@@ -25,7 +22,6 @@ public class CommentAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(comments));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public static Result commentSize(String projectId) {
 		Logger.debug("NotificationAPIController.commentSize");
 
@@ -33,7 +29,6 @@ public class CommentAPIController extends FixItController {
 				.getProjectCommentSize(projectId)));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public static Result post(String projectId, String content) {
 		Logger.debug("NotificationAPIController.comments");
 

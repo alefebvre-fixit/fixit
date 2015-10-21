@@ -1,5 +1,7 @@
 package controllers;
 
+import javax.inject.Inject;
+
 import play.mvc.Controller;
 
 import com.fixit.model.User;
@@ -24,8 +26,7 @@ public class FixItController extends Controller {
 	public static final String SESSION_ATTRIBUTE_ACCESS_TOKEN = "access_token";
 
 
-	private static UserService userService = new MongoUserService();
-	
+
 	
 	private static ProjectService projectService = new MongoProjectService(new MongoUserService());
 	
@@ -35,9 +36,7 @@ public class FixItController extends Controller {
 	private static NotificationService notificationService = new MongoNotificationService();
 	private static ProjectCommentService commentService = new MongoProjectCommentService();
 	
-	protected static UserService getUserService() {
-		return userService;
-	}
+
 
 	protected static ProjectService getProjectService() {
 		return projectService;
@@ -59,7 +58,10 @@ public class FixItController extends Controller {
 		return commentService;
 	}
 
-	protected static User getUser() {
+	@Inject
+	private UserService userService;
+	
+	protected User getUser() {
 		return userService.load(getUserName());
 	}
 

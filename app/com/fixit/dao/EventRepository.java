@@ -10,7 +10,7 @@ public interface EventRepository extends MongoRepository<Event, String> {
 
 	public int countByUsername(String username);
 
-	public Page<Event> findByUserName(String username, Pageable pageable);
+	public Page<Event> findByUsername(String username, Pageable pageable);
 	
 	public int countByGroupId(String groupId);
 	

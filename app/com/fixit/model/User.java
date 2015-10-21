@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Entity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import play.data.validation.Constraints.Required;
 
@@ -13,9 +14,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fixit.model.account.SignUp;
 import com.fixit.model.account.UserCard;
 
-@Entity
+@Document(collection = "User")
 public class User {
 
+	@Id
 	private String id;
 	private List<String> following = new ArrayList<String>();
 	private List<String> followers = new ArrayList<String>();

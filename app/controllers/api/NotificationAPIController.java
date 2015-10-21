@@ -13,8 +13,8 @@ import controllers.Secured;
 
 public class NotificationAPIController extends FixItController {
 
-	@Security.Authenticated(Secured.class)
-	public static Result notifications() {
+	//@Security.Authenticated(Secured.class)
+	public Result notifications() {
 		Logger.debug("NotificationAPIController.notifications");
 
 		List<Notification> notifications = getNotificationService()

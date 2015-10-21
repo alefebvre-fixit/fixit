@@ -1,6 +1,5 @@
 package com.fixit.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,10 +25,10 @@ public class MongoEventService implements EventService {
 
 	@Inject
 	EventRepository eventRepository;
-	
+
 	@Inject
 	ParticipationRepository participationRepository;
-	
+
 	@Override
 	public List<Event> getAll() {
 		Logger.debug("MongoEventService.getAll()");
@@ -68,7 +67,7 @@ public class MongoEventService implements EventService {
 		List<Event> result = null;
 
 		if (length > 0) {
-			Page<Event> pages = eventRepository.findByUserName(username,
+			Page<Event> pages = eventRepository.findByUsername(username,
 					new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
@@ -118,8 +117,8 @@ public class MongoEventService implements EventService {
 		List<Participation> result = null;
 
 		if (length > 0) {
-			Page<Participation> pages = participationRepository.findByEventId(eventId,
-					new PageRequest(offset, length));
+			Page<Participation> pages = participationRepository.findByEventId(
+					eventId, new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
 			result = participationRepository.findAll();
@@ -130,7 +129,6 @@ public class MongoEventService implements EventService {
 
 	@Override
 	public Participation save(Participation participation) {
-		return null;
 
 		Participation result = null;
 		participation.incrementVersion();
@@ -146,7 +144,8 @@ public class MongoEventService implements EventService {
 				result = participationRepository.save(participation);
 			} else {
 				participation.setCreationDate(new Date());
-				participation.setModificationDate(participation.getCreationDate());
+				participation.setModificationDate(participation
+						.getCreationDate());
 				result = participationRepository.save(participation);
 			}
 		} else {
@@ -156,7 +155,7 @@ public class MongoEventService implements EventService {
 			result = participationRepository.save(participation);
 		}
 
-		return participation;
+		return result;
 	}
 
 	@Override
@@ -168,10 +167,11 @@ public class MongoEventService implements EventService {
 	public Participation getParticipation(String eventId, String username) {
 		Participation result = null;
 
-		List<Participation> pages = participationRepository.findByEventIdAndUsername(eventId, username);
-		
-		if (pages != null && pages.size() > 0){
-			result = pages.get(0);	
+		List<Participation> pages = participationRepository
+				.findByEventIdAndUsername(eventId, username);
+
+		if (pages != null && pages.size() > 0) {
+			result = pages.get(0);
 		}
 
 		return result;
@@ -179,30 +179,18 @@ public class MongoEventService implements EventService {
 
 	@Override
 	public List<Participation> getUserParticipations(String username) {
-		/*DBCursor<Participation> cursor = getParticipationCollection().find()
-				.is(USER_NAME, username);
-		
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);*/
-		return new ArrayList<Participation>();
-
+		return participationRepository.findByUsername(username);
 	}
 
 	@Override
 	public List<Participation> getParticipations(String eventId) {
-		/*DBCursor<Participation> cursor = getParticipationCollection().find()
-				.is(EVENT_ID, eventId);
-		
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);*/
-		return new ArrayList<Participation>();
-
-
+		return participationRepository.findByEventId(eventId);
 	}
-	
+
 	@Override
 	public int countParticipations(String eventId) {
-		/*return getParticipationCollection().find()
-				.is(EVENT_ID, eventId).is(STATUS, Participation.STATUS_IN).count();*/
-		return 0;
+		return participationRepository.countByEventIdAndStatus(eventId,
+				Participation.STATUS_IN);
 	}
 
 }

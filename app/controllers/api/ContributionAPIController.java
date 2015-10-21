@@ -16,7 +16,7 @@ import controllers.FixItController;
 //@Security.Authenticated(Secured.class)
 public class ContributionAPIController extends FixItController {
 
-	public static Result getUserContributions(String username) {
+	public Result getUserContributions(String username) {
 		List<Contribution> contributions = getContributionService()
 				.getUserContributions(username, -1, -1);
 		return ok(Json.toJson(contributions));

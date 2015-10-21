@@ -70,7 +70,7 @@ public class MongoGroupService implements GroupService {
 		List<Group> result = null;
 
 		if (length > 0) {
-			Page<Group> pages = groupRepository.findByUserName(username,
+			Page<Group> pages = groupRepository.findByUsername(username,
 					new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {

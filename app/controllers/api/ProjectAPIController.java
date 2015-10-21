@@ -23,7 +23,7 @@ public class ProjectAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(getProjectService().getAll()));
 	}
 
-	public static Result createNewProject() {
+	public Result createNewProject() {
 		Logger.debug("ProjectAPIController.createNewProject()");
 
 		return ok(Json.toJson(ProjectFactory.createProject(getUser())));
@@ -64,7 +64,7 @@ public class ProjectAPIController extends FixItController {
 		return ok(Json.toJson(result));
 	}
 
-	public static Result getUserProjects(String username) {
+	public Result getUserProjects(String username) {
 		Logger.debug("ProjectAPIController.projectByOwner username ="
 				+ username);
 		List<Project> projects = getProjectService().getUserProjects(username,
@@ -101,7 +101,7 @@ public class ProjectAPIController extends FixItController {
 		return ok(Json.toJson(getProjectService().projectFollowed(getUserName())));
 	}
 
-	public static Result favorites(String username) {
+	public Result favorites(String username) {
 		Logger.debug("ProjectAPIController.favorites username =" + username);
 
 		return ok(Json.toJson(getProjectService().projectFollowed(username)));

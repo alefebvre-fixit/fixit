@@ -10,6 +10,6 @@ public interface GroupRepository extends MongoRepository<Group, String> {
 
 	public int countByUsername(String username);
 
-	public Page<Group> findByUserName(String username, Pageable pageable);
+	public Page<Group> findByUsername(String username, Pageable pageable);
 
 }

@@ -3,7 +3,7 @@ package com.fixit.service.test;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.fixit.dao.UserRepository;
+import com.fixit.dao.SpringUserRepository;
 import com.fixit.model.test.SpringUser;
 
 /**
@@ -14,7 +14,7 @@ import com.fixit.model.test.SpringUser;
 public class SpringUserServiceImpl implements SpringUserService {
 
 	@Inject
-	private UserRepository userRepository;
+	private SpringUserRepository userRepository;
 
 	@Override
 	public void addUser(SpringUser user) {

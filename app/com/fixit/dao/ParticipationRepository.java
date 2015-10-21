@@ -13,13 +13,17 @@ public interface ParticipationRepository extends MongoRepository<Participation, 
 
 	public int countByUsername(String username);
 
-	public Page<Event> findByUserName(String username, Pageable pageable);
-	
-	public int countByGroupId(String groupId);
-	
+	public Page<Event> findByUsername(String username, Pageable pageable);
+		
 	public Page<Participation> findByEventId(String eventId, Pageable pageable);
 	
 	public List<Participation> findByEventIdAndUsername(String eventId, String username);
 
+	public List<Participation> findByUsername(String username);
+	
+	public List<Participation> findByEventId(String eventId);
 
+	public int countByEventIdAndStatus(String eventId, String status);
+
+	
 }
