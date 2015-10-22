@@ -3,10 +3,13 @@ package com.fixit.service.impl;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Named;
+
 import com.fixit.model.notification.Notification;
 import com.fixit.service.NotificationService;
 import com.fixit.service.impl.subscription.MongoSubscriptionService;
 
+@Named
 public class MongoNotificationService implements NotificationService {
 
 	public static final String USERNAME = "username";

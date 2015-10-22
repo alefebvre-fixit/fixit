@@ -66,7 +66,7 @@ DELETE 	/api/projects/:projectId/cards/:cardId 							controllers.api.ProjectAPI
 # API Contributions
 
 POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers.api.ContributionAPIController.cancelContribution(projectId: String, contributionId: String)
-POST    /api/projects/:projectId/cards/:cardId/contributions  			controllers.api.ContributionAPIController.contribute(projectId: String, cardId: String)
+POST    /api/projects/:projectId/cards/:cardId/contributions  			@controllers.api.ContributionAPIController.contribute(projectId: String, cardId: String)
 
 GET 	/api/projects/:projectId/contributions 							controllers.api.ContributionAPIController.getProjectContributions(projectId: String)
 GET 	/api/projects/:projectId/contributions/:contributionId 			controllers.api.ContributionAPIController.getContribution(projectId: String, contributionId: String)
@@ -123,27 +123,27 @@ POST 	/api/groups/:groupId/unfollow 							@controllers.api.GroupAPIController.u
 
 
 # API Event
-GET     /api/events              									controllers.api.EventAPIController.events()
+GET     /api/events              									@controllers.api.EventAPIController.events()
 GET     /api/groups/:groupId/events/new          					@controllers.api.EventAPIController.createNewEvent(groupId: String)
-GET     /api/groups/:groupId/events/size          					controllers.api.EventAPIController.eventSizeByGroup(groupId: String)
-GET     /api/groups/:groupId/events/last          					controllers.api.EventAPIController.lastGroupEvents(groupId: String)
-GET     /api/groups/:groupId/events          						controllers.api.EventAPIController.groupEvents(groupId: String)
-GET     /api/events/:eventId          								controllers.api.EventAPIController.event(eventId: String)
+GET     /api/groups/:groupId/events/size          					@controllers.api.EventAPIController.eventSizeByGroup(groupId: String)
+GET     /api/groups/:groupId/events/last          					@controllers.api.EventAPIController.lastGroupEvents(groupId: String)
+GET     /api/groups/:groupId/events          						@controllers.api.EventAPIController.groupEvents(groupId: String)
+GET     /api/events/:eventId          								@controllers.api.EventAPIController.event(eventId: String)
 GET 	/api/events/:eventId/comments/size 							controllers.api.CommentAPIController.commentSize(eventId: String)
 GET 	/api/events/:eventId/comments 								controllers.api.CommentAPIController.comments(eventId: String)
-GET		/api/events/:eventId/participations/size					controllers.api.EventAPIController.countParticipations(eventId: String)
-GET		/api/events/:eventId/participations/last					controllers.api.EventAPIController.lastParticipations(eventId: String)
-GET		/api/events/:eventId/participations							controllers.api.EventAPIController.participations(eventId: String)
+GET		/api/events/:eventId/participations/size					@controllers.api.EventAPIController.countParticipations(eventId: String)
+GET		/api/events/:eventId/participations/last					@controllers.api.EventAPIController.lastParticipations(eventId: String)
+GET		/api/events/:eventId/participations							@controllers.api.EventAPIController.participations(eventId: String)
 
-GET 	/api/users/:username/events/:eventId/participation			controllers.api.EventAPIController.userParticipation(username: String, eventId: String)
-GET 	/api/users/:username/participations							controllers.api.EventAPIController.userParticipations(username: String)
+GET 	/api/users/:username/events/:eventId/participation			@controllers.api.EventAPIController.userParticipation(username: String, eventId: String)
+GET 	/api/users/:username/participations							@controllers.api.EventAPIController.userParticipations(username: String)
 
 
-POST 	/api/events			   										controllers.api.EventAPIController.save()
-POST    /api/events/:eventId/delete   								controllers.api.EventAPIController.deleteEvent(eventId: String)
-POST    /api/events/:eventId/publish  								controllers.api.EventAPIController.publishEvent(eventId: String)
+POST 	/api/events			   										@controllers.api.EventAPIController.save()
+POST    /api/events/:eventId/delete   								@controllers.api.EventAPIController.deleteEvent(eventId: String)
+POST    /api/events/:eventId/publish  								@controllers.api.EventAPIController.publishEvent(eventId: String)
 POST 	/api/events/:eventId/comments/:content 						controllers.api.CommentAPIController.post(eventId: String, content: String)
-POST	/api/events/:eventId/participations							controllers.api.EventAPIController.participate(eventId: String)
+POST	/api/events/:eventId/participations							@controllers.api.EventAPIController.participate(eventId: String)
 
 
 GET     /pingWs                     								controllers.Application.pingWs()

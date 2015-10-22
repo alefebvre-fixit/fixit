@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ import com.fixit.model.event.Event;
 import com.fixit.model.event.Participation;
 import com.fixit.service.EventService;
 
+@Named
 public class MongoEventService implements EventService {
 
 	public static final String USER_NAME = "username";

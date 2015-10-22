@@ -23,16 +23,14 @@ public class YaController extends Controller {
 	@Inject
 	private UserService userService;
 
-
-
-	private static EventService eventService = new MongoEventService();
+	@Inject
+	private EventService eventService;
 
 	protected UserService getUserService() {
 		return userService;
 	}
 
-
-	protected static EventService getEventService() {
+	protected EventService getEventService() {
 		return eventService;
 	}
 

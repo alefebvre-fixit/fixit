@@ -2,6 +2,8 @@ package controllers.api;
 
 import java.util.List;
 
+import javax.inject.Named;
+
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Http.RequestBody;
@@ -14,6 +16,7 @@ import com.fixit.model.card.ContributionFactory;
 import controllers.FixItController;
 
 //@Security.Authenticated(Secured.class)
+@Named
 public class ContributionAPIController extends FixItController {
 
 	public Result getUserContributions(String username) {
@@ -76,7 +79,7 @@ public class ContributionAPIController extends FixItController {
 		return notFound();
 	}
 
-	public static Result contribute(String projectId, String cardId) {
+	public Result contribute(String projectId, String cardId) {
 
 		RequestBody body = request().body();
 		Contribution contribution = Json.fromJson(body.asJson(),
