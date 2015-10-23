@@ -95,9 +95,7 @@ angular.module('ya-app').controller('ViewEventController',
                 });
             };
 
-            $scope.createEvent = function(eventToDelete) {
 
-            };
 
 
                 // Triggered on a button click, or some other target

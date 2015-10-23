@@ -16,6 +16,7 @@ import com.fixit.dao.ParticipationRepository;
 import com.fixit.model.event.Event;
 import com.fixit.model.event.Participation;
 import com.fixit.service.EventService;
+import com.fixit.service.NotificationService;
 
 @Named
 public class MongoEventService implements EventService {
@@ -30,6 +31,13 @@ public class MongoEventService implements EventService {
 
 	@Inject
 	ParticipationRepository participationRepository;
+	
+	@Inject
+	private NotificationService notificationService;
+
+	public NotificationService getNotificationService() {
+		return notificationService;
+	}
 
 	@Override
 	public List<Event> getAll() {
@@ -156,6 +164,8 @@ public class MongoEventService implements EventService {
 			participation.setModificationDate(new Date());
 			result = participationRepository.save(participation);
 		}
+		
+		getNotificationService().publishNotification(participation);
 
 		return result;
 	}

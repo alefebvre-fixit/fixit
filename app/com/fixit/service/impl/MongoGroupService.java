@@ -74,7 +74,7 @@ public class MongoGroupService implements GroupService {
 					new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
-			result = groupRepository.findAll();
+			result = groupRepository.findByUsername(username);
 		}
 
 		return result;

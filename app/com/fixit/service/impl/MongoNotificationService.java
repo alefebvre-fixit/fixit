@@ -1,66 +1,67 @@
 package com.fixit.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+import play.Logger;
+
+import com.fixit.dao.NotificationRepository;
 import com.fixit.model.notification.Notification;
+import com.fixit.model.notification.NotificationFactory;
 import com.fixit.service.NotificationService;
-import com.fixit.service.impl.subscription.MongoSubscriptionService;
+import com.fixit.service.impl.subscription.SubscriptionServiceFactory;
 
 @Named
 public class MongoNotificationService implements NotificationService {
 
 	public static final String USERNAME = "username";
 
-/*	private JacksonDBCollection<Notification, String> getNotificationsCollection() {
-		return MongoDBPersistence.getNotificationsCollection();
-	}*/
+	@Inject
+	private NotificationRepository notificationRepository;
+
+	@Inject
+	private SubscriptionServiceFactory serviceFactory;
 
 	@Override
 	public Notification getNotification(String notificationId) {
-		return null;
-/*		return getNotificationsCollection().findOneById(notificationId);
-*/	}
+		return notificationRepository.findOne(notificationId);
+	}
 
 	@Override
 	public Notification saveNotification(Notification notification) {
-		return null;
-/*		WriteResult<Notification, String> result = null;
-		if (notification.getId() == null) {
-			result = getNotificationsCollection().insert(notification);
-			notification.setId(result.getSavedId());
-		} else {
-			result = getNotificationsCollection().updateById(
-					notification.getId(), notification);
-		}
-		return notification;*/
+		return notificationRepository.save(notification);
 	}
 
 	@Override
 	public void deleteNotification(String notificationId) {
-/*		getNotificationsCollection().removeById(notificationId);
-*/	}
+		notificationRepository.delete(notificationId);
+	}
 
 	@Override
 	public List<Notification> getUserNotifications(String username, int offset,
 			int length) {
-		return null;
-/*		DBCursor<Notification> cursor = getNotificationsCollection().find().is(
-				USERNAME, username);
-		if (offset > 0) {
-			cursor.skip(offset);
-		}
+		List<Notification> result = null;
 		if (length > 0) {
-			cursor.limit(length);
+			Page<Notification> pages = notificationRepository.findByUsername(
+					username, new PageRequest(offset, length));
+			result = pages.getContent();
+		} else {
+			result = notificationRepository.findByUsername(username);
 		}
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);*/
+		return result;
 	}
 
 	@Override
 	public void publishNotification(Object o) {
-/*		Notification notification = NotificationFactory.getInstance(o)
+
+		Notification notification = NotificationFactory.getInstance(o)
 				.createNotification(o);
 		if (notification != null) {
 			Set<String> subscribers = getSubscribers(notification);
@@ -77,13 +78,15 @@ public class MongoNotificationService implements NotificationService {
 				} catch (CloneNotSupportedException e) {
 					Logger.error(e.getMessage());
 				}
-				getNotificationsCollection().insert(notifications);
+				notificationRepository.save(notifications);
 			}
-		}*/
+		}
+
 	}
 
 	private Set<String> getSubscribers(Notification notification) {
-		return MongoSubscriptionService.getInstance(notification).getSubscribers(notification);
+		return serviceFactory.getInstance(notification).getSubscribers(
+				notification);
 	}
 
 }

@@ -3,9 +3,12 @@ package com.fixit.service.impl.subscription;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.inject.Named;
+
 import com.fixit.model.notification.Notification;
 import com.fixit.service.SubscriptionService;
 
+@Named
 public class MongoFollowersSubscriptionService extends MongoSubscriptionService
 		implements SubscriptionService {
 
