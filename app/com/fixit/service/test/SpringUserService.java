@@ -1,9 +1,10 @@
-package com.fixit.service;
+package com.fixit.service.test;
 
-import com.fixit.model.SpringUser;
+import com.fixit.model.test.SpringUser;
 
 public interface SpringUserService {
 
 	void addUser(SpringUser user);
 
+	
 }

@@ -3,7 +3,6 @@ package controllers;
 import play.mvc.Result;
 import play.mvc.Security;
 
-@Security.Authenticated(Secured.class)
 public class ProjectController extends FixItController {
 
 

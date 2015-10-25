@@ -1,33 +1,29 @@
 package com.fixit.model.group;
 
-import javax.persistence.Entity;
-
-import org.mongojack.Id;
-import org.mongojack.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fixit.model.User;
 
-@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Document(collection = "Group")
 public class Group {
 
 	public static final String STATUS_NEW = "New";
 	public static final String STATUS_PUBLISHED = "Published";
 	public static final String STATUS_DRAFT = "Draft";
 
+	@Id
 	public String id;
+	
 	public double version = 0;
 	private String status = STATUS_NEW;
 
-	@Id
-	@ObjectId
 	public String getId() {
 		return id;
 	}
 
-	@Id
-	@ObjectId
 	public void setId(String id) {
 		this.id = id;
 	}

@@ -15,7 +15,7 @@ GET     /assets/*file            controllers.Assets.at(path="/public", file)
 GET  /login        				controllers.AccountController.login()
 GET  /signup        			controllers.AccountController.signup()
 GET  /logout        			controllers.AccountController.logout()
-POST /authenticate 				controllers.AccountController.authenticate()
+POST /authenticate 				@controllers.AccountController.authenticate()
 
 # User
 GET     /setting/profile       	controllers.AccountController.userProfile()
@@ -34,7 +34,7 @@ GET     /projects/test/         controllers.ProjectController.testProject()
 
 # API Project
 GET     /api/projects              							controllers.api.ProjectAPIController.projects()
-GET     /api/projects/new          							controllers.api.ProjectAPIController.createNewProject()
+GET     /api/projects/new          							@controllers.api.ProjectAPIController.createNewProject()
 GET     /api/projects/:id          							controllers.api.ProjectAPIController.project(id: String)
 GET 	/api/projects/:projectId/followers/size 			controllers.api.ProjectAPIController.followerSize(projectId: String)
 GET 	/api/projects/:projectId/followers 					controllers.api.ProjectAPIController.followers(projectId: String)
@@ -66,7 +66,7 @@ DELETE 	/api/projects/:projectId/cards/:cardId 							controllers.api.ProjectAPI
 # API Contributions
 
 POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers.api.ContributionAPIController.cancelContribution(projectId: String, contributionId: String)
-POST    /api/projects/:projectId/cards/:cardId/contributions  			controllers.api.ContributionAPIController.contribute(projectId: String, cardId: String)
+POST    /api/projects/:projectId/cards/:cardId/contributions  			@controllers.api.ContributionAPIController.contribute(projectId: String, cardId: String)
 
 GET 	/api/projects/:projectId/contributions 							controllers.api.ContributionAPIController.getProjectContributions(projectId: String)
 GET 	/api/projects/:projectId/contributions/:contributionId 			controllers.api.ContributionAPIController.getContribution(projectId: String, contributionId: String)
@@ -78,28 +78,28 @@ GET    	/api/projects/:projectId/cards/new/:type						controllers.api.ProjectAPI
 
 
 # API Account
-GET     /api/users/:user/contributions     		controllers.api.ContributionAPIController.getUserContributions(user: String)
-GET     /api/users/:user/projects     			controllers.api.ProjectAPIController.getUserProjects(user: String)
-GET     /api/users/:user/favorites/projects     controllers.api.ProjectAPIController.favorites(user: String)
-GET     /api/users/:user/favorites/groups    	controllers.api.GroupAPIController.favorites(user: String)
-GET     /api/users/:user/summary       	    	controllers.api.AccountAPIController.userSummary(user: String)
-GET     /api/users/:user/followers       		controllers.api.AccountAPIController.followers(user: String)
-GET     /api/users/:user       	    			controllers.api.AccountAPIController.user(user: String)
+GET     /api/users/:user/contributions     		@controllers.api.ContributionAPIController.getUserContributions(user: String)
+GET     /api/users/:user/projects     			@controllers.api.ProjectAPIController.getUserProjects(user: String)
+GET     /api/users/:user/favorites/projects     @controllers.api.ProjectAPIController.favorites(user: String)
+GET     /api/users/:user/favorites/groups    	@controllers.api.GroupAPIController.favorites(user: String)
+GET     /api/users/:user/summary       	    	@controllers.api.AccountAPIController.userSummary(user: String)
+GET     /api/users/:user/followers       		@controllers.api.AccountAPIController.followers(user: String)
+GET     /api/users/:user       	    			@controllers.api.AccountAPIController.user(user: String)
 
-POST    /api/users/:user/follow       	    	controllers.api.AccountAPIController.follow(user: String)
-POST    /api/users/:user/unfollow       		controllers.api.AccountAPIController.unFollow(user: String)
+POST    /api/users/:user/follow       	    	@controllers.api.AccountAPIController.follow(user: String)
+POST    /api/users/:user/unfollow       		@controllers.api.AccountAPIController.unFollow(user: String)
 
 
-GET     /api/account/summary     				controllers.api.AccountAPIController.accountSummary()
-GET     /api/account     						controllers.api.AccountAPIController.account()
-GET     /api/accounts     						controllers.api.AccountAPIController.accounts()
-GET     /api/notifications     					controllers.api.NotificationAPIController.notifications()
+GET     /api/account/summary     				@controllers.api.AccountAPIController.accountSummary()
+GET     /api/account     						@controllers.api.AccountAPIController.account()
+GET     /api/accounts     						@controllers.api.AccountAPIController.accounts()
+GET     /api/notifications     					@controllers.api.NotificationAPIController.notifications()
 
-POST    /api/signup     						controllers.api.AccountAPIController.signUp()
-POST 	/api/signin/google						controllers.api.AccountAPIController.googleSignIn()
-POST    /api/signin     						controllers.api.AccountAPIController.signIn()
-POST    /api/profile     						controllers.api.AccountAPIController.updateProfile()
-POST    /api/profile/picture     				controllers.api.AccountAPIController.uploadPicture()
+POST    /api/signup     						@controllers.api.AccountAPIController.signUp()
+POST 	/api/signin/google						@controllers.api.AccountAPIController.googleSignIn()
+POST    /api/signin     						@controllers.api.AccountAPIController.signIn()
+POST    /api/profile     						@controllers.api.AccountAPIController.updateProfile()
+POST    /api/profile/picture     				@controllers.api.AccountAPIController.uploadPicture()
 
 
 # API Test 
@@ -109,44 +109,45 @@ GET    /api/external/google/profile/:username     		controllers.api.TestControll
 
 
 # API Group
-GET     /api/groups              								controllers.api.GroupAPIController.groups()
-GET     /api/groups/new          								controllers.api.GroupAPIController.createNewGroup()
-GET     /api/groups/:groupId          							controllers.api.GroupAPIController.group(groupId: String)
-GET     /api/groups/:groupId          							controllers.api.GroupAPIController.group(groupId: String)
-GET 	/api/groups/:groupId/followers/size 					controllers.api.GroupAPIController.followerSize(groupId: String)
-GET 	/api/groups/:groupId/followers 							controllers.api.GroupAPIController.followers(groupId: String)
+GET     /api/groups              								@controllers.api.GroupAPIController.groups()
+GET     /api/groups/new          								@controllers.api.GroupAPIController.createNewGroup()
+GET     /api/groups/:groupId          							@controllers.api.GroupAPIController.group(groupId: String)
+GET     /api/groups/:groupId          							@controllers.api.GroupAPIController.group(groupId: String)
+GET 	/api/groups/:groupId/followers/size 					@controllers.api.GroupAPIController.followerSize(groupId: String)
+GET 	/api/groups/:groupId/followers 							@controllers.api.GroupAPIController.followers(groupId: String)
 
-POST 	/api/groups			   									controllers.api.GroupAPIController.save()
-POST    /api/groups/:groupId/delete   							controllers.api.GroupAPIController.deleteGroup(groupId: String)
-POST 	/api/groups/:groupId/follow 							controllers.api.GroupAPIController.follow(groupId: String)
-POST 	/api/groups/:groupId/unfollow 							controllers.api.GroupAPIController.unfollow(groupId: String)
+POST 	/api/groups			   									@controllers.api.GroupAPIController.save()
+POST    /api/groups/:groupId/delete   							@controllers.api.GroupAPIController.deleteGroup(groupId: String)
+POST 	/api/groups/:groupId/follow 							@controllers.api.GroupAPIController.follow(groupId: String)
+POST 	/api/groups/:groupId/unfollow 							@controllers.api.GroupAPIController.unfollow(groupId: String)
 
 
 # API Event
-GET     /api/events              									controllers.api.EventAPIController.events()
-GET     /api/groups/:groupId/events/new          					controllers.api.EventAPIController.createNewEvent(groupId: String)
-GET     /api/groups/:groupId/events/size          					controllers.api.EventAPIController.eventSizeByGroup(groupId: String)
-GET     /api/groups/:groupId/events/last          					controllers.api.EventAPIController.lastGroupEvents(groupId: String)
-GET     /api/groups/:groupId/events          						controllers.api.EventAPIController.groupEvents(groupId: String)
-GET     /api/events/:eventId          								controllers.api.EventAPIController.event(eventId: String)
+GET     /api/events              									@controllers.api.EventAPIController.events()
+GET     /api/groups/:groupId/events/new          					@controllers.api.EventAPIController.createNewEvent(groupId: String)
+GET     /api/groups/:groupId/events/size          					@controllers.api.EventAPIController.eventSizeByGroup(groupId: String)
+GET     /api/groups/:groupId/events/last          					@controllers.api.EventAPIController.lastGroupEvents(groupId: String)
+GET     /api/groups/:groupId/events          						@controllers.api.EventAPIController.groupEvents(groupId: String)
+GET     /api/events/:eventId          								@controllers.api.EventAPIController.event(eventId: String)
 GET 	/api/events/:eventId/comments/size 							controllers.api.CommentAPIController.commentSize(eventId: String)
 GET 	/api/events/:eventId/comments 								controllers.api.CommentAPIController.comments(eventId: String)
-GET		/api/events/:eventId/participations/size					controllers.api.EventAPIController.countParticipations(eventId: String)
-GET		/api/events/:eventId/participations/last					controllers.api.EventAPIController.lastParticipations(eventId: String)
-GET		/api/events/:eventId/participations							controllers.api.EventAPIController.participations(eventId: String)
+GET		/api/events/:eventId/participations/size					@controllers.api.EventAPIController.countParticipations(eventId: String)
+GET		/api/events/:eventId/participations/last					@controllers.api.EventAPIController.lastParticipations(eventId: String)
+GET		/api/events/:eventId/participations							@controllers.api.EventAPIController.participations(eventId: String)
 
-GET 	/api/users/:username/events/:eventId/participation			controllers.api.EventAPIController.userParticipation(username: String, eventId: String)
-GET 	/api/users/:username/participations							controllers.api.EventAPIController.userParticipations(username: String)
+GET 	/api/users/:username/events/:eventId/participation			@controllers.api.EventAPIController.userParticipation(username: String, eventId: String)
+GET 	/api/users/:username/participations							@controllers.api.EventAPIController.userParticipations(username: String)
 
 
-POST 	/api/events			   										controllers.api.EventAPIController.save()
-POST    /api/events/:eventId/delete   								controllers.api.EventAPIController.deleteEvent(eventId: String)
-POST    /api/events/:eventId/publish  								controllers.api.EventAPIController.publishEvent(eventId: String)
+POST 	/api/events			   										@controllers.api.EventAPIController.save()
+POST    /api/events/:eventId/delete   								@controllers.api.EventAPIController.deleteEvent(eventId: String)
+POST    /api/events/:eventId/publish  								@controllers.api.EventAPIController.publishEvent(eventId: String)
 POST 	/api/events/:eventId/comments/:content 						controllers.api.CommentAPIController.post(eventId: String, content: String)
-POST	/api/events/:eventId/participations							controllers.api.EventAPIController.participate(eventId: String)
+POST	/api/events/:eventId/participations							@controllers.api.EventAPIController.participate(eventId: String)
 
 
-GET     /pingWs                     controllers.Application.pingWs()
+GET     /pingWs                     								controllers.Application.pingWs()
+GET     /testSpring                     							@controllers.SpringController.index()
 
 
 

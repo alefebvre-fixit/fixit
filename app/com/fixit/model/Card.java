@@ -2,8 +2,6 @@ package com.fixit.model;
 
 import java.util.List;
 
-import org.mongojack.Id;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -17,13 +15,13 @@ import com.fixit.model.card.participant.ParticipantCard;
 import com.fixit.model.card.survey.SurveyCard;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({ 
+@JsonSubTypes({
 		@Type(value = AvailabilityCard.class, name = AvailabilityCard.TYPE),
 		@Type(value = ItemCard.class, name = ItemCard.TYPE),
 		@Type(value = ParticipantCard.class, name = ParticipantCard.TYPE),
 		@Type(value = SurveyCard.class, name = SurveyCard.TYPE),
 		@Type(value = AdviceCard.class, name = AdviceCard.TYPE),
-		@Type(value = MoneyCard.class, name = MoneyCard.TYPE) 
+		@Type(value = MoneyCard.class, name = MoneyCard.TYPE)
 
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -31,7 +29,6 @@ public abstract class Card {
 
 	public static final String STATUS_NEW = "New";
 
-	
 	public String type = "default";
 
 	private String id;
@@ -42,16 +39,14 @@ public abstract class Card {
 	private String name;
 	private String description;
 
-	@Id
 	public String getId() {
 		return id;
 	}
 
-	@Id
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
@@ -59,7 +54,6 @@ public abstract class Card {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
 
 	@JsonIgnore
 	public abstract boolean cancel(Contribution contribution);
@@ -131,7 +125,5 @@ public abstract class Card {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 
 }

@@ -1,4 +1,4 @@
-package com.fixit.model;
+package com.fixit.model.test;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

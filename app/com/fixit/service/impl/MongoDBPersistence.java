@@ -1,18 +1,5 @@
 package com.fixit.service.impl;
 
-import org.mongojack.JacksonDBCollection;
-
-import play.modules.mongojack.MongoDB;
-
-import com.fixit.model.Contribution;
-import com.fixit.model.Favorite;
-import com.fixit.model.Project;
-import com.fixit.model.User;
-import com.fixit.model.event.Event;
-import com.fixit.model.event.Participation;
-import com.fixit.model.group.Group;
-import com.fixit.model.notification.Notification;
-import com.fixit.model.project.ProjectComment;
 
 public class MongoDBPersistence {
 
@@ -30,6 +17,7 @@ public class MongoDBPersistence {
 
 	public static final int MAX_OBJECT = 1000;
 
+	/*
 	private static JacksonDBCollection<Project, String> projects = MongoDB
 			.getCollection(PROJECT_COLLECTION, Project.class, String.class);
 
@@ -95,5 +83,5 @@ public class MongoDBPersistence {
 	public static final JacksonDBCollection<ProjectComment, String> getCommentsCollection() {
 		return comments;
 	}
-	
+	*/
 }

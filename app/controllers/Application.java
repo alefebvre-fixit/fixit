@@ -12,6 +12,7 @@ import akka.actor.Cancellable;
 import akka.actor.Props;
 
 public class Application extends Controller {
+	
 	public static WebSocket<String> pingWs() {
 		return new WebSocket<String>() {
 			public void onReady(WebSocket.In<String> in,
@@ -37,4 +38,8 @@ public class Application extends Controller {
 	}
 
 
+	public static void springTest(){
+		
+	}
+	
 }

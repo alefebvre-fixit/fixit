@@ -1,21 +1,18 @@
 package com.fixit.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.mongojack.DBCursor;
-import org.mongojack.JacksonDBCollection;
-import org.mongojack.WriteResult;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import play.Logger;
-
-import com.fixit.model.Favorite;
+import com.fixit.dao.ProjectRepository;
 import com.fixit.model.Project;
 import com.fixit.model.User;
 import com.fixit.service.ProjectService;
 import com.fixit.service.UserService;
 
+@Named
 public class MongoProjectService extends BaseProjectService implements
 		ProjectService {
 
@@ -23,35 +20,43 @@ public class MongoProjectService extends BaseProjectService implements
 	public static final String PROJECT_ID = "projectId";
 	public static final String CARD_ID = "cardId";
 
-	private JacksonDBCollection<Project, String> getCollection() {
+/*	private JacksonDBCollection<Project, String> getCollection() {
 		return MongoDBPersistence.getProjectCollection();
 	}
 
 	private JacksonDBCollection<Favorite, String> getFavoritesCollection() {
 		return MongoDBPersistence.getFavoritesCollection();
-	}
+	}*/
 
+	@Inject
+	private ProjectRepository projectRepository;
+	
 	private UserService userService;
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 
+	public MongoProjectService() {
+	}
+	
 	public MongoProjectService(UserService userService) {
 		this.userService = userService;
 	}
 
 	@Override
 	public List<Project> getAll() {
-		Logger.debug("MongoProjectService.getAll()");
-		return getCollection().find().toArray();
+		return projectRepository.findAll();
+
+/*		Logger.debug("MongoProjectService.getAll()");
+		return getCollection().find().toArray();*/
 	}
 
 	@Override
 	public void delete(String id) {
-		Logger.debug("MongoProjectService.delete(String id) id=" + id);
+/*		Logger.debug("MongoProjectService.delete(String id) id=" + id);
 
-		getCollection().removeById(id);
+		getCollection().removeById(id);*/
 	}
 
 	@Override
@@ -62,7 +67,9 @@ public class MongoProjectService extends BaseProjectService implements
 
 	@Override
 	public Project save(Project project) {
-		WriteResult<Project, String> result = null;
+		return null;
+
+/*		WriteResult<Project, String> result = null;
 		assignCardIds(project);
 		project.incrementVersion();
 		if (project.getId() == null) {
@@ -76,27 +83,32 @@ public class MongoProjectService extends BaseProjectService implements
 			result = getCollection().updateById(project.id, project);
 		}
 
-		return project;
+		return project;*/
 	}
 
 	@Override
 	public Project getProject(String id) {
-		Logger.debug("MongoProjectService.load(String id) id=" + id);
+		return null;
+
+/*		Logger.debug("MongoProjectService.load(String id) id=" + id);
 		Project result = getCollection().findOneById(id);
-		return result;
+		return result;*/
 	}
 
 	@Override
 	public int countProjectsByOwner(String username) {
-		int result = getCollection().find().count();
+		return 0;
+/*		int result = getCollection().find().count();
 		Logger.debug("countProjectsByOwner(String owner) owner=" + username
 				+ "result = " + result);
-		return result;
+		return result;*/
 	}
 
 	@Override
 	public List<Project> getUserProjects(String username, int offset, int length) {
-		DBCursor<Project> cursor = getCollection().find().is(USER_NAME,
+		return null;
+
+/*		DBCursor<Project> cursor = getCollection().find().is(USER_NAME,
 				username);
 		if (offset > 0) {
 			cursor.skip(offset);
@@ -104,12 +116,12 @@ public class MongoProjectService extends BaseProjectService implements
 		if (length > 0) {
 			cursor.limit(length);
 		}
-		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);
+		return cursor.toArray(MongoDBPersistence.MAX_OBJECT);*/
 	}
 
 	@Override
 	public void follow(String username, String projectId) {
-		Favorite favorite = new Favorite();
+/*		Favorite favorite = new Favorite();
 		favorite.setCreationDate(new Date());
 		favorite.setUsername(username);
 		favorite.setProjectId(projectId);
@@ -119,22 +131,24 @@ public class MongoProjectService extends BaseProjectService implements
 		if (count <= 0) {
 			getFavoritesCollection().insert(favorite);
 		}
+	*/
 	}
 
 	@Override
 	public void unfollow(String username, String projectId) {
-		List<Favorite> favorites = getFavoritesCollection().find()
+/*		List<Favorite> favorites = getFavoritesCollection().find()
 				.is(USER_NAME, username).is(PROJECT_ID, projectId).toArray();
 		if (favorites != null) {
 			for (Favorite favorite : favorites) {
 				getFavoritesCollection().removeById(favorite.getId());
 			}
-		}
+		}*/
 	}
 
 	@Override
 	public List<String> projectFollowed(String username) {
-		List<String> result = new ArrayList<String>();
+		return null;
+/*		List<String> result = new ArrayList<String>();
 
 		List<Favorite> favorites = getFavoritesCollection().find()
 				.is(USER_NAME, username).toArray();
@@ -143,7 +157,7 @@ public class MongoProjectService extends BaseProjectService implements
 				result.add(favorite.getProjectId());
 			}
 		}
-		return result;
+		return result;*/
 	}
 
 	@Override
@@ -162,8 +176,9 @@ public class MongoProjectService extends BaseProjectService implements
 
 	@Override
 	public int projectFollowersSize(String projectId) {
-		return getFavoritesCollection().find().is(PROJECT_ID, projectId)
-				.count();
+		return 0;
+/*		return getFavoritesCollection().find().is(PROJECT_ID, projectId)
+				.count();*/
 	}
 
 	@Override
@@ -172,7 +187,7 @@ public class MongoProjectService extends BaseProjectService implements
 
 		List<String> result = new ArrayList<String>();
 
-		List<Favorite> favorites = getFavoritesCollection().find()
+/*		List<Favorite> favorites = getFavoritesCollection().find()
 				.is(PROJECT_ID, projectId).toArray();
 		if (favorites != null) {
 			for (Favorite favorite : favorites) {
@@ -180,7 +195,7 @@ public class MongoProjectService extends BaseProjectService implements
 					result.add(favorite.getUsername());
 				}
 			}
-		}
+		}*/
 
 		return result;
 	}
@@ -191,7 +206,7 @@ public class MongoProjectService extends BaseProjectService implements
 
 		List<User> result = new ArrayList<User>();
 
-		List<Favorite> favorites = getFavoritesCollection().find()
+/*		List<Favorite> favorites = getFavoritesCollection().find()
 				.is(PROJECT_ID, projectId).toArray();
 		if (favorites != null) {
 			for (Favorite favorite : favorites) {
@@ -200,7 +215,7 @@ public class MongoProjectService extends BaseProjectService implements
 					result.add(user);
 				}
 			}
-		}
+		}*/
 
 		return result;
 	}

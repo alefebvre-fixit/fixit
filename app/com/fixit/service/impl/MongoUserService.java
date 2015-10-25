@@ -2,32 +2,35 @@ package com.fixit.service.impl;
 
 import java.util.List;
 
-import org.mongojack.DBCursor;
-import org.mongojack.JacksonDBCollection;
-import org.mongojack.WriteResult;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import play.Logger;
 
+import com.fixit.dao.UserRepository;
 import com.fixit.model.User;
 import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 import com.fixit.model.account.UserCard;
 import com.fixit.service.UserService;
 
+@Named
 public class MongoUserService implements UserService {
 	
 	private static final String USER_NAME = "username";
 	private static final String EMAIL = "email";
-
+	
+	@Inject
+	private UserRepository userRepository;
 	
 	@Override
 	public User load(String username) {
 		Logger.debug("MongoUserService.load(String userName) username=" + username);
-
 		User result = null;
-		DBCursor<User> cursor = getCollection().find().is("username", username);
-		if (cursor.hasNext()){
-			result = cursor.next();
+		
+		List<User> users = userRepository.findByUsername(username);
+		if (users != null && users.size() > 0){
+			result = users.get(0);
 		}
 		
 		return result;
@@ -35,12 +38,11 @@ public class MongoUserService implements UserService {
 
 	@Override
 	public User authenticateByEmail(String email, String password) {
-		
 		User user = null;
-				
-		DBCursor<User> cursor = getCollection().find().is(EMAIL, email);
-		if (cursor.hasNext()){
-			user = cursor.next();
+		
+		List<User> users = userRepository.findByEmail(email);
+		if (users != null && users.size() > 0){
+			user = users.get(0);
 			if (authenticate(user, password)){
 				return user;
 			}
@@ -82,32 +84,19 @@ public class MongoUserService implements UserService {
 
 	@Override
 	public User save(User user) {
-		WriteResult<User, String> result = null;
-		if (user.getId() == null) {
-			Logger.debug("MongoUserService.save()");
-			result = getCollection().insert(user);
-			user.setId(result.getSavedId());
-		} else {
-			Logger.debug("MongoUserService.save.updateById(String id) username="
-					+ user.getUsername());
-
-			result = getCollection().updateById(user.getId(), user);
-		}
-
-		return user;
+		return userRepository.save(user);
 	}
 	
 	
 	@Override
 	public List<User> getAll() {
-		Logger.debug("MongoUserService.getAll()");
-		return getCollection().find().toArray();
+		return userRepository.findAll();
 	}
 
 	@Override
 	public void delete(String id) {
+		userRepository.delete(id);
 		Logger.debug("MongoUserService.delete(String id) id=" + id);
-		getCollection().removeById(id);
 	}
 
 	@Override
@@ -123,9 +112,7 @@ public class MongoUserService implements UserService {
 	}
 	
 	
-	private JacksonDBCollection<User, String> getCollection() {
-		return MongoDBPersistence.getUserCollection();
-	}
+
 
 	@Override
 	public User follow(String follower, String followee) {
@@ -143,9 +130,8 @@ public class MongoUserService implements UserService {
 			followeeUser.getFollowers().add(follower);
 		}
 		
-		getCollection().updateById(followerUser.getId(), followerUser);
-		getCollection().updateById(followeeUser.getId(), followeeUser);
-
+		userRepository.save(followerUser);
+		userRepository.save(followeeUser);
 		
 		return followerUser;
 	}
@@ -165,8 +151,8 @@ public class MongoUserService implements UserService {
 			followeeUser.getFollowers().remove(follower);
 		}
 		
-		getCollection().updateById(followerUser.getId(), followerUser);
-		getCollection().updateById(followeeUser.getId(), followeeUser);
+		userRepository.save(followerUser);
+		userRepository.save(followeeUser);
 
 		
 		return followerUser;
@@ -174,8 +160,11 @@ public class MongoUserService implements UserService {
 
 	@Override
 	public List<User> getFollowers(String username) {
+		return null;
+
+		//TODO To be implemented
 		
-		List<User> result = null;
+/*		List<User> result = null;
 		
 		User user = load(username);
 		if (user != null){
@@ -183,7 +172,7 @@ public class MongoUserService implements UserService {
 			result = getCollection().find().in(USER_NAME, followers).toArray();
 		}
 		
-		return result;
+		return result;*/
 	}
 	
 	@Override

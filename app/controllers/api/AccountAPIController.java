@@ -3,6 +3,9 @@ package controllers.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Http;
@@ -17,41 +20,52 @@ import com.fixit.model.User;
 import com.fixit.model.account.SignIn;
 import com.fixit.model.account.SignUp;
 import com.fixit.model.account.UserSummary;
+import com.fixit.service.GroupService;
+import com.fixit.service.UserService;
 
 import controllers.FixItController;
 import controllers.Secured;
 
+@Named
 public class AccountAPIController extends FixItController {
 
-	@Security.Authenticated(Secured.class)
-	public static Result accountSummary() {
+	@Inject
+	private GroupService groupService;
+
+	protected GroupService getGroupService() {
+		return groupService;
+	}
+
+	@Inject
+	private UserService userService;
+
+	public Result accountSummary() {
 		Logger.debug("AccountAPIController.accountSummary");
 
-		User user = getUserService().load(getUserName());
+		User user = userService.load(getUserName());
 
 		return ok(play.libs.Json.toJson(user.getUserCard()));
 	}
 
-	@Security.Authenticated(Secured.class)
-	public static Result account() {
+	public Result account() {
 		Logger.debug("AccountAPIController.account");
 
-		User user = getUserService().load(getUserName());
+		User user = userService.load(getUserName());
 
 		return ok(play.libs.Json.toJson(user));
 	}
 
-	public static Result accounts() {
+	public Result accounts() {
 		Logger.debug("AccountAPIController.accounts()");
-		return ok(play.libs.Json.toJson(getUserService().getAll()));
+		return ok(play.libs.Json.toJson(userService.getAll()));
 	}
 
-	public static Result user(String username) {
+	public Result user(String username) {
 		Logger.debug("AccountAPIController.user(username)");
-		return ok(play.libs.Json.toJson(getUserService().load(username)));
+		return ok(play.libs.Json.toJson(userService.load(username)));
 	}
-	
-	public static Result signUp() {
+
+	public Result signUp() {
 		Logger.debug("AccountAPIController.signup()");
 
 		RequestBody body = request().body();
@@ -60,7 +74,7 @@ public class AccountAPIController extends FixItController {
 		List<String> messages = validate(signup);
 		if (messages.size() == 0) {
 			session().clear();
-			User user = getUserService().signup(signup);
+			User user = userService.signup(signup);
 			session(SESSION_ATTRIBUTE_USERNAME, user.getUsername());
 			return ok(play.libs.Json.toJson(user));
 		} else {
@@ -69,14 +83,14 @@ public class AccountAPIController extends FixItController {
 
 	}
 
-	public static Result signIn() {
+	public Result signIn() {
 
 		Logger.debug("AccountAPIController.signIn()");
 
 		RequestBody body = request().body();
 		SignIn signin = Json.fromJson(body.asJson(), SignIn.class);
 
-		User user = getUserService().authenticate(signin);
+		User user = userService.authenticate(signin);
 
 		if (user == null) {
 			return forbidden("Invalid password");
@@ -87,38 +101,32 @@ public class AccountAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(user));
 
 	}
-	
-	public static Result googleSignIn() {
+
+	public Result googleSignIn() {
 
 		Logger.debug("AccountAPIController.googleSignIn()");
 
 		RequestBody body = request().body();
 		Logger.debug("AccountAPIController.googleSignIn()" + body.asJson());
 
-		
-		//SignIn signin = Json.fromJson(body.asJson(), SignIn.class);
+		// SignIn signin = Json.fromJson(body.asJson(), SignIn.class);
 		/*
-		User user = getUserService().authenticate(signin);
+		 * User user = getUserService().authenticate(signin);
+		 * 
+		 * if (user == null) { return forbidden("Invalid password"); }
+		 * session().clear(); session(SESSION_ATTRIBUTE_USERNAME,
+		 * user.getUsername());
+		 */
 
-		if (user == null) {
-			return forbidden("Invalid password");
-		}
-		session().clear();
-		session(SESSION_ATTRIBUTE_USERNAME, user.getUsername());
-		*/
-		
 		return ok(body.asJson());
 
 	}
-	
-	
-	
 
 	// TODO use bean validation
-	public static List<String> validate(SignUp signup) {
+	public List<String> validate(SignUp signup) {
 		List<String> result = new ArrayList<>();
 
-		User user = getUserService().load(signup.getUsername());
+		User user = userService.load(signup.getUsername());
 		if (user != null) {
 			Logger.debug("AccountAPIController.validate() : User already exist");
 			result.add("User already exist");
@@ -127,7 +135,7 @@ public class AccountAPIController extends FixItController {
 		return result;
 	}
 
-	public static Result updateProfile() {
+	public Result updateProfile() {
 		Logger.debug("AccountAPIController.updateAccount()");
 
 		RequestBody body = request().body();
@@ -135,90 +143,84 @@ public class AccountAPIController extends FixItController {
 
 		User user = getUser();
 		user.setProfile(profile);
-		getUserService().save(user);
+		userService.save(user);
 		return ok(play.libs.Json.toJson(user));
 
 	}
 
-	public static Result userSummary(String username) {
+	public Result userSummary(String username) {
 		Logger.debug("AccountAPIController.user(username)");
 
 		UserSummary result = new UserSummary();
-		result.setUser(getUserService().load(username));
+		result.setUser(userService.load(username));
 
 		result.setLastProjects(getProjectService().getUserProjects(username, 0,
 				5));
 		result.setProjectNumber(getProjectService().countProjectsByOwner(
 				username));
-		
-		
+
 		result.setLastGroups(getGroupService().getUserGroups(username, 0, 5));
 		result.setGroupNumber(getGroupService().countGroupsByOwner(username));
-		
 
 		result.setLastContribution(getContributionService()
 				.getUserContributions(username, 0, 5));
 		result.setContributionNumber(getContributionService()
 				.countContributionsByOwner(username));
-		
-		result.setFollowerNumber(getUserService().countFollowers(username));
-		
+
+		result.setFollowerNumber(userService.countFollowers(username));
 
 		return ok(play.libs.Json.toJson(result));
 	}
 
-	public static Result follow(String followee) {
+	public Result follow(String followee) {
 		Logger.debug("AccountAPIController.follow(followee)" + followee);
 
 		User result = getUser();
 		if (!result.getUsername().equals(followee)) {
-			result = getUserService().follow(result.getUsername(), followee);
+			result = userService.follow(result.getUsername(), followee);
 		}
 
 		return ok(play.libs.Json.toJson(result));
 	}
 
-	public static Result unFollow(String followee) {
+	public Result unFollow(String followee) {
 		Logger.debug("AccountAPIController.unFollow(followee)" + followee);
 
 		User result = getUser();
 		if (!result.getUsername().equals(followee)) {
-			result = getUserService().unFollow(result.getUsername(), followee);
+			result = userService.unFollow(result.getUsername(), followee);
 		}
 
 		return ok(play.libs.Json.toJson(result));
 	}
 
-	public static Result followers(String username) {
+	public Result followers(String username) {
 		Logger.debug("AccountAPIController.followers(username)" + username);
 
-		List<User> result = getUserService().getFollowers(username);
+		List<User> result = userService.getFollowers(username);
 
 		return ok(play.libs.Json.toJson(result));
 	}
-	
-	
-	
-	public static Result uploadPicture() {
+
+	public Result uploadPicture() {
 		Logger.debug("AccountAPIController.uploadPicture()");
-		
+
 		Http.MultipartFormData body = request().body().asMultipartFormData();
 		List<Http.MultipartFormData.FilePart> parts = body.getFiles();
 		for (Http.MultipartFormData.FilePart filePart : parts) {
 			Logger.debug("filePart.getKey()" + filePart.getKey());
 		}
-        Http.MultipartFormData.FilePart uploadFilePart = body.getFile("file");
-        if (uploadFilePart != null) {
-            S3File s3File = new S3File();
-            s3File.name = uploadFilePart.getFilename();
-            s3File.file = uploadFilePart.getFile();
-            s3File.save();
-            return ok("File uploaded to S3");
-        }
-        else {
-            return badRequest("File upload error");
-        }
-		
+		Http.MultipartFormData.FilePart uploadFilePart = body.getFile("file");
+		if (uploadFilePart != null) {
+			S3File s3File = new S3File();
+			s3File.name = uploadFilePart.getFilename();
+			s3File.file = uploadFilePart.getFile();
+			s3File.save();
+			return ok("File uploaded to S3");
+		} else {
+			return badRequest("File upload error");
+		}
+
 	}
 
 }

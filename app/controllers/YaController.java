@@ -1,5 +1,8 @@
 package controllers;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import play.mvc.Controller;
 
 import com.fixit.model.User;
@@ -10,31 +13,28 @@ import com.fixit.service.impl.MongoEventService;
 import com.fixit.service.impl.MongoGroupService;
 import com.fixit.service.impl.MongoUserService;
 
+@Named
 public class YaController extends Controller {
 
 	public static final String SESSION_ATTRIBUTE_USERNAME = "username";
 	public static final String SESSION_ATTRIBUTE_ACCESS_TOKEN = "access_token";
 
-	private static UserService userService = new MongoUserService();
+	
+	@Inject
+	private UserService userService;
 
-	private static GroupService groupService = new MongoGroupService(
-			new MongoUserService());
+	@Inject
+	private EventService eventService;
 
-	private static EventService eventService = new MongoEventService();
-
-	protected static UserService getUserService() {
+	protected UserService getUserService() {
 		return userService;
 	}
 
-	protected static GroupService getGroupService() {
-		return groupService;
-	}
-
-	protected static EventService getEventService() {
+	protected EventService getEventService() {
 		return eventService;
 	}
 
-	protected static User getUser() {
+	protected User getUser() {
 		return userService.load(getUserName());
 	}
 

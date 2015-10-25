@@ -5,7 +5,7 @@ import java.util.List;
 import com.fixit.model.notification.Notification;
 
 public interface NotificationService {
-
+	
 	public Notification getNotification(String notificationId);
 
 	public Notification saveNotification(Notification notification);
