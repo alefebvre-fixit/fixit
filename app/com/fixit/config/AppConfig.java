@@ -10,24 +10,38 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import play.Play;
 
-import com.fixit.dao.SpringUserRepository;
 import com.fixit.dao.UserRepository;
 import com.fixit.service.YaService;
 import com.fixit.service.impl.MongoUserService;
-import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.WriteConcern;
 
 import controllers.YaController;
 
 @Configuration
-@EnableMongoRepositories(basePackageClasses = {UserRepository.class})
-@ComponentScan(basePackageClasses = {YaController.class, YaService.class, MongoUserService.class})
+@EnableMongoRepositories(basePackageClasses = { UserRepository.class })
+@ComponentScan(basePackageClasses = { YaController.class, YaService.class,
+		MongoUserService.class })
 public class AppConfig {
 
 	@Bean
 	public MongoDbFactory mongoDbFactory() throws Exception {
-		return new SimpleMongoDbFactory(new MongoClient(), Play.application()
-				.configuration().getString("mongodb.db"));
+
+		String username = Play.application().configuration()
+				.getString("mongodb.username");
+		String password = Play.application().configuration()
+				.getString("mongodb.password");
+		String database = Play.application().configuration()
+				.getString("mongodb.database");
+
+		String host = Play.application().configuration()
+				.getString("mongodb.host");
+
+		MongoClientURI uri = new MongoClientURI(Play.application()
+				.configuration().getString("mongodb.uri"));
+
+		return new SimpleMongoDbFactory(uri);
+
 	}
 
 	@Bean
