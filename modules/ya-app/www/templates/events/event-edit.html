@@ -1,0 +1,13 @@
+
+<ion-view view-title="Edit Event">
+    <ion-nav-buttons side="right">
+        <a class="button button-clear button-primary"  ui-sref="event({ eventId: event.id })"></a>
+    </ion-nav-buttons>
+    <ion-content>
+            <div ng-include data-src="'templates/events/partial/event-edit-core.html'"></div>
+            <div class="list">
+                <button class="button button-full button-calm" ng-click="saveEvent(event)">Apply</button>
+            </div>
+
+    </ion-content>
+</ion-view>

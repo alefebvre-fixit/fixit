@@ -35,6 +35,27 @@ angular.module('ya-app').controller('ParticipationListController',
     ]);
 
 
+
+angular.module('ya-app').controller('EditEventController',
+    ['EventService', '$scope', '$state', 'eventId',
+        function (EventService, $scope, $state, eventId) {
+
+            EventService.getEvent(eventId).then(function(event) {
+                $scope.event = event;
+            });
+
+
+            $scope.saveEvent = function(event) {
+                console.log(event);
+                EventService.saveEvent(event).then(function(data){
+                    $state.go('event', {eventId: data.id});
+                });
+            };
+
+
+        }
+    ]);
+
 angular.module('ya-app').controller('ViewEventController',
     ['$scope', '$state', '$ionicPopup', '$ionicActionSheet', '$ionicModal', 'YaService', 'EventService', 'eventId', '$ionicModal',
         function ($scope, $state, $ionicPopup, $ionicActionSheet, $ionicModal, YaService, EventService, eventId) {
@@ -84,39 +105,49 @@ angular.module('ya-app').controller('ViewEventController',
             $scope.deleteEvent = function(eventToDelete) {
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Delete Event',
-                    template: 'Are you sure you want to delete this event?'
+                    template: 'Are you sure you want to delete this event?',
+                    buttons: [
+                        { text: 'Cancel' },
+                        {
+                            text: '<b>Delete</b>',
+                            type: 'button-calm',
+                            onTap: function(e) {
+                                return true;
+                            }
+                        }
+                    ]
                 });
                 confirmPopup.then(function(res) {
                     if(res) {
                         EventService.deleteEvent(eventToDelete).then(function () {
                             YaService.toastMe('Event ' + eventToDelete.name + ' deleted.');
+                            $state.go('tabs.events');
                         });
                     }
                 });
             };
 
-
-
+            $scope.openEditEvent = function(event){
+                $state.go("event-edit", { eventId: event.id});
+            };
 
                 // Triggered on a button click, or some other target
             $scope.showEventAction = function(eventToUpdate) {
                 // Show the action sheet
                 $ionicActionSheet.show({
                     buttons: [
-                        { text: 'Edit' },
-                        { text: 'Create Event' }
+                        { text: 'Edit' }
                     ],
                     destructiveText: 'Delete',
                     titleText: 'Event',
                     cancelText: 'Cancel',
                     destructiveButtonClicked: function() {
                         $scope.deleteEvent(eventToUpdate);
+                        return true;
                     },
                     buttonClicked: function(index) {
                         if (index == 0){
                             $scope.openEditEvent(eventToUpdate);
-                        } else if (index == 1) {
-                            $scope.publishProject(eventToUpdate);
                         }
                         return true;
                     }

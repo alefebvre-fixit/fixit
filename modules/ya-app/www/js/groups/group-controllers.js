@@ -150,7 +150,17 @@ angular.module('ya-app').controller('ViewGroupController',
             $scope.deleteGroup = function(groupToDelete) {
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Delete Group',
-                    template: 'Are you sure you want to delete this group?'
+                    template: 'Are you sure you want to delete this group?',
+                    buttons: [
+                        { text: 'Cancel' },
+                        {
+                            text: '<b>Delete</b>',
+                            type: 'button-calm',
+                            onTap: function(e) {
+                               return true;
+                            }
+                        }
+                    ]
                 });
                 confirmPopup.then(function(res) {
                     if(res) {
@@ -176,12 +186,15 @@ angular.module('ya-app').controller('ViewGroupController',
                     cancelText: 'Cancel',
                     destructiveButtonClicked: function() {
                         $scope.deleteGroup(groupToUpdate);
+                        return true;
                     },
                     buttonClicked: function(index) {
                         if (index == 0){
                             $scope.openEditGroup(groupToUpdate);
+                            return true;
                         } else if (index == 1) {
                             $scope.openCreateEvent(groupToUpdate);
+                            return true;
                         }
                         return true;
                     }
