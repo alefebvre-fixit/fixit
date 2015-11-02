@@ -3,8 +3,23 @@
         <div class="list">
             <label class="item item-input item-floating-label">
                 <span class="input-label">Event Name</span>
-                <input type="text" placeholder="Type group event here..." ng-model="event.name">
+                <input type="text" placeholder="Type group event here..." ng-model="event.name" ng-minlength="5" ng-maxlength="20" required>
             </label>
+
+            <div class="error-container" ng-show="event.name.$error" ng-messages="event.name.$error">
+                <div class="error" ng-message="required">
+                    <i class="ion-information-circled"></i>
+                    This field is required!
+                </div>
+                <div class="error" ng-message="minlength">
+                    <i class="ion-information-circled"></i>
+                    Minimum length of this field is 5 characters!
+                </div>
+                <div class="error" ng-message="maxlength">
+                    <i class="ion-information-circled"></i>
+                    Maximum length of this field is 20 characters!
+                </div>
+            </div>
 
             <label class="item item-input item-floating-label">
                 <span class="input-label">Description</span>

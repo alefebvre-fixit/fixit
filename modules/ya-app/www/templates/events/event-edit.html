@@ -4,10 +4,38 @@
         <a class="button button-clear button-primary"  ui-sref="event({ eventId: event.id })"></a>
     </ion-nav-buttons>
     <ion-content>
-            <div ng-include data-src="'templates/events/partial/event-edit-core.html'"></div>
+
+        <form name="eventForm" novalidate ng-submit="saveEvent(eventForm)">
+
             <div class="list">
-                <button class="button button-full button-calm" ng-click="saveEvent(event)">Apply</button>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Event Name</span>
+                    <input type="text" name="name" placeholder="Type group event here..." ng-model="event.name" ng-minlength="5" ng-maxlength="20" required>
+                </label>
+                <div ng-show="eventForm.$submitted && eventForm.name.$error" ng-messages="eventForm.name.$error">
+                    <ng-include src="'templates/common/validation-messages.html'"></ng-include>
+                </div>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Description</span>
+                    <input type="text" name="description" placeholder="Describe your event here..." ng-model="event.description" ng-minlength="5" ng-maxlength="140" required>
+                </label>
+                <div ng-show="eventForm.$submitted && eventForm.description.$error" ng-messages="eventForm.description.$error">
+                    <ng-include src="'templates/common/validation-messages.html'"></ng-include>
+                </div>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Location</span>
+                    <input type="text" name="location" placeholder="Type event location here..." ng-model="event.city" required>
+                </label>
+                <div ng-show="eventForm.$submitted && eventForm.location.$error" ng-messages="eventForm.location.$error">
+                    <ng-include src="'templates/common/validation-messages.html'"></ng-include>
+                </div>
             </div>
+
+            <div class="list">
+                <button class="button button-full button-calm" type="submit">Apply</button>
+            </div>
+
+        </form>
 
     </ion-content>
 </ion-view>

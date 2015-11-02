@@ -45,9 +45,15 @@ angular.module('ya-app').controller('EditEventController',
             });
 
 
-            $scope.saveEvent = function(event) {
+            $scope.saveEvent = function(form) {
+
+                // If form is invalid, return and let AngularJS show validation errors.
+                if (form.$invalid) {
+                    return;
+                }
+
                 console.log(event);
-                EventService.saveEvent(event).then(function(data){
+                EventService.saveEvent($scope.event).then(function(data){
                     $state.go('event', {eventId: data.id});
                 });
             };
