@@ -3,9 +3,9 @@
     <ion-nav-buttons side="right">
         <a class="button button-clear button-primary"  ui-sref="event({ eventId: event.id })"></a>
     </ion-nav-buttons>
-    <ion-content>
 
         <form name="eventForm" novalidate ng-submit="saveEvent(eventForm)">
+    <ion-content>
 
             <div class="list">
                 <label class="item item-input item-floating-label">
@@ -31,11 +31,14 @@
                 </div>
             </div>
 
-            <div class="list">
-                <button class="button button-full button-calm" type="submit">Apply</button>
+            <div class="list list-inset list-transparent" >
+                <button class="button button-block button-calm" type="submit"><b>Apply</b></button>
             </div>
 
-        </form>
+
 
     </ion-content>
+
+    </form>
+
 </ion-view>

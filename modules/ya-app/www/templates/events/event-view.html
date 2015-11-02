@@ -54,8 +54,11 @@
 
 
 <ion-view view-title="Event">
+
+
+
     <ion-nav-buttons side="right">
-        <a class="button button-icon icon ion-android-more-vertical" ng-click="showEventAction(event)"></a>
+        <button class="button button-icon ion-more" ng-click="popover.show($event)"></button>
     </ion-nav-buttons>
     <ion-content>
 

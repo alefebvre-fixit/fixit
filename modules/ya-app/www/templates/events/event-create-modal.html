@@ -5,7 +5,22 @@
     </ion-header-bar>
     <ion-content>
 
-        <div ng-include data-src="'templates/events/partial/event-edit-core.html'"></div>
+        <div class="list">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Event Name</span>
+                <input type="text" placeholder="Type group event here..." ng-model="event.name" ng-minlength="5" ng-maxlength="20" required>
+            </label>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Description</span>
+                <input type="text" placeholder="Describe your event here..." ng-model="event.description">
+            </label>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Location</span>
+                <input type="text" placeholder="Type event location here..." ng-model="event.city">
+            </label>
+        </div>
 
         <div class="list">
             <button class="button button-full button-calm" ng-click="saveEvent(event)">Create</button>

@@ -63,8 +63,8 @@ angular.module('ya-app').controller('EditEventController',
     ]);
 
 angular.module('ya-app').controller('ViewEventController',
-    ['$scope', '$state', '$ionicPopup', '$ionicActionSheet', '$ionicModal', 'YaService', 'EventService', 'eventId', '$ionicModal',
-        function ($scope, $state, $ionicPopup, $ionicActionSheet, $ionicModal, YaService, EventService, eventId) {
+    ['$scope', '$state', '$ionicPopup', '$ionicActionSheet', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId',
+        function ($scope, $state, $ionicPopup, $ionicActionSheet, $ionicModal, $ionicPopover,  YaService, EventService, eventId) {
             console.log("ViewEventController eventId=" + eventId);
 
             //To insure the back button is displayed
@@ -109,6 +109,8 @@ angular.module('ya-app').controller('ViewEventController',
             };
 
             $scope.deleteEvent = function(eventToDelete) {
+                $scope.closePopover();
+
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Delete Event',
                     template: 'Are you sure you want to delete this event?',
@@ -134,30 +136,8 @@ angular.module('ya-app').controller('ViewEventController',
             };
 
             $scope.openEditEvent = function(event){
+                $scope.closePopover();
                 $state.go("event-edit", { eventId: event.id});
-            };
-
-                // Triggered on a button click, or some other target
-            $scope.showEventAction = function(eventToUpdate) {
-                // Show the action sheet
-                $ionicActionSheet.show({
-                    buttons: [
-                        { text: 'Edit' }
-                    ],
-                    destructiveText: 'Delete',
-                    titleText: 'Event',
-                    cancelText: 'Cancel',
-                    destructiveButtonClicked: function() {
-                        $scope.deleteEvent(eventToUpdate);
-                        return true;
-                    },
-                    buttonClicked: function(index) {
-                        if (index == 0){
-                            $scope.openEditEvent(eventToUpdate);
-                        }
-                        return true;
-                    }
-                });
             };
 
 
@@ -224,6 +204,22 @@ angular.module('ya-app').controller('ViewEventController',
 
             //End Modal for group edition
 
+
+            $ionicPopover.fromTemplateUrl('templates/events/partial/event-popover.html', {
+                scope: $scope
+            }).then(function(popover) {
+                $scope.popover = popover;
+            });
+
+            $scope.closePopover = function() {
+                if ($scope.popover){
+                    $scope.popover.hide();
+                }
+            };
+            //Cleanup the popover when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.popover.remove();
+            });
 
         }
     ]);
