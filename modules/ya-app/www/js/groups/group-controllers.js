@@ -1,6 +1,6 @@
 angular.module('ya-app').controller('ListGroupsController',
-    ['GroupService', 'EventService', '$scope', '$ionicModal',
-        function (GroupService, EventService, $scope, $ionicModal) {
+    ['GroupService', 'EventService', '$scope','$state', '$ionicModal',
+        function (GroupService, EventService, $scope, $state, $ionicModal) {
 
             GroupService.getGroups().then(function (groups) {
                 $scope.groups = groups;
@@ -13,54 +13,9 @@ angular.module('ya-app').controller('ListGroupsController',
                 $scope.$broadcast('scroll.refreshComplete');
             };
 
-
-            //Start Modal for group editing
-            $ionicModal.fromTemplateUrl('templates/groups/group-create-modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function(modal) {
-                $scope.groupCreateModal = modal;
-            });
-
             $scope.openCreateGroup = function() {
-                $scope.myGroup = {};
-                $scope.groupCreateModal.show();
+                $state.go('group-new');
             };
-
-            $scope.closeCreateGroup = function() {
-                $scope.groupCreateModal.hide();
-            };
-
-            //Cleanup the modal when we're done with it!
-            $scope.$on('$destroy', function() {
-                if ($scope.groupCreateModal){
-                    $scope.groupCreateModal.remove();
-                }
-            });
-
-            // Execute action on hide modal
-            $scope.$on('groupCreateModal.hidden', function() {
-                // Execute action
-            });
-
-            // Execute action on remove modal
-            $scope.$on('groupCreateModal.removed', function() {
-                // Execute action
-            });
-
-            $scope.save = function(myGroup) {
-                //TODO Do some validation
-                console.log(myGroup);
-
-                GroupService.saveGroup(myGroup).then(function(data){
-                    $scope.groups.push(data);
-                    $scope.closeCreateGroup();
-                });
-
-
-            };
-
-            //End Modal for group editing
 
         }
     ]);
@@ -70,13 +25,16 @@ angular.module('ya-app').controller('EditGroupController',
     ['GroupService', '$scope', '$state', 'groupId',
         function (GroupService, $scope, $state, groupId) {
 
-            GroupService.getGroup(groupId).then(function(group) {
-                $scope.group = group;
-            });
-
+            if (groupId > 0){
+                GroupService.getGroup(groupId).then(function(group) {
+                    $scope.group = group;
+                });
+            } else {
+                $scope.group = {};
+            }
 
             $scope.saveGroup = function(form) {
-
+                console.log($scope.group);
                 // If form is invalid, return and let AngularJS show validation errors.
                 if (form.$invalid) {
                     return;
@@ -175,6 +133,7 @@ angular.module('ya-app').controller('ViewGroupController',
             };
 
             $scope.deleteGroup = function(groupToDelete) {
+                $scope.closePopover();
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Delete Group',
                     template: 'Are you sure you want to delete this group?',
@@ -200,36 +159,8 @@ angular.module('ya-app').controller('ViewGroupController',
             };
 
 
-                // Triggered on a button click, or some other target
-            $scope.showGroupAction = function(groupToUpdate) {
-                // Show the action sheet
-                $ionicActionSheet.show({
-                    buttons: [
-                        { text: 'Edit' },
-                        { text: 'Create Event' }
-                    ],
-                    destructiveText: 'Delete',
-                    titleText: 'Group',
-                    cancelText: 'Cancel',
-                    destructiveButtonClicked: function() {
-                        $scope.deleteGroup(groupToUpdate);
-                        return true;
-                    },
-                    buttonClicked: function(index) {
-                        if (index == 0){
-                            $scope.openEditGroup(groupToUpdate);
-                            return true;
-                        } else if (index == 1) {
-                            $scope.openCreateEvent(groupToUpdate);
-                            return true;
-                        }
-                        return true;
-                    }
-                });
-            };
-
             $scope.openEditGroup = function(group){
-                //$scope.closePopover();
+                $scope.closePopover();
                 $state.go("group-edit", { groupId: group.id});
             };
 

@@ -24,6 +24,19 @@ angular.module('ya-app').config(function ($stateProvider) {
             },
             authenticate: true
         })
+        .state('group-new', {
+            cache: false,
+            url: "/group/new",
+            templateUrl: "templates/groups/group-edit.html",
+            controller: 'EditGroupController',
+            resolve: {
+                groupId: function ($stateParams) {
+                    return 0;
+                }
+            }
+            ,
+            authenticate: true
+        })
         .state('group-edit', {
             cache: false,
             url: "/group/:groupId",
