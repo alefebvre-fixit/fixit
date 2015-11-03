@@ -66,9 +66,36 @@ angular.module('ya-app').controller('ListGroupsController',
     ]);
 
 
+angular.module('ya-app').controller('EditGroupController',
+    ['GroupService', '$scope', '$state', 'groupId',
+        function (GroupService, $scope, $state, groupId) {
+
+            GroupService.getGroup(groupId).then(function(group) {
+                $scope.group = group;
+            });
+
+
+            $scope.saveGroup = function(form) {
+
+                // If form is invalid, return and let AngularJS show validation errors.
+                if (form.$invalid) {
+                    return;
+                }
+
+                GroupService.saveGroup($scope.group).then(function(group) {
+                    $state.go('group', {groupId: group.id});
+                });
+
+            };
+
+
+        }
+    ]);
+
+
 angular.module('ya-app').controller('ViewGroupController',
-    ['YaService', '$scope', '$state', '$ionicPopup', '$ionicActionSheet', '$ionicModal', 'GroupService', 'EventService', 'groupId',
-        function (YaService, $scope, $state, $ionicPopup, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
+    ['YaService', '$scope', '$state', '$ionicPopup','$ionicPopover', '$ionicActionSheet', '$ionicModal', 'GroupService', 'EventService', 'groupId',
+        function (YaService, $scope, $state, $ionicPopup,$ionicPopover, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
             console.log("ViewGroupController groupId=" + groupId);
 
 
@@ -201,51 +228,12 @@ angular.module('ya-app').controller('ViewGroupController',
                 });
             };
 
-
-
-            //Start Modal for group edition
-
-            $ionicModal.fromTemplateUrl('templates/groups/group-edit-modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function(modal) {
-                $scope.groupEditModal = modal;
-            });
-
-            $scope.openEditGroup = function(groupToUpdate) {
-                $scope.myGroup = groupToUpdate;
-                $scope.groupEditModal.show();
+            $scope.openEditGroup = function(group){
+                //$scope.closePopover();
+                $state.go("group-edit", { groupId: group.id});
             };
 
-            $scope.closeEditGroup = function() {
-                $scope.groupEditModal.hide();
-            };
 
-            //Cleanup the modal when we're done with it!
-            $scope.$on('$destroy', function() {
-                if ($scope.groupEditModal){
-                    $scope.groupEditModal.remove();
-                }
-            });
-
-            // Execute action on hide modal
-            $scope.$on('groupEditModal.hidden', function() {
-                // Execute action
-            });
-
-            // Execute action on remove modal
-            $scope.$on('groupEditModal.removed', function() {
-                // Execute action
-            });
-
-            $scope.saveGroup = function(myGroup) {
-                GroupService.saveGroup(myGroup).then(function(data){
-                    $scope.group = data;
-                    $scope.closeEditGroup();
-                });
-            };
-
-            //End Modal for group edition
 
             //Start Modal for event creation
             $ionicModal.fromTemplateUrl('templates/events/event-create-modal.html', {
@@ -296,6 +284,23 @@ angular.module('ya-app').controller('ViewGroupController',
             };
 
             //End Modal for event creation
+
+            $ionicPopover.fromTemplateUrl('templates/groups/partial/group-popover.html', {
+                scope: $scope
+            }).then(function(popover) {
+                $scope.popover = popover;
+            });
+
+            $scope.closePopover = function() {
+                if ($scope.popover){
+                    $scope.popover.hide();
+                }
+            };
+            //Cleanup the popover when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.popover.remove();
+            });
+
 
         }
     ]);
