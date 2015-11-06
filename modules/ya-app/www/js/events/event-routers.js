@@ -24,6 +24,13 @@ angular.module('ya-app').config(function ($stateProvider) {
             ,
             authenticate: true
         })
+        .state('event-create', {
+            cache: false,
+            url: "/event/new",
+            templateUrl: "templates/events/event-create.html",
+            controller: 'CreateEventController',
+            authenticate: true
+        })
         .state('event-edit', {
             cache: false,
             url: "/event/:eventId",

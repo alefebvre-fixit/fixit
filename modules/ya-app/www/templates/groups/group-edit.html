@@ -1,43 +1,11 @@
 
 <ion-view view-title="Edit Group">
+
+
     <ion-nav-buttons side="right">
-        <a class="button button-clear button-primary"  ui-sref="group({ groupId: group.id })"></a>
+        <a class="button button-clear button-primary"  ui-sref="group({ groupId: group.id })">Cancel</a>
     </ion-nav-buttons>
-        <form name="groupForm" novalidate ng-submit="saveGroup(groupForm)">
-    <ion-content>
 
-            <div class="list">
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Group Name</span>
-                    <input type="text" name="name" placeholder="Type group group here..." ng-model="group.name" ng-minlength="5" ng-maxlength="20" required>
-                </label>
-                <div ng-show="groupForm.$submitted && groupForm.name.$error" ng-messages="groupForm.name.$error">
-                    <ng-include src="'templates/common/validation-messages.html'"></ng-include>
-                </div>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Description</span>
-                    <input type="text" name="description" placeholder="Describe your group here..." ng-model="group.description" ng-minlength="5" ng-maxlength="140" required>
-                </label>
-                <div ng-show="groupForm.$submitted && groupForm.description.$error" ng-messages="groupForm.description.$error">
-                    <ng-include src="'templates/common/validation-messages.html'"></ng-include>
-                </div>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Location</span>
-                    <input type="text" name="location" placeholder="Type group location here..." ng-model="group.city" required>
-                </label>
-                <div ng-show="groupForm.$submitted && groupForm.location.$error" ng-messages="groupForm.location.$error">
-                    <ng-include src="'templates/common/validation-messages.html'"></ng-include>
-                </div>
-            </div>
-
-            <div class="list list-inset list-transparent" >
-                <button class="button button-block button-calm" type="submit"><b>Apply</b></button>
-            </div>
-
-
-
-    </ion-content>
-
-    </form>
+    <div ng-include data-src="'templates/groups/partial/group-edit-core.html'"></div>
 
 </ion-view>

@@ -14,7 +14,7 @@ angular.module('ya-app').controller('ListGroupsController',
             };
 
             $scope.openCreateGroup = function() {
-                $state.go('group-new');
+                $state.go('group-create');
             };
 
         }
@@ -25,13 +25,32 @@ angular.module('ya-app').controller('EditGroupController',
     ['GroupService', '$scope', '$state', 'groupId',
         function (GroupService, $scope, $state, groupId) {
 
-            if (groupId > 0){
-                GroupService.getGroup(groupId).then(function(group) {
-                    $scope.group = group;
+            GroupService.getGroup(groupId).then(function(group) {
+                $scope.group = group;
+            });
+
+            $scope.saveGroup = function(form) {
+                console.log($scope.group);
+                // If form is invalid, return and let AngularJS show validation errors.
+                if (form.$invalid) {
+                    return;
+                }
+
+                GroupService.saveGroup($scope.group).then(function(group) {
+                    $state.go('group', {groupId: group.id});
                 });
-            } else {
-                $scope.group = {};
-            }
+
+            };
+
+
+        }
+    ]);
+
+angular.module('ya-app').controller('CreateGroupController',
+    ['GroupService', '$scope', '$state',
+        function (GroupService, $scope, $state) {
+
+            $scope.group = {};
 
             $scope.saveGroup = function(form) {
                 console.log($scope.group);

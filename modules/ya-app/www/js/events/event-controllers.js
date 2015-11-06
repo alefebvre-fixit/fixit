@@ -62,6 +62,30 @@ angular.module('ya-app').controller('EditEventController',
         }
     ]);
 
+angular.module('ya-app').controller('CreateEventController',
+    ['EventService', '$scope', '$state',
+        function (EventService, $scope, $state) {
+
+            $scope.event = {};
+
+
+            $scope.saveEvent = function(form) {
+
+                // If form is invalid, return and let AngularJS show validation errors.
+                if (form.$invalid) {
+                    return;
+                }
+
+                console.log(event);
+                EventService.saveEvent($scope.event).then(function(data){
+                    $state.go('event', {eventId: data.id});
+                });
+            };
+
+
+        }
+    ]);
+
 angular.module('ya-app').controller('ViewEventController',
     ['$scope', '$state', '$ionicPopup', '$ionicActionSheet', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId',
         function ($scope, $state, $ionicPopup, $ionicActionSheet, $ionicModal, $ionicPopover,  YaService, EventService, eventId) {
