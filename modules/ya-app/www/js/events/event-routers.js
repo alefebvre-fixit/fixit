@@ -26,9 +26,15 @@ angular.module('ya-app').config(function ($stateProvider) {
         })
         .state('event-create', {
             cache: false,
-            url: "/event/new",
+            url: "/event/new/:groupId",
             templateUrl: "templates/events/event-create.html",
             controller: 'CreateEventController',
+            resolve: {
+                groupId: function ($stateParams) {
+                    console.log('Hello event nb=' + $stateParams.groupId);
+                    return $stateParams.groupId;
+                }
+            },
             authenticate: true
         })
         .state('event-edit', {

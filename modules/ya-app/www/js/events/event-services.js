@@ -39,8 +39,8 @@ angular.module('ya-app').factory('EventService',
                         return response.data;
                     });
                 },
-                instanciateEvent: function (group) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + group.id +'/events/new').then(function (response) {
+                instanciateEvent: function (groupId) {
+                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId +'/events/new').then(function (response) {
                         return response.data;
                     });
                 },

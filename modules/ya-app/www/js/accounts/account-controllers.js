@@ -116,8 +116,13 @@ angular.module('ya-app').controller('EditSettingController', ['YaService', 'Sett
 ]);
 
 
-angular.module('ya-app').controller('UserController', ['YaService', '$scope', 'SettingService', 'username', '$ionicPopup',
-    function (YaService, $scope, SettingService, username, $ionicPopup) {
+angular.module('ya-app').controller('UserController', ['YaService', '$scope', 'SettingService', 'username', '$ionicPopup', '$ionicPopover','$state',
+    function (YaService, $scope, SettingService, username, $ionicPopup, $ionicPopover, $state) {
+
+        //To insure the back button is displayed
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            viewData.enableBack = true;
+        });
 
         SettingService.getUserSummary(username).then(function (summary) {
             $scope.summary = summary;
@@ -164,7 +169,26 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', 'S
             return false;
         };
 
+        $ionicPopover.fromTemplateUrl('templates/accounts/partial/account-popover.html', {
+            scope: $scope
+        }).then(function(popover) {
+            $scope.popover = popover;
+        });
 
+        $scope.closePopover = function() {
+            if ($scope.popover){
+                $scope.popover.hide();
+            }
+        };
+        //Cleanup the popover when we're done with it!
+        $scope.$on('$destroy', function() {
+            $scope.popover.remove();
+        });
+
+        $scope.openEditAccount = function(user){
+            $scope.closePopover();
+            $state.go("tabs.settings");
+        };
     }
 ]);
 

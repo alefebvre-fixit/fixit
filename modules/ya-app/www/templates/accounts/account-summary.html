@@ -51,13 +51,8 @@
 
 <ion-view title="Profile">
 
-    <ion-nav-buttons side="left">
-    </ion-nav-buttons>
-
     <ion-nav-buttons side="right">
-        <a class="button" ng-show="user.username==summary.user.username" ui-sref="settings">
-            Edit
-        </a>
+        <button class="button button-icon ion-more" ng-click="popover.show($event)"></button>
     </ion-nav-buttons>
 
     <ion-content class="has-header">

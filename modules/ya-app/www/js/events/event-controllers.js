@@ -30,7 +30,6 @@ angular.module('ya-app').controller('ParticipationListController',
                 });
                 $scope.$broadcast('scroll.refreshComplete');
             };
-
         }
     ]);
 
@@ -63,11 +62,14 @@ angular.module('ya-app').controller('EditEventController',
     ]);
 
 angular.module('ya-app').controller('CreateEventController',
-    ['EventService', '$scope', '$state',
-        function (EventService, $scope, $state) {
+    ['EventService', '$scope', '$state','$ionicHistory', 'groupId',
+        function (EventService, $scope, $state, $ionicHistory, groupId) {
 
-            $scope.event = {};
+            $scope.event = {groupId: groupId};
 
+            EventService.instanciateEvent(groupId).then(function(data){
+                $scope.event = data;
+            });
 
             $scope.saveEvent = function(form) {
 
@@ -77,8 +79,9 @@ angular.module('ya-app').controller('CreateEventController',
                 }
 
                 console.log(event);
-                EventService.saveEvent($scope.event).then(function(data){
-                    $state.go('event', {eventId: data.id});
+                EventService.saveEvent($scope.event).then(function(event){
+                    $ionicHistory.currentView($ionicHistory.backView());
+                    $state.go('event', {eventId: event.id, location: 'replace'});
                 });
             };
 

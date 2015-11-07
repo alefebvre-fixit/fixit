@@ -47,8 +47,8 @@ angular.module('ya-app').controller('EditGroupController',
     ]);
 
 angular.module('ya-app').controller('CreateGroupController',
-    ['GroupService', '$scope', '$state',
-        function (GroupService, $scope, $state) {
+    ['GroupService', '$scope', '$state', '$ionicHistory',
+        function (GroupService, $scope, $state, $ionicHistory) {
 
             $scope.group = {};
 
@@ -60,7 +60,8 @@ angular.module('ya-app').controller('CreateGroupController',
                 }
 
                 GroupService.saveGroup($scope.group).then(function(group) {
-                    $state.go('group', {groupId: group.id});
+                    $ionicHistory.currentView($ionicHistory.backView());
+                    $state.go('group', {groupId: group.id, location: 'replace'});
                 });
 
             };
@@ -183,57 +184,11 @@ angular.module('ya-app').controller('ViewGroupController',
                 $state.go("group-edit", { groupId: group.id});
             };
 
-
-
-            //Start Modal for event creation
-            $ionicModal.fromTemplateUrl('templates/events/event-create-modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function(modal) {
-                $scope.eventCreateModal = modal;
-            });
-
             $scope.openCreateEvent = function(group) {
-                EventService.instanciateEvent(group).then(function(data){
-                    $scope.myEvent = data;
-                    $scope.eventCreateModal.show();
-                });
+                $scope.closePopover();
+                $state.go("event-create", { groupId: group.id});
             };
 
-            $scope.closeCreateEvent = function() {
-                $scope.eventCreateModal.hide();
-            };
-
-            //Cleanup the modal when we're done with it!
-            $scope.$on('$destroy', function() {
-                if ($scope.eventCreateModal){
-                    $scope.eventCreateModal.remove();
-                }
-            });
-
-            // Execute action on hide modal
-            $scope.$on('eventCreateModal.hidden', function() {
-                // Execute action
-            });
-
-            // Execute action on remove modal
-            $scope.$on('eventCreateModal.removed', function() {
-                // Execute action
-            });
-
-            $scope.saveEvent = function(myEvent) {
-                //TODO Do some validation
-                console.log(myEvent);
-
-                EventService.saveEvent(myEvent).then(function(data){
-                    $scope.closeCreateEvent();
-                    $state.go('event', {eventId: data.id});
-                });
-
-
-            };
-
-            //End Modal for event creation
 
             $ionicPopover.fromTemplateUrl('templates/groups/partial/group-popover.html', {
                 scope: $scope
