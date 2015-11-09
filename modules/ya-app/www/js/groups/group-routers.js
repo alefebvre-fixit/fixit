@@ -11,7 +11,7 @@ angular.module('ya-app').config(function ($stateProvider) {
             authenticate: true
         })
         .state('group', {
-            cache: false,
+            cache: true,
             url: "/groups/:groupId",
             templateUrl: "templates/groups/group-view.html",
             controller: 'ViewGroupController',
@@ -25,7 +25,7 @@ angular.module('ya-app').config(function ($stateProvider) {
             authenticate: true
         })
         .state('group-create', {
-            cache: false,
+            cache: true,
             url: "/group/new",
             templateUrl: "templates/groups/group-create.html",
             controller: 'CreateGroupController',

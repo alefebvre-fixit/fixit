@@ -81,35 +81,41 @@ angular.module('ya-app').controller('ViewGroupController',
                 return YaService.isFavorite(group);
             };
 
+
+
             //To insure the back button is displayed
             $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+                $scope.summary = {followerSize : '-', commentSize : '-', comments: [], lastEvents: []};
+
                 viewData.enableBack = true;
+
+                GroupService.getGroup(groupId).then(function (group) {
+                    console.log("ViewGroupController getGroup is called groupId=" + groupId);
+                    $scope.group = group;
+
+
+                    GroupService.getEventSize(groupId).then(function (data) {
+                        $scope.summary.eventSize = data;
+                    });
+
+                    GroupService.getLastEvents(groupId).then(function (data) {
+                        $scope.summary.lastEvents = data;
+                    });
+
+                    GroupService.getFollowerSize(groupId).then(function (data) {
+                        $scope.summary.followerSize = data;
+                    });
+
+                    GroupService.getCommentSize(groupId).then(function (data) {
+                        $scope.summary.commentSize = data;
+                    });
+
+                });
             });
 
-            $scope.summary = {followerSize : '-', commentSize : '-', comments: [], lastEvents: []};
-
-            GroupService.getGroup(groupId).then(function (group) {
-                console.log("ViewGroupController getGroup is called groupId=" + groupId);
-                $scope.group = group;
 
 
-                GroupService.getEventSize(groupId).then(function (data) {
-                    $scope.summary.eventSize = data;
-                });
 
-                GroupService.getLastEvents(groupId).then(function (data) {
-                    $scope.summary.lastEvents = data;
-                });
-
-                GroupService.getFollowerSize(groupId).then(function (data) {
-                    $scope.summary.followerSize = data;
-                });
-
-                GroupService.getCommentSize(groupId).then(function (data) {
-                    $scope.summary.commentSize = data;
-                });
-
-            });
 
             $scope.setGroup =function(newGroup){
                 $scope.group = newGroup;

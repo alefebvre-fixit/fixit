@@ -2,22 +2,31 @@ angular.module('ya-app').controller('NotificationListController',
 	['NotificationService', '$scope','$rootScope','$state',
 		function (NotificationService, $scope, $rootScope, $state) {
 
-			NotificationService.getNotifications().then(function (data) {
-				$scope.notifications = data;
-				if (data){
-					$rootScope.badgecount = Object.keys(data).length;
-				} else {
-					$rootScope.badgecount = 0;
-				}
 
+			$scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+				NotificationService.getNotifications().then(function (data) {
+					console.log("NotificationListController getNotifications is called");
+					setNotification(data);
+				});
+				console.log("NotificationListController beforeEnter is called");
 			});
+
 
 			$scope.doRefresh = function() {
 				NotificationService.getNotifications().then(function (data) {
-					$scope.notifications = data;
+					setNotification(data);
+					$scope.$broadcast('scroll.refreshComplete');
 				});
 				//Stop the ion-refresher from spinning
-				$scope.$broadcast('scroll.refreshComplete');
+			};
+
+			setNotification = function(notifications){
+				$scope.notifications = notifications;
+				if (notifications){
+					$rootScope.badgecount = Object.keys(notifications).length;
+				} else {
+					$rootScope.badgecount = 0;
+				}
 			};
 
 
