@@ -49,11 +49,11 @@ public class MongoNotificationService implements NotificationService {
 			int length) {
 		List<Notification> result = null;
 		if (length > 0) {
-			Page<Notification> pages = notificationRepository.findByUsername(
+			Page<Notification> pages = notificationRepository.findByUsernameOrderByNotificationDateDesc(
 					username, new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
-			result = notificationRepository.findByUsername(username);
+			result = notificationRepository.findByUsernameOrderByNotificationDateDesc(username);
 		}
 		return result;
 	}

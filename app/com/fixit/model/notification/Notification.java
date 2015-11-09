@@ -10,6 +10,10 @@ public class Notification implements Cloneable {
 	public static final String TYPE_FAVORITE = "Favorite";
 	public static final String TYPE_FOLLOWERS = "Follow";
 	public static final String TYPE_COMMENTS = "Comment";
+	
+	
+	public static final String TYPE_GROUP = "Group";
+	public static final String TYPE_EVENT = "Event";
 	public static final String TYPE_PARTICIPATION = "Participation";
 
 	private String id;

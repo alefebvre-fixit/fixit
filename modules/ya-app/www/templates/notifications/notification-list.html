@@ -3,26 +3,24 @@
 
 	<ion-content class="has-header">
 		<ion-refresher on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
-
 		<div class="list">
-			<a class="item item-avatar"  collection-repeat="notification in notifications"
-			   ui-sref="user({username: notification.actor})">
+			<div>
+				<a class="item item-avatar" collection-repeat="notification in notifications">
+					<img ng-show="notification.type=='Participation'" ng-src="img/{{notification.actor}}.jpg" ng-click="goToEvent(notification.eventId)">
 
-				<img ng-src="img/{{notification.actor}}.jpg" ng-click="goToUser(notification.actor)">
+					<h2>{{notification.actor}}</h2>
 
-				<h2>{{notification.actor}}</h2>
-				<p ng-show="notification.type=='Participation'" ng-click="goToEvent(notification.groupId, notification.eventId)">
-					new Participation - <span am-time-ago="notification.notificationDate"></span>
-				</p>
-
-			</a>
-
+					<p ng-show="notification.type=='Participation'" ng-click="goToEvent(notification.eventId)">
+						new Participation - <span am-time-ago="notification.notificationDate"></span>
+					</p>
+					<p ng-show="notification.type=='Event'" ng-click="goToEvent(notification.eventId)">
+						new Event - <span am-time-ago="notification.notificationDate"></span>
+					</p>
+					<p ng-show="notification.type=='Group'" ng-click="goToGroup(notification.groupId)">
+						new Group - <span am-time-ago="notification.notificationDate"></span>
+					</p>
+				</a>
+			</div>
 		</div>
-
 	</ion-content>
-
-
-
-
-
 </ion-view>

@@ -79,6 +79,7 @@ angular.module('ya-app').controller('YaController', ['$scope', '$rootScope', '$w
 		$state.go('ya.followers', {username: username});
 	};
 
+
 }
 ]);
 

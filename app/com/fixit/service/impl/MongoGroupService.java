@@ -18,6 +18,7 @@ import com.fixit.model.Favorite;
 import com.fixit.model.User;
 import com.fixit.model.group.Group;
 import com.fixit.service.GroupService;
+import com.fixit.service.NotificationService;
 import com.fixit.service.UserService;
 
 @Named
@@ -31,6 +32,9 @@ public class MongoGroupService implements GroupService {
 
 	@Inject
 	private UserService userService;
+	
+	@Inject
+	private NotificationService notificationService;
 
 	@Override
 	public List<Group> getAll() {
@@ -52,7 +56,13 @@ public class MongoGroupService implements GroupService {
 
 	@Override
 	public Group save(Group group) {
-		return groupRepository.save(group);
+		Logger.debug("MongoGroupService.save(Group group) id=" + group.id);
+		
+		Group result = groupRepository.save(group);
+		
+		notificationService.publishNotification(group);
+		
+		return result;
 	}
 
 	@Override

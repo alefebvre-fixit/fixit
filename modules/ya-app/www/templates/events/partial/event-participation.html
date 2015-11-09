@@ -2,7 +2,12 @@
             <a class="item item-avatar"
                ui-sref="app.card-view({projectId: contribution.projectId, cardId: contribution.cardId})">
                 <img ng-src="img/{{participation.username}}.jpg">
-                <h2 class="icon ion-record">  {{participation.username}} - <span am-time-ago="participation.modificationDate"></span></h2>
-                <p><i class="icon ion-chatbubble calm"> {{participation.comment}}</i></p>
+
+                <div ng-switch="participation.status">
+                    <h2 ng-switch-when="IN"> <i class="icon ion-record balanced"></i> {{participation.username}} is in - <span am-time-ago="participation.modificationDate"></span></h2>
+                    <h2 ng-switch-when="OUT"> <i class="icon ion-record assertive"></i> {{participation.username}} is out - <span am-time-ago="participation.modificationDate"></span></h2>
+                    <h2 ng-switch-default> <i class="icon ion-record"></i> {{participation.username}} still has to rsvp - <span am-time-ago="participation.modificationDate"></span></h2>
+                </div>
+                <p ng-if="participation.comment"><i class="icon ion-chatbubble calm"> {{participation.comment}}</i></p>
             </a>
         </div>

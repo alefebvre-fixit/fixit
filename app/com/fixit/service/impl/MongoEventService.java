@@ -58,8 +58,10 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public Event save(Event event) {
-		return eventRepository.save(event);
+	public Event save(Event event) {		
+		getNotificationService().publishNotification(event);
+		Event result =  eventRepository.save(event);
+		return result;
 	}
 
 	@Override
