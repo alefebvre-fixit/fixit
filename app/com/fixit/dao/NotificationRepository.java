@@ -15,4 +15,10 @@ public interface NotificationRepository extends
 
 	public List<Notification> findByUsernameOrderByNotificationDateDesc(String username);
 
+	public List<Notification> findByUsernameAndGroupId(String username, String groupId);
+
+	public List<Notification> findByUsernameAndEventId(String username, String eventId);
+	
+	public List<Notification> findByUsername(String username);
+
 }

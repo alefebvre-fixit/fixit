@@ -102,10 +102,21 @@ POST    /api/profile     						@controllers.api.AccountAPIController.updateProfi
 POST    /api/profile/picture     				@controllers.api.AccountAPIController.uploadPicture()
 
 
+# API Notification
+
+
+GET     /api/notifications     									@controllers.api.NotificationAPIController.notifications()
+
+POST    /api/notifications/acknowledge     						@controllers.api.NotificationAPIController.acknowledgeNotifications()
+POST    /api/notifications/:notificationId/acknowledge     		@controllers.api.NotificationAPIController.acknowledgeNotification(notificationId: String)
+POST    /api/groups/:groupId/notifications/acknowledge     		@controllers.api.NotificationAPIController.acknowledgeGroupNotifications(groupId: String)
+POST    /api/events/:eventId/notifications/acknowledge     		@controllers.api.NotificationAPIController.acknowledgeEventNotifications(eventId: String)
+
+
 # API Test 
 
-GET    /api/test     							controllers.api.TestController.test()
-GET    /api/external/google/profile/:username     		controllers.api.TestController.googlePlusProfile(username: String)
+GET    /api/test     											controllers.api.TestController.test()
+GET    /api/external/google/profile/:username     				controllers.api.TestController.googlePlusProfile(username: String)
 
 
 # API Group

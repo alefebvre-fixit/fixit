@@ -24,4 +24,41 @@ public class NotificationAPIController extends FixItController {
 		return ok(play.libs.Json.toJson(notifications));
 	}
 
+	public Result acknowledgeGroupNotifications(String groupId) {
+		Logger.debug("NotificationAPIController.acknowledgeGroupNotifications groupId"
+				+ groupId);
+
+		getNotificationService().acknowledgeGroupNotifications(groupId,
+				getUserName());
+
+		return ok();
+	}
+
+	public Result acknowledgeEventNotifications(String eventId) {
+		Logger.debug("NotificationAPIController.acknowledgeEventNotifications eventId"
+				+ eventId);
+
+		getNotificationService().acknowledgeEventNotifications(eventId,
+				getUserName());
+
+		return ok();
+	}
+
+	public Result acknowledgeNotification(String notificationId) {
+		Logger.debug("NotificationAPIController.acknowledgeNotification notificationId"
+				+ notificationId);
+
+		getNotificationService().acknowledgeNotification(notificationId);
+
+		return ok();
+	}
+
+	public Result acknowledgeNotifications() {
+		Logger.debug("NotificationAPIController.acknowledgeNotifications");
+
+		getNotificationService().acknowledgeNotifications(getUserName());
+
+		return ok();
+	}
+	
 }

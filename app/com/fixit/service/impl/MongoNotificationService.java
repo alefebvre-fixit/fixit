@@ -89,4 +89,50 @@ public class MongoNotificationService implements NotificationService {
 				notification);
 	}
 
+	@Override
+	public List<Notification> getGroupNotifications(String groupId,
+			String username) {
+		return notificationRepository.findByUsernameAndGroupId(username, groupId);
+	}
+
+	@Override
+	public List<Notification> getEventNotifications(String eventId,
+			String username) {
+		return notificationRepository.findByUsernameAndEventId(username, eventId);
+	}
+
+	@Override
+	public void acknowledgeEventNotifications(String eventId, String username) {
+		List<Notification> notifications = getEventNotifications(eventId, username);
+		if (notifications != null && notifications.size()>0){
+			deleteNotifications(notifications);
+		}
+	}
+
+	@Override
+	public void acknowledgeGroupNotifications(String groupId, String username) {
+		List<Notification> notifications = getGroupNotifications(groupId, username);
+		if (notifications != null && notifications.size()>0){
+			deleteNotifications(notifications);
+		}
+	}
+
+	@Override
+	public void acknowledgeNotification(String notificationId) {
+		deleteNotification(notificationId);
+	}
+
+	@Override
+	public void deleteNotifications(List<Notification> notifications) {
+		notificationRepository.delete(notifications);
+	}
+
+	@Override
+	public void acknowledgeNotifications(String username) {
+		List<Notification> notifications = notificationRepository.findByUsername(username);
+		if (notifications != null && notifications.size()>0){
+			deleteNotifications(notifications);
+		}		
+	}
+
 }
