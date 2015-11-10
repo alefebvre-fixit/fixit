@@ -13,6 +13,7 @@ public class Participation {
 	public static final String STATUS_OUT = "OUT";
 
 	private String eventId;
+	private String eventName;
 	private String username;
 	private Date creationDate;
 	private Date modificationDate;
@@ -93,5 +94,15 @@ public class Participation {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	public String getEventName() {
+		return eventName;
+	}
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
+	
+	
 
 }

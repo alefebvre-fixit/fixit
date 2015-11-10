@@ -19,6 +19,7 @@ public class GroupNotificationFactory extends NotificationFactory {
 			notification.setType(Notification.TYPE_GROUP);
 			notification.setActor(group.getUsername());
 			notification.setGroupId(group.getId());
+			notification.setGroupName(group.getName());
 			notification.setNotificationDate(new Date());
 
 			notification.setStatus(group.getStatus());

@@ -121,6 +121,8 @@ public class EventAPIController extends YaController {
 		Event event = getEventService().getEvent(eventId);
 		if (event != null){
 			if (event.accept(participation)){
+				participation.setEventName(event.getName());
+				participation.setEventId(event.getId());
 				participation = getEventService().save(participation);
 			}
 		} else {

@@ -19,6 +19,8 @@ public class EventNotificationFactory extends NotificationFactory {
 			notification.setType(Notification.TYPE_EVENT);
 			notification.setActor(event.getUsername());
 			notification.setGroupId(event.getGroupId());
+			notification.setEventName(event.getName());
+			notification.setGroupName(event.getGroupName());
 			notification.setEventId(event.getId());
 			notification.setNotificationDate(new Date());
 

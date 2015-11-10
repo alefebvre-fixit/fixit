@@ -29,7 +29,8 @@ public class Notification implements Cloneable {
 	private String description;
 	private String eventId;
 	private String groupId;
-	
+	private String eventName;
+	private String groupName;
 	
 	public String getId() {
 		return id;
@@ -118,8 +119,6 @@ public class Notification implements Cloneable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
 
 	public String getEventId() {
 		return eventId;
@@ -135,6 +134,24 @@ public class Notification implements Cloneable {
 
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
+	}
+	
+	
+
+	public String getEventName() {
+		return eventName;
+	}
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 
 	@Override

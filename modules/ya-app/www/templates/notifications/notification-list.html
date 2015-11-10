@@ -5,20 +5,32 @@
 		<ion-refresher on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
 		<div class="list">
 			<div>
-				<a class="item item-avatar" collection-repeat="notification in notifications">
-					<img ng-show="notification.type=='Participation'" ng-src="img/{{notification.actor}}.jpg" ng-click="goToEvent(notification.eventId)">
-
-					<h2>{{notification.actor}}</h2>
-
-					<p ng-show="notification.type=='Participation'" ng-click="goToEvent(notification.eventId)">
-						new Participation - <span am-time-ago="notification.notificationDate"></span>
-					</p>
-					<p ng-show="notification.type=='Event'" ng-click="goToEvent(notification.eventId)">
-						new Event - <span am-time-ago="notification.notificationDate"></span>
-					</p>
-					<p ng-show="notification.type=='Group'" ng-click="goToGroup(notification.groupId)">
-						new Group - <span am-time-ago="notification.notificationDate"></span>
-					</p>
+				<a class="item item-notification" collection-repeat="notification in notifications">
+					<div ng-show="notification.type=='Participation'" ng-click="goToEvent(notification.eventId)">
+						<img class="img-notification" ng-src="img/{{notification.actor}}.jpg">
+						<div ng-switch="notification.status">
+							<h2 ng-switch-when="IN"> <i class="icon ion-record balanced"></i> {{notification.actor}} is in </h2>
+							<h2 ng-switch-when="OUT"> <i class="icon ion-record assertive"></i> {{notification.actor}} is out </h2>
+							<h2 ng-switch-default> <i class="icon ion-record"></i> {{notification.actor}} still has to rsvp </h2>
+						</div>
+						<p ng-click="goToEvent(notification.eventId)">
+							Participation update - <span am-time-ago="notification.notificationDate"></span>
+						</p>
+					</div>
+					<div ng-show="notification.type=='Event'" ng-click="goToEvent(notification.eventId)">
+						<img class="img-notification" ng-src="img/{{notification.actor}}.jpg">
+						<h2>{{notification.eventName}}</h2>
+						<p ng-click="goToEvent(notification.eventId)">
+							Event update - <span am-time-ago="notification.notificationDate"></span>
+						</p>
+					</div>
+					<div ng-show="notification.type=='Group'" ng-click="goToGroup(notification.groupId)">
+						<img class="img-notification" ng-src="img/{{notification.actor}}.jpg" >
+						<h2>{{notification.groupName}}</h2>
+						<p ng-click="goToEvent(notification.eventId)">
+							Group update - <span am-time-ago="notification.notificationDate"></span>
+						</p>
+					</div>
 				</a>
 			</div>
 		</div>
