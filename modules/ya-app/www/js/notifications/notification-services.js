@@ -9,8 +9,8 @@ angular.module('ya-app').factory('NotificationService',
                         return response.data;
                     });
                 },
-                acknowledgeNotification: function (notificationId) {
-                    return $http.post($rootScope.baseUrl + '/api/notifications/' + notificationId + '/acknowledge').then(function (response) {
+                acknowledgeNotification: function (notification) {
+                    return $http.post($rootScope.baseUrl + '/api/notifications/' + notification.id + '/acknowledge').then(function (response) {
                         return response.data;
                     });
                 },

@@ -23,12 +23,26 @@ angular.module('ya-app').controller('NotificationListController',
 			setNotification = function(notifications){
 				$scope.notifications = notifications;
 				if (notifications){
-					$rootScope.badgecount = Object.keys(notifications).length;
+					$rootScope.badgecount = Object.keys($scope.notifications).length;
 				} else {
 					$rootScope.badgecount = 0;
 				}
 			};
 
+
+			$scope.acknowledge = function(notification){
+				NotificationService.acknowledgeNotification(notification).then(function (data) {
+					$scope.notifications.splice($scope.notifications.indexOf(notification), 1);
+					$rootScope.badgecount = Object.keys($scope.notifications).length;
+				});
+			};
+
+			$scope.acknowledgeAll = function(){
+				NotificationService.acknowledgeNotifications().then(function (data) {
+					$scope.notifications = [];
+					$rootScope.badgecount = Object.keys($scope.notifications).length;
+				});
+			};
 
 			$scope.goToUser = function(username){
 				$state.go('user', {username: username});

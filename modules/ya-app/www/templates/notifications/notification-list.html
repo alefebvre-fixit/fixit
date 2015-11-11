@@ -1,11 +1,19 @@
 
+
+
+
 <ion-view title="Notifications" hide-back-button="false">
+
+	<ion-nav-buttons side="right">
+		<a class="button button-icon icon ion-android-done-all" ng-click="acknowledgeAll()"></a>
+	</ion-nav-buttons>
 
 	<ion-content class="has-header">
 		<ion-refresher on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
-		<div class="list">
-			<div>
-				<a class="item item-notification" collection-repeat="notification in notifications">
+			<ion-list class="list">
+				<ion-item ng-repeat="notification in notifications"
+						  class="item item-avatar item-remove-animate">
+
 					<div ng-show="notification.type=='Participation'" ng-click="goToEvent(notification.eventId)">
 						<img class="img-notification" ng-src="img/{{notification.actor}}.jpg">
 						<div ng-switch="notification.status">
@@ -30,9 +38,16 @@
 						<p ng-click="goToEvent(notification.eventId)">
 							Group update - <span am-time-ago="notification.notificationDate"></span>
 						</p>
+
 					</div>
-				</a>
-			</div>
-		</div>
+					<ion-option-button class="button-assertive"
+									   ng-click="acknowledge(notification)">
+						Acknowledge
+					</ion-option-button>
+				</ion-item>
+
+
+			</ion-list>
+
 	</ion-content>
 </ion-view>
