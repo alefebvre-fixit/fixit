@@ -15431,10 +15431,10 @@ a.button {
   text-decoration: none !important; }
 
 .group-header {
-  border-left: 5px solid #11c1f3; }
-
-.card-header {
   border-top: 5px solid #11c1f3; }
+
+.event-header {
+  border-left: 5px solid #11c1f3; }
 
 .statistic-label {
   margin: 0;

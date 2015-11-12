@@ -11,8 +11,8 @@ angular.module('ya-app').controller('ListEventsController',
             $scope.doRefresh = function() {
                 EventService.getEvents().then(function (events) {
                     $scope.events = events;
+                    $scope.$broadcast('scroll.refreshComplete');
                 });
-                $scope.$broadcast('scroll.refreshComplete');
             };
 
         }
@@ -29,8 +29,8 @@ angular.module('ya-app').controller('ParticipationListController',
             $scope.doRefresh = function() {
                 EventService.getEventParticipations(eventId).then(function (participations) {
                     $scope.participations = participations;
+                    $scope.$broadcast('scroll.refreshComplete');
                 });
-                $scope.$broadcast('scroll.refreshComplete');
             };
         }
     ]);
@@ -96,11 +96,6 @@ angular.module('ya-app').controller('ViewEventController',
         function ($scope, $state, $ionicPopup, $ionicActionSheet, $ionicModal, $ionicPopover,  YaService, EventService, eventId) {
             console.log("ViewEventController eventId=" + eventId);
 
-            //To insure the back button is displayed
-            $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
-                viewData.enableBack = true;
-            });
-
             $scope.summary = {participationsSize : '-', commentSize : '-', comments: [], lastParticipations: [],  myParticipation : {}};
 
             $scope.reload = function(eventId){
@@ -125,7 +120,12 @@ angular.module('ya-app').controller('ViewEventController',
                 });
             };
 
-            $scope.reload(eventId);
+            //To insure the back button is displayed
+            $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+                viewData.enableBack = true;
+                $scope.reload(eventId);
+            });
+
 
             $scope.setEvent =function(newEvent){
                 $scope.event = newEvent;

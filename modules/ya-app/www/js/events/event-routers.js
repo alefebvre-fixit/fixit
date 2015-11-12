@@ -12,13 +12,12 @@ angular.module('ya-app').config(function ($stateProvider) {
             authenticate: true
         })
         .state('event', {
-            cache: false,
+            cache: true,
             url: "/event/:eventId",
             templateUrl: "templates/events/event-view.html",
             controller: 'ViewEventController',
             resolve: {
                 eventId: function ($stateParams) {
-                    console.log('Hello event nb=' + $stateParams.eventId);
                     return $stateParams.eventId;
                 }
             }
@@ -32,7 +31,6 @@ angular.module('ya-app').config(function ($stateProvider) {
             controller: 'CreateEventController',
             resolve: {
                 groupId: function ($stateParams) {
-                    console.log('Hello event nb=' + $stateParams.groupId);
                     return $stateParams.groupId;
                 }
             },
@@ -45,7 +43,6 @@ angular.module('ya-app').config(function ($stateProvider) {
             controller: 'EditEventController',
             resolve: {
                 eventId: function ($stateParams) {
-                    console.log('Hello event nb=' + $stateParams.eventId);
                     return $stateParams.eventId;
                 }
             }
@@ -59,7 +56,6 @@ angular.module('ya-app').config(function ($stateProvider) {
             controller: 'ParticipationListController',
             resolve: {
                 eventId: function ($stateParams) {
-                    console.log('Hello event nb=' + $stateParams.eventId);
                     return $stateParams.eventId;
                 }
             }

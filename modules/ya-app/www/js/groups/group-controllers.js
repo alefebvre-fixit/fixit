@@ -11,8 +11,9 @@ angular.module('ya-app').controller('ListGroupsController',
             $scope.doRefresh = function() {
                 GroupService.getGroups().then(function (groups) {
                     $scope.groups = groups;
+                    $scope.$broadcast('scroll.refreshComplete');
                 });
-                $scope.$broadcast('scroll.refreshComplete');
+
             };
 
             $scope.openCreateGroup = function() {

@@ -1,7 +1,7 @@
         <div class="list">
             <a class="item item-avatar"
-               ui-sref="app.card-view({projectId: contribution.projectId, cardId: contribution.cardId})">
-                <img ng-src="img/{{participation.username}}.jpg">
+               ui-sref="user({username: participation.username})">
+                <img ng-src="img/{{participation.username}}.jpg" >
 
                 <div ng-switch="participation.status">
                     <h2 ng-switch-when="IN"> <i class="icon ion-record balanced"></i> {{participation.username}} is in - <span am-time-ago="participation.modificationDate"></span></h2>

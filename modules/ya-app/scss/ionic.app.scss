@@ -92,11 +92,11 @@ $palette-5:                        #FF3D7F !default;
 }
 
 .group-header{
-  border-left: 5px solid $calm;
+  border-top: 5px solid $palette-1;
 }
 
-.card-header{
-  border-top: 5px solid $calm;
+.event-header{
+  border-left: 5px solid $calm;
 }
 
 .statistic-label{

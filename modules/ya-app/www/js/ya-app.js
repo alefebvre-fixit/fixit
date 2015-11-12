@@ -10,13 +10,14 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment'])
 .run(function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
 
+
       var localFixitURL = 'http://localhost:9000';
       var emulatorFixitURL = 'http://10.0.2.2:9000';
       var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com';
 
       $rootScope.user = {};
       $rootScope.baseUrl = localFixitURL;
-      $rootScope.isPluginEnabled = false;
+      $rootScope.isPluginEnabled = true;
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -46,3 +47,16 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment'])
   });
 }
 );
+
+
+angular.module('ya-app').config(function($logProvider) {
+    var production = false;
+    if (production) {
+        $logProvider.debugEnabled(false);
+    }
+});
+
+angular.module('ya-app').config(function($ionicConfigProvider) {
+    console.log("ionic.Platform.isIOS()" + ionic.Platform.isIOS());
+    $ionicConfigProvider.scrolling.jsScrolling(true);
+});
