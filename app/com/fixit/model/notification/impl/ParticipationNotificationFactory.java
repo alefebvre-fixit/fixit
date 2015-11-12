@@ -19,8 +19,8 @@ public class ParticipationNotificationFactory extends NotificationFactory {
 			notification.setType(Notification.TYPE_PARTICIPATION);
 			notification.setActor(participation.getUsername());
 			notification.setEventId(participation.getEventId());
+			notification.setEventName(participation.getEventName());
 			notification.setNotificationDate(new Date());
-
 			notification.setStatus(participation.getStatus());
 
 			return notification;

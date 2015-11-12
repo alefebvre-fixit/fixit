@@ -16,9 +16,12 @@
             <br>
         </div>
 
-        <div ng-repeat="participation in participations">
-            <div ng-include data-src="'templates/events/partial/event-participation.html'"></div>
+        <div class="list">
+            <div ng-repeat="participation in participations track by participation.id" >
+                <div ng-include data-src="'templates/events/partial/event-participation.html'"></div>
+            </div>
         </div>
+
 
     </ion-content>
 

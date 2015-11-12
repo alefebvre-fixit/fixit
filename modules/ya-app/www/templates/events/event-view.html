@@ -119,10 +119,14 @@
     </div>
 </div>
 
-        <div class="item item-divider calm">
-            Participations
-        </div>
-
+<div class="item item-divider calm">
+    Participations
+</div>
+<div class="list">
+    <div ng-repeat="participation in participations track by participation.id" >
+        <div ng-include data-src="'templates/events/partial/event-participation.html'"></div>
+    </div>
+</div>
 
     </ion-content>
 </ion-view>

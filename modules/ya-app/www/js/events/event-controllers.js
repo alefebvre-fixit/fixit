@@ -22,8 +22,10 @@ angular.module('ya-app').controller('ParticipationListController',
     ['EventService', '$scope', 'eventId',
         function (EventService, $scope, eventId) {
 
-            EventService.getEventParticipations(eventId).then(function (participations) {
-                $scope.participations = participations;
+            $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+                EventService.getEventParticipations(eventId).then(function (participations) {
+                    $scope.participations = participations;
+                });
             });
 
             $scope.doRefresh = function() {

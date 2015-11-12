@@ -144,8 +144,11 @@ public class MongoEventService implements EventService {
 
 		Participation result = null;
 		participation.incrementVersion();
+		Logger.debug("MongoEventService.save(Participation participation)");
 		if (participation.getId() == null) {
-			Logger.debug("MongoEventService.save.insert()");
+			
+			Logger.debug("Looking for an existing participation with params eventId = " + participation.getEventId() + " participation " + participation.getUsername());
+			
 			Participation existing = getParticipation(
 					participation.getEventId(), participation.getUsername());
 			if (existing != null) {
@@ -155,6 +158,8 @@ public class MongoEventService implements EventService {
 				participation.setModificationDate(new Date());
 				result = participationRepository.save(participation);
 			} else {
+				Logger.debug("Cannot find existing participation");
+				
 				participation.setCreationDate(new Date());
 				participation.setModificationDate(participation
 						.getCreationDate());
