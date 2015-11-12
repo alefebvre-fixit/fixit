@@ -5,13 +5,13 @@
 <ion-view title="Notifications" hide-back-button="false">
 
 	<ion-nav-buttons side="right">
-		<a class="button button-icon icon ion-android-done-all" ng-click="acknowledgeAll()"></a>
+		<button class="button button-icon icon ion-android-done-all" ng-click="acknowledgeAll()" ng-disabled="notifications.length <= 0"></button>
 	</ion-nav-buttons>
 
 	<ion-content class="has-header">
 		<ion-refresher on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
 			<ion-list class="list">
-				<ion-item ng-repeat="notification in notifications"
+				<ion-item ng-repeat="notification in notifications track by notification.id"
 						  class="item item-avatar item-remove-animate">
 
 					<div ng-show="notification.type=='Participation'" ng-click="goToEvent(notification.eventId)">

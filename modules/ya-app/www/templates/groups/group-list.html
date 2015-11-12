@@ -23,7 +23,7 @@
 
         </div>
 
-        <div ng-repeat="group in groups">
+        <div ng-repeat="group in groups track by group.id">
             <div ng-include data-src="'templates/groups/partial/group-view.html'"></div>
         </div>
     </ion-content>

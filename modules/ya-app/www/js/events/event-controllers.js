@@ -2,8 +2,10 @@ angular.module('ya-app').controller('ListEventsController',
     ['EventService', '$scope',
         function (EventService, $scope) {
 
-            EventService.getEvents().then(function (events) {
-                $scope.events = events;
+            $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+                EventService.getEvents().then(function (events) {
+                    $scope.events = events;
+                });
             });
 
             $scope.doRefresh = function() {

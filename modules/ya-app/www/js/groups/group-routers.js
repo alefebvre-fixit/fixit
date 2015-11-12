@@ -1,6 +1,7 @@
 angular.module('ya-app').config(function ($stateProvider) {
     $stateProvider
         .state('tabs.groups', {
+            cache: true,
             url: "/groups",
             views: {
                 'tab-groups': {

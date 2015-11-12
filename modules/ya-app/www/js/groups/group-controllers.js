@@ -1,9 +1,11 @@
 angular.module('ya-app').controller('ListGroupsController',
-    ['GroupService', 'EventService', '$scope','$state', '$ionicModal',
-        function (GroupService, EventService, $scope, $state, $ionicModal) {
+    ['GroupService', 'EventService', '$scope','$state',
+        function (GroupService, EventService, $scope, $state) {
 
-            GroupService.getGroups().then(function (groups) {
-                $scope.groups = groups;
+            $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+                GroupService.getGroups().then(function (groups) {
+                    $scope.groups = groups;
+                });
             });
 
             $scope.doRefresh = function() {

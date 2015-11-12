@@ -1,6 +1,7 @@
 angular.module('ya-app').config(function ($stateProvider) {
     $stateProvider
         .state('tabs.events', {
+            cache: true,
             url: "/events",
             views: {
                 'tab-events': {
