@@ -127,13 +127,13 @@ public class MongoEventService implements EventService {
 	public List<Participation> getParticipations(String eventId, int offset,
 			int length) {
 		List<Participation> result = null;
-
+		Logger.debug("MongoEventService.getParticipations(String eventId = " + eventId +", int offset = " + offset +", int length = " + length + " )");
 		if (length > 0) {
 			Page<Participation> pages = participationRepository.findByEventId(
 					eventId, new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
-			result = participationRepository.findAll();
+			result = participationRepository.findByEventId(eventId);
 		}
 
 		return result;

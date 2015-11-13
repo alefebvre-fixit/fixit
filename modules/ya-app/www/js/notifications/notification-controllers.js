@@ -1,14 +1,14 @@
 angular.module('ya-app').controller('NotificationListController',
-	['NotificationService', '$scope','$rootScope','$state',
-		function (NotificationService, $scope, $rootScope, $state) {
+	['NotificationService', '$scope', '$log','$rootScope','$state',
+		function (NotificationService, $scope, $log, $rootScope, $state) {
 
 
 			$scope.$on('$ionicView.beforeEnter', function (event, viewData) {
 				NotificationService.getNotifications().then(function (data) {
-					console.log("NotificationListController getNotifications is called");
+					$log.log("NotificationListController getNotifications is called");
 					setNotification(data);
 				});
-				console.log("NotificationListController beforeEnter is called");
+				$log.log("NotificationListController beforeEnter is called");
 			});
 
 

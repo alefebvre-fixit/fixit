@@ -18,8 +18,6 @@ angular.module('ya-app').config(function ($stateProvider) {
             controller: 'ViewGroupController',
             resolve: {
                 groupId: function ($stateParams) {
-                    console.log('Hello group nb=' + $stateParams.groupId);
-
                     return $stateParams.groupId;
                 }
             },
@@ -39,7 +37,6 @@ angular.module('ya-app').config(function ($stateProvider) {
             controller: 'EditGroupController',
             resolve: {
                 groupId: function ($stateParams) {
-                    console.log('Hello group nb=' + $stateParams.groupId);
                     return $stateParams.groupId;
                 }
             }
@@ -53,7 +50,6 @@ angular.module('ya-app').config(function ($stateProvider) {
             controller: 'GroupFollowersController',
             resolve: {
                 groupId: function ($stateParams) {
-                    console.log('Hello group nb=' + $stateParams.groupId);
                     return $stateParams.groupId;
                 }
             },
@@ -65,7 +61,6 @@ angular.module('ya-app').config(function ($stateProvider) {
             controller: 'GroupEventsController',
             resolve: {
                 events: function ($stateParams, GroupService) {
-                    console.log('Hello event nb=' + $stateParams.groupId);
                     return GroupService.getEvents($stateParams.groupId);
                 },
                 groupId: function ($stateParams) {

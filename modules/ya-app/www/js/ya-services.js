@@ -1,6 +1,6 @@
 angular.module('ya-app').factory('YaService',
-    ['$rootScope',
-        function($rootScope) {
+    ['$rootScope', '$log',
+        function($rootScope, $log) {
 
             var resultService;
             resultService = {
@@ -14,7 +14,7 @@ angular.module('ya-app').factory('YaService',
                                 // error
                             });
                     } else {
-                        console.log('$cordovaToast will show:' + message);
+                        $log.log('$cordovaToast will show:' + message);
                     }
 
                 },
@@ -23,13 +23,13 @@ angular.module('ya-app').factory('YaService',
                     localStorage.setItem("username",user.username);
                 },
                 setFavorites: function(favorites){
-                    console.log("setFavorites from service" + favorites);
+                    $log.log("setFavorites from service" + favorites);
 
                     $rootScope.favorites = favorites;
                 },
                 isFavorite: function(group){
                     if (group){
-                        console.log("isFavorite " + group.id);
+                        $log.log("isFavorite " + group.id);
                         return ($rootScope.favorites.indexOf(group.id) >= 0);
                     }
                     return false;

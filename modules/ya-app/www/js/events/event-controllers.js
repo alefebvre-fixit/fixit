@@ -40,8 +40,8 @@ angular.module('ya-app').controller('ParticipationListController',
 
 
 angular.module('ya-app').controller('EditEventController',
-    ['EventService', '$scope', '$state', 'eventId',
-        function (EventService, $scope, $state, eventId) {
+    ['EventService', '$scope', '$log', '$state', 'eventId',
+        function (EventService, $scope, $log, $state, eventId) {
 
             EventService.getEvent(eventId).then(function(event) {
                 $scope.event = event;
@@ -55,7 +55,7 @@ angular.module('ya-app').controller('EditEventController',
                     return;
                 }
 
-                console.log(event);
+                $log.log(event);
                 EventService.saveEvent($scope.event).then(function(data){
                     $state.go('event', {eventId: data.id});
                 });
@@ -66,8 +66,8 @@ angular.module('ya-app').controller('EditEventController',
     ]);
 
 angular.module('ya-app').controller('CreateEventController',
-    ['EventService', '$scope', '$state','$ionicHistory', 'groupId',
-        function (EventService, $scope, $state, $ionicHistory, groupId) {
+    ['EventService', '$scope', '$log', '$state','$ionicHistory', 'groupId',
+        function (EventService, $scope, $log, $state, $ionicHistory, groupId) {
 
             $scope.event = {groupId: groupId};
 
@@ -82,7 +82,7 @@ angular.module('ya-app').controller('CreateEventController',
                     return;
                 }
 
-                console.log(event);
+                $log.log(event);
                 EventService.saveEvent($scope.event).then(function(event){
                     $ionicHistory.currentView($ionicHistory.backView());
                     $state.go('event', {eventId: event.id, location: 'replace'});
@@ -94,29 +94,30 @@ angular.module('ya-app').controller('CreateEventController',
     ]);
 
 angular.module('ya-app').controller('ViewEventController',
-    ['$scope', '$state', '$ionicPopup', '$ionicActionSheet', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId',
-        function ($scope, $state, $ionicPopup, $ionicActionSheet, $ionicModal, $ionicPopover,  YaService, EventService, eventId) {
-            console.log("ViewEventController eventId=" + eventId);
+    ['$scope', '$state', '$log', '$ionicPopup', '$ionicActionSheet', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId',
+        function ($scope, $state, $log, $ionicPopup, $ionicActionSheet, $ionicModal, $ionicPopover,  YaService, EventService, eventId) {
+
+            $log.log("ViewEventController eventId=" + eventId);
 
             $scope.summary = {participationsSize : '-', commentSize : '-', comments: [], lastParticipations: [],  myParticipation : {}};
 
             $scope.reload = function(eventId){
                 EventService.getEvent(eventId).then(function(event) {
-                    console.log("ViewEventController getEvent is called eventId=" + eventId);
+                    $log.log("ViewEventController getEvent is called eventId=" + eventId);
                     $scope.event = event;
 
                     EventService.getUserParticipation(event).then(function(participation) {
-                        console.log("summary.myParticipation=" + participation.status);
+                        $log.log("summary.myParticipation=" + participation.status);
                         $scope.summary.myParticipation = participation;
                     });
 
                     EventService.getParticipationsSize(event).then(function(size) {
-                        console.log("summary.participationSize=" + size);
+                        $log.log("summary.participationSize=" + size);
                         $scope.summary.participationsSize = size;
                     });
 
                     EventService.getLastParticipations(event).then(function(participations) {
-                        console.log("summary.lastParticipations=" + participations);
+                        $log.log("summary.lastParticipations=" + participations);
                         $scope.summary.lastParticipations = participations;
                     });
                 });
@@ -214,7 +215,7 @@ angular.module('ya-app').controller('ViewEventController',
             });
 
             $scope.saveRSVP = function(rsvp) {
-                console.log("$scope.participation.value=" + $scope.rsvp.participation);
+                $log.log("$scope.participation.value=" + $scope.rsvp.participation);
 
                 if (rsvp.participation){
                     rsvp.status = 'IN';
@@ -224,8 +225,8 @@ angular.module('ya-app').controller('ViewEventController',
                 delete rsvp.participation;
 
                 EventService.participate(rsvp).then(function(data){
-                    console.log("rsvp data=");
-                    console.log(data);
+                    $log.log("rsvp data=");
+                    $log.log(data);
                     $scope.summary.myParticipation = data;
                     $scope.closeRSVP();
                     YaService.toastMe('You are now ' + data.status);

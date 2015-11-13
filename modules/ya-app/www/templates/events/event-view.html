@@ -123,7 +123,7 @@
     Participations
 </div>
 <div class="list">
-    <div ng-repeat="participation in participations track by participation.id" >
+    <div ng-repeat="participation in summary.lastParticipations track by participation.id" >
         <div ng-include data-src="'templates/events/partial/event-participation.html'"></div>
     </div>
 </div>

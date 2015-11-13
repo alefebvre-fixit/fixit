@@ -1,6 +1,6 @@
 
-angular.module('ya-app').controller('YaController', ['$scope', '$rootScope', '$window', '$cordovaToast', '$state',
-	function ($scope, $rootScope, $window,  $cordovaToast, $state) {
+angular.module('ya-app').controller('YaController', ['$scope', '$log', '$rootScope', '$window', '$cordovaToast', '$state',
+	function ($scope, $log, $rootScope, $window,  $cordovaToast, $state) {
 	$scope.toastMe = function(message) {
 
 		if ($scope.isPluginActivated()){
@@ -11,7 +11,7 @@ angular.module('ya-app').controller('YaController', ['$scope', '$rootScope', '$w
 					// error
 				});
 		} else {
-			console.log(message);
+			$log.log(message);
 		}
 
 	};
@@ -20,20 +20,20 @@ angular.module('ya-app').controller('YaController', ['$scope', '$rootScope', '$w
 	};
 
 	$scope.setUser = function(user){
-		console.log("setUser from controller" + user);
+		$log.log("setUser from controller" + user);
 
 		$rootScope.user = user;
 		localStorage.setItem("username",user.username);
 	};
 
 	$scope.setFavorites = function(favorites){
-		console.log("setFavorites from controller" + favorites);
+		$log.log("setFavorites from controller" + favorites);
 		$rootScope.favorites = favorites;
 	};
 
 	$scope.isFavorite = function(group){
 		if (group){
-			console.log("isFavorite from controller" + group.id);
+			$log.log("isFavorite from controller" + group.id);
 			return ($rootScope.favorites.indexOf(group.id) >= 0);
 		}
 		return false;

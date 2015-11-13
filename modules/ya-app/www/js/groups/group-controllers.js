@@ -1,6 +1,6 @@
 angular.module('ya-app').controller('ListGroupsController',
-    ['GroupService', 'EventService', '$scope','$state',
-        function (GroupService, EventService, $scope, $state) {
+    ['GroupService', 'EventService', '$scope', '$log','$state',
+        function (GroupService, EventService, $scope, $log, $state) {
 
             $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
                 GroupService.getGroups().then(function (groups) {
@@ -25,15 +25,15 @@ angular.module('ya-app').controller('ListGroupsController',
 
 
 angular.module('ya-app').controller('EditGroupController',
-    ['GroupService', '$scope', '$state', 'groupId',
-        function (GroupService, $scope, $state, groupId) {
+    ['GroupService', '$scope', '$log', '$state', 'groupId',
+        function (GroupService, $scope, $log, $state, groupId) {
 
             GroupService.getGroup(groupId).then(function(group) {
                 $scope.group = group;
             });
 
             $scope.saveGroup = function(form) {
-                console.log($scope.group);
+                $log.log($scope.group);
                 // If form is invalid, return and let AngularJS show validation errors.
                 if (form.$invalid) {
                     return;
@@ -50,13 +50,13 @@ angular.module('ya-app').controller('EditGroupController',
     ]);
 
 angular.module('ya-app').controller('CreateGroupController',
-    ['GroupService', '$scope', '$state', '$ionicHistory',
-        function (GroupService, $scope, $state, $ionicHistory) {
+    ['GroupService', '$scope', '$log', '$state', '$ionicHistory',
+        function (GroupService, $scope, $log, $state, $ionicHistory) {
 
             $scope.group = {};
 
             $scope.saveGroup = function(form) {
-                console.log($scope.group);
+                $log.log($scope.group);
                 // If form is invalid, return and let AngularJS show validation errors.
                 if (form.$invalid) {
                     return;
@@ -75,9 +75,9 @@ angular.module('ya-app').controller('CreateGroupController',
 
 
 angular.module('ya-app').controller('ViewGroupController',
-    ['YaService', '$scope', '$state', '$ionicPopup','$ionicPopover', '$ionicActionSheet', '$ionicModal', 'GroupService', 'EventService', 'groupId',
-        function (YaService, $scope, $state, $ionicPopup,$ionicPopover, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
-            console.log("ViewGroupController groupId=" + groupId);
+    ['YaService', '$scope', '$log', '$state', '$ionicPopup','$ionicPopover', '$ionicActionSheet', '$ionicModal', 'GroupService', 'EventService', 'groupId',
+        function (YaService, $scope, $log, $state, $ionicPopup,$ionicPopover, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
+            $log.log("ViewGroupController groupId=" + groupId);
 
 
             $scope.isFavorite = function(group){
@@ -93,7 +93,7 @@ angular.module('ya-app').controller('ViewGroupController',
                 viewData.enableBack = true;
 
                 GroupService.getGroup(groupId).then(function (group) {
-                    console.log("ViewGroupController getGroup is called groupId=" + groupId);
+                    $log.log("ViewGroupController getGroup is called groupId=" + groupId);
                     $scope.group = group;
 
 
@@ -219,8 +219,8 @@ angular.module('ya-app').controller('ViewGroupController',
         }
     ]);
 
-angular.module('ya-app').controller('GroupFollowersController', ['GroupService', '$scope', 'groupId',
-    function (GroupService, $scope, groupId) {
+angular.module('ya-app').controller('GroupFollowersController', ['GroupService', '$scope', '$log', 'groupId',
+    function (GroupService, $scope, $log, groupId) {
 
         //To insure the back button is displayed
         $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
@@ -236,15 +236,15 @@ angular.module('ya-app').controller('GroupFollowersController', ['GroupService',
 
 
 angular.module('ya-app').controller('GroupEventsController',
-    ['events', 'groupId', 'GroupService', '$scope',
-        function (events, groupId, GroupService, $scope) {
+    ['events', 'groupId', 'GroupService', '$scope', '$log',
+        function (events, groupId, GroupService, $scope, $log) {
 
             //To insure the back button is displayed
             $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
                 viewData.enableBack = true;
             });
 
-            console.log("GroupEventsController is called");
+            $log.log("GroupEventsController is called");
 
             $scope.events = events;
             $scope.groupId = groupId;

@@ -18,7 +18,6 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			controller: 'SignUpController',
 			resolve: {
 				signup: function ($stateParams) {
-					console.log('sign-up: resolve signup');
 					return {};
 				}
 			},
@@ -32,7 +31,6 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 					controller: 'EditSettingController',
 					resolve: {
 						profile: function ($rootScope) {
-							console.log('settings: resolve profile');
 							return JSON.parse(JSON.stringify($rootScope.user.profile));
 						}
 					}
