@@ -11,9 +11,11 @@ import org.springframework.data.domain.PageRequest;
 
 import play.Logger;
 
+import com.fixit.dao.EventCommentRepository;
 import com.fixit.dao.EventRepository;
 import com.fixit.dao.ParticipationRepository;
 import com.fixit.model.event.Event;
+import com.fixit.model.event.EventComment;
 import com.fixit.model.event.Participation;
 import com.fixit.service.EventService;
 import com.fixit.service.NotificationService;
@@ -35,6 +37,9 @@ public class MongoEventService implements EventService {
 	@Inject
 	private NotificationService notificationService;
 
+	@Inject
+	EventCommentRepository commentRepository;
+	
 	public NotificationService getNotificationService() {
 		return notificationService;
 	}
@@ -210,6 +215,46 @@ public class MongoEventService implements EventService {
 	public int countParticipations(String eventId) {
 		return participationRepository.countByEventIdAndStatus(eventId,
 				Participation.STATUS_IN);
+	}
+
+	@Override
+	public EventComment getComment(String commentId) {
+		return commentRepository.findOne(commentId);
+	}
+
+	@Override
+	public EventComment saveComments(EventComment comment) {
+		return commentRepository.save(comment);
+	}
+
+	@Override
+	public void deleteComment(String commentId) {
+		commentRepository.delete(commentId);
+	}
+
+	@Override
+	public List<EventComment> getComments(String eventId, int offset, int length) {
+
+		List<EventComment> result = null;
+		Logger.debug("MongoEventService.getComments(String eventId = " + eventId +", int offset = " + offset +", int length = " + length + " )");
+		if (length > 0) {
+			Page<EventComment> pages = commentRepository.findByEventId(
+					eventId, new PageRequest(offset, length));
+			result = pages.getContent();
+		} else {
+			result = commentRepository.findByEventId(eventId);
+		}
+		Logger.debug("MongoEventService.getCommentSize(String eventId = " + eventId + " ) found=" + result.size());
+
+
+		return result;
+		
+	}
+
+	@Override
+	public int getCommentSize(String eventId) {
+		Logger.debug("MongoEventService.getCommentSize(String eventId = " + eventId + " )");
+		return commentRepository.countByEventId(eventId);
 	}
 
 }

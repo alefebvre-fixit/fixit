@@ -140,8 +140,8 @@ GET     /api/groups/:groupId/events/size          					@controllers.api.EventAPI
 GET     /api/groups/:groupId/events/last          					@controllers.api.EventAPIController.lastGroupEvents(groupId: String)
 GET     /api/groups/:groupId/events          						@controllers.api.EventAPIController.groupEvents(groupId: String)
 GET     /api/events/:eventId          								@controllers.api.EventAPIController.event(eventId: String)
-GET 	/api/events/:eventId/comments/size 							controllers.api.CommentAPIController.commentSize(eventId: String)
-GET 	/api/events/:eventId/comments 								controllers.api.CommentAPIController.comments(eventId: String)
+GET 	/api/events/:eventId/comments/size 							@controllers.api.EventAPIController.commentSize(eventId: String)
+GET 	/api/events/:eventId/comments 								@controllers.api.EventAPIController.comments(eventId: String)
 GET		/api/events/:eventId/participations/size					@controllers.api.EventAPIController.countParticipations(eventId: String)
 GET		/api/events/:eventId/participations/last					@controllers.api.EventAPIController.lastParticipations(eventId: String)
 GET		/api/events/:eventId/participations							@controllers.api.EventAPIController.participations(eventId: String)
@@ -153,7 +153,7 @@ GET 	/api/users/:username/participations							@controllers.api.EventAPIControll
 POST 	/api/events			   										@controllers.api.EventAPIController.save()
 POST    /api/events/:eventId/delete   								@controllers.api.EventAPIController.deleteEvent(eventId: String)
 POST    /api/events/:eventId/publish  								@controllers.api.EventAPIController.publishEvent(eventId: String)
-POST 	/api/events/:eventId/comments/:content 						controllers.api.CommentAPIController.post(eventId: String, content: String)
+POST 	/api/events/:eventId/comments/:content 						@controllers.api.EventAPIController.post(eventId: String, content: String)
 POST	/api/events/:eventId/participations							@controllers.api.EventAPIController.participate(eventId: String)
 
 

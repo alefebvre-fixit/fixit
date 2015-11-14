@@ -17,7 +17,7 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment'])
 
       $rootScope.user = {};
       $rootScope.baseUrl = localFixitURL;
-      $rootScope.isPluginEnabled = true;
+      $rootScope.isPluginEnabled = false;
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

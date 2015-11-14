@@ -1,5 +1,7 @@
 package com.fixit.model.event;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 import org.springframework.data.annotation.Id;
@@ -23,6 +25,7 @@ public class Event {
 	public String groupId;
 	public String groupName;
 	public double version = 0;
+	private Date date;
 	private String status = STATUS_NEW;
 
 	public String getId() {
@@ -103,6 +106,14 @@ public class Event {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public void setVersion(double version) {

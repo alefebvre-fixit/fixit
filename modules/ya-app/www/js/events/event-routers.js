@@ -50,8 +50,8 @@ angular.module('ya-app').config(function ($stateProvider) {
             authenticate: true
         })
         .state('event-participation', {
-            cache: false,
-            url: "/event/:eventId",
+            cache: true,
+            url: "/event/:eventId/participations",
             templateUrl: "templates/events/participations-list.html",
             controller: 'ParticipationListController',
             resolve: {
@@ -62,7 +62,19 @@ angular.module('ya-app').config(function ($stateProvider) {
             ,
             authenticate: true
         })
-
+        .state('event-comments', {
+            cache: true,
+            url: "/event/:eventId/comments",
+            templateUrl: "templates/events/event-comments.html",
+            controller: 'EventCommentsController',
+            resolve: {
+                eventId: function ($stateParams) {
+                    return $stateParams.eventId;
+                }
+            }
+            ,
+            authenticate: true
+        })
         /*
         .state('ya.discover', {
             url: "/discover",

@@ -9,9 +9,6 @@ import com.fixit.model.User;
 import com.fixit.service.EventService;
 import com.fixit.service.GroupService;
 import com.fixit.service.UserService;
-import com.fixit.service.impl.MongoEventService;
-import com.fixit.service.impl.MongoGroupService;
-import com.fixit.service.impl.MongoUserService;
 
 @Named
 public class YaController extends Controller {
@@ -19,12 +16,14 @@ public class YaController extends Controller {
 	public static final String SESSION_ATTRIBUTE_USERNAME = "username";
 	public static final String SESSION_ATTRIBUTE_ACCESS_TOKEN = "access_token";
 
-	
 	@Inject
 	private UserService userService;
 
 	@Inject
 	private EventService eventService;
+
+	@Inject
+	private GroupService groupService;
 
 	protected UserService getUserService() {
 		return userService;
@@ -32,6 +31,10 @@ public class YaController extends Controller {
 
 	protected EventService getEventService() {
 		return eventService;
+	}
+
+	protected GroupService getGroupService() {
+		return groupService;
 	}
 
 	protected User getUser() {

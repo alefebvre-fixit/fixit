@@ -3,7 +3,9 @@ package com.fixit.service;
 import java.util.List;
 
 import com.fixit.model.event.Event;
+import com.fixit.model.event.EventComment;
 import com.fixit.model.event.Participation;
+import com.fixit.model.project.ProjectComment;
 
 public interface EventService {
 
@@ -40,6 +42,17 @@ public interface EventService {
 	public List<Participation> getUserParticipations(String username);
 
 	public List<Participation> getParticipations(String eventId);
+	
+	public EventComment getComment(String commentId);
 
+	public EventComment saveComments(EventComment comment);
+
+	public void deleteComment(String commentId);
+
+	public List<EventComment> getComments(String eventId,
+			int offset, int length);
+	
+	public int getCommentSize(String eventId);
+	
 	
 }

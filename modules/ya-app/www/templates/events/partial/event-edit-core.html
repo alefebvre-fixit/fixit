@@ -21,6 +21,14 @@
     <div ng-show="eventForm.$submitted && eventForm.location.$error" ng-messages="eventForm.location.$error">
         <ng-include src="'templates/common/validation-messages.html'"></ng-include>
     </div>
+
+
+    <label class="item item-input"> <span
+            class="input-label">Date</span> <input type="date"
+                                                   placeholder="Date" ng-model="event.date" />
+    </label>
+
+
 </div>
 
 <div class="list list-inset list-transparent" >

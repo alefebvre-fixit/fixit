@@ -50,6 +50,11 @@
         right: 5px;
     }
 
+    .custom-icon {
+        font-size: 16px;
+        color : red;
+    }
+
 </style>
 
 
@@ -119,14 +124,22 @@
     </div>
 </div>
 
-<div class="item item-divider calm">
-    Participations
-</div>
+<a class="item item-divider calm" ui-sref="event-participation({eventId: event.id})">
+    Participations...
+</a>
+
 <div class="list">
     <div ng-repeat="participation in summary.lastParticipations track by participation.id" >
         <div ng-include data-src="'templates/events/partial/event-participation.html'"></div>
     </div>
+    <a ng-show="summary.lastParticipations.length <= 0" class="item">
+        <h2>no participation yet</h2>
+    </a>
 </div>
+
+
+
+
 
     </ion-content>
 </ion-view>

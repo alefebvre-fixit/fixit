@@ -120,6 +120,13 @@ angular.module('ya-app').controller('ViewEventController',
                         $log.log("summary.lastParticipations=" + participations);
                         $scope.summary.lastParticipations = participations;
                     });
+
+                    EventService.getCommentSize(event).then(function(size) {
+                        $log.log("summary.getCommentSize=" + size);
+                        $scope.summary.commentSize = size;
+                    });
+
+
                 });
             };
 
@@ -255,3 +262,32 @@ angular.module('ya-app').controller('ViewEventController',
 
         }
     ]);
+
+angular.module('ya-app').controller('EventCommentsController', ['EventService', '$scope', 'eventId',
+    function (EventService, $scope, eventId) {
+
+        console.log('enter EventCommentsController');
+
+        $scope.comment = {eventId: eventId, content: ''};
+
+
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            EventService.getComments(eventId).then(function (comments) {
+                $scope.comments = comments;
+            });
+        });
+
+
+        $scope.postComment = function(comment) {
+            EventService.postComment(comment.eventId, comment.content).then(function (comment) {
+                $scope.comments.push(comment);
+                $scope.comment = {eventId: eventId, content: ''};
+            });
+        };
+
+
+
+
+
+    }
+]);

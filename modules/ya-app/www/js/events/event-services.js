@@ -19,8 +19,8 @@ angular.module('ya-app').factory('EventService',
                         return response.data;
                     });
                 },
-                getCommentSize: function (eventId) {
-                    return $http.get($rootScope.baseUrl + '/api/events/' + eventId + '/comments/size').then(function (response) {
+                getCommentSize: function (event) {
+                    return $http.get($rootScope.baseUrl + '/api/events/' + event.id + '/comments/size').then(function (response) {
                         return response.data;
                     });
                 },
