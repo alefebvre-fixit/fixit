@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment'])
+angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', 'ionic-timepicker', 'ionic-datepicker'])
 
 .run(function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
@@ -16,7 +16,7 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment'])
       var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com';
 
       $rootScope.user = {};
-      $rootScope.baseUrl = localFixitURL;
+      $rootScope.baseUrl = herokuFixitURL;
       $rootScope.isPluginEnabled = false;
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

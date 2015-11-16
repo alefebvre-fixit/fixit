@@ -40,12 +40,61 @@ angular.module('ya-app').controller('ParticipationListController',
 
 
 angular.module('ya-app').controller('EditEventController',
-    ['EventService', '$scope', '$log', '$state', 'eventId',
-        function (EventService, $scope, $log, $state, eventId) {
+    ['EventService', '$scope', '$log', '$state', 'eventId', '$cordovaDatePicker',
+        function (EventService, $scope, $log, $state, eventId, $cordovaDatePicker) {
 
             EventService.getEvent(eventId).then(function(event) {
                 $scope.event = event;
+
+                $scope.date = new Date();
+                $scope.time = new Date();
             });
+
+            $scope.timePickerObject = {
+                inputEpochTime: ((new Date()).getHours() * 60 * 60),  //Optional
+                step: 15,  //Optional
+                format: 12,  //Optional
+                titleLabel: '12-hour Format',  //Optional
+                setLabel: 'Set',  //Optional
+                closeLabel: 'Close',  //Optional
+                setButtonType: 'button-calm',  //Optional
+                closeButtonType: 'button-stable',  //Optional
+                callback: function (val) {    //Mandatory
+                    timePickerCallback(val);
+                }
+            };
+
+            timePickerCallback = function(val){
+                console.log(val);
+            };
+
+
+            $scope.datepickerObject = {
+                titleLabel: 'Title',  //Optional
+                todayLabel: 'Today',  //Optional
+                closeLabel: 'Close',  //Optional
+                setLabel: 'Set',  //Optional
+                setButtonType : 'button-calm',  //Optional
+                todayButtonType : 'button-stable',  //Optional
+                closeButtonType : 'button-stable',  //Optional
+                inputDate: new Date(),  //Optional
+                mondayFirst: true,  //Optional
+                templateType: 'popup', //Optional
+                showTodayButton: 'true', //Optional
+                modalHeaderColor: 'bar-calm', //Optional
+                modalFooterColor: 'bar-calm', //Optional
+                from: new Date(2012, 8, 2), //Optional
+                to: new Date(2018, 8, 25),  //Optional
+                callback: function (val) {  //Mandatory
+                    datePickerCallback(val);
+                },
+                dateFormat: 'dd-MM-yyyy', //Optional
+                closeOnSelect: false //Optional
+            };
+
+            datePickerCallback = function(val){
+                console.log(val);
+            };
 
 
             $scope.saveEvent = function(form) {
