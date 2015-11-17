@@ -27,8 +27,8 @@
         <span class="input-label">Date</span>
         <input type="text" name="location" placeholder="Type event date here..." ng-model="date" required>
     </label>
-    <label class="item item-input item-floating-label">
-        <span class="input-label">Date</span>
+    <label class="item item-input item-floating-label" ng-click="">
+        <span class="input-label">Time</span>
         <input type="text" name="location" placeholder="Type event time here..." ng-model="time" required>
     </label>
 
@@ -37,10 +37,14 @@
         Call Ma
         <i class="icon ion-ios-telephone-outline"></i>
     </a>
-    <a class="item item-icon-left item-icon-right" href="#">
-        <i class="icon ion-android-time"></i>
-        Call Ma
-        <i class="icon ion-ios-telephone-outline"></i>
+    <a class="item item-icon-left" href="#">
+        <ionic-timepicker input-obj="timePickerObject">
+            <i class="icon ion-android-time"></i>
+            Call Ma
+        </ionic-timepicker>
+
+
+
     </a>
 
 

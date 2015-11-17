@@ -83,8 +83,8 @@ angular.module('ya-app').controller('EditEventController',
                 showTodayButton: 'true', //Optional
                 modalHeaderColor: 'bar-calm', //Optional
                 modalFooterColor: 'bar-calm', //Optional
-                from: new Date(2012, 8, 2), //Optional
-                to: new Date(2018, 8, 25),  //Optional
+                from: new Date(2015, 1, 1), //Optional
+                to: new Date(2018, 1, 1),  //Optional
                 callback: function (val) {  //Mandatory
                     datePickerCallback(val);
                 },
