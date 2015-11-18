@@ -22,44 +22,19 @@
         <ng-include src="'templates/common/validation-messages.html'"></ng-include>
     </div>
 
-
-    <label class="item item-input item-floating-label">
-        <span class="input-label">Date</span>
-        <input type="text" name="location" placeholder="Type event date here..." ng-model="date" required>
-    </label>
-    <label class="item item-input item-floating-label" ng-click="">
-        <span class="input-label">Time</span>
-        <input type="text" name="location" placeholder="Type event time here..." ng-model="time" required>
-    </label>
-
-    <a class="item item-icon-left item-icon-right" href="#">
-        <i class="icon ion-android-calendar"></i>
-        Call Ma
-        <i class="icon ion-ios-telephone-outline"></i>
+    <ionic-datepicker input-obj="datepickerObject">
+    <a class="item item-icon-left" href="#">
+            <i class="icon ion-android-calendar calm"></i>
+            {{picker.date | date:'shortDate'}}
     </a>
+    </ionic-datepicker>
     <a class="item item-icon-left" href="#">
         <ionic-timepicker input-obj="timePickerObject">
-            <i class="icon ion-android-time"></i>
-            Call Ma
+            <i class="icon ion-android-time calm"></i>
+            {{picker.time | date:'shortTime'}}
         </ionic-timepicker>
-
-
-
     </a>
-
-
-    <ionic-datepicker input-obj="datepickerObject">
-        <button class="button button-block button-calm" type="button"> {{datepickerObject.inputDate | date:'dd - MMMM - yyyy'}}</button>
-    </ionic-datepicker>
-
-
-    <ionic-timepicker input-obj="timePickerObject">
-        <button class="button button-block button-calm overflowShow" type="button">
-            <standard-time-meridian etime='timePickerObject.inputEpochTime'>Time</standard-time-meridian>
-        </button>
-    </ionic-timepicker>
-
-
+    
 </div>
 
 <div class="list list-inset list-transparent" >

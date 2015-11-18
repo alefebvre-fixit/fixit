@@ -43,15 +43,14 @@ angular.module('ya-app').controller('EditEventController',
     ['EventService', '$scope', '$log', '$state', 'eventId', '$cordovaDatePicker',
         function (EventService, $scope, $log, $state, eventId, $cordovaDatePicker) {
 
+            $scope.picker = {date: new Date() , time: new Date()};
             EventService.getEvent(eventId).then(function(event) {
                 $scope.event = event;
-
-                $scope.date = new Date();
-                $scope.time = new Date();
+                //$scope.picker = {date: event.date , time: event.date};
             });
 
             $scope.timePickerObject = {
-                inputEpochTime: ((new Date()).getHours() * 60 * 60),  //Optional
+                inputEpochTime: (($scope.picker.time.getHours() * 3600 + $scope.picker.time.getMinutes() * 60 + $scope.picker.time.getSeconds())),  //Optional
                 step: 15,  //Optional
                 format: 12,  //Optional
                 titleLabel: '12-hour Format',  //Optional
@@ -64,9 +63,14 @@ angular.module('ya-app').controller('EditEventController',
                 }
             };
 
-            timePickerCallback = function(val){
-                console.log(val);
-            };
+            function timePickerCallback(val) {
+                if (typeof (val) === 'undefined') {
+                    console.log('Time not selected');
+                } else {
+                    $scope.picker.time = new Date(val * 1000);
+                    console.log('Selected epoch is : ', val, 'and the time is ', $scope.picker.time.getUTCHours(), ':', $scope.picker.time.getUTCMinutes(), 'in UTC');
+                }
+            }
 
 
             $scope.datepickerObject = {
@@ -77,14 +81,14 @@ angular.module('ya-app').controller('EditEventController',
                 setButtonType : 'button-calm',  //Optional
                 todayButtonType : 'button-stable',  //Optional
                 closeButtonType : 'button-stable',  //Optional
-                inputDate: new Date(),  //Optional
+                inputDate: $scope.picker.date,  //Optional
                 mondayFirst: true,  //Optional
                 templateType: 'popup', //Optional
                 showTodayButton: 'true', //Optional
                 modalHeaderColor: 'bar-calm', //Optional
                 modalFooterColor: 'bar-calm', //Optional
                 from: new Date(2015, 1, 1), //Optional
-                to: new Date(2018, 1, 1),  //Optional
+                to: new Date(2017, 1, 1),  //Optional
                 callback: function (val) {  //Mandatory
                     datePickerCallback(val);
                 },
@@ -93,7 +97,11 @@ angular.module('ya-app').controller('EditEventController',
             };
 
             datePickerCallback = function(val){
-                console.log(val);
+                if (typeof (val) === 'undefined') {
+                    console.log('Date not selected');
+                } else {
+                    $scope.picker.date = val;
+                }
             };
 
 
