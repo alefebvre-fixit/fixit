@@ -44,13 +44,15 @@ angular.module('ya-app').controller('EditEventController',
         function (EventService, $scope, $log, $state, eventId, $cordovaDatePicker) {
 
             $scope.picker = {date: new Date() , time: new Date()};
+            console.log($scope.picker.time.getUTCMinutes());
+
             EventService.getEvent(eventId).then(function(event) {
                 $scope.event = event;
-                //$scope.picker = {date: event.date , time: event.date};
+                $scope.picker = {date: event.date , time: event.date};
             });
 
             $scope.timePickerObject = {
-                inputEpochTime: (($scope.picker.time.getHours() * 3600 + $scope.picker.time.getMinutes() * 60 + $scope.picker.time.getSeconds())),  //Optional
+                inputEpochTime: (($scope.picker.time.getUTCHours() * 3600 + $scope.picker.time.getUTCMinutes() * 60 + $scope.picker.time.getUTCSeconds())),  //Optional
                 step: 15,  //Optional
                 format: 12,  //Optional
                 titleLabel: '12-hour Format',  //Optional
