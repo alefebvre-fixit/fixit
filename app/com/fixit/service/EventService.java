@@ -39,6 +39,10 @@ public interface EventService {
 	
 	public Participation getParticipation(String eventId, String username);
 	
+	public void deleteParticipation(String id);
+	
+	public void deleteEventParticipations(String eventId);
+	
 	public List<Participation> getUserParticipations(String username);
 
 	public List<Participation> getParticipations(String eventId);

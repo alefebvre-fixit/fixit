@@ -154,6 +154,9 @@ POST 	/api/events			   										@controllers.api.EventAPIController.save()
 POST    /api/events/:eventId/delete   								@controllers.api.EventAPIController.deleteEvent(eventId: String)
 POST    /api/events/:eventId/publish  								@controllers.api.EventAPIController.publishEvent(eventId: String)
 POST 	/api/events/:eventId/comments/:content 						@controllers.api.EventAPIController.post(eventId: String, content: String)
+POST	/api/events/:eventId/participations/generate				@controllers.api.EventAPIController.generateParticipation(eventId: String)
+GET	/api/events/:eventId/participations/generate				@controllers.api.EventAPIController.generateParticipation(eventId: String)
+
 POST	/api/events/:eventId/participations							@controllers.api.EventAPIController.participate(eventId: String)
 
 

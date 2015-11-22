@@ -1,6 +1,6 @@
             <a class="item item-avatar"
                ui-sref="user({username: participation.username})">
-                <img ng-src="img/{{participation.username}}.jpg" >
+                <img ng-src="img/users/{{participation.username}}.jpg" >
 
                 <div ng-switch="participation.status">
                     <h2 ng-switch-when="IN"> <i class="icon ion-record balanced"></i> {{participation.username}} is in - <span am-time-ago="participation.modificationDate"></span></h2>

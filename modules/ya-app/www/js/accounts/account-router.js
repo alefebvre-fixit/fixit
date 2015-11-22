@@ -69,6 +69,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			authenticate: true
 		})
 		.state('user', {
+			cache: true,
 			url: "/user/:username",
 			templateUrl: "templates/accounts/account-summary.html",
 			controller: 'UserController',

@@ -67,6 +67,11 @@ angular.module('ya-app').factory('EventService',
                         return response.data;
                     });
                 },
+                generateParticipations: function(event){
+                    return $http.post($rootScope.baseUrl + '/api/events/' + event.id + '/participations/generate').then(function (response) {
+                        return response.data;
+                    });
+                },
                 getParticipationsSize: function(event) {
                     return $http.get($rootScope.baseUrl + '/api/events/' + event.id +'/participations/size').then(function (response) {
                         return response.data;

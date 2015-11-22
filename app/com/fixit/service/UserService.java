@@ -23,7 +23,7 @@ public interface UserService {
 
 	public User save(User user);
 
-	public void delete(String user);
+	public void delete(String id);
 
 	public List<User> getAll();
 	

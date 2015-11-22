@@ -2,6 +2,7 @@ package controllers.api;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Named;
 
@@ -11,6 +12,7 @@ import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 import play.mvc.Results;
 
+import com.fixit.model.User;
 import com.fixit.model.event.Event;
 import com.fixit.model.event.EventComment;
 import com.fixit.model.event.EventFactory;
@@ -127,6 +129,38 @@ public class EventAPIController extends YaController {
 		}
 		return ok(play.libs.Json.toJson(participation));
 	}
+	
+	
+	public Result generateParticipation(String eventId) {
+		Logger.debug("EventAPIController.generateParticipation() eventId = " + eventId);
+		Event event = getEventService().getEvent(eventId);
+		if (event != null){
+			getEventService().deleteEventParticipations(eventId);
+			
+			List<User> users = getUserService().getAll();
+			if (users != null){
+				for (User user : users) {
+					Logger.debug("User username=|" + user.getUsername() + "|");		
+					if (user.getUsername() != null && !user.getUsername().equals("")){
+						Participation participation = new Participation(event, user);
+						int i = ThreadLocalRandom.current().nextInt(1, 4);
+						if (i == 1){
+							participation.setStatus(Participation.STATUS_IN);
+						} else if (i == 2){
+							participation.setStatus(Participation.STATUS_OUT);
+						} else {
+							participation.setStatus(Participation.STATUS_RSVP);
+						}
+						getEventService().save(participation);
+					} else {
+						getUserService().delete(user.getId());
+					}
+				}
+			}
+		}
+		return ok();
+	}
+	
 
 	public Result participations(String eventId) {
 		Logger.debug("EventAPIController.participations()" + eventId);

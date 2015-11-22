@@ -25,5 +25,6 @@ public interface ParticipationRepository extends MongoRepository<Participation, 
 
 	public int countByEventIdAndStatus(String eventId, String status);
 
+	public List<Participation> deleteByEventId(String eventId);
 	
 }

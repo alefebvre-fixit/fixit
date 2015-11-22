@@ -265,6 +265,18 @@ angular.module('ya-app').controller('ViewEventController',
                 $scope.popover.remove();
             });
 
+
+            $scope.generateParticipations = function(event){
+                EventService.generateParticipations(event).then(function(data){
+                    $scope.closePopover();
+                    $scope.reload(event.id);
+                });
+
+            };
+
+
+
+
         }
     ]);
 

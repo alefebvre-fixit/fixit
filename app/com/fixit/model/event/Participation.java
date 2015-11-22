@@ -5,6 +5,8 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fixit.model.User;
+
 @Document(collection = "Participation")
 public class Participation {
 
@@ -24,6 +26,18 @@ public class Participation {
 	public String id;
 	public double version = 0;
 
+	public Participation(){
+	}
+	
+	public Participation(Event event, User user){
+		this.eventId = event.getId();
+		this.eventName = event.getName();
+		this.creationDate = new Date();
+		this.modificationDate = new Date();
+		this.username = user.getUsername();
+		this.status = STATUS_RSVP;
+	}
+	
 	public String getId() {
 		return id;
 	}

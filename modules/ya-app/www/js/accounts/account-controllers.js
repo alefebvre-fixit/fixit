@@ -7,7 +7,7 @@ angular.module('ya-app').controller('SignUpController', ['YaService', 'SettingSe
         $scope.doSignUp = function () {
 
             SettingService.signupUser($scope.signup).success(function (data) {
-                $scope.setUser(data);
+                YaService.setUser(data);
                 $state.transitionTo('tabs.groups');
             }).error(function (response, status) {
                 $log.log("Invalid sign-up");

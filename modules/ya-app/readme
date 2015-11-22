@@ -61,3 +61,7 @@ export STUDIO_JDK=/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk
 http://www.colourlovers.com/palette/580974/Adrift_in_Dreams
 
 ./activator -jvm-debug 4444 ~run
+
+
+//profile generator
+http://www.designskilz.com/random-users/

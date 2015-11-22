@@ -257,4 +257,16 @@ public class MongoEventService implements EventService {
 		return commentRepository.countByEventId(eventId);
 	}
 
+	@Override
+	public void deleteParticipation(String id) {
+		Logger.debug("MongoEventService.deleteParticipation(String id = " + id + " )");
+		participationRepository.delete(id);
+	}
+
+	@Override
+	public void deleteEventParticipations(String eventId) {
+		Logger.debug("MongoEventService.deleteEventParticipations(String eventId = " + eventId + " )");
+		participationRepository.deleteByEventId(eventId);
+	}
+
 }
