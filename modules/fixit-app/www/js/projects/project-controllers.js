@@ -228,8 +228,8 @@ angular.module('fixit').controller('EditProjectController',
 
 				console.log("reorderCard fromIndex = " + fromIndex + ' toIndex=' + toIndex);
 
-				$scope.project.cards.splice(fromIndex, 1)
-				$scope.project.cards.splice(toIndex, 0, card)
+				$scope.project.cards.splice(fromIndex, 1);
+				$scope.project.cards.splice(toIndex, 0, card);
 			}
 
 		}

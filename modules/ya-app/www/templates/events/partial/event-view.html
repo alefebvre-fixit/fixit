@@ -2,7 +2,7 @@
 
 
     <a class="item item-text-wrap" ui-sref="event({ eventId: event.id })">
-        <h3><i class="icon ion-android-calendar"> {{::event.date | date:'short'}}</i></h3>
+        <h3><span class="calm" am-time-ago="event.date"></span></h3>
     </a>
     <a class="item item-avatar" ui-sref="event({ eventId: event.id })">
         <img ng-src="img/coffee-64-000000.png">
@@ -11,10 +11,10 @@
     </a>
     <div class="item item-text-wrap">
         {{::event.description}} <br> <br>
-        <i class="icon ion-location"> {{::event.city}}, {{::event.country}}</i>
         <p>
-            <a href="#" class="subdued">{{::event.events}} Events</a>
-            <a href="#" class="subdued">5 Comments</a>
+            <i class="icon ion-android-calendar subdued"> {{::event.date | date:'shortDate'}}</i>
+            <br>
+            <i class="icon ion-location"> {{::event.city}}, {{::event.country}}</i>
         </p>
     </div>
 </div>

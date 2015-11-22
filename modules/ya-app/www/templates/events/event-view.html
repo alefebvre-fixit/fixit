@@ -105,7 +105,6 @@
             <b>{{summary.followerSize}}</b>
             <br>
         <p class="statistic-label">Followers</p>
-        </p>
     </a>
     <a class="col statistic" ui-sref="event-comments({eventId: event.id})">
         <p class="statistic">
@@ -119,6 +118,9 @@
     <div class="col">
         <h5>
             <i class="icon ion-location"> {{event.city}}, {{event.country}}</i>
+        </h5>
+        <h5>
+            <i class="icon ion-android-calendar"> {{event.date | date:'short'}}</i>
         </h5>
         {{event.description}}
     </div>

@@ -40,72 +40,18 @@ angular.module('ya-app').controller('ParticipationListController',
 
 
 angular.module('ya-app').controller('EditEventController',
-    ['EventService', '$scope', '$log', '$state', 'eventId', '$cordovaDatePicker',
-        function (EventService, $scope, $log, $state, eventId, $cordovaDatePicker) {
+    ['EventService', '$scope', '$log', '$state', 'eventId',
+        function (EventService, $scope, $log, $state, eventId) {
 
             $scope.picker = {date: new Date() , time: new Date()};
+            $scope.test = {date: new Date() , time: new Date()};
+
             console.log($scope.picker.time.getUTCMinutes());
 
             EventService.getEvent(eventId).then(function(event) {
                 $scope.event = event;
-                $scope.picker = {date: event.date , time: event.date};
+                event.date = new Date(event.date);
             });
-
-            $scope.timePickerObject = {
-                inputEpochTime: (($scope.picker.time.getUTCHours() * 3600 + $scope.picker.time.getUTCMinutes() * 60 + $scope.picker.time.getUTCSeconds())),  //Optional
-                step: 15,  //Optional
-                format: 12,  //Optional
-                titleLabel: '12-hour Format',  //Optional
-                setLabel: 'Set',  //Optional
-                closeLabel: 'Close',  //Optional
-                setButtonType: 'button-calm',  //Optional
-                closeButtonType: 'button-stable',  //Optional
-                callback: function (val) {    //Mandatory
-                    timePickerCallback(val);
-                }
-            };
-
-            function timePickerCallback(val) {
-                if (typeof (val) === 'undefined') {
-                    console.log('Time not selected');
-                } else {
-                    $scope.picker.time = new Date(val * 1000);
-                    console.log('Selected epoch is : ', val, 'and the time is ', $scope.picker.time.getUTCHours(), ':', $scope.picker.time.getUTCMinutes(), 'in UTC');
-                }
-            }
-
-
-            $scope.datepickerObject = {
-                titleLabel: 'Title',  //Optional
-                todayLabel: 'Today',  //Optional
-                closeLabel: 'Close',  //Optional
-                setLabel: 'Set',  //Optional
-                setButtonType : 'button-calm',  //Optional
-                todayButtonType : 'button-stable',  //Optional
-                closeButtonType : 'button-stable',  //Optional
-                inputDate: $scope.picker.date,  //Optional
-                mondayFirst: true,  //Optional
-                templateType: 'popup', //Optional
-                showTodayButton: 'true', //Optional
-                modalHeaderColor: 'bar-calm', //Optional
-                modalFooterColor: 'bar-calm', //Optional
-                from: new Date(2015, 1, 1), //Optional
-                to: new Date(2017, 1, 1),  //Optional
-                callback: function (val) {  //Mandatory
-                    datePickerCallback(val);
-                },
-                dateFormat: 'dd-MM-yyyy', //Optional
-                closeOnSelect: false //Optional
-            };
-
-            datePickerCallback = function(val){
-                if (typeof (val) === 'undefined') {
-                    console.log('Date not selected');
-                } else {
-                    $scope.picker.date = val;
-                }
-            };
-
 
             $scope.saveEvent = function(form) {
 
