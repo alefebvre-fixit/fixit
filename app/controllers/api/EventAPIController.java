@@ -143,10 +143,10 @@ public class EventAPIController extends YaController {
 					Logger.debug("User username=|" + user.getUsername() + "|");		
 					if (user.getUsername() != null && !user.getUsername().equals("")){
 						Participation participation = new Participation(event, user);
-						int i = ThreadLocalRandom.current().nextInt(1, 4);
-						if (i == 1){
+						int i = ThreadLocalRandom.current().nextInt(1,6);
+						if (i == 1 || i == 2){
 							participation.setStatus(Participation.STATUS_IN);
-						} else if (i == 2){
+						} else if (i == 2 || i == 3 || i == 4){
 							participation.setStatus(Participation.STATUS_OUT);
 						} else {
 							participation.setStatus(Participation.STATUS_RSVP);

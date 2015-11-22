@@ -99,8 +99,8 @@ angular.module('ya-app').controller('CreateEventController',
     ]);
 
 angular.module('ya-app').controller('ViewEventController',
-    ['$scope', '$state', '$log', '$ionicPopup', '$ionicActionSheet', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId',
-        function ($scope, $state, $log, $ionicPopup, $ionicActionSheet, $ionicModal, $ionicPopover,  YaService, EventService, eventId) {
+    ['$scope', '$state', '$log', '$ionicPopup', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId','$ionicLoading',
+        function ($scope, $state, $log, $ionicPopup, $ionicModal, $ionicPopover,  YaService, EventService, eventId, $ionicLoading) {
 
             $log.log("ViewEventController eventId=" + eventId);
 
@@ -267,15 +267,15 @@ angular.module('ya-app').controller('ViewEventController',
 
 
             $scope.generateParticipations = function(event){
-                EventService.generateParticipations(event).then(function(data){
-                    $scope.closePopover();
-                    $scope.reload(event.id);
+                $scope.closePopover();
+                $ionicLoading.show({
+                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
                 });
-
+                EventService.generateParticipations(event).then(function(data){
+                    $scope.reload(event.id);
+                    $ionicLoading.hide();
+                });
             };
-
-
-
 
         }
     ]);
