@@ -13,7 +13,6 @@
 			<ion-list class="list">
 				<ion-item ng-repeat="notification in notifications track by notification.id"
 						  class="item item-avatar item-remove-animate">
-
 					<div ng-show="notification.type=='Participation'" ng-click="goToEvent(notification.eventId)">
 						<img class="img-notification" ng-src="img/users/{{notification.actor}}.jpg">
 						<div ng-switch="notification.status">

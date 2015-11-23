@@ -65,7 +65,7 @@
     <ion-nav-buttons side="right">
         <button class="button button-icon ion-more" ng-click="popover.show($event)"></button>
     </ion-nav-buttons>
-    <ion-content>
+    <ion-content ion-sticky>
 
 
 
@@ -126,19 +126,50 @@
     </div>
 </div>
 
+<!--
+
 <a class="item item-divider calm" ui-sref="event-participation({eventId: event.id})">
     Participations...
 </a>
-
 <div class="list">
-    <div ng-repeat="participation in summary.lastParticipations track by participation.id" >
+    <div ng-repeat="participation in summary.participations track by participation.id" >
         <div ng-include data-src="'templates/events/partial/event-participation.html'"></div>
     </div>
-    <a ng-show="summary.lastParticipations.length <= 0" class="item">
+    <a ng-show="summary.participations.length <= 0" class="item">
         <h2>no participation yet</h2>
     </a>
 </div>
+-->
+        <ion-list class="list">
+            <ion-item class="item-divider assertive"> In </ion-item>
+            <ion-item ng-repeat="participation in summary.participations | filter: { status: 'IN'} track by participation.id" class="item item-avatar" ui-sref="user({username: participation.username})">
+                <img ng-src="img/users/{{participation.username}}.jpg" >
+                <div ng-switch="participation.status">
+                    <h2 ng-switch-when="IN"> <i class="icon ion-record balanced"></i> {{participation.username}} is in - <span am-time-ago="participation.modificationDate"></span></h2>
+                </div>
+                <p ng-if="participation.comment"><i class="icon ion-chatbubble"> {{participation.comment}}</i></p>
+            </ion-item>
+            <ion-item class="item-divider assertive"> Out </ion-item>
+            <ion-item ng-repeat="participation in summary.participations | filter: { status: 'OUT'} track by participation.id" class="item item-avatar" ui-sref="user({username: participation.username})">
+                <img ng-src="img/users/{{participation.username}}.jpg" >
 
+                <div ng-switch="participation.status">
+                    <h2 ng-switch-when="OUT"> <i class="icon ion-record assertive"></i> {{participation.username}} is out - <span am-time-ago="participation.modificationDate"></span></h2>
+                </div>
+                <p ng-if="participation.comment"><i class="icon ion-chatbubble"> {{participation.comment}}</i></p>
+            </ion-item>
+            <ion-item class="item-divider assertive"> Rsvp </ion-item>
+            <ion-item ng-repeat="participation in summary.participations | filter: { status: 'RSVP'} track by participation.id" class="item item-avatar" ui-sref="user({username: participation.username})">
+                <img ng-src="img/users/{{participation.username}}.jpg" >
+
+                <div ng-switch="participation.status">
+                    <h2 ng-switch-default> <i class="icon ion-record"></i> {{participation.username}} still has to rsvp - <span am-time-ago="participation.modificationDate"></span></h2>
+                </div>
+                <p ng-if="participation.comment"><i class="icon ion-chatbubble"> {{participation.comment}}</i></p>
+
+            </ion-item>
+
+        </ion-list>
 
 
 

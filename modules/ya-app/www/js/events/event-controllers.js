@@ -121,9 +121,9 @@ angular.module('ya-app').controller('ViewEventController',
                         $scope.summary.participationsSize = size;
                     });
 
-                    EventService.getLastParticipations(event).then(function(participations) {
+                    EventService.getEventParticipations(event.id).then(function(participations) {
                         $log.log("summary.lastParticipations=" + participations);
-                        $scope.summary.lastParticipations = participations;
+                        $scope.summary.participations = participations;
                     });
 
                     EventService.getCommentSize(event).then(function(size) {
