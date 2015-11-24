@@ -1,6 +1,6 @@
 {
   "name": "ya-app",
-  "app_id": "",
+  "app_id": "7c954950",
   "gulpStartupTasks": [
     "sass",
     "watch"

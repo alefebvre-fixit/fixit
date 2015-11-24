@@ -11,9 +11,9 @@ import com.fixit.model.event.EventComment;
 public interface EventCommentRepository extends
 		MongoRepository<EventComment, String> {
 
-	public Page<EventComment> findByEventId(String eventId, Pageable pageable);
+	public Page<EventComment> findByEventIdOrderByCommentDateDesc(String eventId, Pageable pageable);
 
-	public List<EventComment> findByEventId(String eventId);
+	public List<EventComment> findByEventIdOrderByCommentDateDesc(String eventId);
 
 	public int countByEventId(String eventId);
 

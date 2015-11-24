@@ -19,18 +19,20 @@ angular.module('ya-app').controller('ListEventsController',
     ]);
 
 angular.module('ya-app').controller('ParticipationListController',
-    ['EventService', '$scope', 'eventId',
-        function (EventService, $scope, eventId) {
+    ['EventService', '$scope', 'eventId', '$filter',
+        function (EventService, $scope, eventId, $filter) {
+
+            $scope.participations = {all : [], in : [], out : [], rsvp : []};
 
             $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
-                EventService.getEventParticipations(eventId).then(function (participations) {
-                    $scope.participations = participations;
+                EventService.getParticipationSummary(eventId).then(function (summary) {
+                    $scope.participations = summary;
                 });
             });
 
             $scope.doRefresh = function() {
-                EventService.getEventParticipations(eventId).then(function (participations) {
-                    $scope.participations = participations;
+                EventService.getParticipationSummary(eventId).then(function (summary) {
+                    $scope.participations = summary;
                     $scope.$broadcast('scroll.refreshComplete');
                 });
             };
@@ -104,7 +106,7 @@ angular.module('ya-app').controller('ViewEventController',
 
             $log.log("ViewEventController eventId=" + eventId);
 
-            $scope.summary = {participationsSize : '-', commentSize : '-', comments: [], lastParticipations: [],  myParticipation : {}};
+            $scope.summary = {participationsSize : '-', commentSize : '-', comments: [],  myParticipation : {}};
 
             $scope.reload = function(eventId){
                 EventService.getEvent(eventId).then(function(event) {
@@ -121,9 +123,8 @@ angular.module('ya-app').controller('ViewEventController',
                         $scope.summary.participationsSize = size;
                     });
 
-                    EventService.getEventParticipations(event.id).then(function(participations) {
-                        $log.log("summary.lastParticipations=" + participations);
-                        $scope.summary.participations = participations;
+                    EventService.getParticipationSummary(eventId).then(function (summary) {
+                        $scope.participations = summary;
                     });
 
                     EventService.getCommentSize(event).then(function(size) {

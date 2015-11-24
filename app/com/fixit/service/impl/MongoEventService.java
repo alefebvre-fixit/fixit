@@ -238,11 +238,11 @@ public class MongoEventService implements EventService {
 		List<EventComment> result = null;
 		Logger.debug("MongoEventService.getComments(String eventId = " + eventId +", int offset = " + offset +", int length = " + length + " )");
 		if (length > 0) {
-			Page<EventComment> pages = commentRepository.findByEventId(
+			Page<EventComment> pages = commentRepository.findByEventIdOrderByCommentDateDesc(
 					eventId, new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
-			result = commentRepository.findByEventId(eventId);
+			result = commentRepository.findByEventIdOrderByCommentDateDesc(eventId);
 		}
 		Logger.debug("MongoEventService.getCommentSize(String eventId = " + eventId + " ) found=" + result.size());
 

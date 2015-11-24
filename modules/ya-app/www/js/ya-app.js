@@ -16,8 +16,8 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', '
       var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com';
 
       $rootScope.user = {};
-      $rootScope.baseUrl = herokuFixitURL;
-      $rootScope.isPluginEnabled = true;
+      $rootScope.baseUrl = localFixitURL;
+      $rootScope.isPluginEnabled = false;
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
