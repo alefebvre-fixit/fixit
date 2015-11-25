@@ -17,6 +17,7 @@ import com.fixit.dao.ParticipationRepository;
 import com.fixit.model.event.Event;
 import com.fixit.model.event.EventComment;
 import com.fixit.model.event.Participation;
+import com.fixit.model.event.ParticipationSummary;
 import com.fixit.service.EventService;
 import com.fixit.service.NotificationService;
 
@@ -267,6 +268,12 @@ public class MongoEventService implements EventService {
 	public void deleteEventParticipations(String eventId) {
 		Logger.debug("MongoEventService.deleteEventParticipations(String eventId = " + eventId + " )");
 		participationRepository.deleteByEventId(eventId);
+	}
+
+	@Override
+	public ParticipationSummary getParticipationSummary(String eventId) {
+		Logger.debug("MongoEventService.getParticipationSummary(String eventId = " + eventId + " )");
+		return new ParticipationSummary(getParticipations(eventId));
 	}
 
 }

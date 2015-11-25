@@ -144,6 +144,7 @@ GET 	/api/events/:eventId/comments/size 							@controllers.api.EventAPIControll
 GET 	/api/events/:eventId/comments 								@controllers.api.EventAPIController.comments(eventId: String)
 GET		/api/events/:eventId/participations/size					@controllers.api.EventAPIController.countParticipations(eventId: String)
 GET		/api/events/:eventId/participations/last					@controllers.api.EventAPIController.lastParticipations(eventId: String)
+GET		/api/events/:eventId/participations/summary					@controllers.api.EventAPIController.participationSummary(eventId: String)
 GET		/api/events/:eventId/participations							@controllers.api.EventAPIController.participations(eventId: String)
 
 GET 	/api/users/:username/events/:eventId/participation			@controllers.api.EventAPIController.userParticipation(username: String, eventId: String)
@@ -155,7 +156,7 @@ POST    /api/events/:eventId/delete   								@controllers.api.EventAPIControlle
 POST    /api/events/:eventId/publish  								@controllers.api.EventAPIController.publishEvent(eventId: String)
 POST 	/api/events/:eventId/comments/:content 						@controllers.api.EventAPIController.post(eventId: String, content: String)
 POST	/api/events/:eventId/participations/generate				@controllers.api.EventAPIController.generateParticipation(eventId: String)
-GET	/api/events/:eventId/participations/generate				@controllers.api.EventAPIController.generateParticipation(eventId: String)
+GET		/api/events/:eventId/participations/generate				@controllers.api.EventAPIController.generateParticipation(eventId: String)
 
 POST	/api/events/:eventId/participations							@controllers.api.EventAPIController.participate(eventId: String)
 

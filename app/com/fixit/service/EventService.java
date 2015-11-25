@@ -5,7 +5,7 @@ import java.util.List;
 import com.fixit.model.event.Event;
 import com.fixit.model.event.EventComment;
 import com.fixit.model.event.Participation;
-import com.fixit.model.project.ProjectComment;
+import com.fixit.model.event.ParticipationSummary;
 
 public interface EventService {
 
@@ -30,6 +30,8 @@ public interface EventService {
 	public String getEventOwner(String eventId);
 	
 	public List<Participation> getParticipations(String eventId, int offset, int length);
+	
+	public ParticipationSummary getParticipationSummary(String eventId);
 	
 	public int countParticipations(String eventId);
 	

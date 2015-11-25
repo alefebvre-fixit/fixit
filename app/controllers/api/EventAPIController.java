@@ -167,6 +167,11 @@ public class EventAPIController extends YaController {
 		return ok(play.libs.Json.toJson(getEventService().getParticipations(
 				eventId, 0, -1)));
 	}
+	
+	public Result participationSummary(String eventId) {
+		Logger.debug("EventAPIController.participationSummary()" + eventId);
+		return ok(play.libs.Json.toJson(getEventService().getParticipationSummary(eventId)));
+	}
 
 	public Result countParticipations(String eventId) {
 		Logger.debug("EventAPIController.participations()" + eventId);
