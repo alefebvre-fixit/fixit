@@ -109,10 +109,6 @@ angular.module('ya-app').controller('ViewGroupController',
                         $scope.summary.followerSize = data;
                     });
 
-                    GroupService.getCommentSize(groupId).then(function (data) {
-                        $scope.summary.commentSize = data;
-                    });
-
                 });
             });
 

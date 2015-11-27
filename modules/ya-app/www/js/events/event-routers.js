@@ -75,57 +75,6 @@ angular.module('ya-app').config(function ($stateProvider) {
             ,
             authenticate: true
         })
-        /*
-        .state('ya.discover', {
-            url: "/discover",
-            views: {
-                'tab-events': {
-                    templateUrl: "templates/events/discover.html",
-                    controller: 'DiscoverEventController',
-                    resolve: {
-                        events: function ($rootScope, eventService) {
-                            return eventService.getEvents();
-
-                        }
-                    }
-                }
-
-            },
-            authenticate: true
-        })
-        .state('ya.event-comments', {
-            cache: false,
-            url: "/events/:eventId/comments",
-            views: {
-                'tab-events': {
-                    templateUrl: "templates/events/event-comments.html",
-                    controller: 'eventCommentsController',
-                    resolve: {
-                        eventId: function ($stateParams) {
-                            return $stateParams.eventId;
-                        }
-                    }
-                }
-            },
-            authenticate: true
-        })
-        .state('ya.event-followers', {
-            cache: false,
-            url: "/events/:eventId/followers",
-            views: {
-                'tab-events': {
-                    templateUrl: "templates/events/event-followers.html",
-                    controller: 'eventFollowersController',
-                    resolve: {
-                        eventId: function ($stateParams) {
-                            return $stateParams.eventId;
-                        }
-                    }
-                }
-            },
-            authenticate: true
-        })
-        */
     ;
 
 });

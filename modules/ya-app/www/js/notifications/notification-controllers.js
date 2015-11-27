@@ -1,5 +1,5 @@
 angular.module('ya-app').controller('NotificationListController',
-	['NotificationService', '$scope', '$log','$rootScope','$state','$ionicLoading',
+	['NotificationService', '$scope', '$log','$rootScope','$state', '$ionicLoading',
 		function (NotificationService, $scope, $log, $rootScope, $state, $ionicLoading) {
 
 
@@ -59,6 +59,7 @@ angular.module('ya-app').controller('NotificationListController',
 			$scope.goToEvent = function(eventId){
 				$state.go('event', {eventId: eventId});
 			};
+
 
 		}
 	]);

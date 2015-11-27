@@ -58,20 +58,10 @@ angular.module('ya-app').factory('EventService',
                     });
                 },
                 getParticipationSummary: function(eventId) {
-                    return $http.get($rootScope.baseUrl + '/api/events/' + eventId +'/participations').then(function (response) {
-
-                        var summary = {all : [], in : [], out : [], rsvp : []};
-                        console.log(response.data);
-                        summary.all =  response.data;
-                        summary.in =  $filter('filter')(response.data, { status: 'IN'});
-                        summary.out =  $filter('filter')(response.data, { status: 'OUT'});
-                        summary.rsvp =  $filter('filter')(response.data, { status: 'RSVP'});
-
-                        return summary;
+                    return $http.get($rootScope.baseUrl + '/api/events/' + eventId +'/participations/summary').then(function (response) {
+                        return response.data;
                     });
                 },
-
-
                 getUserParticipation: function(event) {
                     return $http.get($rootScope.baseUrl + '/api/users/' + $rootScope.user.username + '/events/' + event.id + '/participation').then(function (response) {
                         return response.data;

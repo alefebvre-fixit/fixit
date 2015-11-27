@@ -1,6 +1,6 @@
 <style>
 
-    .module .avatar {
+    .account .avatar {
         border-radius: 50%;
         box-shadow: 0 0 0 3px #fff, 0 0 0 2px #999, 0 2px 5px 4px rgba(0,0,0,.2);
         display: block;
@@ -9,7 +9,7 @@
         position: relative;
         top: 15px;
     }
-    .module {
+    .account {
         background:
         linear-gradient(
                 to bottom,
@@ -22,7 +22,7 @@
         overflow: hidden;
         border-bottom: 5px solid #dddddd;
     }
-    .module > header {
+    .account > header {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -30,12 +30,12 @@
         padding:20px 10px;
         text-align: center;
     }
-    .module > header > h3  {
+    .account > header > h3  {
         margin: 0;
         color: white;
         text-shadow: 0 1px 0 black;
     }
-    .module > header > h5  {
+    .account > header > h5  {
         margin: 0;
         color: white;
         text-shadow: 0 1px 0 black;
@@ -52,11 +52,11 @@
 <ion-view title="Profile">
 
     <ion-nav-buttons side="right">
-        <a class="button button-clear" ui-sref="tabs.settings">Edit</a>
+        <a class="button button-clear" ui-sref="user-edit">Edit</a>
     </ion-nav-buttons>
 
     <ion-content class="has-header">
-        <div class="module">
+        <div class="account">
             <img ng-src="img/users/{{::summary.user.username}}-100.jpg" class="avatar" width="100">
             <header>
                 <h3>
@@ -83,11 +83,8 @@
                 <p class="statistic-label">Groups</p>
                 </p>
             </a>
-            <a class="col statistic" ui-sref="user-contributions({username: summary.user.username})">
+            <a class="col statistic">
                 <p class="statistic">
-                    <b>{{summary.contributionNumber}}</b>
-                    <br>
-                <p class="statistic-label">Contributions</p>
                 </p>
             </a>
             <a class="col statistic" ui-sref="user-followers({username: summary.user.username})">

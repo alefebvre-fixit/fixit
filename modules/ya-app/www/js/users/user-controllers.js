@@ -99,8 +99,8 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'SettingSe
 
 
 
-angular.module('ya-app').controller('EditSettingController', ['YaService', 'SettingService', '$scope', '$log', 'profile', '$cordovaToast',
-    function (YaService, SettingService, $scope, $log, profile, $cordovaToast) {
+angular.module('ya-app').controller('EditUserController', ['YaService', 'SettingService', '$scope', '$log', 'profile','$state',
+    function (YaService, SettingService, $scope, $log, profile, $state) {
 
         $scope.profile = profile;
 
@@ -109,6 +109,7 @@ angular.module('ya-app').controller('EditSettingController', ['YaService', 'Sett
                 YaService.setUser(data);
                 $scope.profile = data.profile;
                 YaService.toastMe('Setting Updated');
+                $state.go("user", {username : $scope.user.username});
             });
         };
 
@@ -169,7 +170,7 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$
             return false;
         };
 
-        $ionicPopover.fromTemplateUrl('templates/accounts/partial/account-popover.html', {
+        $ionicPopover.fromTemplateUrl('templates/users/partial/user-popover.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.popover = popover;

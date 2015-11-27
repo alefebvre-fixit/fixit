@@ -4,6 +4,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		.state('tabs', {
 			url: "/tabs",
 			abstract: true,
+			controller: 'YaController',
 			templateUrl: "templates/tabs.html"
 		})
 		.state('test', {
@@ -11,21 +12,9 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: "templates/test-2.html",
 			authenticate: false
 		})
-
-		.state('tabs.account', {
-			url: '/account',
-			views: {
-				'tab-account': {
-					templateUrl: 'templates/accounts/account-summary.html',
-					controller: 'AccountCtrl'
-				}
-			},
-			authenticate: false
-		})
-
 		;
 
-		
+
 
 	// if none of the above states are matched, use this as the fallback
 	$urlRouterProvider.otherwise('/signin');

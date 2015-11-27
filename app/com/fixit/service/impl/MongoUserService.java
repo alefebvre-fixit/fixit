@@ -160,19 +160,15 @@ public class MongoUserService implements UserService {
 
 	@Override
 	public List<User> getFollowers(String username) {
-		return null;
-
-		//TODO To be implemented
-		
-/*		List<User> result = null;
+		List<User> result = null;
 		
 		User user = load(username);
 		if (user != null){
 			List<String> followers = user.getFollowers();
-			result = getCollection().find().in(USER_NAME, followers).toArray();
+			result = userRepository.findByUsername(followers);			
 		}
 		
-		return result;*/
+		return result;
 	}
 	
 	@Override

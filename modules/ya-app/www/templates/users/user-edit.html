@@ -1,0 +1,55 @@
+
+<ion-view view-title="Edit Event">
+
+        <form name="eventForm" novalidate ng-submit="saveProfile(profile)">
+            <ion-content>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Username</span>
+                    <input type="text" placeholder="Name" ng-model="user.username">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">email</span>
+                    <input type="text" placeholder="Name" ng-model="user.email">
+                </label>
+                <div class="item item-divider">
+                    Profile
+                </div>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Name</span>
+                    <input type="text" placeholder="Name" ng-model="profile.name">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">City</span>
+                    <input type="text" placeholder="City" ng-model="profile.city">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Country</span>
+                    <input type="text" placeholder="Country" ng-model="profile.country">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Website</span>
+                    <input type="text" placeholder="Website" ng-model="profile.website">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Biography</span>
+                    <textarea placeholder="Biography" ng-model="profile.biography" rows="5"></textarea>
+                </label>
+                <div class="item item-divider">
+                    Notification
+                </div>
+            </ion-content>
+            <ion-footer-bar align-title="left" class="bar-calm">
+                <div class="buttons">
+                    <a class="button button-clear button-primary"  ui-sref="user({ username: user.username })">Cancel</a>
+                </div>
+                <h1 class="title"></h1>
+                <div class="buttons">
+                    <button type="submit" class="button button-clear button-primary"><b>Save</b></button>
+                </div>
+            </ion-footer-bar>
+        </form>
+
+</ion-view>
+
+
+

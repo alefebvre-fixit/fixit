@@ -16,7 +16,7 @@
 
         <div class="list">
             <a class="item item-avatar"  collection-repeat="comment in comments">
-                <img ng-src="img/{{comment.username}}.jpg">
+                <img ng-src="img/users/{{comment.username}}.jpg">
                 <p>{{comment.username}} - <span am-time-ago="comment.commentDate"></span></p>
                 <h2><i class="icon ion-ios-chatbubble calm"></i> {{comment.content}}</h2>
             </a>

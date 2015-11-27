@@ -90,18 +90,17 @@
             <br>
         <p class="statistic-label">Events</p>
     </a>
+    <a class="col statistic" ui-sref="group-comments({groupId: group.id})">
+        <p class="statistic">
+        </p>
+    </a>
     <a class="col statistic" ui-sref="group-followers({groupId: group.id})">
         <p class="statistic">
             <b>{{summary.followerSize}}</b>
             <br>
         <p class="statistic-label">Followers</p>
     </a>
-    <a class="col statistic" ui-sref="group-comments({groupId: group.id})">
-        <p class="statistic">
-            <b>{{summary.commentSize}}</b>
-            <br>
-        <p class="statistic-label">Comments</p>
-    </a>
+
 </div>
 
 <div class="row">

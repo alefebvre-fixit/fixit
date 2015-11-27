@@ -23,47 +23,36 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: false
 		})
-		.state('tabs.settings', {
-			url: "/settings",
-			views: {
-				'tab-account': {
-					templateUrl: "templates/settings.html",
-					controller: 'EditSettingController',
-					resolve: {
-						profile: function ($rootScope) {
-							return JSON.parse(JSON.stringify($rootScope.user.profile));
-						}
-					}
-				}
-			},
-			authenticate: true
-		})
 		.state('user-followers', {
 			url: "/user/:username/followers",
-			views: {
-				'tab-account': {
-					templateUrl: "templates/accounts/account-followers.html",
-					controller: 'FollowersController',
-					resolve: {
-						username: function ($stateParams) {
-							return $stateParams.username;
-						}
-					}
+			templateUrl: "templates/users/user-followers.html",
+			controller: 'FollowersController',
+			resolve: {
+				username: function ($stateParams) {
+					return $stateParams.username;
 				}
 			},
 			authenticate: true
 		})
 		.state('user-groups', {
 			url: "/user/:username/groups",
-			views: {
-				'tab-account': {
-					templateUrl: "templates/accounts/account-groups.html",
-					controller: 'UserProjectController',
-					resolve: {
-						username: function ($stateParams) {
-							return $stateParams.username;
-						}
-					}
+			templateUrl: "templates/users/user-groups.html",
+			controller: 'UserProjectController',
+			resolve: {
+				username: function ($stateParams) {
+					return $stateParams.username;
+				}
+			},
+			authenticate: true
+		})
+		.state('user-edit', {
+			cache: true,
+			url: "/user/:username/edit",
+			templateUrl: "templates/users/user-edit.html",
+			controller: 'EditUserController',
+			resolve: {
+				profile: function ($rootScope) {
+					return JSON.parse(JSON.stringify($rootScope.user.profile));
 				}
 			},
 			authenticate: true
@@ -71,7 +60,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		.state('user', {
 			cache: true,
 			url: "/user/:username",
-			templateUrl: "templates/accounts/account-summary.html",
+			templateUrl: "templates/users/user-summary.html",
 			controller: 'UserController',
 			resolve: {
 				username: function ($stateParams) {
@@ -79,6 +68,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 				}
 			},
 			authenticate: true
-		});
+		})
+;
 
 });

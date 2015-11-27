@@ -1,11 +1,9 @@
 angular.module('ya-app').factory('YaService',
     ['$rootScope', '$log',
         function($rootScope, $log) {
-
             var resultService;
             resultService = {
                 toastMe: function(message) {
-
                     if ($rootScope.isPluginEnabled){
                         $cordovaToast.show(message, 'short', 'center').then(
                             function(success) {
@@ -20,7 +18,11 @@ angular.module('ya-app').factory('YaService',
                 },
                 setUser: function(user){
                     $rootScope.user = user;
-                    localStorage.setItem("username",user.username);
+                    if (user){
+                        localStorage.setItem("username",user.username);
+                    } else {
+                        localStorage.removeItem("username");
+                    }
                 },
                 setFavorites: function(favorites){
                     $log.log("setFavorites from service" + favorites);
