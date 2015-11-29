@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fixit.model.User;
+import com.fixit.model.user.User;
 
 @Document(collection = "Participation")
 public class Participation {

@@ -1,7 +1,7 @@
 package com.fixit.model.event;
 
-import com.fixit.model.User;
 import com.fixit.model.group.Group;
+import com.fixit.model.user.User;
 
 public class EventFactory {
 

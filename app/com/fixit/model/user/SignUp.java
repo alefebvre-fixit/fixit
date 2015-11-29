@@ -1,4 +1,4 @@
-package com.fixit.model.account;
+package com.fixit.model.user;
 
 import play.data.validation.Constraints.Required;
 

@@ -15,11 +15,12 @@ import play.Logger;
 import com.fixit.dao.FavoriteRepository;
 import com.fixit.dao.GroupRepository;
 import com.fixit.model.Favorite;
-import com.fixit.model.User;
 import com.fixit.model.group.Group;
+import com.fixit.model.user.User;
 import com.fixit.service.GroupService;
 import com.fixit.service.NotificationService;
 import com.fixit.service.UserService;
+import com.fixit.util.YaUtil;
 
 @Named
 public class MongoGroupService implements GroupService {
@@ -117,7 +118,7 @@ public class MongoGroupService implements GroupService {
 	}
 
 	@Override
-	public List<String> groupFollowed(String username) {
+	public List<String> getFollowingIds(String username) {
 		List<String> result = new ArrayList<String>();
 
 		List<Favorite> favorites = favoriteRepository.findByUsername(username);
@@ -170,6 +171,9 @@ public class MongoGroupService implements GroupService {
 	@Override
 	public List<User> groupFollowers(String groupId) {
 
+		Logger.debug("MongoGroupService.groupFollowers(String groupId) groupId=" + groupId);
+
+		
 		// TODO Improve implementation by loading only the username
 		List<User> result = new ArrayList<User>();
 
@@ -184,6 +188,27 @@ public class MongoGroupService implements GroupService {
 			}
 		}
 
+		return result;
+	}
+
+	@Override
+	public int groupFollowingSize(String username) {
+		Logger.debug("MongoGroupService.groupFollowingSize(String username) username=" + username);
+		return favoriteRepository.countByUsername(username);
+	}
+
+	@Override
+	public List<Group> getFollowingGroups(String username) {
+		List<Group> result = new ArrayList<Group>();
+		
+		List<String> ids = getFollowingIds(username);
+		if (YaUtil.isNotEmpty(ids)){
+			Iterable<Group> groups = groupRepository.findAll(ids);
+			for (Group group : groups) {
+				result.add(group);
+			}
+		}
+		
 		return result;
 	}
 

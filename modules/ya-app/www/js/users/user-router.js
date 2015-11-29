@@ -34,10 +34,21 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: true
 		})
+        .state('user-following', {
+            url: "/user/:username/following",
+            templateUrl: "templates/users/user-following.html",
+            controller: 'FollowingController',
+            resolve: {
+                username: function ($stateParams) {
+                    return $stateParams.username;
+                }
+            },
+            authenticate: true
+        })
 		.state('user-groups', {
 			url: "/user/:username/groups",
 			templateUrl: "templates/users/user-groups.html",
-			controller: 'UserProjectController',
+			controller: 'UserGroupController',
 			resolve: {
 				username: function ($stateParams) {
 					return $stateParams.username;

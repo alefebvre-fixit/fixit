@@ -67,10 +67,10 @@
                 </h5>
             </header>
             <div ng-show="user.username!=summary.user.username">
-                <button class="button button-calm button-small button-follow ion-person" ng-click="follow(summary.user.username)" ng-show="!isFollowing(summary)">
+                <button class="button button-calm button-small button-follow ion-person" ng-click="follow(summary.user.username)" ng-show="!isFollowing(summary.user.username)">
                     Follow
                 </button>
-                <button class="button button-calm button-small button-follow ion-person" ng-click="unfollow(summary.user.username)" ng-show="isFollowing(summary)">
+                <button class="button button-calm button-small button-follow ion-person" ng-click="unfollow(summary.user.username)" ng-show="isFollowing(summary.user.username)">
                     Following
                 </button>
             </div>
@@ -78,21 +78,21 @@
         <div class="row">
             <a class="col statistic" ui-sref="user-groups({username: summary.user.username})">
                 <p class="statistic">
-                    <b>{{summary.groupNumber}}</b>
+                    <b>{{summary.groupSize}}</b>
                     <br>
                 <p class="statistic-label">Groups</p>
-                </p>
             </a>
-            <a class="col statistic">
+            <a class="col statistic" ui-sref="user-following({username: summary.user.username})">
                 <p class="statistic">
-                </p>
+                    <b>{{summary.followingSize}}</b>
+                    <br>
+                <p class="statistic-label">Following</p>
             </a>
             <a class="col statistic" ui-sref="user-followers({username: summary.user.username})">
                 <p class="statistic">
-                    <b>{{summary.followerNumber}}</b>
+                    <b>{{summary.followerSize}}</b>
                     <br>
                 <p class="statistic-label">Followers</p>
-                </p>
             </a>
         </div>
         <div class="row">

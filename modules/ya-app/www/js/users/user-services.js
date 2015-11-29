@@ -1,4 +1,4 @@
-angular.module('ya-app').factory('SettingService', ['$http', '$rootScope', function($http, $rootScope) {
+angular.module('ya-app').factory('UserService', ['$http', '$rootScope', function($http, $rootScope) {
 
     var resultService;
     resultService = {
@@ -31,13 +31,43 @@ angular.module('ya-app').factory('SettingService', ['$http', '$rootScope', funct
                 return response.data;
             });
         },
+        getFollowingGroups: function (username) {
+            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/groups/following').then(function (response) {
+                return response.data;
+            });
+        },
+        getFollowingGroupsSize: function (username) {
+            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/groups/following/size').then(function (response) {
+                return response.data;
+            });
+        },
+        getFollowingGroupIds: function (username) {
+            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/groups/following/id').then(function (response) {
+                return response.data;
+            });
+        },
         getFollowers: function (username) {
             return $http.get($rootScope.baseUrl + '/api/users/' + username + '/followers').then(function (response) {
                 return response.data;
             });
         },
-        getFavorites: function (username) {
-            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/favorites/groups').then(function (response) {
+        getFollowersSize: function (username) {
+            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/followers/size').then(function (response) {
+                return response.data;
+            });
+        },
+        getFollowingSize: function (username) {
+            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/following/size').then(function (response) {
+                return response.data;
+            });
+        },
+        getFollowing: function (username) {
+            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/following').then(function (response) {
+                return response.data;
+            });
+        },
+        getFollowingNames: function (username) {
+            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/following/name').then(function (response) {
                 return response.data;
             });
         }

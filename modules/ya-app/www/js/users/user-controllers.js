@@ -1,12 +1,12 @@
-angular.module('ya-app').controller('SignUpController', ['YaService', 'SettingService', '$scope', '$log', '$state', 'signup', '$ionicLoading',
-    function (YaService, SettingService, $scope, $log,  $state, signup, $ionicLoading) {
+angular.module('ya-app').controller('SignUpController', ['YaService', 'UserService', '$scope', '$log', '$state', 'signup', '$ionicLoading',
+    function (YaService, UserService, $scope, $log,  $state, signup, $ionicLoading) {
         $log.log("Enter SignUpController");
 
         $scope.signup = signup;
 
         $scope.doSignUp = function () {
 
-            SettingService.signupUser($scope.signup).success(function (data) {
+            UserService.signupUser($scope.signup).success(function (data) {
                 YaService.setUser(data);
                 $state.transitionTo('tabs.groups');
             }).error(function (response, status) {
@@ -21,8 +21,8 @@ angular.module('ya-app').controller('SignUpController', ['YaService', 'SettingSe
     }
 ]);
 
-angular.module('ya-app').controller('SignInController', ['YaService', 'SettingService', '$scope', '$log', '$state', '$ionicLoading',
-    function (YaService, SettingService, $scope, $log, $state, $ionicLoading) {
+angular.module('ya-app').controller('SignInController', ['YaService', 'UserService', '$scope', '$log', '$state', '$ionicLoading',
+    function (YaService, UserService, $scope, $log, $state, $ionicLoading) {
 
         $scope.signin = {username: 'antoinelefebvre', password: 'password'};
         // Perform the login action when the user submits the login for
@@ -32,12 +32,16 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'SettingSe
                 template: '<ion-spinner class="spinner-calm"></ion-spinner>'
             });
 
-            SettingService.signinUser($scope.signin).success(function (user) {
-                SettingService.getFavorites(user.username).then(function(favorites) {
+            UserService.signinUser($scope.signin).success(function (user) {
+
+                UserService.getFollowingGroupIds(user.username).then(function(favorites) {
                         YaService.setFavorites(favorites);
-                        $scope.setUser(user);
-                        $state.transitionTo('tabs.groups');
-                        $ionicLoading.hide();
+                        UserService.getFollowingNames(user.username).then(function(following) {
+                            YaService.setFollowing(following);
+                            YaService.setUser(user);
+                            $state.transitionTo('tabs.groups');
+                            $ionicLoading.hide();
+                        });
                     }
                 );
             }).error(function (response, status) {
@@ -61,7 +65,7 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'SettingSe
                 $scope.signin.error = JSON.stringify(result);
 
 
-                SettingService.signInGoogle(result).success(function (user) {
+                UserService.signInGoogle(result).success(function (user) {
                     $ionicLoading.hide();
 
                 }).error(function (response, status) {
@@ -99,13 +103,13 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'SettingSe
 
 
 
-angular.module('ya-app').controller('EditUserController', ['YaService', 'SettingService', '$scope', '$log', 'profile','$state',
-    function (YaService, SettingService, $scope, $log, profile, $state) {
+angular.module('ya-app').controller('EditUserController', ['YaService', 'UserService', '$scope', '$log', 'profile','$state',
+    function (YaService, UserService, $scope, $log, profile, $state) {
 
         $scope.profile = profile;
 
         $scope.saveProfile = function(profile) {
-            SettingService.saveProfile(profile).then(function (data) {
+            UserService.saveProfile(profile).then(function (data) {
                 YaService.setUser(data);
                 $scope.profile = data.profile;
                 YaService.toastMe('Setting Updated');
@@ -117,24 +121,45 @@ angular.module('ya-app').controller('EditUserController', ['YaService', 'Setting
 ]);
 
 
-angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$log', 'SettingService', 'username', '$ionicPopup', '$ionicPopover','$state',
-    function (YaService, $scope, $log, SettingService, username, $ionicPopup, $ionicPopover, $state) {
+angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$log', 'UserService', 'username', '$ionicPopup', '$ionicPopover','$state',
+    function (YaService, $scope, $log, UserService, username, $ionicPopup, $ionicPopover, $state) {
+
+
+
+        $scope.summary = {groupSize : '-', followingSize : '-', followerSize : '-', user: {}};
+
+        var reload = function(username){
+
+            UserService.getUserSummary(username).then(function (summary) {
+                $scope.summary.user = summary;
+            });
+
+            UserService.getFollowingGroupsSize(username).then(function (groupSize) {
+                $scope.summary.groupSize = groupSize;
+            });
+
+            UserService.getFollowersSize(username).then(function (followerSize) {
+                $scope.summary.followerSize = followerSize;
+            });
+
+            UserService.getFollowingSize(username).then(function (followingSize) {
+                $scope.summary.followingSize = followingSize;
+            });
+
+        };
 
         //To insure the back button is displayed
         $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
             viewData.enableBack = true;
-        });
-
-        SettingService.getUserSummary(username).then(function (summary) {
-            $scope.summary = summary;
+            reload(username);
         });
 
         $scope.follow = function(username){
             $log.log("follow=" + username);
-            SettingService.follow(username).then(function (data) {
-                YaService.setUser(data);
-                SettingService.getUserSummary(username).then(function (data) {
-                    $scope.summary = data;
+            UserService.follow(username).then(function (data) {
+                YaService.addFollowing(username);
+                UserService.getFollowersSize(username).then(function (followerSize) {
+                    $scope.summary.followerSize = followerSize;
                 });
             });
         };
@@ -142,32 +167,24 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$
         $scope.unfollow = function(username){
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Unfollow',
-                template: 'Stop following ' + username + ' ?'
+                template: 'Stop following ' + username + ' ?',
+                type: 'button-calm'
             });
             confirmPopup.then(function(res) {
                 if(res) {
                     $log.log("unfollow=" + username);
-                    SettingService.unfollow(username).then(function (data) {
-                        YaService.setUser(data);
-                        SettingService.getUserSummary(username).then(function (data) {
-                            $scope.summary = data;
+                    UserService.unfollow(username).then(function (data) {
+                        YaService.removeFollowing(username);
+                        UserService.getFollowersSize(username).then(function (followerSize) {
+                            $scope.summary.followerSize = followerSize;
                         });
                     });
                 }
             });
         };
 
-        $scope.isFollowing = function(summary){
-            $log.log('Call isFollowing');
-            if (summary){
-                var arrayLength = summary.user.followers.length;
-                for (var i = 0; i < arrayLength; i++) {
-                    if ($scope.user.username == summary.user.followers[i]){
-                        return true;
-                    }
-                }
-            }
-            return false;
+        $scope.isFollowing = function(username){
+            return YaService.isFollowing(username);
         };
 
         $ionicPopover.fromTemplateUrl('templates/users/partial/user-popover.html', {
@@ -194,15 +211,63 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$
 ]);
 
 
-angular.module('ya-app').controller('FollowersController', ['SettingService', '$scope', '$log', 'username',
-    function (SettingService, $scope, $log, username) {
+angular.module('ya-app').controller('FollowersController', ['UserService', '$scope', '$log', 'username',
+    function (UserService, $scope, $log, username) {
 
-        SettingService.getFollowers(username).then(function (followers) {
-            $scope.followers = followers;
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            UserService.getFollowers(username).then(function (followers) {
+                $scope.users = followers;
+            });
         });
+
+        $scope.doRefresh = function() {
+            UserService.getFollowers(username).then(function (followers) {
+                $scope.users = followers;
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
+
+
+    }
+]);
+
+angular.module('ya-app').controller('FollowingController', ['UserService', '$scope', '$log', 'username',
+    function (UserService, $scope, $log, username) {
+
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            UserService.getFollowing(username).then(function (followers) {
+                $scope.users = followers;
+            });
+        });
+
+        $scope.doRefresh = function() {
+            UserService.getFollowing(username).then(function (followers) {
+                $scope.users = followers;
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
+
 
     }
 ]);
 
 
+angular.module('ya-app').controller('UserGroupController', ['UserService', '$scope', '$log', 'username',
+    function (UserService, $scope, $log, username) {
 
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            UserService.getFollowingGroups(username).then(function (groups) {
+                $scope.groups = groups;
+            });
+        });
+
+        $scope.doRefresh = function() {
+            UserService.getFollowingGroups(username).then(function (groups) {
+                $scope.groups = groups;
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
+
+
+    }
+]);

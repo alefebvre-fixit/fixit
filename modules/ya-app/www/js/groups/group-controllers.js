@@ -142,7 +142,8 @@ angular.module('ya-app').controller('ViewGroupController',
             $scope.unfollow = function(group){
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Unfollow',
-                    template: 'Remove group ' + group.name + ' from favorites ?'
+                    template: 'Remove group ' + group.name + ' from favorites ?',
+                    type: 'button-calm'
                 });
                 confirmPopup.then(function(res) {
                     if(res) {

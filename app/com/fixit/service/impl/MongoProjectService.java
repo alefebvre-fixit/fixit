@@ -8,7 +8,7 @@ import javax.inject.Named;
 
 import com.fixit.dao.ProjectRepository;
 import com.fixit.model.Project;
-import com.fixit.model.User;
+import com.fixit.model.user.User;
 import com.fixit.service.ProjectService;
 import com.fixit.service.UserService;
 

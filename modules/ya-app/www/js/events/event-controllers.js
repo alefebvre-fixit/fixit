@@ -108,7 +108,7 @@ angular.module('ya-app').controller('ViewEventController',
 
             $scope.summary = {participationsSize : '-', commentSize : '-', comments: [],  myParticipation : {}};
 
-            $scope.reload = function(eventId){
+            var reload = function(eventId){
                 EventService.getEvent(eventId).then(function(event) {
                     $log.log("ViewEventController getEvent is called eventId=" + eventId);
                     $scope.event = event;
@@ -139,7 +139,7 @@ angular.module('ya-app').controller('ViewEventController',
             //To insure the back button is displayed
             $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
                 viewData.enableBack = true;
-                $scope.reload(eventId);
+                reload(eventId);
             });
 
 
@@ -243,7 +243,7 @@ angular.module('ya-app').controller('ViewEventController',
                     $scope.summary.myParticipation = data;
                     $scope.closeRSVP();
                     YaService.toastMe('You are now ' + data.status);
-                    $scope.reload(rsvp.eventId);
+                    reload(rsvp.eventId);
                 });
             };
 
@@ -273,7 +273,7 @@ angular.module('ya-app').controller('ViewEventController',
                     template: '<ion-spinner class="spinner-calm"></ion-spinner>'
                 });
                 EventService.generateParticipations(event).then(function(data){
-                    $scope.reload(event.id);
+                    reload(event.id);
                     $ionicLoading.hide();
                 });
             };

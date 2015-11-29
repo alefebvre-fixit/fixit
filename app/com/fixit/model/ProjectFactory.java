@@ -1,5 +1,7 @@
 package com.fixit.model;
 
+import com.fixit.model.user.User;
+
 public class ProjectFactory {
 
 	public static final Project createProject(User user) {

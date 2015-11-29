@@ -5,7 +5,7 @@ import javax.inject.Named;
 
 import play.mvc.Controller;
 
-import com.fixit.model.User;
+import com.fixit.model.user.User;
 import com.fixit.service.EventService;
 import com.fixit.service.GroupService;
 import com.fixit.service.UserService;

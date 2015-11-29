@@ -12,22 +12,20 @@ import play.mvc.Http;
 import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 import play.mvc.Results;
-import play.mvc.Security;
 
-import com.fixit.model.Profile;
 import com.fixit.model.S3File;
-import com.fixit.model.User;
-import com.fixit.model.account.SignIn;
-import com.fixit.model.account.SignUp;
-import com.fixit.model.account.UserSummary;
+import com.fixit.model.user.Profile;
+import com.fixit.model.user.SignIn;
+import com.fixit.model.user.SignUp;
+import com.fixit.model.user.User;
+import com.fixit.model.user.UserSummary;
 import com.fixit.service.GroupService;
 import com.fixit.service.UserService;
 
 import controllers.FixItController;
-import controllers.Secured;
 
 @Named
-public class AccountAPIController extends FixItController {
+public class UserAPIController extends FixItController {
 
 	@Inject
 	private GroupService groupService;
@@ -39,16 +37,12 @@ public class AccountAPIController extends FixItController {
 	@Inject
 	private UserService userService;
 
-	public Result accountSummary() {
-		Logger.debug("AccountAPIController.accountSummary");
-
-		User user = userService.load(getUserName());
-
-		return ok(play.libs.Json.toJson(user.getUserCard()));
+	protected UserService getUserService() {
+		return userService;
 	}
 
 	public Result account() {
-		Logger.debug("AccountAPIController.account");
+		Logger.debug("UserAPIController.account");
 
 		User user = userService.load(getUserName());
 
@@ -56,17 +50,17 @@ public class AccountAPIController extends FixItController {
 	}
 
 	public Result accounts() {
-		Logger.debug("AccountAPIController.accounts()");
+		Logger.debug("UserAPIController.accounts()");
 		return ok(play.libs.Json.toJson(userService.getAll()));
 	}
 
 	public Result user(String username) {
-		Logger.debug("AccountAPIController.user(username)");
+		Logger.debug("UserAPIController.user(username)");
 		return ok(play.libs.Json.toJson(userService.load(username)));
 	}
 
 	public Result signUp() {
-		Logger.debug("AccountAPIController.signup()");
+		Logger.debug("UserAPIController.signup()");
 
 		RequestBody body = request().body();
 		SignUp signup = Json.fromJson(body.asJson(), SignUp.class);
@@ -85,7 +79,7 @@ public class AccountAPIController extends FixItController {
 
 	public Result signIn() {
 
-		Logger.debug("AccountAPIController.signIn()");
+		Logger.debug("UserAPIController.signIn()");
 
 		RequestBody body = request().body();
 		SignIn signin = Json.fromJson(body.asJson(), SignIn.class);
@@ -104,10 +98,10 @@ public class AccountAPIController extends FixItController {
 
 	public Result googleSignIn() {
 
-		Logger.debug("AccountAPIController.googleSignIn()");
+		Logger.debug("UserAPIController.googleSignIn()");
 
 		RequestBody body = request().body();
-		Logger.debug("AccountAPIController.googleSignIn()" + body.asJson());
+		Logger.debug("UserAPIController.googleSignIn()" + body.asJson());
 
 		// SignIn signin = Json.fromJson(body.asJson(), SignIn.class);
 		/*
@@ -128,7 +122,7 @@ public class AccountAPIController extends FixItController {
 
 		User user = userService.load(signup.getUsername());
 		if (user != null) {
-			Logger.debug("AccountAPIController.validate() : User already exist");
+			Logger.debug("UserAPIController.validate() : User already exist");
 			result.add("User already exist");
 		}
 
@@ -136,7 +130,7 @@ public class AccountAPIController extends FixItController {
 	}
 
 	public Result updateProfile() {
-		Logger.debug("AccountAPIController.updateAccount()");
+		Logger.debug("UserAPIController.updateAccount()");
 
 		RequestBody body = request().body();
 		Profile profile = Json.fromJson(body.asJson(), Profile.class);
@@ -149,61 +143,63 @@ public class AccountAPIController extends FixItController {
 	}
 
 	public Result userSummary(String username) {
-		Logger.debug("AccountAPIController.user(username)");
+		Logger.debug("UserAPIController.user(username)");
 
-		UserSummary result = new UserSummary();
-		result.setUser(userService.load(username));
-
-		result.setLastProjects(getProjectService().getUserProjects(username, 0,
-				5));
-		result.setProjectNumber(getProjectService().countProjectsByOwner(
-				username));
-
-		result.setLastGroups(getGroupService().getUserGroups(username, 0, 5));
-		result.setGroupNumber(getGroupService().countGroupsByOwner(username));
-
-		result.setLastContribution(getContributionService()
-				.getUserContributions(username, 0, 5));
-		result.setContributionNumber(getContributionService()
-				.countContributionsByOwner(username));
-
-		result.setFollowerNumber(userService.countFollowers(username));
+		UserSummary result = UserSummary.create(userService.load(username));
 
 		return ok(play.libs.Json.toJson(result));
 	}
 
 	public Result follow(String followee) {
-		Logger.debug("AccountAPIController.follow(followee)" + followee);
+		Logger.debug("UserAPIController.follow(followee)" + followee);
 
-		User result = getUser();
-		if (!result.getUsername().equals(followee)) {
-			result = userService.follow(result.getUsername(), followee);
+		if (!getUserName().equals(followee)) {
+			userService.follow(getUserName(), followee);
 		}
 
-		return ok(play.libs.Json.toJson(result));
+		return ok();
 	}
 
 	public Result unFollow(String followee) {
-		Logger.debug("AccountAPIController.unFollow(followee)" + followee);
+		Logger.debug("UserAPIController.unFollow(followee)" + followee);
 
-		User result = getUser();
-		if (!result.getUsername().equals(followee)) {
-			result = userService.unFollow(result.getUsername(), followee);
+		if (!getUserName().equals(followee)) {
+			userService.unFollow(getUserName(), followee);
 		}
 
-		return ok(play.libs.Json.toJson(result));
+		return ok();
 	}
 
 	public Result followers(String username) {
-		Logger.debug("AccountAPIController.followers(username)" + username);
+		Logger.debug("UserAPIController.followers(username)" + username);
 
 		List<User> result = userService.getFollowers(username);
 
 		return ok(play.libs.Json.toJson(result));
 	}
 
+	public Result followerSize(String username) {
+		Logger.debug("UserAPIController.followerSize username =" + username);
+		return ok(Json.toJson(getUserService().countFollowers(username)));
+	}
+
+	public Result following(String username) {
+		Logger.debug("UserAPIController.following username =" + username);
+		return ok(Json.toJson(getUserService().getFollowing(username)));
+	}
+	
+	public Result followingNames(String username) {
+		Logger.debug("UserAPIController.followingNames username =" + username);
+		return ok(Json.toJson(getUserService().getFollowingNames(username)));
+	}
+
+	public Result followingSize(String username) {
+		Logger.debug("UserAPIController.followingSize username =" + username);
+		return ok(Json.toJson(getUserService().countFollowing(username)));
+	}
+
 	public Result uploadPicture() {
-		Logger.debug("AccountAPIController.uploadPicture()");
+		Logger.debug("UserAPIController.uploadPicture()");
 
 		Http.MultipartFormData body = request().body().asMultipartFormData();
 		List<Http.MultipartFormData.FilePart> parts = body.getFiles();

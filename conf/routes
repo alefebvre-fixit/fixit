@@ -1,6 +1,6 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
-# ~~~~
+# 
 
 
 
@@ -30,7 +30,9 @@ GET     /me/		       	    controllers.ProjectController.me()
 GET     /projects/test/         controllers.ProjectController.testProject()
 
 
-
+GET     /api/users/:user/contributions     		@controllers.api.ContributionAPIController.getUserContributions(user: String)
+GET     /api/users/:user/projects     			@controllers.api.ProjectAPIController.getUserProjects(user: String)
+GET     /api/users/:user/favorites/projects     @controllers.api.ProjectAPIController.favorites(user: String)
 
 # API Project
 GET     /api/projects              							controllers.api.ProjectAPIController.projects()
@@ -78,28 +80,34 @@ GET    	/api/projects/:projectId/cards/new/:type						controllers.api.ProjectAPI
 
 
 # API Account
-GET     /api/users/:user/contributions     		@controllers.api.ContributionAPIController.getUserContributions(user: String)
-GET     /api/users/:user/projects     			@controllers.api.ProjectAPIController.getUserProjects(user: String)
-GET     /api/users/:user/favorites/projects     @controllers.api.ProjectAPIController.favorites(user: String)
-GET     /api/users/:user/favorites/groups    	@controllers.api.GroupAPIController.favorites(user: String)
-GET     /api/users/:user/summary       	    	@controllers.api.AccountAPIController.userSummary(user: String)
-GET     /api/users/:user/followers       		@controllers.api.AccountAPIController.followers(user: String)
-GET     /api/users/:user       	    			@controllers.api.AccountAPIController.user(user: String)
-
-POST    /api/users/:user/follow       	    	@controllers.api.AccountAPIController.follow(user: String)
-POST    /api/users/:user/unfollow       		@controllers.api.AccountAPIController.unFollow(user: String)
 
 
-GET     /api/account/summary     				@controllers.api.AccountAPIController.accountSummary()
-GET     /api/account     						@controllers.api.AccountAPIController.account()
-GET     /api/accounts     						@controllers.api.AccountAPIController.accounts()
+
+GET     /api/users/:user/summary       	    		@controllers.api.UserAPIController.userSummary(user: String)
+GET     /api/users/:user/followers/size       		@controllers.api.UserAPIController.followerSize(user: String)
+GET     /api/users/:user/followers       			@controllers.api.UserAPIController.followers(user: String)
+GET     /api/users/:user/following/size       		@controllers.api.UserAPIController.followingSize(user: String)
+GET     /api/users/:user/following/name       		@controllers.api.UserAPIController.followingNames(user: String)
+GET     /api/users/:user/following       			@controllers.api.UserAPIController.following(user: String)
+GET     /api/users/:user/groups/following/size    	@controllers.api.GroupAPIController.followingSize(user: String)
+GET     /api/users/:user/groups/following/id    	@controllers.api.GroupAPIController.followingIds(user: String)
+GET     /api/users/:user/groups/following    		@controllers.api.GroupAPIController.following(user: String)
+
+GET     /api/users/:user       	    			@controllers.api.UserAPIController.user(user: String)
+
+POST    /api/users/:user/follow       	    	@controllers.api.UserAPIController.follow(user: String)
+POST    /api/users/:user/unfollow       		@controllers.api.UserAPIController.unFollow(user: String)
+
+
+GET     /api/account     						@controllers.api.UserAPIController.account()
+GET     /api/accounts     						@controllers.api.UserAPIController.accounts()
 GET     /api/notifications     					@controllers.api.NotificationAPIController.notifications()
 
-POST    /api/signup     						@controllers.api.AccountAPIController.signUp()
-POST 	/api/signin/google						@controllers.api.AccountAPIController.googleSignIn()
-POST    /api/signin     						@controllers.api.AccountAPIController.signIn()
-POST    /api/profile     						@controllers.api.AccountAPIController.updateProfile()
-POST    /api/profile/picture     				@controllers.api.AccountAPIController.uploadPicture()
+POST    /api/signup     						@controllers.api.UserAPIController.signUp()
+POST 	/api/signin/google						@controllers.api.UserAPIController.googleSignIn()
+POST    /api/signin     						@controllers.api.UserAPIController.signIn()
+POST    /api/profile     						@controllers.api.UserAPIController.updateProfile()
+POST    /api/profile/picture     				@controllers.api.UserAPIController.uploadPicture()
 
 
 # API Notification

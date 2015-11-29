@@ -2,8 +2,8 @@ package com.fixit.service;
 
 import java.util.List;
 
-import com.fixit.model.User;
 import com.fixit.model.group.Group;
+import com.fixit.model.user.User;
 
 public interface GroupService {
 
@@ -25,8 +25,12 @@ public interface GroupService {
 
 	public void unfollow(String username, String groupId);
 
-	public List<String> groupFollowed(String username);
+	public List<String> getFollowingIds(String username);
 
+	public List<Group> getFollowingGroups(String username);
+	
+	public int groupFollowingSize(String username);
+	
 	public List<User> groupFollowers(String groupId);
 
 	public List<String> groupFollowerNames(String groupId);
@@ -35,4 +39,5 @@ public interface GroupService {
 
 	public String getGroupOwner(String groupId);
 
+	
 }

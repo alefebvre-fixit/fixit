@@ -36,6 +36,43 @@ angular.module('ya-app').factory('YaService',
                     }
                     return false;
                 },
+                addFollowing: function(username){
+                    $log.log("addFollowing from service" + username);
+
+                    if (!$rootScope.following){
+                        $rootScope.following = [];
+                    }
+                    $rootScope.following.push(username);
+
+                },
+                removeFollowing: function(username){
+                    $log.log("removeFollowing from service" + username);
+
+                    if ($rootScope.following){
+                        var index = $rootScope.following.indexOf(username);
+                        if (index > -1) {
+                            $rootScope.following.splice(index, 1);
+                        }
+                    }
+
+                },
+                setFollowing: function(following){
+                    $log.log("setFollowing from service" + following);
+                    $rootScope.following = following;
+                },
+                isFollowing: function(username){
+                    $log.log("call isFollowing from service" + username);
+                    $log.log($rootScope.following);
+                    if (username && $rootScope.following){
+                        var arrayLength = $rootScope.following.length;
+                        for (var i = 0; i < arrayLength; i++) {
+                            if (username == $rootScope.following[i]){
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                },
                 isMine: function(group){
                     if (group){
                         if (group.username){

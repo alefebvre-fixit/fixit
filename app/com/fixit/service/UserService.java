@@ -2,17 +2,14 @@ package com.fixit.service;
 
 import java.util.List;
 
-import com.fixit.model.User;
-import com.fixit.model.account.SignIn;
-import com.fixit.model.account.SignUp;
-import com.fixit.model.account.UserCard;
+import com.fixit.model.user.SignIn;
+import com.fixit.model.user.SignUp;
+import com.fixit.model.user.User;
 
 public interface UserService {
 
-	public User load(String userName);
-	
-	public UserCard getUserCard(String userName);
-	
+	public User load(String username);
+
 	public User authenticate(SignIn signin);
 
 	public User authenticateByEmail(String email, String password);
@@ -26,16 +23,23 @@ public interface UserService {
 	public void delete(String id);
 
 	public List<User> getAll();
-	
-	public List<User> getFollowers(String user);
-	
-	public int countFollowers(String user);
-		
-	public User signup(SignUp signup);
-	
-	public User follow(String follower, String followee);
-	
-	public User unFollow(String follower, String followee);
 
+	public List<User> getFollowers(String username);
+	
+	public List<String> getFollowerNames(String username);
+
+	public int countFollowers(String username);
+
+	public User signup(SignUp signup);
+
+	public void follow(String follower, String followee);
+
+	public void unFollow(String follower, String followee);
+
+	public List<User> getFollowing(String username);
+
+	public List<String> getFollowingNames(String username);
+	
+	public int countFollowing(String username);
 
 }

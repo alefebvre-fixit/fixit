@@ -5,7 +5,7 @@ import javax.inject.Named;
 
 import play.mvc.Controller;
 
-import com.fixit.model.User;
+import com.fixit.model.user.User;
 import com.fixit.service.CardService;
 import com.fixit.service.ContributionService;
 import com.fixit.service.NotificationService;

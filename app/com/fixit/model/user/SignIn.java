@@ -1,4 +1,4 @@
-package com.fixit.model.account;
+package com.fixit.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

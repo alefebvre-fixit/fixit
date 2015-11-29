@@ -8,8 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fixit.model.User;
 import com.fixit.model.group.Group;
+import com.fixit.model.user.User;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)

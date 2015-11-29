@@ -1,4 +1,4 @@
-package com.fixit.model;
+package com.fixit.model.user;
 
 public class Profile {
 

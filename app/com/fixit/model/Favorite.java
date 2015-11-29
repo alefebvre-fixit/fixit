@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Favorite")
 public class Favorite {
 
-	private String projectId;
 	private String groupId;
 	private String username;
 	private Date creationDate;
@@ -22,14 +21,6 @@ public class Favorite {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
 	}
 	
 	public String getGroupId() {

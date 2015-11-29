@@ -12,11 +12,11 @@ import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 import play.mvc.Results;
 
-import com.fixit.model.User;
 import com.fixit.model.event.Event;
 import com.fixit.model.event.EventComment;
 import com.fixit.model.event.EventFactory;
 import com.fixit.model.event.Participation;
+import com.fixit.model.user.User;
 
 import controllers.YaController;
 

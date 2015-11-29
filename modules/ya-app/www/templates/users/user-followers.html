@@ -12,12 +12,7 @@
 		</ion-header-bar>
 
 		<div class="list">
-			<a class="item item-avatar"  collection-repeat="follower in followers | filter:filter"
-			   ui-sref="app.user({username: follower.username})">
-				<img ng-src="img/users/{{follower.username}}.jpg">
-				<h2>{{follower.profile.name}}</h2>
-				<p><i class="icon ion-location"> {{follower.profile.city}}, {{follower.profile.country}}</i></p>
-			</a>
+			<div ng-include data-src="'templates/users/partial/user-list-item.html'"></div>
 		</div>
 
 	</ion-content>

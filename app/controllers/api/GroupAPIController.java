@@ -85,7 +85,7 @@ public class GroupAPIController extends YaController {
 
 		getGroupService().follow(getUserName(), groupId);
 
-		return ok(Json.toJson(getGroupService().groupFollowed(getUserName())));
+		return ok(Json.toJson(getGroupService().getFollowingIds(getUserName())));
 	}
 
 	public Result followerSize(String groupId) {
@@ -105,13 +105,22 @@ public class GroupAPIController extends YaController {
 
 		getGroupService().unfollow(getUserName(), groupId);
 
-		return ok(Json.toJson(getGroupService().groupFollowed(getUserName())));
+		return ok(Json.toJson(getGroupService().getFollowingIds(getUserName())));
 	}
 
-	public Result favorites(String username) {
-		Logger.debug("GroupAPIController.favorites username =" + username);
-
-		return ok(Json.toJson(getGroupService().groupFollowed(username)));
+	public Result followingIds(String username) {
+		Logger.debug("GroupAPIController.followingIds username =" + username);
+		return ok(Json.toJson(getGroupService().getFollowingIds(username)));
+	}
+	
+	public Result following(String username) {
+		Logger.debug("GroupAPIController.following username =" + username);
+		return ok(Json.toJson(getGroupService().getFollowingGroups(username)));
+	}
+	
+	public Result followingSize(String username) {
+		Logger.debug("GroupAPIController.followingSize username =" + username);
+		return ok(Json.toJson(getGroupService().groupFollowingSize(username)));
 	}
 
 	public Result group(String groupId) {

@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import play.data.Form;
 import play.mvc.Result;
 
-import com.fixit.model.User;
+import com.fixit.model.user.User;
 import com.fixit.service.UserService;
 
 public class AccountController extends FixItController {

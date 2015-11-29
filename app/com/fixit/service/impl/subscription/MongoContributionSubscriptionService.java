@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.inject.Named;
 
-import com.fixit.model.account.UserCard;
 import com.fixit.model.notification.Notification;
 import com.fixit.service.SubscriptionService;
 

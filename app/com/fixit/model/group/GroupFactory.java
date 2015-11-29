@@ -1,6 +1,6 @@
 package com.fixit.model.group;
 
-import com.fixit.model.User;
+import com.fixit.model.user.User;
 
 public class GroupFactory {
 

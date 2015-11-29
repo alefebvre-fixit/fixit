@@ -18,7 +18,7 @@ public class FavoriteNotificationFactory extends NotificationFactory {
 
 			notification.setType(Notification.TYPE_FAVORITE);
 			notification.setActor(favorite.getUsername());
-			notification.setProjectId(favorite.getProjectId());
+			notification.setGroupId(favorite.getGroupId());
 			notification.setNotificationDate(new Date());
 
 			return notification;

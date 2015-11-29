@@ -11,6 +11,8 @@ import javax.validation.Validator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.fixit.model.user.SignUp;
+
 public class SignUpTest {
 
 	private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();

@@ -3,7 +3,7 @@ package com.fixit.service;
 import java.util.List;
 
 import com.fixit.model.Project;
-import com.fixit.model.User;
+import com.fixit.model.user.User;
 
 public interface ProjectService {
 

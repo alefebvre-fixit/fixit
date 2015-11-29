@@ -17,6 +17,9 @@ public interface FavoriteRepository extends MongoRepository<Favorite, String> {
 	public List<Favorite> findByGroupId(String groupId);
 	
 	public int countByGroupId(String groupId);
+	
+	public int countByUsername(String username);
+
 
 	
 }

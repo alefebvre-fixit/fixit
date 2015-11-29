@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fixit.model.user.User;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection = "Project")

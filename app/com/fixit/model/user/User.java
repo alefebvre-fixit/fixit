@@ -1,4 +1,4 @@
-package com.fixit.model;
+package com.fixit.model.user;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,18 +11,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import play.data.validation.Constraints.Required;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fixit.model.account.SignUp;
-import com.fixit.model.account.UserCard;
 
 @Document(collection = "User")
 public class User {
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email
+				+ ", password=" + password + "]";
+	}
+
 	@Id
 	private String id;
-	private List<String> following = new ArrayList<String>();
-	private List<String> followers = new ArrayList<String>();
-
-	private List<String> favorites = new ArrayList<String>();
 
 	public String getId() {
 		return id;
@@ -82,11 +82,6 @@ public class User {
 		this.password = password;
 	}
 
-	@JsonIgnore
-	public UserCard getUserCard() {
-		return new UserCard(this);
-	}
-
 	public Profile getProfile() {
 		return profile;
 	}
@@ -95,29 +90,6 @@ public class User {
 		this.profile = profile;
 	}
 
-	public List<String> getFollowing() {
-		return following;
-	}
-
-	public void setFollowing(List<String> following) {
-		this.following = following;
-	}
-
-	public List<String> getFavorites() {
-		return favorites;
-	}
-
-	public void setFavorites(List<String> favorites) {
-		this.favorites = favorites;
-	}
-
-	public List<String> getFollowers() {
-		return followers;
-	}
-
-	public void setFollowers(List<String> followers) {
-		this.followers = followers;
-	}
 
 	public static final String ANTOINE = "antoinelefebvre";
 	public static final String PAUL_SMITH = "paulsmith";
