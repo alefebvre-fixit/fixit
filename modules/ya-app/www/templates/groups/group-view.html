@@ -112,11 +112,14 @@
     </div>
 </div>
 
+
+
+        <ion-item class="item-divider calm" ng-show="summary.eventSize > 0"> Events </ion-item>
         <div ng-repeat="event in summary.lastEvents">
-            <div ng-include data-src="'templates/events/partial/event-view.html'"></div>
+            <div ng-include data-src="'templates/events/partial/event-list-item.html'"></div>
         </div>
 
-        <a class="item item-icon-right" ui-sref="group-events({groupId: group.id})">
+        <a class="item item-icon-right" ui-sref="group-events({groupId: group.id})" ng-show="summary.eventSize>5">
             View all Events...
             <span class="icon ion-chevron-right calm"></span>
         </a>

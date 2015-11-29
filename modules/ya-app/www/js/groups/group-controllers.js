@@ -79,12 +79,9 @@ angular.module('ya-app').controller('ViewGroupController',
         function (YaService, $scope, $log, $state, $ionicPopup,$ionicPopover, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
             $log.log("ViewGroupController groupId=" + groupId);
 
-
             $scope.isFavorite = function(group){
                 return YaService.isFavorite(group);
             };
-
-
 
             //To insure the back button is displayed
             $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
@@ -112,22 +109,6 @@ angular.module('ya-app').controller('ViewGroupController',
                 });
             });
 
-
-
-
-
-            $scope.setGroup =function(newGroup){
-                $scope.group = newGroup;
-                GroupService.getFollowerSize(groupId).then(function (data) {
-                    $scope.summary.followerSize = data;
-                });
-                GroupService.getCommentSize(groupId).then(function (data) {
-                    $scope.summary.commentSize = data;
-                });
-                GroupService.getComments(groupId).then(function (data) {
-                    $scope.summary.comments = data;
-                });
-            };
 
             $scope.follow = function(group){
                 GroupService.followGroup(group).then(function (favorites) {
