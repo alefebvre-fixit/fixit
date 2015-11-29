@@ -3,6 +3,7 @@ package com.fixit.model.group;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fixit.model.user.User;
 
@@ -19,6 +20,7 @@ public class Group {
 	
 	public double version = 0;
 	private String status = STATUS_NEW;
+	private int eventSize = 0;
 
 	public String getId() {
 		return id;
@@ -86,6 +88,24 @@ public class Group {
 
 	public void setVersion(double version) {
 		this.version = version;
+	}
+	
+	@JsonIgnore
+	public void incrementEventSize(){
+		eventSize++;
+	}
+	
+	@JsonIgnore
+	public void decrementEventSize(){
+		eventSize--;
+	}
+
+	public int getEventSize() {
+		return eventSize;
+	}
+
+	public void setEventSize(int eventSize) {
+		this.eventSize = eventSize;
 	}
 
 	public static Group instanciate(User user) {

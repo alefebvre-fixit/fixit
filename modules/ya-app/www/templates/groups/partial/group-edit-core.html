@@ -2,7 +2,7 @@
         <div class="list">
             <label class="item item-input item-floating-label">
                 <span class="input-label">Group Name</span>
-                <input type="text" name="name" placeholder="Type group group here..." ng-model="group.name" ng-minlength="5" ng-maxlength="20" required>
+                <input type="text" name="name" placeholder="Type group name here..." ng-model="group.name" ng-minlength="5" ng-maxlength="20" required>
             </label>
             <div ng-show="groupForm.$submitted && groupForm.name.$error" ng-messages="groupForm.name.$error">
                 <ng-include src="'templates/common/validation-messages.html'"></ng-include>

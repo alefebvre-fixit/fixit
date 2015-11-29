@@ -18,7 +18,9 @@ import com.fixit.model.event.Event;
 import com.fixit.model.event.EventComment;
 import com.fixit.model.event.Participation;
 import com.fixit.model.event.ParticipationSummary;
+import com.fixit.model.group.Group;
 import com.fixit.service.EventService;
+import com.fixit.service.GroupService;
 import com.fixit.service.NotificationService;
 
 @Named
@@ -41,6 +43,9 @@ public class MongoEventService implements EventService {
 	@Inject
 	EventCommentRepository commentRepository;
 	
+	@Inject
+	private GroupService groupService;
+	
 	public NotificationService getNotificationService() {
 		return notificationService;
 	}
@@ -54,12 +59,29 @@ public class MongoEventService implements EventService {
 	@Override
 	public void delete(String id) {
 		Logger.debug("MongoEventService.delete(String id) id=" + id);
+		Event event = getEvent(id);
+		if (event != null && event.getGroupId() != null){
+			Group group = groupService.getGroup(event.getGroupId());
+			if (group != null){
+				group.incrementEventSize();
+				groupService.save(group);
+			}
+		}
 		eventRepository.delete(id);
 	}
 
 	@Override
 	public String create(Event event) {
 		Event result = save(event);
+		
+		if (event.getGroupId() != null){
+			Group group = groupService.getGroup(event.getGroupId());
+			if (group != null){
+				group.incrementEventSize();
+				groupService.save(group);
+			}
+		}
+		
 		return result.getId();
 	}
 

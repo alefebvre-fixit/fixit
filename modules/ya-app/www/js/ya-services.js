@@ -1,6 +1,6 @@
 angular.module('ya-app').factory('YaService',
-    ['$rootScope', '$log',
-        function($rootScope, $log) {
+    ['$rootScope', '$log', '$cordovaToast',
+        function($rootScope, $log, $cordovaToast) {
             var resultService;
             resultService = {
                 toastMe: function(message) {
@@ -14,7 +14,6 @@ angular.module('ya-app').factory('YaService',
                     } else {
                         $log.log('$cordovaToast will show:' + message);
                     }
-
                 },
                 setUser: function(user){
                     $rootScope.user = user;

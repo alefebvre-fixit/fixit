@@ -46,7 +46,6 @@ angular.module('ya-app').controller('EditEventController',
         function (EventService, $scope, $log, $state, eventId) {
 
             $scope.picker = {date: new Date() , time: new Date()};
-            $scope.test = {date: new Date() , time: new Date()};
 
             console.log($scope.picker.time.getUTCMinutes());
 
@@ -76,14 +75,16 @@ angular.module('ya-app').controller('CreateEventController',
     ['EventService', '$scope', '$log', '$state','$ionicHistory', 'groupId',
         function (EventService, $scope, $log, $state, $ionicHistory, groupId) {
 
+            $scope.picker = {date: new Date() , time: new Date()};
             $scope.event = {groupId: groupId};
 
             EventService.instanciateEvent(groupId).then(function(data){
                 $scope.event = data;
+                $scope.event.date = new Date();
             });
 
             $scope.saveEvent = function(form) {
-
+                $log.log('call saveEvent form is ' + form.$invalid);
                 // If form is invalid, return and let AngularJS show validation errors.
                 if (form.$invalid) {
                     return;

@@ -2,7 +2,7 @@
 <div class="list">
     <label class="item item-input item-floating-label">
         <span class="input-label">Event Name</span>
-        <input type="text" name="name" placeholder="Type group event here..." ng-model="event.name" ng-minlength="5" ng-maxlength="20" required>
+        <input type="text" name="name" placeholder="Type event name here..." ng-model="event.name" ng-minlength="5" ng-maxlength="20" required>
     </label>
     <div ng-show="eventForm.$submitted && eventForm.name.$error" ng-messages="eventForm.name.$error">
         <ng-include src="'templates/common/validation-messages.html'"></ng-include>
@@ -18,21 +18,21 @@
         <span class="input-label">Location</span>
         <input type="text" name="location" placeholder="Type event location here..." ng-model="event.city" required>
     </label>
-    <div ng-show="eventForm.$submitted && eventForm.location.$error" ng-messages="eventForm.description.$error">
+    <div ng-show="eventForm.$submitted && eventForm.location.$error" ng-messages="eventForm.location.$error">
         <ng-include src="'templates/common/validation-messages.html'"></ng-include>
     </div>
     <label class="item item-input item-floating-label">
         <span class="input-label">date</span>
         <input type="date" name="date" placeholder="Type event date here..." ng-model="event.date" required>
     </label>
-    <div ng-show="eventForm.$submitted && eventForm.date.$error" ng-messages="eventForm.description.$error">
+    <div ng-show="eventForm.$submitted && eventForm.date.$error" ng-messages="eventForm.date.$error">
         <ng-include src="'templates/common/validation-messages.html'"></ng-include>
     </div>
     <label class="item item-input item-floating-label">
         <span class="input-label">date</span>
         <input type="time" name="time" placeholder="Type event time here..." ng-model="event.date" required>
     </label>
-    <div ng-show="eventForm.$submitted && eventForm.date.$error" ng-messages="eventForm.description.$error">
+    <div ng-show="eventForm.$submitted && eventForm.date.$error" ng-messages="eventForm.date.$error">
         <ng-include src="'templates/common/validation-messages.html'"></ng-include>
     </div>
 
