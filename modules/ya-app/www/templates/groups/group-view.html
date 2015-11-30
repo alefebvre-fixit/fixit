@@ -1,6 +1,6 @@
 <style>
 
-    .module {
+    .group {
         background:
         linear-gradient(
                 to bottom,
@@ -13,25 +13,25 @@
         overflow: hidden;
         border-bottom: 5px solid #dddddd;
     }
-    .module > header {
+    .group > header {
         position: absolute;
         top: 10px;
         left: 100px;
         width: 100%;
         text-align: left;
     }
-    .module > header > h3  {
+    .group > header > h3  {
         margin: 0;
         color: white;
         text-shadow: 0 1px 0 black;
     }
-    .module > header > h5  {
+    .group > header > h5  {
         margin: 0;
         color: white;
         text-shadow: 0 1px 0 black;
     }
 
-    .module .avatar {
+    .group .avatar {
         border-radius: 50%;
         box-shadow: 0 0 0 3px #fff, 0 0 0 2px #999, 0 2px 5px 4px rgba(0,0,0,.2);
 
@@ -62,7 +62,7 @@
 
 
 
-<div class="module">
+<div class="group">
     <div ng-show="!isMine(group)">
         <button class="button button-calm button-small ion-star button-follow" ng-click="follow(group)" ng-show="!isFavorite(group)">
             Follow
