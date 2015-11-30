@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fixit.model.event.Event;
 import com.fixit.model.event.EventComment;
+import com.fixit.model.event.EventTimeline;
 import com.fixit.model.event.Participation;
 import com.fixit.model.event.ParticipationSummary;
 
@@ -11,6 +12,8 @@ public interface EventService {
 
 	public List<Event> getAll();
 
+	public EventTimeline getEventTimeline();
+	
 	public String create(Event event);
 
 	public Event save(Event event);

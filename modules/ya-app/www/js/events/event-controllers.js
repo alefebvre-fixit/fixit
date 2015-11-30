@@ -3,14 +3,14 @@ angular.module('ya-app').controller('ListEventsController',
         function (EventService, $scope) {
 
             $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
-                EventService.getEvents().then(function (events) {
-                    $scope.events = events;
+                EventService.getEventTimeline().then(function (timeline) {
+                    $scope.timeline = timeline;
                 });
             });
 
             $scope.doRefresh = function() {
-                EventService.getEvents().then(function (events) {
-                    $scope.events = events;
+                EventService.getEventTimeline().then(function (timeline) {
+                    $scope.timeline = timeline;
                     $scope.$broadcast('scroll.refreshComplete');
                 });
             };

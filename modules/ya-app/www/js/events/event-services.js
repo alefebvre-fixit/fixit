@@ -9,6 +9,11 @@ angular.module('ya-app').factory('EventService',
                         return response.data;
                     });
                 },
+                getEventTimeline: function () {
+                    return $http.get($rootScope.baseUrl + '/api/events/timeline').then(function (response) {
+                        return response.data;
+                    });
+                },
                 getEvent: function (eventId) {
                     return $http.get($rootScope.baseUrl + '/api/events/' + eventId).then(function (response) {
                         return response.data;

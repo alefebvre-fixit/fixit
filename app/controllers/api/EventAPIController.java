@@ -29,6 +29,11 @@ public class EventAPIController extends YaController {
 
 		return ok(play.libs.Json.toJson(getEventService().getAll()));
 	}
+	
+	public Result getEventTimeline() {
+		Logger.debug("EventAPIController.getEventTimeline()");
+		return ok(play.libs.Json.toJson(getEventService().getEventTimeline()));
+	}
 
 	public Result createNewEvent(String groupId) {
 		Logger.debug("EventAPIController.createNewEvent() gor groupId"

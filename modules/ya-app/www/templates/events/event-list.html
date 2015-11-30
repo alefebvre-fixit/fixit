@@ -21,10 +21,22 @@
             <br>
 
         </div>
+        <ion-list class="list">
+            <ion-item class="item-divider balanced" ng-show="timeline.todaySize > 0"> Today's Events </ion-item>
+            <div ng-repeat="event in timeline.today track by event.id">
+                <div ng-include data-src="'templates/events/partial/event-card-item.html'"></div>
+            </div>
+            <ion-item class="item-divider calm" ng-show="timeline.upcomingSize > 0"> Upcoming Events </ion-item>
+            <div ng-repeat="event in timeline.upcoming track by event.id">
+                <div ng-include data-src="'templates/events/partial/event-card-item.html'"></div>
+            </div>
+            <ion-item class="item-divider assertive" ng-show="timeline.pastSize > 0"> Past Events </ion-item>
+            <div ng-repeat="event in timeline.past track by event.id">
+                <div ng-include data-src="'templates/events/partial/event-card-item.html'"></div>
+            </div>
+        </ion-list>
 
-        <div ng-repeat="event in events track by event.id">
-            <div ng-include data-src="'templates/events/partial/event-card-item.html'"></div>
-        </div>
+
     </ion-content>
 
 

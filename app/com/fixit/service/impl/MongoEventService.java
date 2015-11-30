@@ -17,6 +17,7 @@ import com.fixit.dao.EventRepository;
 import com.fixit.dao.ParticipationRepository;
 import com.fixit.model.event.Event;
 import com.fixit.model.event.EventComment;
+import com.fixit.model.event.EventTimeline;
 import com.fixit.model.event.Participation;
 import com.fixit.model.event.ParticipationSummary;
 import com.fixit.model.group.Group;
@@ -297,6 +298,15 @@ public class MongoEventService implements EventService {
 	public ParticipationSummary getParticipationSummary(String eventId) {
 		Logger.debug("MongoEventService.getParticipationSummary(String eventId = " + eventId + " )");
 		return new ParticipationSummary(getParticipations(eventId));
+	}
+
+	@Override
+	public EventTimeline getEventTimeline() {
+		
+		EventTimeline result = new EventTimeline();
+		result.add(getAll());
+		
+		return result;
 	}
 
 }
