@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import play.Logger;
 
@@ -53,7 +54,7 @@ public class MongoEventService implements EventService {
 	@Override
 	public List<Event> getAll() {
 		Logger.debug("MongoEventService.getAll()");
-		return eventRepository.findAll();
+		return eventRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
 	}
 
 	@Override
@@ -261,11 +262,11 @@ public class MongoEventService implements EventService {
 		List<EventComment> result = null;
 		Logger.debug("MongoEventService.getComments(String eventId = " + eventId +", int offset = " + offset +", int length = " + length + " )");
 		if (length > 0) {
-			Page<EventComment> pages = commentRepository.findByEventIdOrderByCommentDateAsc(
+			Page<EventComment> pages = commentRepository.findByEventIdOrderByCommentDateDesc(
 					eventId, new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
-			result = commentRepository.findByEventIdOrderByCommentDateAsc(eventId);
+			result = commentRepository.findByEventIdOrderByCommentDateDesc(eventId);
 		}
 		Logger.debug("MongoEventService.getCommentSize(String eventId = " + eventId + " ) found=" + result.size());
 

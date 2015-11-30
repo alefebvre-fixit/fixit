@@ -9,7 +9,7 @@
             <label class="item-input-wrapper">
                 <input type="search" placeholder="Add a comment..." ng-model="comment.content">
             </label>
-            <button class="button button-clear" ng-click="postComment(comment)">
+            <button class="button button-clear" ng-click="postComment(comment)" ng-disabled="!comment.content">
                 <i class="icon ion-paper-airplane calm"></i>
             </button>
         </div>

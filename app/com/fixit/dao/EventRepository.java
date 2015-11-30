@@ -15,5 +15,5 @@ public interface EventRepository extends MongoRepository<Event, String> {
 	public int countByGroupId(String groupId);
 	
 	public Page<Event> findByGroupId(String groupId, Pageable pageable);
-
+	
 }

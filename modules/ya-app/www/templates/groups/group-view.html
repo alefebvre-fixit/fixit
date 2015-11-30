@@ -114,7 +114,8 @@
 
 
 
-        <ion-item class="item-divider calm" ng-show="summary.eventSize > 0"> Events </ion-item>
+        <ion-item class="item-divider item-button-right calm" ng-show="summary.eventSize > 0"> Events
+        </ion-item>
         <div ng-repeat="event in summary.lastEvents">
             <div ng-include data-src="'templates/events/partial/event-list-item.html'"></div>
         </div>

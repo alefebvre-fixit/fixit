@@ -308,7 +308,7 @@ angular.module('ya-app').controller('EventCommentsController', ['EventService', 
 
         $scope.postComment = function(comment) {
             EventService.postComment(comment.eventId, comment.content).then(function (comment) {
-                $scope.comments.push(comment);
+                $scope.comments.unshift(comment);
                 $scope.comment = {eventId: eventId, content: ''};
             });
         };
