@@ -42,8 +42,8 @@ angular.module('ya-app').controller('ParticipationListController',
 
 
 angular.module('ya-app').controller('EditEventController',
-    ['EventService', '$scope', '$log', '$state', 'eventId',
-        function (EventService, $scope, $log, $state, eventId) {
+    ['EventService', '$scope', '$log', '$state', 'eventId','$ionicLoading',
+        function (EventService, $scope, $log, $state, eventId, $ionicLoading) {
 
             $scope.picker = {date: new Date() , time: new Date()};
 
@@ -61,10 +61,15 @@ angular.module('ya-app').controller('EditEventController',
                     return;
                 }
 
-                $log.log(event);
+                $ionicLoading.show({
+                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
+                });
+
                 EventService.saveEvent($scope.event).then(function(data){
+                    $ionicLoading.hide();
                     $state.go('event', {eventId: data.id});
                 });
+
             };
 
 
@@ -72,8 +77,8 @@ angular.module('ya-app').controller('EditEventController',
     ]);
 
 angular.module('ya-app').controller('CreateEventController',
-    ['EventService', '$scope', '$log', '$state','$ionicHistory', 'groupId',
-        function (EventService, $scope, $log, $state, $ionicHistory, groupId) {
+    ['EventService', '$scope', '$log', '$state','$ionicHistory', 'groupId', '$ionicLoading',
+        function (EventService, $scope, $log, $state, $ionicHistory, groupId, $ionicLoading) {
 
             $scope.picker = {date: new Date() , time: new Date()};
             $scope.event = {groupId: groupId};
@@ -90,9 +95,13 @@ angular.module('ya-app').controller('CreateEventController',
                     return;
                 }
 
-                $log.log(event);
+                $ionicLoading.show({
+                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
+                });
+
                 EventService.saveEvent($scope.event).then(function(event){
                     $ionicHistory.currentView($ionicHistory.backView());
+                    $ionicLoading.hide();
                     $state.go('event', {eventId: event.id, location: 'replace'});
                 });
             };

@@ -25,8 +25,8 @@ angular.module('ya-app').controller('ListGroupsController',
 
 
 angular.module('ya-app').controller('EditGroupController',
-    ['GroupService', '$scope', '$log', '$state', 'groupId',
-        function (GroupService, $scope, $log, $state, groupId) {
+    ['GroupService', '$scope', '$log', '$state', 'groupId','$ionicLoading',
+        function (GroupService, $scope, $log, $state, groupId, $ionicLoading) {
 
             GroupService.getGroup(groupId).then(function(group) {
                 $scope.group = group;
@@ -38,8 +38,11 @@ angular.module('ya-app').controller('EditGroupController',
                 if (form.$invalid) {
                     return;
                 }
-
+                $ionicLoading.show({
+                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
+                });
                 GroupService.saveGroup($scope.group).then(function(group) {
+                    $ionicLoading.hide();
                     $state.go('group', {groupId: group.id});
                 });
 
@@ -50,8 +53,8 @@ angular.module('ya-app').controller('EditGroupController',
     ]);
 
 angular.module('ya-app').controller('CreateGroupController',
-    ['GroupService', '$scope', '$log', '$state', '$ionicHistory',
-        function (GroupService, $scope, $log, $state, $ionicHistory) {
+    ['GroupService', '$scope', '$log', '$state', '$ionicHistory', '$ionicLoading',
+        function (GroupService, $scope, $log, $state, $ionicHistory, $ionicLoading) {
 
             $scope.group = {};
 
@@ -62,8 +65,13 @@ angular.module('ya-app').controller('CreateGroupController',
                     return;
                 }
 
+                $ionicLoading.show({
+                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
+                });
+
                 GroupService.saveGroup($scope.group).then(function(group) {
                     $ionicHistory.currentView($ionicHistory.backView());
+                    $ionicLoading.hide();
                     $state.go('group', {groupId: group.id, location: 'replace'});
                 });
 

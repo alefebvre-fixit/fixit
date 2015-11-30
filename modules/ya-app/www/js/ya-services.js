@@ -5,7 +5,7 @@ angular.module('ya-app').factory('YaService',
             resultService = {
                 toastMe: function(message) {
                     if ($rootScope.isPluginEnabled){
-                        $cordovaToast.show(message, 'short', 'center').then(
+                        $cordovaToast.showShortBottom(message, 'short', 'center').then(
                             function(success) {
                                 // success
                             }, function(error) {
