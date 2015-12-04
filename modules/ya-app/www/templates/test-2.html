@@ -1,118 +1,94 @@
 <style>
 
 
-	.item-notification {
-		padding-left: 72px;
-		min-height: 72px; }
-	.img-notification  {
+	.event-image {
+		position: relative;
+		width: 100%; /* for IE 6 */
+	}
+
+	.event-text {
 		position: absolute;
-		top: 16px;
-		left: 16px;
-		max-width: 40px;
-		max-height: 40px;
+		text-align: left;
+		bottom: 0px;
+		left: 20px;
 		width: 100%;
-		height: 100%;
-		border-radius: 50%; }
+		color: white;
+		font-size:50px;
+	}
+
+	.event-title {
+		position: absolute;
+		text-align: left;
+		bottom: 70px;
+		left: 10px;
+		width: 100%;
+		font-size:200%;
+		color: white;
+	}
+	.event-group {
+		position: absolute;
+		text-align: left;
+		bottom: 40px;
+		left: 10px;
+		width: 100%;
+		font-size:150%;
+		color: white;
+	}
+
+	.event-address {
+		position: absolute;
+		text-align: left;
+		bottom: 0px;
+		left: 0px;
+		width: 100%;
+		color: white;
+	}
+
 
 
 </style>
 
 <ion-view title="Test">
 	<ion-content class="has-header">
-		<div class="list">
-			<div>
-				<a class="item item-notification">
-					<div>
-						<img class="img-notification" ng-src="img/antoinelefebvre.jpg" ng-click="goToEvent(notification.eventId)">
 
-						<h2>antoinelefebvre</h2>
-
-						<p ng-click="goToEvent(notification.eventId)">
-							new Participation - <span am-time-ago="notification.notificationDate">sss</span>
-						</p>
-
-					</div>
-
-
-				</a>
-			</div>
-		</div>
-	<div class="item item-divider">
-		Participations
-	</div>
-		<div class="list">
-			<a class="item item-avatar"
-			   ui-sref="app.card-view({projectId: contribution.projectId, cardId: contribution.cardId})">
-				<img ng-src="img/john.jpg">
-				<h2><i class="icon ion-record assertive"></i> John is Out  - 2 hours ago</h2>
-				<p><i class="icon ion-chatbubble"></i> <i>this is a comment on my participation, apparently I had something to say</i></p>
-			</a>
-			<a class="item item-avatar"
-			   ui-sref="app.card-view({projectId: contribution.projectId, cardId: contribution.cardId})">
-				<img ng-src="img/antoinelefebvre.jpg">
-				<h2><i class="icon ion-record balanced"></i> Antoine is In  - 3 hours ago</h2>
-				<p><i class="icon ion-chatbubble"></i> <i>this is a comment on my participation, apparently I had something to say</i></p>
-			</a>
-			<a class="item item-avatar"
-			   ui-sref="app.card-view({projectId: contribution.projectId, cardId: contribution.cardId})">
-				<img ng-src="img/antoinelefebvre.jpg">
-				<h2><i class="icon ion-record balanced"></i> Antoine is In  - 3 hours ago</h2>
-				<p><i class="icon ion-chatbubble"></i> <i>this is a comment on my participation, apparently I had something to say</i></p>
-			</a>
-			<a class="item item-avatar"
-			   ui-sref="app.card-view({projectId: contribution.projectId, cardId: contribution.cardId})">
-				<img ng-src="img/paul.jpg">
-				<h2 class="icon ion-record dark">  paul is rsvp - 2 hours ago</h2>
-				<p><i class="icon ion-chatbubble"></i> this is a comment on my participation, apparently I had something to say</i></p>
-			</a>
-		</div>
-
-
-
-		<div class="item item-divider calm">
-			Today
-		</div>
 		<div class="card group-header">
-			<a class="item item-avatar" ui-sref="event({ eventId: event.id })">
-				<img ng-src="img/coffee-64-000000.png">
-				<h2>Afternoon Break</h2>
-				<p>@French Press</p>
-			</a>
+			<div class="item item-image event-image">
+				<img src="img/themes/coffee-400.jpg" >
+				<div class="event-title"><b>Morning Coffee</b></div>
+				<div class="event-group">@french-brewer</div>
+			</div>
 			<div class="item item-text-wrap">
-				Let's have a coffee break <br> <br>
-				<i class="icon ion-location calm"></i><i> Blue Bottle, Market Street</i>
-				<p>
-					<a href="#" class="subdued">Start in 5 minutes</a>
-					<progress max="100" value="80" class="calm"></progress>
-				</p>
+				<i class="icon ion-android-calendar calm"></i><i> Start in 2 hours</i>
+				<br>
+				<i class="icon ion-location calm"></i><i>  Blue Bottle, Market Street</i>
 			</div>
 		</div>
-		<div class="item item-divider calm">
-			This week
-		</div>
+
 		<div class="card group-header">
-			<a class="item item-avatar" ui-sref="event({ eventId: event.id })">
-				<img ng-src="img/coffee-64-000000.png">
-				<h2>Afternoon Break</h2>
-				<p>@French Press</p>
-			</a>
+			<div class="item item-image image">
+				<img src="img/themes/video-game-400.jpg" >
+				<div class="event-title"><b>Fifa</b></div>
+				<div class="event-group">@soccer-force</div>
+			</div>
 			<div class="item item-text-wrap">
-				Let's have a coffee break <br> <br>
-				<i class="icon ion-location calm"></i><i> Blue Bottle, Market Street</i>
-				<p>
-					<a href="#" class="subdued">Start in 5 minutes</a>
-					<progress max="100" value="80" class="calm"></progress>
-				</p>
+				<i class="icon ion-android-calendar calm"></i><i> Start in 2 hours</i>
+				<br>
+				<i class="icon ion-location calm"></i><i>  Blue Bottle, Market Street</i>
 			</div>
 		</div>
-		<div class="item item-divider calm">
-			This month
+
+		<div class="card group-header">
+			<div class="item item-image image">
+				<img src="img/themes/soccer-400.jpg" >
+				<div class="event-title"><b>Sunday game</b></div>
+				<div class="event-group">@soccer-force</div>
+			</div>
+			<div class="item item-text-wrap">
+				<i class="icon ion-android-calendar calm"></i><i> Start in 2 hours</i>
+				<br>
+				<i class="icon ion-location calm"></i><i>  Blue Bottle, Market Street</i>
+			</div>
 		</div>
-
-
-
-
-
 
 
 </ion-content>

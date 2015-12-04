@@ -1,5 +1,15 @@
     <ion-content>
         <div class="list">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Type
+                </div>
+                <select ng-model="group.type">
+                    <option>Coffee</option>
+                    <option>Video-Game</option>
+                    <option>Soccer</option>
+                </select>
+            </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Group Name</span>
                 <input type="text" name="name" placeholder="Type group name here..." ng-model="group.name" ng-minlength="5" ng-maxlength="20" required>

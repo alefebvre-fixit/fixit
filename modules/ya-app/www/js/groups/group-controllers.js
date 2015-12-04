@@ -56,7 +56,7 @@ angular.module('ya-app').controller('CreateGroupController',
     ['GroupService', '$scope', '$log', '$state', '$ionicHistory', '$ionicLoading',
         function (GroupService, $scope, $log, $state, $ionicHistory, $ionicLoading) {
 
-            $scope.group = {};
+            $scope.group = {type:'Coffee'};
 
             $scope.saveGroup = function(form) {
                 $log.log($scope.group);

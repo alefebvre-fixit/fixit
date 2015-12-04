@@ -15509,3 +15509,35 @@ a.button {
   width: 100%;
   height: 100%;
   border-radius: 50%; }
+
+.event-image {
+  position: relative;
+  width: 100%;
+  /* for IE 6 */ }
+
+.event-text {
+  position: absolute;
+  text-align: left;
+  bottom: 0px;
+  left: 20px;
+  width: 100%;
+  color: white;
+  font-size: 50px; }
+
+.event-title {
+  position: absolute;
+  text-align: left;
+  bottom: 70px;
+  left: 10px;
+  width: 100%;
+  font-size: 200%;
+  color: white; }
+
+.event-group {
+  position: absolute;
+  text-align: left;
+  bottom: 40px;
+  left: 10px;
+  width: 100%;
+  font-size: 150%;
+  color: white; }

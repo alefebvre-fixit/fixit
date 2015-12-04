@@ -27,6 +27,8 @@ public class Event {
 	public double version = 0;
 	private Date date;
 	private String status = STATUS_NEW;
+	private String type;
+	
 
 	public String getId() {
 		return id;
@@ -123,9 +125,9 @@ public class Event {
 	public static Event instanciate(Group group, User user) {
 		Event event = new Event();
 		event.username = user.getUsername();
-		event.country = user.getProfile().getCountry();
-		event.city = user.getProfile().getCity();
-
+		event.country = group.getCountry();
+		event.city = group.getCity();
+		event.type = group.getType();
 		event.name = "new event 2";
 		event.description = "";
 
@@ -142,6 +144,14 @@ public class Event {
 
 	public boolean accept(Participation participation) {
 		return true;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

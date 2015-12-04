@@ -21,6 +21,7 @@ public class Group {
 	public double version = 0;
 	private String status = STATUS_NEW;
 	private int eventSize = 0;
+	private String type;
 
 	public String getId() {
 		return id;
@@ -127,5 +128,15 @@ public class Group {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	
 
 }
