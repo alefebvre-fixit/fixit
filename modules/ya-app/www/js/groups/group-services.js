@@ -40,6 +40,11 @@ angular.module('ya-app').factory('GroupService',
                         return response.data;
                     });
                 },
+                getEventTimeline: function (groupId) {
+                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events/timeline').then(function (response) {
+                        return response.data;
+                    });
+                },
                 getLastEvents: function (groupId) {
                     return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events/last').then(function (response) {
                         return response.data;

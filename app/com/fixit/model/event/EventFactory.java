@@ -13,7 +13,8 @@ public class EventFactory {
 		result.setCountry(user.getProfile().getCountry());
 		result.setGroupId(group.getId());
 		result.setGroupName(group.getName());
-
+		result.setType(group.getType());
+		
 		return result;
 	}
 

@@ -34,6 +34,11 @@ public class EventAPIController extends YaController {
 		Logger.debug("EventAPIController.getEventTimeline()");
 		return ok(play.libs.Json.toJson(getEventService().getEventTimeline()));
 	}
+	
+	public Result getEventTimelineByGroup(String groupId) {
+		Logger.debug("EventAPIController.getEventTimelineByGroup(groupId) groupId=" + groupId);
+		return ok(play.libs.Json.toJson(getEventService().getEventTimeline(groupId)));
+	}
 
 	public Result createNewEvent(String groupId) {
 		Logger.debug("EventAPIController.createNewEvent() gor groupId"
@@ -49,19 +54,6 @@ public class EventAPIController extends YaController {
 
 		event = getEventService().save(event);
 
-		return ok(Json.toJson(event));
-	}
-
-	public Result createEvent() {
-		Logger.debug("EventAPIController.createEvent()");
-
-		RequestBody body = request().body();
-
-		Event event = Json.fromJson(body.asJson(), Event.class);
-		event.username = getUserName();
-		event.setStatus(Event.STATUS_DRAFT);
-		String id = getEventService().create(event);
-		event.id = id;
 		return ok(Json.toJson(event));
 	}
 

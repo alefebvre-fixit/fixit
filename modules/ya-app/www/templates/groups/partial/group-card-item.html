@@ -1,0 +1,13 @@
+<div class="card group-header">
+
+    <div class="item item-image event-image" ui-sref="group({ groupId: group.id })">
+        <img src="img/themes/{{group.type}}-large.jpg" >
+        <div class="group-title"><b>{{group.name}}</b></div>
+        <div class="group-subtitle">#{{::group.type}}</div>
+    </div>
+    <div class="item item-text-wrap">
+        <i class="icon ion-android-calendar calm"></i><i> {{::group.eventSize}} Events</i>
+        <br>
+        <i class="icon ion-location calm"></i><i>  {{::group.city}}, {{::group.country}}</i>
+    </div>
+</div>

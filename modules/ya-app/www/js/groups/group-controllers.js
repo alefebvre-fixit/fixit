@@ -222,22 +222,24 @@ angular.module('ya-app').controller('GroupFollowersController', ['GroupService',
 
 
 angular.module('ya-app').controller('GroupEventsController',
-    ['events', 'groupId', 'GroupService', '$scope', '$log',
-        function (events, groupId, GroupService, $scope, $log) {
+    ['groupId', 'GroupService', '$scope', '$log',
+        function (groupId, GroupService, $scope, $log) {
 
             //To insure the back button is displayed
             $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
                 viewData.enableBack = true;
+                GroupService.getEventTimeline($scope.groupId).then(function (timeline) {
+                    $scope.timeline = timeline;
+                });
             });
 
             $log.log("GroupEventsController is called");
 
-            $scope.events = events;
             $scope.groupId = groupId;
 
             $scope.doRefresh = function() {
-                GroupService.getEvents($scope.groupId).then(function (events) {
-                    $scope.events = events;
+                GroupService.getEventTimeline($scope.groupId).then(function (timeline) {
+                    $scope.timeline = timeline;
                 });
                 $scope.$broadcast('scroll.refreshComplete');
             };

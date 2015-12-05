@@ -57,12 +57,9 @@ angular.module('ya-app').config(function ($stateProvider) {
         })
         .state('group-events', {
             url: "/groups/:groupId/events",
-            templateUrl: "templates/events/event-list.html",
+            templateUrl: "templates/groups/group-event-list.html",
             controller: 'GroupEventsController',
             resolve: {
-                events: function ($stateParams, GroupService) {
-                    return GroupService.getEvents($stateParams.groupId);
-                },
                 groupId: function ($stateParams) {
                     return $stateParams.groupId;
                 }

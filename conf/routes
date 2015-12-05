@@ -144,6 +144,7 @@ POST 	/api/groups/:groupId/unfollow 							@controllers.api.GroupAPIController.u
 # API Event
 GET     /api/events/timeline              							@controllers.api.EventAPIController.getEventTimeline()
 GET     /api/events              									@controllers.api.EventAPIController.events()
+GET     /api/groups/:groupId/events/timeline          				@controllers.api.EventAPIController.getEventTimelineByGroup(groupId: String)
 GET     /api/groups/:groupId/events/new          					@controllers.api.EventAPIController.createNewEvent(groupId: String)
 GET     /api/groups/:groupId/events/size          					@controllers.api.EventAPIController.eventSizeByGroup(groupId: String)
 GET     /api/groups/:groupId/events/last          					@controllers.api.EventAPIController.lastGroupEvents(groupId: String)

@@ -14,7 +14,7 @@ public interface EventService {
 
 	public EventTimeline getEventTimeline();
 	
-	public String create(Event event);
+	public EventTimeline getEventTimeline(String groupId);
 
 	public Event save(Event event);
 

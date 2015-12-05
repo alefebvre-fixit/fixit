@@ -75,5 +75,9 @@ public class EventTimeline {
 	public int getUpcomingSize(){
 		return upcoming.size();
 	}
+	
+	public int getSize(){
+		return getTodaySize() + getUpcomingSize() + getPastSize();
+	}
 
 }

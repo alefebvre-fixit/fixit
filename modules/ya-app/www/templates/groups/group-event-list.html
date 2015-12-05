@@ -1,5 +1,5 @@
 
-<ion-view title="Events" hide-back-button="false">
+<ion-view title="Group Events" hide-back-button="false">
 
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-android-more-vertical" ng-click="popover.show($event)"></button>
@@ -8,7 +8,7 @@
     <ion-content class="has-header">
         <ion-refresher on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
 
-        <div class="item" style="text-align: center" ng-show="events.length <= 0">
+        <div class="item" style="text-align: center" ng-show="timeline.all <= 0">
             <br>
             <br>
             <br>
@@ -19,7 +19,6 @@
             <br>
             <br>
             <br>
-
         </div>
         <ion-list class="list">
             <ion-item class="item-divider calm" ng-show="timeline.todaySize > 0"> Today's Events </ion-item>

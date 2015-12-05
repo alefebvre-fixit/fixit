@@ -65,7 +65,7 @@ public class MongoEventService implements EventService {
 		if (event != null && event.getGroupId() != null){
 			Group group = groupService.getGroup(event.getGroupId());
 			if (group != null){
-				group.incrementEventSize();
+				group.decrementEventSize();
 				groupService.save(group);
 			}
 		}
@@ -73,23 +73,19 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public String create(Event event) {
-		Event result = save(event);
+	public Event save(Event event) {		
+		getNotificationService().publishNotification(event);
 		
-		if (event.getGroupId() != null){
+		if (event.getGroupId() != null && event.getId() == null){
 			Group group = groupService.getGroup(event.getGroupId());
 			if (group != null){
 				group.incrementEventSize();
+				Logger.debug("MongoEventService.create(Event id) incrementEventSize=" + group.getEventSize());
 				groupService.save(group);
 			}
 		}
 		
-		return result.getId();
-	}
-
-	@Override
-	public Event save(Event event) {		
-		getNotificationService().publishNotification(event);
+		
 		Event result =  eventRepository.save(event);
 		return result;
 	}
@@ -113,7 +109,7 @@ public class MongoEventService implements EventService {
 					new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
-			result = eventRepository.findAll();
+			result = eventRepository.findByUsername(username);
 		}
 
 		return result;
@@ -128,7 +124,7 @@ public class MongoEventService implements EventService {
 					new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
-			result = eventRepository.findAll();
+			result = eventRepository.findByGroupId(groupId);
 		}
 
 		return result;
@@ -308,5 +304,15 @@ public class MongoEventService implements EventService {
 		
 		return result;
 	}
+	
+	@Override
+	public EventTimeline getEventTimeline(String groupId) {
+		
+		EventTimeline result = new EventTimeline();
+		result.add(getGroupEvents(groupId, 0, -1));
+		
+		return result;
+	}
+	
 
 }

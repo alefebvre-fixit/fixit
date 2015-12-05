@@ -15515,15 +15515,6 @@ a.button {
   width: 100%;
   /* for IE 6 */ }
 
-.event-text {
-  position: absolute;
-  text-align: left;
-  bottom: 0px;
-  left: 20px;
-  width: 100%;
-  color: white;
-  font-size: 50px; }
-
 .event-title {
   position: absolute;
   text-align: left;
@@ -15531,7 +15522,8 @@ a.button {
   left: 10px;
   width: 100%;
   font-size: 200%;
-  color: white; }
+  color: white;
+  text-shadow: 0 1px 0 black; }
 
 .event-group {
   position: absolute;
@@ -15540,4 +15532,30 @@ a.button {
   left: 10px;
   width: 100%;
   font-size: 150%;
-  color: white; }
+  color: white;
+  text-shadow: 0 1px 0 black; }
+
+.group-image {
+  position: relative;
+  width: 100%;
+  /* for IE 6 */ }
+
+.group-title {
+  position: absolute;
+  text-align: left;
+  bottom: 70px;
+  left: 10px;
+  width: 100%;
+  font-size: 200%;
+  color: white;
+  text-shadow: 0 1px 0 black; }
+
+.group-subtitle {
+  position: absolute;
+  text-align: left;
+  bottom: 40px;
+  left: 10px;
+  width: 100%;
+  font-size: 150%;
+  color: white;
+  text-shadow: 0 1px 0 black; }

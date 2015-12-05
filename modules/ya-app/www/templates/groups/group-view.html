@@ -1,48 +1,57 @@
 <style>
 
-    .group {
-        background:
-        linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0),
-                rgba(0, 0, 0, 0.4)
-        ),
-        url('img/coffee-bg.jpg') center;
-        height:150px;
+
+    .group-module {
+        height:250px;
         position: relative;
         overflow: hidden;
         border-bottom: 5px solid #dddddd;
     }
-    .group > header {
+    .group-module > header {
         position: absolute;
-        top: 10px;
+        top: 20px;
         left: 100px;
         width: 100%;
         text-align: left;
     }
-    .group > header > h3  {
+    .group-module > header > h3  {
         margin: 0;
         color: white;
         text-shadow: 0 1px 0 black;
+        font-size: 180%;
     }
-    .group > header > h5  {
+    .group-module > header > h5  {
         margin: 0;
         color: white;
         text-shadow: 0 1px 0 black;
+        font-size: 110%;
     }
 
-    .group .avatar {
-        border-radius: 50%;
-        box-shadow: 0 0 0 3px #fff, 0 0 0 2px #999, 0 2px 5px 4px rgba(0,0,0,.2);
 
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+    .button-follow{
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+    .group-icon {
+        font-size: 60px;
+        color: white;
+        margin: 0 auto;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        text-shadow: 0 2px 0 black;
+    }
+
+    .group-icon-holder {
         position: absolute;
         top: 15px;
-        left: 15px;
-
+        left: 10px;
+        width: 70px;
+        height: 70px;
+        display: table;
     }
+
 
     .button-follow{
         position: absolute;
@@ -62,7 +71,7 @@
 
 
 
-<div class="group">
+<div class="group-module">
     <div ng-show="!isMine(group)">
         <button class="button button-calm button-small ion-star button-follow" ng-click="follow(group)" ng-show="!isFavorite(group)">
             Follow
@@ -72,13 +81,17 @@
         </button>
     </div>
 
-    <img ng-src="img/users/{{group.username}}-50.jpg" class="avatar" width="50" ng-click="goToUser(group.username)">
+    <img src="img/themes/{{group.type}}-large.jpg" >
+
+    <div class="group-icon-holder">
+        <span class="ion-ios-people group-icon calm"></span>
+    </div>
     <header>
         <h3>
             {{group.name}}
         </h3>
         <h5>
-            @{{group.username}}
+            #{{group.type}}
         </h5>
     </header>
 </div>
@@ -103,14 +116,16 @@
 
 </div>
 
-<div class="row">
-    <div class="col">
-        <h5>
-            <i class="icon ion-location"> {{group.city}}, {{group.country}}</i>
-        </h5>
-        {{group.description}}
-    </div>
-</div>
+        <div class="row">
+            <div class="col">
+                {{group.description}}
+            </div>
+        </div>
+        <a class="item item-icon-left item-icon-right" href="#">
+            <i class="icon ion-location"></i>
+            {{group.city}}, {{group.country}}
+            <i class="icon ion-ios-arrow-forward"></i>
+        </a>
 
 
 
@@ -122,7 +137,7 @@
 
         <a class="item item-icon-right" ui-sref="group-events({groupId: group.id})" ng-show="summary.eventSize>5">
             View all Events...
-            <span class="icon ion-chevron-right calm"></span>
+            <span class="icon ion-chevron-right"></span>
         </a>
         <br>
 
