@@ -70,6 +70,11 @@ angular.module('ya-app').factory('UserService', ['$http', '$rootScope', function
             return $http.get($rootScope.baseUrl + '/api/users/' + username + '/following/name').then(function (response) {
                 return response.data;
             });
+        },
+        getUserDiscovery: function () {
+            return $http.get($rootScope.baseUrl + '/api/users/discovery').then(function (response) {
+                return response.data;
+            });
         }
     };
 

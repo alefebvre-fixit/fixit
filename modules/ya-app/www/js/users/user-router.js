@@ -23,6 +23,19 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			},
 			authenticate: false
 		})
+        .state('tabs.users', {
+            cache: true,
+            url: "/users/discovery",
+            views: {
+                'tab-users': {
+                    templateUrl: "templates/users/user-list.html",
+                    controller: 'UserDiscoveryController'
+                }
+            },
+            authenticate: true
+        })
+
+
 		.state('user-followers', {
 			url: "/user/:username/followers",
 			templateUrl: "templates/users/user-followers.html",

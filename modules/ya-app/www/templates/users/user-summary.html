@@ -104,14 +104,10 @@
             </div>
         </div>
 
-        <div ng-repeat="group in summary.lastGroups">
-            <div ng-include data-src="'templates/groups/partial/group-view.html'"></div>
+        <div ng-repeat="group in summary.followingGroups">
+            <div ng-include data-src="'templates/groups/partial/group-list-item.html'"></div>
         </div>
 
-        <a class="item item-icon-right" ui-sref="user-groups({username: summary.user.username})">
-            View all Groups...
-            <span class="icon ion-chevron-right calm"></span>
-        </a>
         <br>
 
     </ion-content>

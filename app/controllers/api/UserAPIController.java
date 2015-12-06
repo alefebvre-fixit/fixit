@@ -53,6 +53,11 @@ public class UserAPIController extends FixItController {
 		Logger.debug("UserAPIController.accounts()");
 		return ok(play.libs.Json.toJson(userService.getAll()));
 	}
+	
+	public Result userDiscovery() {
+		Logger.debug("UserAPIController.accounts()");
+		return ok(play.libs.Json.toJson(userService.getAll()));
+	}
 
 	public Result user(String username) {
 		Logger.debug("UserAPIController.user(username)");

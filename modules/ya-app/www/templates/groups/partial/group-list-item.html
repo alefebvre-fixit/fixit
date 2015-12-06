@@ -1,15 +1,8 @@
-<div class="card group-header">
-    <a class="item item-avatar" ui-sref="group({ groupId: group.id })">
-        <img ng-src="img/users/{{::group.username}}.jpg">
-        <h2>{{::group.name}}</h2>
-        <p>{{::group.username}}</p>
-    </a>
-    <div class="item item-text-wrap">
-        {{::group.description}} <br> <br>
-        <p>
-            <i class="icon ion-location"> {{::group.city}}, {{::group.country}}</i>
-            <br>
-            <i class="icon ion-android-calendar subdued"> {{::group.eventSize}} Events</i>
-        </p>
-    </div>
-</div>
+<a class="item item-avatar"
+   ui-sref="group({ groupId: group.id })">
+    <img ng-src="img/themes/{{group.type}}-profile.jpg">
+    <h2>{{::group.name}}#{{::group.type}}</h2>
+    <p>
+        <i class="icon ion-location calm"></i><i> {{::group.city}}, {{::group.country}}</i>
+    </p>
+</a>

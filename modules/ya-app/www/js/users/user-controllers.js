@@ -8,7 +8,7 @@ angular.module('ya-app').controller('SignUpController', ['YaService', 'UserServi
 
             UserService.signupUser($scope.signup).success(function (data) {
                 YaService.setUser(data);
-                $state.transitionTo('tabs.groups');
+                $state.transitionTo('tabs.events');
             }).error(function (response, status) {
                 $log.log("Invalid sign-up");
                 $scope.signup.error = 'Invalid sign-up';
@@ -39,7 +39,7 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
                         UserService.getFollowingNames(user.username).then(function(following) {
                             YaService.setFollowing(following);
                             YaService.setUser(user);
-                            $state.transitionTo('tabs.groups');
+                            $state.transitionTo('tabs.events');
                             $ionicLoading.hide();
                         });
                     }
@@ -126,7 +126,7 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$
 
 
 
-        $scope.summary = {groupSize : '-', followingSize : '-', followerSize : '-', user: {}};
+        $scope.summary = {groupSize : '-', followingSize : '-', followerSize : '-', user: {}, followingGroups : []};
 
         var reload = function(username){
 
@@ -144,6 +144,10 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$
 
             UserService.getFollowingSize(username).then(function (followingSize) {
                 $scope.summary.followingSize = followingSize;
+            });
+
+            UserService.getFollowingGroups(username).then(function (groups) {
+                $scope.summary.followingGroups = groups;
             });
 
         };
@@ -265,6 +269,26 @@ angular.module('ya-app').controller('UserGroupController', ['UserService', '$sco
             UserService.getFollowingGroups(username).then(function (groups) {
                 $scope.groups = groups;
                 $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
+
+
+    }
+]);
+
+
+angular.module('ya-app').controller('UserDiscoveryController', ['UserService', '$scope', '$log',
+    function (UserService, $scope, $log) {
+
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            UserService.getUserDiscovery().then(function (users) {
+                $scope.users = users;
+            });
+        });
+
+        $scope.doRefresh = function() {
+            UserService.getUserDiscovery().then(function (users) {
+                $scope.users = users;
             });
         };
 
