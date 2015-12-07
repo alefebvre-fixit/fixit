@@ -25,8 +25,8 @@ angular.module('ya-app').controller('ListGroupsController',
 
 
 angular.module('ya-app').controller('EditGroupController',
-    ['GroupService', '$scope', '$log', '$state', 'groupId','$ionicLoading',
-        function (GroupService, $scope, $log, $state, groupId, $ionicLoading) {
+    ['GroupService', '$scope', '$log', '$state', 'groupId','$ionicLoading', '$ionicModal', 'YaService',
+        function (GroupService, $scope, $log, $state, groupId, $ionicLoading, $ionicModal, YaService) {
 
             GroupService.getGroup(groupId).then(function(group) {
                 $scope.group = group;
@@ -49,12 +49,58 @@ angular.module('ya-app').controller('EditGroupController',
             };
 
 
+            //Start Modal theme selector
+
+            $ionicModal.fromTemplateUrl('templates/groups/theme-selector-modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
+                $scope.themeSelector = modal;
+            });
+
+            $scope.openSelector = function() {
+                $scope.images = angular.copy(YaService.getThemes());
+                $scope.allowMultipleSelection = false;
+                var arrayLength = $scope.images.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    if ($scope.group.type == $scope.images[i].type){
+                        $scope.images[i].selected = !$scope.images[i].selected;
+                    }
+                }
+                $scope.themeSelector.show();
+            };
+
+            $scope.cancelSelection = function() {
+                $scope.themeSelector.hide();
+            };
+
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                if ($scope.themeSelector){
+                    $scope.themeSelector.remove();
+                }
+            });
+
+            $scope.selectTheme = function(type){
+                $scope.group.type = type;
+                $scope.themeSelector.hide();
+                //var arrayLength = $scope.images.length;
+                //for (var i = 0; i < arrayLength; i++) {
+                //    if (type == $scope.images[i].type){
+                //        $scope.images[i].selected = !$scope.images[i].selected;
+                //    }
+                //}
+            };
+
+            //End Modal for theme selector
+
+
         }
     ]);
 
 angular.module('ya-app').controller('CreateGroupController',
-    ['GroupService', '$scope', '$log', '$state', '$ionicHistory', '$ionicLoading',
-        function (GroupService, $scope, $log, $state, $ionicHistory, $ionicLoading) {
+    ['GroupService', 'YaService', '$scope', '$log', '$state', '$ionicHistory', '$ionicLoading', '$ionicModal',
+        function (GroupService, YaService, $scope, $log, $state, $ionicHistory, $ionicLoading, $ionicModal) {
 
             $scope.group = {type:'Coffee'};
 
@@ -76,6 +122,53 @@ angular.module('ya-app').controller('CreateGroupController',
                 });
 
             };
+
+
+
+            //Start Modal theme selector
+
+            $ionicModal.fromTemplateUrl('templates/groups/theme-selector-modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
+                $scope.themeSelector = modal;
+            });
+
+            $scope.openSelector = function() {
+                $scope.images = angular.copy(YaService.getThemes());
+                $scope.allowMultipleSelection = false;
+                var arrayLength = $scope.images.length;
+                for (var i = 0; i < arrayLength; i++) {
+                    if ($scope.group.type == $scope.images[i].type){
+                        $scope.images[i].selected = !$scope.images[i].selected;
+                    }
+                }
+                $scope.themeSelector.show();
+            };
+
+            $scope.cancelSelection = function() {
+                $scope.themeSelector.hide();
+            };
+
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                if ($scope.themeSelector){
+                    $scope.themeSelector.remove();
+                }
+            });
+
+            $scope.selectTheme = function(type){
+                $scope.group.type = type;
+                $scope.themeSelector.hide();
+                //var arrayLength = $scope.images.length;
+                //for (var i = 0; i < arrayLength; i++) {
+                //    if (type == $scope.images[i].type){
+                //        $scope.images[i].selected = !$scope.images[i].selected;
+                //    }
+                //}
+            };
+
+            //End Modal for theme selector
 
 
         }

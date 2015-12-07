@@ -1,15 +1,26 @@
     <ion-content>
         <div class="list">
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Type
+            <div class="group-module">
+               <button type="button" class="button button-calm button-small ion-edit button-follow" ng-click="openSelector()">
+                    Change theme
+                </button>
+                <img src="img/themes/{{group.type}}-large.jpg" >
+
+                <div class="group-icon-holder">
+                    <span class="ion-ios-people group-icon calm"></span>
                 </div>
-                <select ng-model="group.type">
-                    <option>Coffee</option>
-                    <option>Video-Game</option>
-                    <option>Soccer</option>
-                </select>
-            </label>
+                <header>
+                    <h3 ng-show="group.name">
+                        {{group.name}}
+                    </h3>
+                    <h3 ng-show="!group.name">
+                        Group Name
+                    </h3>
+                    <h5>
+                        #{{group.type}}
+                    </h5>
+                </header>
+            </div>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Group Name</span>
                 <input type="text" name="name" placeholder="Type group name here..." ng-model="group.name" ng-minlength="5" ng-maxlength="20" required>

@@ -83,8 +83,18 @@ angular.module('ya-app').factory('YaService',
                     }
                     return false;
                 },
-                getUsername: function(){
+                getUsername: function() {
                     return $rootScope.user.username;
+                },
+                getThemes: function(){
+                    return [{type: 'Coffee', selected: false},
+                        {type: 'Game', selected: false},
+                        {type: 'Music', selected: false},
+                        {type: 'Party', selected: false},
+                        {type: 'Restaurant', selected: false},
+                        {type: 'Shopping', selected: false},
+                        {type: 'Soccer', selected: false},
+                        {type: 'Video-Game', selected: false}];
                 }
             };
             return resultService;

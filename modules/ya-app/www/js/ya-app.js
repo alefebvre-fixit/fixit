@@ -57,7 +57,7 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', '
 
 
 angular.module('ya-app').config(function($logProvider) {
-    var production = false;
+    var production = true;
     if (production) {
         $logProvider.debugEnabled(false);
     }
