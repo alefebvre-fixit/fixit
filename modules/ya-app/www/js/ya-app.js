@@ -11,7 +11,7 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', '
   $ionicPlatform.ready(function() {
 
 
-      var production = false;
+      var production = true;
 
       var localFixitURL = 'http://localhost:9000';
       var emulatorFixitURL = 'http://10.0.2.2:9000';
@@ -54,7 +54,6 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', '
   });
 }
 );
-
 
 angular.module('ya-app').config(function($logProvider) {
     var production = true;

@@ -32,6 +32,16 @@
         height: 30px;
         display: table;
     }
+
+    .tinted-image {
+        background:
+            /* top, transparent red, faked with gradient */
+        linear-gradient(
+                rgba(255, 0, 0, 0.45),
+                rgba(255, 0, 0, 0.45)
+        );
+    }
+
 </style>
 
 <ion-modal-view>
@@ -41,7 +51,7 @@
     <ion-content style="background-color: #F6F9F9;">
         <div class="row" ng-repeat="image in images" ng-if="$index % 2 === 0" style="padding:0px;">
 
-            <div class="col col-50" ng-if="$index < images.length" style="position: relative;" ng-click="selectTheme(images[$index].type)">
+            <div class="col col-50 " ng-if="$index < images.length" style="position: relative;" ng-click="selectTheme(images[$index].type)">
                 <img ng-src="img/themes/{{images[$index].type}}-large.jpg" width="100%"/>
                 <div class="theme-title">#{{images[$index].type}}</div>
 

@@ -56,19 +56,14 @@ angular.module('ya-app').factory('YaService',
 
                 },
                 setFollowing: function(following){
-                    $log.log("setFollowing from service" + following);
+                    $log.log("setFollowing from YaService following=" + following);
                     $rootScope.following = following;
                 },
                 isFollowing: function(username){
-                    $log.log("call isFollowing from service" + username);
+                    $log.log("call isFollowing from YaService following =" + username);
                     $log.log($rootScope.following);
                     if (username && $rootScope.following){
-                        var arrayLength = $rootScope.following.length;
-                        for (var i = 0; i < arrayLength; i++) {
-                            if (username == $rootScope.following[i]){
-                                return true;
-                            }
-                        }
+                        return ($rootScope.following.indexOf(username) >= 0);
                     }
                     return false;
                 },

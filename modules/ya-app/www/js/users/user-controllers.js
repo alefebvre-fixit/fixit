@@ -103,19 +103,86 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
 
 
 
-angular.module('ya-app').controller('EditUserController', ['YaService', 'UserService', '$scope', '$log', 'profile','$state',
-    function (YaService, UserService, $scope, $log, profile, $state) {
+angular.module('ya-app').controller('EditUserController', ['YaService', 'UserService', '$scope', '$log', 'profile','$state', '$ionicModal', '$ionicLoading',
+    function (YaService, UserService, $scope, $log, profile, $state, $ionicModal, $ionicLoading) {
 
         $scope.profile = profile;
 
         $scope.saveProfile = function(profile) {
+            $ionicLoading.show({
+                template: '<ion-spinner class="spinner-calm"></ion-spinner>'
+            });
+
+
             UserService.saveProfile(profile).then(function (data) {
                 YaService.setUser(data);
                 $scope.profile = data.profile;
+                $ionicLoading.hide();
                 YaService.toastMe('Setting Updated');
                 $state.go("user", {username : $scope.user.username});
             });
         };
+
+        //Start Modal theme selector
+
+        $ionicModal.fromTemplateUrl('templates/groups/theme-selector-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.themeSelector = modal;
+        });
+
+        $scope.openSelector = function() {
+            $scope.images = angular.copy(YaService.getThemes());
+            $scope.allowMultipleSelection = true;
+            var arrayLength = $scope.images.length;
+            $log.log($scope.profile.interest);
+            if ($scope.profile.interest){
+                for (var i = 0; i < arrayLength; i++) {
+
+                    $log.log($scope.images[i].type);
+
+                    if ($scope.profile.interest.indexOf($scope.images[i].type) >= 0){
+                        $scope.images[i].selected = true;
+                    }
+                }
+            }
+
+            $scope.themeSelector.show();
+        };
+
+        $scope.cancelSelection = function() {
+            $scope.themeSelector.hide();
+        };
+
+        //Cleanup the modal when we're done with it!
+        $scope.$on('$destroy', function() {
+            if ($scope.themeSelector){
+                $scope.themeSelector.remove();
+            }
+        });
+
+        $scope.selectTheme = function(type){
+            var arrayLength = $scope.images.length;
+            for (var i = 0; i < arrayLength; i++) {
+                if (type == $scope.images[i].type){
+                    $scope.images[i].selected = !$scope.images[i].selected;
+                }
+            }
+        };
+
+        $scope.applySelection = function(){
+            $scope.profile.interest = [];
+            var arrayLength = $scope.images.length;
+            for (var i = 0; i < arrayLength; i++) {
+                if ($scope.images[i].selected){
+                    $scope.profile.interest.push($scope.images[i].type);
+                }
+            }
+            $scope.themeSelector.hide();
+        };
+
+        //End Modal for theme selector
 
     }
 ]);

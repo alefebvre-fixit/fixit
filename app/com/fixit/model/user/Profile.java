@@ -1,5 +1,8 @@
 package com.fixit.model.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Profile {
 
 	private static final long serialVersionUID = 1L;
@@ -12,6 +15,8 @@ public class Profile {
     private String city;
     private String country;
 
+    private List<String> interest = new ArrayList<String>();
+    
     public void setName(String name){
         this.name = name;
     }
@@ -52,7 +57,12 @@ public class Profile {
 		this.country = country;
 	}
 
-    
+	public List<String> getInterest() {
+		return interest;
+	}
 
+	public void setInterest(List<String> interest) {
+		this.interest = interest;
+	}
 
 }

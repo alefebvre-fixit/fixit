@@ -104,6 +104,8 @@
             </div>
         </div>
 
+        <ion-item class="item-divider item-button-right calm" ng-show="summary.followingGroups.length > 0"> Groups
+        </ion-item>
         <div ng-repeat="group in summary.followingGroups">
             <div ng-include data-src="'templates/groups/partial/group-list-item.html'"></div>
         </div>

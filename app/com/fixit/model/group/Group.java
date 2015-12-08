@@ -1,5 +1,7 @@
 package com.fixit.model.group;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,6 +25,8 @@ public class Group {
 	private int eventSize = 0;
 	private String type;
 
+	private List<String> sponsors;
+	
 	public String getId() {
 		return id;
 	}
@@ -135,6 +139,14 @@ public class Group {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public List<String> getSponsors() {
+		return sponsors;
+	}
+
+	public void setSponsors(List<String> sponsors) {
+		this.sponsors = sponsors;
 	}
 	
 	
