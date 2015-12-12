@@ -5,13 +5,13 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', 'ion-sticky'])
+angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', 'ion-sticky', 'js-data'])
 
 .run(function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
 
 
-      var production = true;
+      var production = false;
 
       var localFixitURL = 'http://localhost:9000';
       var emulatorFixitURL = 'http://10.0.2.2:9000';
@@ -65,3 +65,22 @@ angular.module('ya-app').config(function($logProvider) {
 angular.module('ya-app').config(function($ionicConfigProvider) {
     if(!ionic.Platform.isIOS())$ionicConfigProvider.scrolling.jsScrolling(false);
 });
+
+
+
+angular.module('ya-app')
+    .config(function (DSProvider, DSHttpAdapterProvider) {
+        angular.extend(DSProvider.defaults, {});
+        angular.extend(DSHttpAdapterProvider.defaults, {basePath: 'http://localhost:9000/api'});
+});
+
+
+angular.module('ya-app')
+    .factory('Group', function (DS) {
+        // This code won't execute unless you actually
+        // inject "Comment" somewhere in your code.
+        // Thanks Angular...
+        // Some like injecting actual Resource
+        // definitions, instead of just "DS"
+        return DS.defineResource('groups');
+    });

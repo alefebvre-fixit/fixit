@@ -41,3 +41,28 @@ angular.module('ya-app').controller('YaController', ['$scope', '$log', '$rootSco
 ]);
 
 
+angular.module('ya-app').controller('JSDataController',
+    ['GroupService', 'EventService', '$scope', '$log','$state','Group',
+        function (GroupService, EventService, $scope, $log, $state, Group) {
+
+            $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+                Group.findAll().then(function (groups) {
+                    $scope.groups = groups;
+                });
+            });
+
+            $scope.doRefresh = function() {
+                Group.findAll().then(function (groups) {
+                    $scope.groups = groups;
+                });
+                $scope.$broadcast('scroll.refreshComplete');
+            };
+
+            $scope.openCreateGroup = function() {
+                $state.go('group-create');
+            };
+
+        }
+    ]);
+
+

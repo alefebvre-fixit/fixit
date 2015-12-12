@@ -1,13 +1,21 @@
 angular.module('ya-app').factory('GroupService',
-    ['$http', '$rootScope',
-        function($http, $rootScope) {
+    ['$http', '$rootScope', 'Group',
+        function($http, $rootScope, Group) {
 
             var resultService;
             resultService = {
                 getGroups: function () {
-                    return $http.get($rootScope.baseUrl + '/api/groups').then(function (response) {
-                        return response.data;
+
+                    //return $http.get($rootScope.baseUrl + '/api/groups').then(function (response) {
+                    //    return response.data;
+                    //});
+
+                    return Group.findAll().then(function (groups) {
+                        return groups;
                     });
+
+
+
                 },
                 getGroupsByOwner: function (username) {
                     return $http.get($rootScope.baseUrl + '/api/users/' + username + '/groups').then(function (response) {
@@ -15,21 +23,31 @@ angular.module('ya-app').factory('GroupService',
                     });
                 },
                 getGroup: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId).then(function (response) {
-                        return response.data;
+
+                    return Group.find(groupId).then(function (group) {
+                        return group;
                     });
+
+
+                    //return $http.get($rootScope.baseUrl + '/api/groups/' + groupId).then(function (response) {
+                    //    return response.data;
+                    //});
                 },
                 saveGroup: function (group) {
-                    return $http.post($rootScope.baseUrl + '/api/groups', group).then(function (response) {
-                        return response.data;
-                    });
+                    if (group.id){
+                        return Group.update(group.id, group);
+                    } else {
+                        return Group.create(group);
+                    }
+                    //return $http.post($rootScope.baseUrl + '/api/groups', group).then(function (response) {
+                    //    return response.data;
+                    //});
                 },
                 followGroup: function (group) {
                     return $http.post($rootScope.baseUrl + '/api/groups/' + group.id + '/follow').then(function (response) {
                         return response.data;
                     });
                 },
-
                 getEventSize: function (groupId) {
                     return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events/size').then(function (response) {
                         return response.data;

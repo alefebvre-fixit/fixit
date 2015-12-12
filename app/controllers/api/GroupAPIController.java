@@ -61,12 +61,26 @@ public class GroupAPIController extends YaController {
 		return ok(Json.toJson(group));
 	}
 
-	public Result save() {
-		Logger.debug("GroupAPIController.save()");
+	public Result create() {
+		Logger.debug("GroupAPIController.create()");
 
 		RequestBody body = request().body();
 
 		Group group = Json.fromJson(body.asJson(), Group.class);
+		group.username = getUserName();
+
+		Group result = getGroupService().save(group);
+
+		return ok(Json.toJson(result));
+	}
+	
+	public Result update(String groupId) {
+		Logger.debug("GroupAPIController.update()");
+
+		RequestBody body = request().body();
+
+		Group group = Json.fromJson(body.asJson(), Group.class);
+		group.setId(groupId);
 		group.username = getUserName();
 
 		Group result = getGroupService().save(group);

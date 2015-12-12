@@ -1,6 +1,6 @@
 <div class="card event-header" ui-sref="event({ eventId: event.id })">
     <div class="item item-image event-image">
-        <img src="img/themes/{{event.type}}-large.jpg" >
+        <img ng-src="img/themes/{{event.type}}-large.jpg" >
         <div class="event-title"><b>{{event.name}}</b></div>
         <div class="event-group">@{{::event.groupName}}</div>
     </div>
