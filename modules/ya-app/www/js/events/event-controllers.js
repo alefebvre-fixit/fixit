@@ -25,6 +25,7 @@ angular.module('ya-app').controller('ParticipationListController',
             $scope.participations = {all : [], in : [], out : [], rsvp : []};
 
             $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+                viewData.enableBack = true;
                 EventService.getParticipationSummary(eventId).then(function (summary) {
                     $scope.participations = summary;
                 });

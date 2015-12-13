@@ -7,33 +7,33 @@
 
 	<div class="list">
 
-		<label class="item item-input item-floating-label">
-			<span class="input-label">Name</span>
+		<ion-input class="item item-input item-floating-label">
+			<ion-label>Name</ion-label>
 			<input type="text" ng-model="signup.name" placeholder="name">
-		</label>
+		</ion-input>
 
-		<label class="item item-input item-floating-label">
-			<span class="input-label">Username</span>
+		<ion-input class="item item-input item-floating-label">
+			<ion-label>Username</ion-label>
 			<input type="text" ng-model="signup.username" placeholder="username">
-		</label>
+		</ion-input>
 
-		<label class="item item-input item-floating-label">
-			<span class="input-label">E-mail</span>
+		<ion-input class="item item-input item-floating-label">
+			<ion-label>E-mail</ion-label>
 			<input type="email" ng-model="signup.email" placeholder="e-mail">
-		</label>
+		</ion-input>
 
-		<label class="item item-input item-floating-label">
-			<span class="input-label">Password</span>
+		<ion-input class="item item-input item-floating-label">
+			<ion-label>Password</ion-label>
 			<input type="password" ng-model="signup.password" placeholder="password">
-		</label>
+		</ion-input>
 
-		<label class="item">
+		<ion-input class="item">
 			<button class="button button-block button-calm" type="button" ng-click="doSignUp()">Sign Up</button>
-		</label>
+		</ion-input>
 		<p ng-show="signup.error" class="help-block">{{signup.error}}</p>
 
-		<label class="item ">
+		<ion-input class="item ">
 			<button class="button button-block button-outline button-calm" ng-click="goToSignIn()">Already member? Sign In.</button>
-		</label>
+		</ion-input>
 	</div>
 </ion-content> </ion-view>

@@ -71,7 +71,18 @@ angular.module('ya-app').config(function($ionicConfigProvider) {
 angular.module('ya-app')
     .config(function (DSProvider, DSHttpAdapterProvider) {
         angular.extend(DSProvider.defaults, {});
-        angular.extend(DSHttpAdapterProvider.defaults, {basePath: 'http://localhost:9000/api'});
+
+        var production = false;
+
+        var localFixitURL = 'http://localhost:9000/api';
+        var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com/api';
+
+        if (production){
+            angular.extend(DSHttpAdapterProvider.defaults, {basePath: herokuFixitURL});
+        } else {
+            angular.extend(DSHttpAdapterProvider.defaults, {basePath: localFixitURL});
+        }
+
 });
 
 
