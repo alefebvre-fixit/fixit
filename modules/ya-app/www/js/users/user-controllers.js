@@ -21,8 +21,8 @@ angular.module('ya-app').controller('SignUpController', ['YaService', 'UserServi
     }
 ]);
 
-angular.module('ya-app').controller('SignInController', ['YaService', 'UserService', '$scope', '$log', '$state', '$ionicLoading',
-    function (YaService, UserService, $scope, $log, $state, $ionicLoading) {
+angular.module('ya-app').controller('SignInController', ['YaService', 'UserService', '$scope', '$rootScope', '$log', '$state', '$ionicLoading', 'NotificationService',
+    function (YaService, UserService, $scope, $rootScope, $log, $state, $ionicLoading, NotificationService) {
 
         $scope.signin = {username: 'antoinelefebvre', password: 'password'};
         // Perform the login action when the user submits the login for
@@ -39,6 +39,11 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
                         UserService.getFollowingNames(user.username).then(function(following) {
                             YaService.setFollowing(following);
                             YaService.setUser(user);
+
+                            NotificationService.getNotifications().then(function (notifications) {
+                                $rootScope.badgecount = Object.keys(notifications).length;
+                            });
+
                             $state.transitionTo('tabs.events');
                             $ionicLoading.hide();
                         });
