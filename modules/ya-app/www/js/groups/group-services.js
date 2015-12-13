@@ -5,17 +5,12 @@ angular.module('ya-app').factory('GroupService',
             var resultService;
             resultService = {
                 getGroups: function () {
-
                     //return $http.get($rootScope.baseUrl + '/api/groups').then(function (response) {
                     //    return response.data;
                     //});
-
                     return Group.findAll().then(function (groups) {
                         return groups;
                     });
-
-
-
                 },
                 getGroupsByOwner: function (username) {
                     return $http.get($rootScope.baseUrl + '/api/users/' + username + '/groups').then(function (response) {
@@ -23,12 +18,9 @@ angular.module('ya-app').factory('GroupService',
                     });
                 },
                 getGroup: function (groupId) {
-
                     return Group.find(groupId).then(function (group) {
                         return group;
                     });
-
-
                     //return $http.get($rootScope.baseUrl + '/api/groups/' + groupId).then(function (response) {
                     //    return response.data;
                     //});
@@ -99,9 +91,12 @@ angular.module('ya-app').factory('GroupService',
                     });
                 },
                 deleteGroup: function (group) {
+                    return Group.destroy(group.id);
+                    /*
                     return $http.post($rootScope.baseUrl + '/api/groups/' + group.id + '/delete').then(function (response) {
                         return response.data;
                     });
+                    */
                 },
                 instanciateGroup: function () {
                     return $http.get($rootScope.baseUrl + '/api/groups/new').then(function (response) {
@@ -109,7 +104,6 @@ angular.module('ya-app').factory('GroupService',
                     });
                 }
             };
-
             return resultService;
         }]);
 

@@ -57,14 +57,28 @@ public class EventAPIController extends YaController {
 		return ok(Json.toJson(event));
 	}
 
-	public Result save() {
+	public Result update(String eventId) {
 		Logger.debug("EventAPIController.save()");
 
 		RequestBody body = request().body();
 
 		Event event = Json.fromJson(body.asJson(), Event.class);
-		event.username = getUserName();
+		event.setUsername(getUserName());
+		event.setId(eventId)
+		;
+		Event result = getEventService().save(event);
 
+		return ok(Json.toJson(result));
+	}
+	
+	public Result create() {
+		Logger.debug("EventAPIController.save()");
+
+		RequestBody body = request().body();
+
+		Event event = Json.fromJson(body.asJson(), Event.class);
+		event.setUsername(getUserName());
+		event.setId(null);
 		Event result = getEventService().save(event);
 
 		return ok(Json.toJson(result));

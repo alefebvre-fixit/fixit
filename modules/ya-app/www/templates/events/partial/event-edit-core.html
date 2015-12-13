@@ -1,15 +1,23 @@
 
 <div class="list">
-    <ion-input class="item item-input item-select">
-        <div class="input-label">
-            Type
+    <div class="event-module">
+        <img ng-src="img/themes/{{event.type}}-large.jpg" >
+
+        <div class="group-icon-holder">
+            <span class="ion-ios-people group-icon calm"></span>
         </div>
-        <select ng-model="event.type">
-            <option>Coffee</option>
-            <option>Video-Game</option>
-            <option>Soccer</option>
-        </select>
-    </ion-input>
+        <header>
+            <h3 ng-show="event.name">
+                {{event.name}}
+            </h3>
+            <h3 ng-show="!event.name">
+                Event Name
+            </h3>
+            <h5>
+                @{{event.groupName}}
+            </h5>
+        </header>
+    </div>
     <ion-input class="item item-input item-floating-label">
         <ion-label>Event Name</ion-label>
         <input type="text" name="name" placeholder="Type event name here..." ng-model="event.name" ng-minlength="5" ng-maxlength="20" required>

@@ -1,11 +1,15 @@
-angular.module('ya-app').factory('UserService', ['$http', '$rootScope', function($http, $rootScope) {
+angular.module('ya-app').factory('UserService', ['$http', '$log', '$rootScope','User',
+                            function($http, $log, $rootScope, User) {
 
     var resultService;
     resultService = {
-        getUserSummary: function (username) {
-            return $http.get($rootScope.baseUrl + '/api/users/' + username + '/summary').then(function (response) {
+        getUser: function (username) {
+            return User.find(username);
+            /*
+            return $http.get($rootScope.baseUrl + '/api/users/' + username ).then(function (response) {
                 return response.data;
             });
+            */
         },
         saveProfile: function (profile) {
             return $http.post($rootScope.baseUrl + '/api/profile', profile).then(function (response) {
@@ -73,6 +77,7 @@ angular.module('ya-app').factory('UserService', ['$http', '$rootScope', function
         },
         getUserDiscovery: function () {
             return $http.get($rootScope.baseUrl + '/api/users/discovery').then(function (response) {
+                User.inject(response.data);
                 return response.data;
             });
         }

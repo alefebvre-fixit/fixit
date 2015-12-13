@@ -48,19 +48,6 @@ public class GroupAPIController extends YaController {
 		return ok(Json.toJson(group));
 	}
 
-	public Result createGroup() {
-		Logger.debug("GroupAPIController.createGroup()");
-
-		RequestBody body = request().body();
-
-		Group group = Json.fromJson(body.asJson(), Group.class);
-		group.username = getUserName();
-		group.setStatus(Group.STATUS_DRAFT);
-		String id = getGroupService().create(group);
-		group.id = id;
-		return ok(Json.toJson(group));
-	}
-
 	public Result create() {
 		Logger.debug("GroupAPIController.create()");
 

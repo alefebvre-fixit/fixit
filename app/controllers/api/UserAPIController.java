@@ -18,7 +18,6 @@ import com.fixit.model.user.Profile;
 import com.fixit.model.user.SignIn;
 import com.fixit.model.user.SignUp;
 import com.fixit.model.user.User;
-import com.fixit.model.user.UserSummary;
 import com.fixit.service.GroupService;
 import com.fixit.service.UserService;
 
@@ -145,14 +144,6 @@ public class UserAPIController extends FixItController {
 		userService.save(user);
 		return ok(play.libs.Json.toJson(user));
 
-	}
-
-	public Result userSummary(String username) {
-		Logger.debug("UserAPIController.user(username)");
-
-		UserSummary result = UserSummary.create(userService.load(username));
-
-		return ok(play.libs.Json.toJson(result));
 	}
 
 	public Result follow(String followee) {

@@ -197,7 +197,7 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$
 
         var reload = function(username){
 
-            UserService.getUserSummary(username).then(function (summary) {
+            UserService.getUser(username).then(function (summary) {
                 $scope.summary.user = summary;
             });
 

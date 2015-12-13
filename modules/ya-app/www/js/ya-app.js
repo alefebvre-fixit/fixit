@@ -94,4 +94,14 @@ angular.module('ya-app')
         // Some like injecting actual Resource
         // definitions, instead of just "DS"
         return DS.defineResource('groups');
-    });
+    })
+    .factory('Event', function (DS) {
+        return DS.defineResource('events');
+    })
+    .factory('Notification', function (DS) {
+        return DS.defineResource('notifications');
+    })
+    .factory('User', function (DS) {
+        return DS.defineResource({name: 'users', idAttribute: 'username'});
+    })
+;

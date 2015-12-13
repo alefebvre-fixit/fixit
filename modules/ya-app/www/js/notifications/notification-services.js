@@ -1,13 +1,16 @@
 angular.module('ya-app').factory('NotificationService',
-    ['$http', '$rootScope',
-        function($http, $rootScope) {
+    ['$http', '$rootScope', 'Notification',
+        function($http, $rootScope, Notification) {
 
             var resultService;
             resultService = {
                 getNotifications: function () {
+                    return Notification.findAll();
+                    /*
                     return $http.get($rootScope.baseUrl + '/api/notifications').then(function (response) {
                         return response.data;
                     });
+                    */
                 },
                 acknowledgeNotification: function (notification) {
                     return $http.post($rootScope.baseUrl + '/api/notifications/' + notification.id + '/acknowledge').then(function (response) {

@@ -1,28 +1,44 @@
 angular.module('ya-app').factory('EventService',
-    ['$http', '$rootScope', '$filter', 'YaService',
-        function($http, $rootScope, $filter, YaService) {
+    ['$http', '$rootScope', '$filter', 'YaService', 'Event',
+        function($http, $rootScope, $filter, YaService, Event) {
 
             var resultService;
             resultService = {
                 getEvents: function () {
+                    return Event.findAll();
+                    /*
                     return $http.get($rootScope.baseUrl + '/api/events').then(function (response) {
                         return response.data;
                     });
+                    */
                 },
                 getEventTimeline: function () {
                     return $http.get($rootScope.baseUrl + '/api/events/timeline').then(function (response) {
+                        Event.inject(response.data.today);
+                        Event.inject(response.data.upcoming);
+                        Event.inject(response.data.past);
                         return response.data;
                     });
                 },
                 getEvent: function (eventId) {
+                    return Event.find(eventId);
+                    /*
                     return $http.get($rootScope.baseUrl + '/api/events/' + eventId).then(function (response) {
                         return response.data;
                     });
+                    */
                 },
                 saveEvent: function (event) {
+                    if (event.id){
+                        return Event.update(event.id, event);
+                    } else {
+                        return Event.create(event);
+                    }
+                    /*
                     return $http.post($rootScope.baseUrl + '/api/events', event).then(function (response) {
                         return response.data;
                     });
+                    */
                 },
                 getCommentSize: function (event) {
                     return $http.get($rootScope.baseUrl + '/api/events/' + event.id + '/comments/size').then(function (response) {
@@ -40,9 +56,12 @@ angular.module('ya-app').factory('EventService',
                     });
                 },
                 deleteEvent: function (event) {
+                    return Event.destroy(event.id);
+                    /*
                     return $http.post($rootScope.baseUrl + '/api/events/' + event.id + '/delete').then(function (response) {
                         return response.data;
                     });
+                    */
                 },
                 instanciateEvent: function (groupId) {
                     return $http.get($rootScope.baseUrl + '/api/groups/' + groupId +'/events/new').then(function (response) {
