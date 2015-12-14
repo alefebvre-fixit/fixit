@@ -9,6 +9,8 @@ import com.fixit.model.user.User;
 public interface UserService {
 
 	public User load(String username);
+	
+	public List<User> load(List<String> usernames);
 
 	public User authenticate(SignIn signin);
 

@@ -80,6 +80,9 @@ angular.module('ya-app').factory('UserService', ['$http', '$log', '$rootScope','
                 User.inject(response.data);
                 return response.data;
             });
+        },
+        getUsers: function () {
+            return User.findAll();
         }
     };
 

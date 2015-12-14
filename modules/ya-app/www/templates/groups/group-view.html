@@ -1,7 +1,12 @@
 <style>
 
 
-
+    .sponsor-avatar  {
+        max-width: 40px;
+        max-height: 40px;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%; }
 
 
 
@@ -12,9 +17,7 @@
     <ion-nav-buttons side="right">
         <button class="button button-icon ion-more" ng-click="popover.show($event)"></button>
     </ion-nav-buttons>
-
-    <ion-content>
-
+<ion-content>
 
 
 <div class="group-module">
@@ -42,7 +45,7 @@
     </header>
 </div>
 
-<div class="row">
+<div class="row" style="background-color: white">
     <a class="col statistic" ui-sref="group-events({groupId: group.id})">
         <p class="statistic">
             <b>{{summary.eventSize}}</b>
@@ -62,18 +65,39 @@
 
 </div>
 
-        <div class="row">
+        <div class="row" style="background-color: white">
             <div class="col">
                 {{group.description}}
             </div>
         </div>
+
         <a class="item item-icon-left item-icon-right" href="#">
             <i class="icon ion-location"></i>
             {{group.city}}, {{group.country}}
             <i class="icon ion-ios-arrow-forward"></i>
         </a>
-
-
+        <div class="row" style="background-color: white">
+            <div class="col">
+                <p class="statistic-label">Presented By :</p>
+            </div>
+        </div>
+        <div class="row" style="background-color: white" ui-sref="group-sponsors({groupId: group.id})">
+            <div class="col col-20">
+                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
+            </div>
+            <div class="col col-20">
+                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
+            </div>
+            <div class="col col-20">
+                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
+            </div>
+            <div class="col col-20">
+                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
+            </div>
+            <div class="col col-20">
+                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
+            </div>
+        </div>
 
         <ion-item class="item-divider item-button-right calm" ng-show="summary.eventSize > 0"> Events
         </ion-item>

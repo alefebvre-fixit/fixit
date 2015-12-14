@@ -92,6 +92,7 @@ GET     /api/users/:user/groups/following/id    	@controllers.api.GroupAPIContro
 GET     /api/users/:user/groups/following    		@controllers.api.GroupAPIController.following(user: String)
 
 GET     /api/users/discovery     					@controllers.api.UserAPIController.userDiscovery()
+GET     /api/users     								@controllers.api.UserAPIController.userDiscovery()
 GET     /api/users/:user       	    				@controllers.api.UserAPIController.user(user: String)
 
 POST    /api/users/:user/follow       	    		@controllers.api.UserAPIController.follow(user: String)
@@ -133,6 +134,7 @@ GET     /api/groups/:groupId          							@controllers.api.GroupAPIController
 GET     /api/groups/:groupId          							@controllers.api.GroupAPIController.group(groupId: String)
 GET 	/api/groups/:groupId/followers/size 					@controllers.api.GroupAPIController.followerSize(groupId: String)
 GET 	/api/groups/:groupId/followers 							@controllers.api.GroupAPIController.followers(groupId: String)
+GET 	/api/groups/:groupId/sponsors 							@controllers.api.GroupAPIController.sponsors(groupId: String)
 
 POST 	/api/groups			   									@controllers.api.GroupAPIController.create()
 PUT 	/api/groups/:groupId			   						@controllers.api.GroupAPIController.update(groupId: String)

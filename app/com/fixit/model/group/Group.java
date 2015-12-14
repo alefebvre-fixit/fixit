@@ -1,5 +1,7 @@
 package com.fixit.model.group;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -7,7 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fixit.model.user.User;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection = "Group")
@@ -19,14 +20,17 @@ public class Group {
 
 	@Id
 	public String id;
-	
+
+	private Date creationDate;
+	private Date modificationDate;
+
 	public double version = 0;
 	private String status = STATUS_NEW;
 	private int eventSize = 0;
 	private String type;
 
-	private List<String> sponsors;
-	
+	private List<String> sponsors = new ArrayList<String>();
+
 	public String getId() {
 		return id;
 	}
@@ -94,14 +98,14 @@ public class Group {
 	public void setVersion(double version) {
 		this.version = version;
 	}
-	
+
 	@JsonIgnore
-	public void incrementEventSize(){
+	public void incrementEventSize() {
 		eventSize++;
 	}
-	
+
 	@JsonIgnore
-	public void decrementEventSize(){
+	public void decrementEventSize() {
 		eventSize--;
 	}
 
@@ -111,18 +115,6 @@ public class Group {
 
 	public void setEventSize(int eventSize) {
 		this.eventSize = eventSize;
-	}
-
-	public static Group instanciate(User user) {
-		Group project = new Group();
-		project.username = user.getUsername();
-		project.country = user.getProfile().getCountry();
-		project.city = user.getProfile().getCity();
-
-		project.name = "new project 2";
-		project.description = "";
-
-		return project;
 	}
 
 	public String getStatus() {
@@ -148,7 +140,21 @@ public class Group {
 	public void setSponsors(List<String> sponsors) {
 		this.sponsors = sponsors;
 	}
-	
-	
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Date getModificationDate() {
+		return modificationDate;
+	}
+
+	public void setModificationDate(Date modificationDate) {
+		this.modificationDate = modificationDate;
+	}
 
 }

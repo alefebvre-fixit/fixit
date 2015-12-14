@@ -55,6 +55,30 @@ angular.module('ya-app').config(function ($stateProvider) {
             },
             authenticate: true
         })
+        .state('group-sponsors', {
+            cache: false,
+            url: "/groups/:groupId/sponsors",
+            templateUrl: "templates/groups/group-sponsors.html",
+            controller: 'GroupSponsorsController',
+            resolve: {
+                groupId: function ($stateParams) {
+                    return $stateParams.groupId;
+                }
+            },
+            authenticate: true
+        })
+        .state('group-sponsors-edit', {
+            cache: false,
+            url: "/groups/:groupId/sponsors/edit",
+            templateUrl: "templates/groups/group-sponsors-edit.html",
+            controller: 'GroupSponsorsEditController',
+            resolve: {
+                groupId: function ($stateParams) {
+                    return $stateParams.groupId;
+                }
+            },
+            authenticate: true
+        })
         .state('group-events', {
             url: "/groups/:groupId/events",
             templateUrl: "templates/groups/group-event-list.html",

@@ -339,3 +339,86 @@ angular.module('ya-app').controller('GroupEventsController',
 
         }
     ]);
+
+
+angular.module('ya-app').controller('GroupSponsorsController', ['GroupService', '$scope', '$log', 'groupId',
+    function (GroupService, $scope, $log, groupId) {
+
+        //To insure the back button is displayed
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            viewData.enableBack = true;
+
+            GroupService.getSponsors(groupId).then(function(sponsors) {
+                $scope.sponsors = sponsors;
+            });
+            GroupService.getGroup(groupId).then(function (group) {
+                $scope.group = group;
+            });
+
+        });
+
+    }
+]);
+
+angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupService', 'UserService', '$scope', '$log', 'groupId', '$ionicModal',
+    function (GroupService, UserService,  $scope, $log, groupId, $ionicModal) {
+
+        //To insure the back button is displayed
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            viewData.enableBack = true;
+
+            GroupService.getSponsors(groupId).then(function(sponsors) {
+                $scope.sponsors = sponsors;
+            });
+            GroupService.getGroup(groupId).then(function (group) {
+                $scope.group = group;
+            });
+
+        });
+
+        //Start Modal theme selector
+
+        $ionicModal.fromTemplateUrl('templates/users/user-selector-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.themeSelector = modal;
+        });
+
+        $scope.openSelector = function() {
+
+            UserService.getUsers().then(function (users) {
+                $scope.users = users;
+            });
+
+            $scope.themeSelector.show();
+        };
+
+        $scope.cancelSelection = function() {
+            $scope.themeSelector.hide();
+        };
+
+        //Cleanup the modal when we're done with it!
+        $scope.$on('$destroy', function() {
+            if ($scope.themeSelector){
+                $scope.themeSelector.remove();
+            }
+        });
+
+        $scope.selectTheme = function(type){
+            $scope.group.type = type;
+            $scope.themeSelector.hide();
+            //var arrayLength = $scope.images.length;
+            //for (var i = 0; i < arrayLength; i++) {
+            //    if (type == $scope.images[i].type){
+            //        $scope.images[i].selected = !$scope.images[i].selected;
+            //    }
+            //}
+        };
+
+        //End Modal for theme selector
+
+
+
+    }
+]);

@@ -100,6 +100,11 @@ public class GroupAPIController extends YaController {
 
 		return ok(Json.toJson(getGroupService().groupFollowers(groupId)));
 	}
+	
+	public Result sponsors(String groupId) {
+		Logger.debug("GroupAPIController.sponsors groupId =" + groupId);
+		return ok(Json.toJson(getGroupService().groupSponsors(groupId)));
+	}
 
 	public Result unfollow(String groupId) {
 		Logger.debug("GroupAPIController.unfollow groupId =" + groupId);

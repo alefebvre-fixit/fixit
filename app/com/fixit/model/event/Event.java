@@ -28,7 +28,24 @@ public class Event {
 	private Date date;
 	private String status = STATUS_NEW;
 	private String type;
-	
+	private Date creationDate;
+	private Date modificationDate;
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Date getModificationDate() {
+		return modificationDate;
+	}
+
+	public void setModificationDate(Date modificationDate) {
+		this.modificationDate = modificationDate;
+	}
 
 	public String getId() {
 		return id;
@@ -145,7 +162,7 @@ public class Event {
 	public boolean accept(Participation participation) {
 		return true;
 	}
-	
+
 	public String getType() {
 		return type;
 	}

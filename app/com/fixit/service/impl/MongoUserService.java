@@ -117,19 +117,23 @@ public class MongoUserService implements UserService {
 
 	@Override
 	public void follow(String follower, String followee) {
-		Logger.debug("MongoUserService.follow(String follower, String followee) follower=" + follower + " follower= " + follower);
+		Logger.debug("MongoUserService.follow(String follower, String followee) follower="
+				+ follower + " follower= " + follower);
 
-		List<Following> following = followingRepository.findByFolloweeAndFollower(followee, follower);
-		if (YaUtil.isEmpty(following)){
+		List<Following> following = followingRepository
+				.findByFolloweeAndFollower(followee, follower);
+		if (YaUtil.isEmpty(following)) {
 			followingRepository.save(Following.create(followee, follower));
-		} 
+		}
 	}
 
 	@Override
 	public void unFollow(String follower, String followee) {
-		Logger.debug("MongoUserService.unFollow(String follower, String followee) follower=" + follower + " follower= " + follower);
-		List<Following> following = followingRepository.findByFolloweeAndFollower(followee, follower);
-		if (YaUtil.isNotEmpty(following)){
+		Logger.debug("MongoUserService.unFollow(String follower, String followee) follower="
+				+ follower + " follower= " + follower);
+		List<Following> following = followingRepository
+				.findByFolloweeAndFollower(followee, follower);
+		if (YaUtil.isNotEmpty(following)) {
 			followingRepository.delete(following);
 		}
 
@@ -137,10 +141,10 @@ public class MongoUserService implements UserService {
 
 	@Override
 	public List<User> getFollowers(String username) {
-		
+
 		Logger.debug("MongoUserService.getFollowers(String username) username="
 				+ username);
-		
+
 		List<User> result = null;
 
 		List<String> names = getFollowerNames(username);
@@ -148,12 +152,13 @@ public class MongoUserService implements UserService {
 		if (YaUtil.isNotEmpty(names)) {
 			result = userRepository.findByUsernameIn(names);
 		}
-		
+
 		if (result == null) {
 			result = new ArrayList<User>();
 		}
-		
-		Logger.debug("MongoUserService.getFollowers(String username) result=" + result.size());
+
+		Logger.debug("MongoUserService.getFollowers(String username) result="
+				+ result.size());
 
 		return result;
 	}
@@ -168,12 +173,12 @@ public class MongoUserService implements UserService {
 	@Override
 	public List<User> getFollowing(String username) {
 		List<User> result = null;
-		
+
 		Logger.debug("MongoUserService.getFollowing(String username) username="
 				+ username);
 
 		List<String> names = getFollowingNames(username);
-		
+
 		if (YaUtil.isNotEmpty(names)) {
 			result = userRepository.findByUsernameIn(names);
 		}
@@ -181,7 +186,7 @@ public class MongoUserService implements UserService {
 		if (result == null) {
 			result = new ArrayList<User>();
 		}
-		
+
 		return result;
 	}
 
@@ -227,6 +232,24 @@ public class MongoUserService implements UserService {
 			}
 		}
 
+		return result;
+	}
+
+	@Override
+	public List<User> load(List<String> usernames) {
+		List<User> result = null;
+
+		Logger.debug("MongoUserService.load(List<String> usernames) usernames="
+				+ usernames);
+		
+		if (YaUtil.isNotEmpty(usernames)) {
+			result = userRepository.findByUsernameIn(usernames);
+		}
+		
+		if (result == null) {
+			result = new ArrayList<User>();
+		}
+		
 		return result;
 	}
 

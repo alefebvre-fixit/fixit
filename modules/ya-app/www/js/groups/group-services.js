@@ -70,6 +70,11 @@ angular.module('ya-app').factory('GroupService',
                         return response.data;
                     });
                 },
+                getSponsors: function (groupId) {
+                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/sponsors').then(function (response) {
+                        return response.data;
+                    });
+                },
                 getCommentSize: function (groupId) {
                     return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/comments/size').then(function (response) {
                         return response.data;

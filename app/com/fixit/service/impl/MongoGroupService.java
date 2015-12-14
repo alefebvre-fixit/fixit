@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import play.Logger;
 
@@ -40,7 +41,7 @@ public class MongoGroupService implements GroupService {
 	@Override
 	public List<Group> getAll() {
 		Logger.debug("MongoGroupService.getAll()");
-		return groupRepository.findAll();
+		return groupRepository.findAll(new Sort(Sort.Direction.DESC, "creationDate"));
 	}
 
 	@Override
@@ -58,7 +59,9 @@ public class MongoGroupService implements GroupService {
 	@Override
 	public Group save(Group group) {
 		Logger.debug("MongoGroupService.save(Group group) id=" + group.id);
-		
+		if (!group.getSponsors().contains(group.getUsername())){
+			group.getSponsors().add(group.getUsername());
+		}
 		Group result = groupRepository.save(group);
 		
 		notificationService.publishNotification(group);
@@ -172,21 +175,22 @@ public class MongoGroupService implements GroupService {
 	public List<User> groupFollowers(String groupId) {
 
 		Logger.debug("MongoGroupService.groupFollowers(String groupId) groupId=" + groupId);
-
-		
-		// TODO Improve implementation by loading only the username
 		List<User> result = new ArrayList<User>();
 
 		List<Favorite> favorites = favoriteRepository.findByGroupId(groupId);
 
 		if (favorites != null) {
+			List<String> usernames = new ArrayList<String>();
 			for (Favorite favorite : favorites) {
-				User user = userService.load(favorite.getUsername());
-				if (user != null) {
-					result.add(user);
-				}
+				usernames.add(favorite.getUsername());
 			}
+			result = userService.load(usernames);
 		}
+		
+		if (result == null){
+			result = new ArrayList<User>();
+		}
+		
 
 		return result;
 	}
@@ -207,6 +211,24 @@ public class MongoGroupService implements GroupService {
 			for (Group group : groups) {
 				result.add(group);
 			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<User> groupSponsors(String groupId) {
+		
+		Logger.debug("MongoGroupService.groupSponsors(String groupId) groupId=" + groupId);
+
+		List<User> result = new ArrayList<User>();
+		Group group = getGroup(groupId);
+		if (group != null) {
+			result = userService.load(group.getSponsors());
+		}
+		
+		if (result == null){
+			result = new ArrayList<User>();
 		}
 		
 		return result;

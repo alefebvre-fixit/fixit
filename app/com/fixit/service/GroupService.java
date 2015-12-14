@@ -32,6 +32,8 @@ public interface GroupService {
 	public int groupFollowingSize(String username);
 	
 	public List<User> groupFollowers(String groupId);
+	
+	public List<User> groupSponsors(String groupId);
 
 	public List<String> groupFollowerNames(String groupId);
 

@@ -11,7 +11,7 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', '
   $ionicPlatform.ready(function() {
 
 
-      var production = true;
+      var production = false;
 
       var localFixitURL = 'http://localhost:9000';
       var emulatorFixitURL = 'http://10.0.2.2:9000';
@@ -72,7 +72,7 @@ angular.module('ya-app')
     .config(function (DSProvider, DSHttpAdapterProvider) {
         angular.extend(DSProvider.defaults, {});
 
-        var production = true;
+        var production = false;
 
         var localFixitURL = 'http://localhost:9000/api';
         var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com/api';
