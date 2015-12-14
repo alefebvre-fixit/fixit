@@ -360,8 +360,8 @@ angular.module('ya-app').controller('GroupSponsorsController', ['GroupService', 
     }
 ]);
 
-angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupService', 'UserService', '$scope', '$log', 'groupId', '$ionicModal',
-    function (GroupService, UserService,  $scope, $log, groupId, $ionicModal) {
+angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupService', 'UserService', '$scope', '$log', 'groupId', '$ionicModal', '$ionicLoading', '$state', '$ionicHistory',
+    function (GroupService, UserService,  $scope, $log, groupId, $ionicModal, $ionicLoading, $state, $ionicHistory) {
 
         //To insure the back button is displayed
         $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
@@ -375,6 +375,11 @@ angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupServic
             });
 
         });
+
+        $scope.remove = function(user){
+            $scope.sponsors.splice($scope.sponsors.indexOf(user), 1);
+            $scope.group.sponsors.splice($scope.group.sponsors.indexOf(user.username), 1);
+        };
 
         //Start Modal theme selector
 
@@ -405,20 +410,27 @@ angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupServic
             }
         });
 
-        $scope.selectTheme = function(type){
-            $scope.group.type = type;
+        $scope.applySelection = function(user){
+            $scope.sponsors.push(user);
+            $scope.group.sponsors.push(user.username);
             $scope.themeSelector.hide();
-            //var arrayLength = $scope.images.length;
-            //for (var i = 0; i < arrayLength; i++) {
-            //    if (type == $scope.images[i].type){
-            //        $scope.images[i].selected = !$scope.images[i].selected;
-            //    }
-            //}
         };
 
         //End Modal for theme selector
 
+        $scope.save = function() {
+            $log.log($scope.group);
+            // If form is invalid, return and let AngularJS show validation errors.
+            $ionicLoading.show({
+                template: '<ion-spinner class="spinner-calm"></ion-spinner>'
+            });
+            GroupService.saveGroup($scope.group).then(function(group) {
+                $ionicHistory.currentView($ionicHistory.backView());
+                $ionicLoading.hide();
+                $state.go('group', {groupId: group.id});
+            });
 
+        };
 
     }
 ]);

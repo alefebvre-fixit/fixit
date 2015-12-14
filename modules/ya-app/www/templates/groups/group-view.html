@@ -78,24 +78,12 @@
         </a>
         <div class="row" style="background-color: white">
             <div class="col">
-                <p class="statistic-label">Presented By :</p>
+                <p class="statistic-label" style="text-align: left">Presented By :</p>
             </div>
         </div>
         <div class="row" style="background-color: white" ui-sref="group-sponsors({groupId: group.id})">
-            <div class="col col-20">
-                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
-            </div>
-            <div class="col col-20">
-                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
-            </div>
-            <div class="col col-20">
-                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
-            </div>
-            <div class="col col-20">
-                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
-            </div>
-            <div class="col col-20">
-                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar">
+            <div class="col col-20" ng-repeat="sponsor in group.sponsors">
+                <img ng-src="img/users/{{sponsor}}.jpg" class="sponsor-avatar">
             </div>
         </div>
 
