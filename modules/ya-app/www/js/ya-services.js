@@ -12,7 +12,7 @@ angular.module('ya-app').factory('YaService',
                                 // error
                             });
                     } else {
-                        $log.log('$cordovaToast will show:' + message);
+                        $log.debug('$cordovaToast will show:' + message);
                     }
                 },
                 setUser: function(user){
@@ -24,19 +24,19 @@ angular.module('ya-app').factory('YaService',
                     }
                 },
                 setFavorites: function(favorites){
-                    $log.log("setFavorites from service" + favorites);
+                    $log.debug("setFavorites from service" + favorites);
 
                     $rootScope.favorites = favorites;
                 },
                 isFavorite: function(group){
                     if (group){
-                        $log.log("isFavorite " + group.id);
+                        $log.debug("isFavorite " + group.id);
                         return ($rootScope.favorites.indexOf(group.id) >= 0);
                     }
                     return false;
                 },
                 addFollowing: function(username){
-                    $log.log("addFollowing from service" + username);
+                    $log.debug("addFollowing from service" + username);
 
                     if (!$rootScope.following){
                         $rootScope.following = [];
@@ -45,7 +45,7 @@ angular.module('ya-app').factory('YaService',
 
                 },
                 removeFollowing: function(username){
-                    $log.log("removeFollowing from service" + username);
+                    $log.debug("removeFollowing from service" + username);
 
                     if ($rootScope.following){
                         var index = $rootScope.following.indexOf(username);
@@ -56,12 +56,12 @@ angular.module('ya-app').factory('YaService',
 
                 },
                 setFollowing: function(following){
-                    $log.log("setFollowing from YaService following=" + following);
+                    $log.debug("setFollowing from YaService following=" + following);
                     $rootScope.following = following;
                 },
                 isFollowing: function(username){
-                    $log.log("call isFollowing from YaService following =" + username);
-                    $log.log($rootScope.following);
+                    $log.debug("call isFollowing from YaService following =" + username);
+                    $log.debug($rootScope.following);
                     if (username && $rootScope.following){
                         return ($rootScope.following.indexOf(username) >= 0);
                     }

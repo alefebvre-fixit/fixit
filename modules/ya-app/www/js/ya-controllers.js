@@ -2,7 +2,7 @@
 angular.module('ya-app').controller('YaController', ['$scope', '$log', '$rootScope', '$window', '$state', '$ionicPopover', 'YaService',
 	function ($scope, $log, $rootScope, $window, $state, $ionicPopover, YaService) {
 
-		$log.log('Going through YaController');
+		$log.debug('Going through YaController');
 
 		$scope.signout = function(){
 			closePopover();

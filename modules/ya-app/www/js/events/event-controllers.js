@@ -48,7 +48,7 @@ angular.module('ya-app').controller('EditEventController',
 
             $scope.picker = {date: new Date() , time: new Date()};
 
-            console.log($scope.picker.time.getUTCMinutes());
+            $log.debug($scope.picker.time.getUTCMinutes());
 
             EventService.getEvent(eventId).then(function(event) {
                 $scope.event = event;
@@ -90,7 +90,7 @@ angular.module('ya-app').controller('CreateEventController',
             });
 
             $scope.saveEvent = function(form) {
-                $log.log('call saveEvent form is ' + form.$invalid);
+                $log.debug('call saveEvent form is ' + form.$invalid);
                 // If form is invalid, return and let AngularJS show validation errors.
                 if (form.$invalid) {
                     return;
@@ -115,22 +115,22 @@ angular.module('ya-app').controller('ViewEventController',
     ['$scope', '$state', '$log', '$ionicPopup', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId','$ionicLoading',
         function ($scope, $state, $log, $ionicPopup, $ionicModal, $ionicPopover,  YaService, EventService, eventId, $ionicLoading) {
 
-            $log.log("ViewEventController eventId=" + eventId);
+            $log.debug("ViewEventController eventId=" + eventId);
 
             $scope.summary = {participationsSize : '-', commentSize : '-', comments: [],  myParticipation : {}};
 
             var reload = function(eventId){
                 EventService.getEvent(eventId).then(function(event) {
-                    $log.log("ViewEventController getEvent is called eventId=" + eventId);
+                    $log.debug("ViewEventController getEvent is called eventId=" + eventId);
                     $scope.event = event;
 
                     EventService.getUserParticipation(event).then(function(participation) {
-                        $log.log("summary.myParticipation=" + participation.status);
+                        $log.debug("summary.myParticipation=" + participation.status);
                         $scope.summary.myParticipation = participation;
                     });
 
                     EventService.getParticipationsSize(event).then(function(size) {
-                        $log.log("summary.participationSize=" + size);
+                        $log.debug("summary.participationSize=" + size);
                         $scope.summary.participationsSize = size;
                     });
 
@@ -139,7 +139,7 @@ angular.module('ya-app').controller('ViewEventController',
                     });
 
                     EventService.getCommentSize(event).then(function(size) {
-                        $log.log("summary.getCommentSize=" + size);
+                        $log.debug("summary.getCommentSize=" + size);
                         $scope.summary.commentSize = size;
                     });
 
@@ -239,7 +239,7 @@ angular.module('ya-app').controller('ViewEventController',
             });
 
             $scope.saveRSVP = function(rsvp) {
-                $log.log("$scope.participation.value=" + $scope.rsvp.participation);
+                $log.debug("$scope.participation.value=" + $scope.rsvp.participation);
 
                 if (rsvp.participation){
                     rsvp.status = 'IN';
@@ -249,8 +249,8 @@ angular.module('ya-app').controller('ViewEventController',
                 delete rsvp.participation;
 
                 EventService.participate(rsvp).then(function(data){
-                    $log.log("rsvp data=");
-                    $log.log(data);
+                    $log.debug("rsvp data=");
+                    $log.debug(data);
                     $scope.summary.myParticipation = data;
                     $scope.closeRSVP();
                     YaService.toastMe('You are now ' + data.status);

@@ -33,7 +33,7 @@ angular.module('ya-app').controller('EditGroupController',
             });
 
             $scope.saveGroup = function(form) {
-                $log.log($scope.group);
+                $log.debug($scope.group);
                 // If form is invalid, return and let AngularJS show validation errors.
                 if (form.$invalid) {
                     return;
@@ -105,7 +105,7 @@ angular.module('ya-app').controller('CreateGroupController',
             $scope.group = {type:'Coffee'};
 
             $scope.saveGroup = function(form) {
-                $log.log($scope.group);
+                $log.debug($scope.group);
                 // If form is invalid, return and let AngularJS show validation errors.
                 if (form.$invalid) {
                     return;
@@ -178,7 +178,7 @@ angular.module('ya-app').controller('CreateGroupController',
 angular.module('ya-app').controller('ViewGroupController',
     ['YaService', '$scope', '$log', '$state', '$ionicPopup','$ionicPopover', '$ionicActionSheet', '$ionicModal', 'GroupService', 'EventService', 'groupId',
         function (YaService, $scope, $log, $state, $ionicPopup,$ionicPopover, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
-            $log.log("ViewGroupController groupId=" + groupId);
+            $log.debug("ViewGroupController groupId=" + groupId);
 
             $scope.isFavorite = function(group){
                 return YaService.isFavorite(group);
@@ -191,7 +191,7 @@ angular.module('ya-app').controller('ViewGroupController',
                 viewData.enableBack = true;
 
                 GroupService.getGroup(groupId).then(function (group) {
-                    $log.log("ViewGroupController getGroup is called groupId=" + groupId);
+                    $log.debug("ViewGroupController getGroup is called groupId=" + groupId);
                     $scope.group = group;
 
 
@@ -326,7 +326,7 @@ angular.module('ya-app').controller('GroupEventsController',
                 });
             });
 
-            $log.log("GroupEventsController is called");
+            $log.debug("GroupEventsController is called");
 
             $scope.groupId = groupId;
 
@@ -419,7 +419,7 @@ angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupServic
         //End Modal for theme selector
 
         $scope.save = function() {
-            $log.log($scope.group);
+            $log.debug($scope.group);
             // If form is invalid, return and let AngularJS show validation errors.
             $ionicLoading.show({
                 template: '<ion-spinner class="spinner-calm"></ion-spinner>'

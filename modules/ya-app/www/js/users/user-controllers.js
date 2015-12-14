@@ -1,6 +1,6 @@
 angular.module('ya-app').controller('SignUpController', ['YaService', 'UserService', '$scope', '$log', '$state', 'signup', '$ionicLoading',
     function (YaService, UserService, $scope, $log,  $state, signup, $ionicLoading) {
-        $log.log("Enter SignUpController");
+        $log.debug("Enter SignUpController");
 
         $scope.signup = signup;
 
@@ -10,7 +10,7 @@ angular.module('ya-app').controller('SignUpController', ['YaService', 'UserServi
                 YaService.setUser(data);
                 $state.transitionTo('tabs.events');
             }).error(function (response, status) {
-                $log.log("Invalid sign-up");
+                $log.debug("Invalid sign-up");
                 $scope.signup.error = 'Invalid sign-up';
             });
         };
@@ -51,7 +51,7 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
                 );
             }).error(function (response, status) {
                 $ionicLoading.hide();
-                $log.log("Invalid username or password");
+                $log.debug("Invalid username or password");
                 $scope.signin.error = 'Invalid username or password';
             });
         };
@@ -66,7 +66,7 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
                 template: '<ion-spinner class="spinner-positive"></ion-spinner>'
             });
             $cordovaOauth.google("55883713895-e9egmn26h1ilo7n8msj9ptsfs48dagp3.apps.googleusercontent.com", ["profile"]).then(function(result) {
-                $log.log(JSON.stringify(result));
+                $log.debug(JSON.stringify(result));
                 $scope.signin.error = JSON.stringify(result);
 
 
@@ -75,14 +75,14 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
 
                 }).error(function (response, status) {
                     $ionicLoading.hide();
-                    $log.log("Invalid username or password");
+                    $log.debug("Invalid username or password");
                     $scope.signin.error = 'Invalid username or password';
                 });
 
 
                 $ionicLoading.hide();
             }, function(error) {
-                $log.log(error);
+                $log.debug(error);
                 $ionicLoading.hide();
                 $scope.signin.error = error;
             });
@@ -141,11 +141,11 @@ angular.module('ya-app').controller('EditUserController', ['YaService', 'UserSer
             $scope.images = angular.copy(YaService.getThemes());
             $scope.allowMultipleSelection = true;
             var arrayLength = $scope.images.length;
-            $log.log($scope.profile.interest);
+            $log.debug($scope.profile.interest);
             if ($scope.profile.interest){
                 for (var i = 0; i < arrayLength; i++) {
 
-                    $log.log($scope.images[i].type);
+                    $log.debug($scope.images[i].type);
 
                     if ($scope.profile.interest.indexOf($scope.images[i].type) >= 0){
                         $scope.images[i].selected = true;
@@ -231,7 +231,7 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$
         });
 
         $scope.follow = function(username){
-            $log.log("follow=" + username);
+            $log.debug("follow=" + username);
             UserService.follow(username).then(function (data) {
                 YaService.addFollowing(username);
                 UserService.getFollowersSize(username).then(function (followerSize) {
@@ -248,7 +248,7 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$
             });
             confirmPopup.then(function(res) {
                 if(res) {
-                    $log.log("unfollow=" + username);
+                    $log.debug("unfollow=" + username);
                     UserService.unfollow(username).then(function (data) {
                         YaService.removeFollowing(username);
                         UserService.getFollowersSize(username).then(function (followerSize) {
