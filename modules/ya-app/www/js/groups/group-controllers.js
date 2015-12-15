@@ -411,8 +411,10 @@ angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupServic
         });
 
         $scope.applySelection = function(user){
-            $scope.sponsors.push(user);
-            $scope.group.sponsors.push(user.username);
+            if ($scope.group.sponsors.indexOf(user.username) < 0){
+                $scope.sponsors.push(user);
+                $scope.group.sponsors.push(user.username);
+            }
             $scope.themeSelector.hide();
         };
 
