@@ -1,5 +1,8 @@
 // Ionic Starter App
 
+
+
+
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -10,21 +13,7 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', '
 .run(function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
 
-
-      var production = true;
-
-      var localFixitURL = 'http://localhost:9000';
-      var emulatorFixitURL = 'http://10.0.2.2:9000';
-      var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com';
-
       $rootScope.user = {};
-      if (production){
-          $rootScope.baseUrl = herokuFixitURL;
-          $rootScope.isPluginEnabled = true;
-      } else {
-          $rootScope.baseUrl = localFixitURL;
-          $rootScope.isPluginEnabled = false;
-      }
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -55,11 +44,13 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', '
 }
 );
 
-angular.module('ya-app').config(function($logProvider) {
-    var production = true;
-    if (production) {
-        $logProvider.debugEnabled(false);
-    }
+angular.module('ya-app').constant('YaConfig', {context : 'test', url : 'http://localhost:9000/api', enablePlugin : false, enableDebug : false});
+//angular.module('ya-app').constant('YaConfig', {context : 'production', url : 'http://vast-gorge-2883.herokuapp.com/api', enablePlugin : true, enableDebug : false});
+//angular.module('ya-app').constant('YaConfig', {context : 'simulator', url : 'http://10.0.2.2:9000/api', enablePlugin : true, enableDebug : false});
+
+
+angular.module('ya-app').config(function($logProvider, YaConfig) {
+    $logProvider.debugEnabled(YaConfig.enableDebug);
 });
 
 angular.module('ya-app').config(function($ionicConfigProvider) {
@@ -69,20 +60,13 @@ angular.module('ya-app').config(function($ionicConfigProvider) {
 
 
 angular.module('ya-app')
-    .config(function (DSProvider, DSHttpAdapterProvider) {
+    .config(function (DSProvider, DSHttpAdapterProvider, YaConfig) {
         angular.extend(DSProvider.defaults, {});
-
-        var production = true;
-
-        var localFixitURL = 'http://localhost:9000/api';
-        var herokuFixitURL = 'http://vast-gorge-2883.herokuapp.com/api';
-
-        if (production){
-            angular.extend(DSHttpAdapterProvider.defaults, {basePath: herokuFixitURL});
+        if (!YaConfig.enableDebug){
+            angular.extend(DSHttpAdapterProvider.defaults, {basePath: YaConfig.url, log: false});
         } else {
-            angular.extend(DSHttpAdapterProvider.defaults, {basePath: localFixitURL});
+            angular.extend(DSHttpAdapterProvider.defaults, {basePath: YaConfig.url});
         }
-
 });
 
 

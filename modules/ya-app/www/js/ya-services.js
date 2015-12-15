@@ -1,10 +1,10 @@
 angular.module('ya-app').factory('YaService',
-    ['$rootScope', '$log', '$cordovaToast',
-        function($rootScope, $log, $cordovaToast) {
+    ['$rootScope', '$log', '$cordovaToast', 'YaConfig',
+        function($rootScope, $log, $cordovaToast, YaConfig) {
             var resultService;
             resultService = {
                 toastMe: function(message) {
-                    if ($rootScope.isPluginEnabled){
+                    if (YaConfig.enablePlugin){
                         $cordovaToast.showShortBottom(message, 'short', 'center').then(
                             function(success) {
                                 // success

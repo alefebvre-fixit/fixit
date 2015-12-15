@@ -1,11 +1,11 @@
 angular.module('ya-app').factory('GroupService',
-    ['$http', '$rootScope', 'Group',
-        function($http, $rootScope, Group) {
+    ['$http', 'YaConfig', 'Group',
+        function($http, YaConfig, Group) {
 
             var resultService;
             resultService = {
                 getGroups: function () {
-                    //return $http.get($rootScope.baseUrl + '/api/groups').then(function (response) {
+                    //return $http.get(YaConfig.url + '/groups').then(function (response) {
                     //    return response.data;
                     //});
                     return Group.findAll().then(function (groups) {
@@ -13,7 +13,7 @@ angular.module('ya-app').factory('GroupService',
                     });
                 },
                 getGroupsByOwner: function (username) {
-                    return $http.get($rootScope.baseUrl + '/api/users/' + username + '/groups').then(function (response) {
+                    return $http.get(YaConfig.url + '/users/' + username + '/groups').then(function (response) {
                         return response.data;
                     });
                 },
@@ -21,7 +21,7 @@ angular.module('ya-app').factory('GroupService',
                     return Group.find(groupId).then(function (group) {
                         return group;
                     });
-                    //return $http.get($rootScope.baseUrl + '/api/groups/' + groupId).then(function (response) {
+                    //return $http.get(YaConfig.url + '/groups/' + groupId).then(function (response) {
                     //    return response.data;
                     //});
                 },
@@ -31,80 +31,80 @@ angular.module('ya-app').factory('GroupService',
                     } else {
                         return Group.create(group);
                     }
-                    //return $http.post($rootScope.baseUrl + '/api/groups', group).then(function (response) {
+                    //return $http.post(YaConfig.url + '/groups', group).then(function (response) {
                     //    return response.data;
                     //});
                 },
                 followGroup: function (group) {
-                    return $http.post($rootScope.baseUrl + '/api/groups/' + group.id + '/follow').then(function (response) {
+                    return $http.post(YaConfig.url + '/groups/' + group.id + '/follow').then(function (response) {
                         return response.data;
                     });
                 },
                 getEventSize: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events/size').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/' + groupId + '/events/size').then(function (response) {
                         return response.data;
                     });
                 },
                 getEvents: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/' + groupId + '/events').then(function (response) {
                         return response.data;
                     });
                 },
                 getEventTimeline: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events/timeline').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/' + groupId + '/events/timeline').then(function (response) {
                         return response.data;
                     });
                 },
                 getLastEvents: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/events/last').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/' + groupId + '/events/last').then(function (response) {
                         return response.data;
                     });
                 },
                 getFollowerSize: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/followers/size').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/' + groupId + '/followers/size').then(function (response) {
                         return response.data;
                     });
                 },
                 getFollowers: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/followers').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/' + groupId + '/followers').then(function (response) {
                         return response.data;
                     });
                 },
                 getSponsors: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/sponsors').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/' + groupId + '/sponsors').then(function (response) {
                         return response.data;
                     });
                 },
                 getCommentSize: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/comments/size').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/' + groupId + '/comments/size').then(function (response) {
                         return response.data;
                     });
                 },
                 getComments: function (groupId) {
-                    return $http.get($rootScope.baseUrl + '/api/groups/' + groupId + '/comments').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/' + groupId + '/comments').then(function (response) {
                         return response.data;
                     });
                 },
                 postComment: function (groupId, content) {
-                    return $http.post($rootScope.baseUrl + '/api/groups/' + groupId + '/comments/' + content).then(function (response) {
+                    return $http.post(YaConfig.url + '/groups/' + groupId + '/comments/' + content).then(function (response) {
                         return response.data;
                     });
                 },
                 unfollowGroup: function (group) {
-                    return $http.post($rootScope.baseUrl + '/api/groups/' + group.id + '/unfollow').then(function (response) {
+                    return $http.post(YaConfig.url + '/groups/' + group.id + '/unfollow').then(function (response) {
                         return response.data;
                     });
                 },
                 deleteGroup: function (group) {
                     return Group.destroy(group.id);
                     /*
-                    return $http.post($rootScope.baseUrl + '/api/groups/' + group.id + '/delete').then(function (response) {
+                    return $http.post(YaConfig.url + '/groups/' + group.id + '/delete').then(function (response) {
                         return response.data;
                     });
                     */
                 },
                 instanciateGroup: function () {
-                    return $http.get($rootScope.baseUrl + '/api/groups/new').then(function (response) {
+                    return $http.get(YaConfig.url + '/groups/new').then(function (response) {
                         return response.data;
                     });
                 }
