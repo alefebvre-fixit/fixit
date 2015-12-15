@@ -307,3 +307,12 @@ $palette-5:                        #FF3D7F !default;
   bottom: 5px;
   right: 5px;
 }
+
+.col-sponsors {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 16%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 16%;
+  -ms-flex: 0 0 16%;
+  flex: 0 0 16%;
+  max-width: 16%; }

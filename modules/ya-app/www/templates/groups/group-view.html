@@ -8,7 +8,9 @@
         height: 100%;
         border-radius: 50%; }
 
-
+    .owner-avatar{
+        border:2px solid #11c1f3;
+    }
 
 </style>
 
@@ -82,7 +84,10 @@
             </div>
         </div>
         <div class="row" style="background-color: white" ui-sref="group-sponsors({groupId: group.id})">
-            <div class="col col-20" ng-repeat="sponsor in group.sponsors">
+            <div class="col-16" style="padding: 5px">
+                <img ng-src="img/users/{{group.username}}.jpg" class="sponsor-avatar owner-avatar">
+            </div>
+            <div class="col-16" ng-repeat="sponsor in group.sponsors | limitTo: 8" style="padding: 5px">
                 <img ng-src="img/users/{{sponsor}}.jpg" class="sponsor-avatar">
             </div>
         </div>
