@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fixit.util.YaUtil;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection = "Group")
@@ -155,6 +156,21 @@ public class Group {
 
 	public void setModificationDate(Date modificationDate) {
 		this.modificationDate = modificationDate;
+	}
+
+	public boolean canUpdate(String actor) {
+
+		if (actor != null) {
+			if (actor.equals(this.username)) {
+				return true;
+			}
+
+			if (YaUtil.isNotEmpty(sponsors)) {
+				return sponsors.contains(actor);
+			}
+		}
+
+		return false;
 	}
 
 }

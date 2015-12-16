@@ -43,8 +43,8 @@ angular.module('ya-app').controller('ParticipationListController',
 
 
 angular.module('ya-app').controller('EditEventController',
-    ['EventService', '$scope', '$log', '$state', 'eventId','$ionicLoading',
-        function (EventService, $scope, $log, $state, eventId, $ionicLoading) {
+    ['EventService', '$scope', '$log', '$state', 'eventId','YaService',
+        function (EventService, $scope, $log, $state, eventId, YaService) {
 
             $scope.picker = {date: new Date() , time: new Date()};
 
@@ -62,12 +62,9 @@ angular.module('ya-app').controller('EditEventController',
                     return;
                 }
 
-                $ionicLoading.show({
-                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
-                });
-
+                YaService.startLoading();
                 EventService.saveEvent($scope.event).then(function(data){
-                    $ionicLoading.hide();
+                    YaService.stopLoading();
                     $state.go('event', {eventId: data.id});
                 });
 
@@ -78,8 +75,8 @@ angular.module('ya-app').controller('EditEventController',
     ]);
 
 angular.module('ya-app').controller('CreateEventController',
-    ['EventService', '$scope', '$log', '$state','$ionicHistory', 'groupId', '$ionicLoading',
-        function (EventService, $scope, $log, $state, $ionicHistory, groupId, $ionicLoading) {
+    ['EventService', '$scope', '$log', '$state','$ionicHistory', 'groupId', 'YaService',
+        function (EventService, $scope, $log, $state, $ionicHistory, groupId, YaService) {
 
             $scope.picker = {date: new Date() , time: new Date()};
             $scope.event = {groupId: groupId};
@@ -96,13 +93,10 @@ angular.module('ya-app').controller('CreateEventController',
                     return;
                 }
 
-                $ionicLoading.show({
-                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
-                });
-
+                YaService.startLoading();
                 EventService.saveEvent($scope.event).then(function(event){
                     $ionicHistory.currentView($ionicHistory.backView());
-                    $ionicLoading.hide();
+                    YaService.stopLoading();
                     $state.go('event', {eventId: event.id, location: 'replace'});
                 });
             };
@@ -112,8 +106,8 @@ angular.module('ya-app').controller('CreateEventController',
     ]);
 
 angular.module('ya-app').controller('ViewEventController',
-    ['$scope', '$state', '$log', '$ionicPopup', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId','$ionicLoading',
-        function ($scope, $state, $log, $ionicPopup, $ionicModal, $ionicPopover,  YaService, EventService, eventId, $ionicLoading) {
+    ['$scope', '$state', '$log', '$ionicPopup', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId',
+        function ($scope, $state, $log, $ionicPopup, $ionicModal, $ionicPopover,  YaService, EventService, eventId) {
 
             $log.debug("ViewEventController eventId=" + eventId);
 
@@ -280,12 +274,10 @@ angular.module('ya-app').controller('ViewEventController',
 
             $scope.generateParticipations = function(event){
                 $scope.closePopover();
-                $ionicLoading.show({
-                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
-                });
+                YaService.startLoading();
                 EventService.generateParticipations(event).then(function(data){
                     reload(event.id);
-                    $ionicLoading.hide();
+                    YaService.stopLoading();
                 });
             };
 

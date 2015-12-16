@@ -1,6 +1,6 @@
 angular.module('ya-app').controller('NotificationListController',
-	['NotificationService', '$scope', '$log','$rootScope','$state', '$ionicLoading',
-		function (NotificationService, $scope, $log, $rootScope, $state, $ionicLoading) {
+	['NotificationService', '$scope', '$log','$rootScope','$state',
+		function (NotificationService, $scope, $log, $rootScope, $state) {
 
 			$scope.$on('$ionicView.beforeEnter', function (event, viewData) {
 				NotificationService.getNotifications().then(function (data) {
@@ -37,13 +37,11 @@ angular.module('ya-app').controller('NotificationListController',
 			};
 
 			$scope.acknowledgeAll = function(){
-				$ionicLoading.show({
-					template: '<ion-spinner class="spinner-calm"></ion-spinner>'
-				});
+				YaService.startLoading();
 				NotificationService.acknowledgeNotifications().then(function (data) {
 					$scope.notifications = [];
 					$rootScope.badgecount = Object.keys($scope.notifications).length;
-					$ionicLoading.hide();
+					YaService.stopLoading();
 				});
 			};
 

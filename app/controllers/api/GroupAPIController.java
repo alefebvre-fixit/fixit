@@ -22,11 +22,11 @@ public class GroupAPIController extends YaController {
 
 	@Inject
 	private GroupService groupService;
-	
+
 	protected GroupService getGroupService() {
 		return groupService;
 	}
-	
+
 	public Result groups() {
 		Logger.debug("GroupAPIController.groups()");
 
@@ -41,6 +41,11 @@ public class GroupAPIController extends YaController {
 
 	public Result publishGroup(String groupId) {
 		Group group = getGroupService().getGroup(groupId);
+
+		if (!group.canUpdate(getUserName())) {
+			return forbidden();
+		}
+
 		group.setStatus(Group.STATUS_PUBLISHED);
 
 		group = getGroupService().save(group);
@@ -60,12 +65,16 @@ public class GroupAPIController extends YaController {
 
 		return ok(Json.toJson(result));
 	}
-	
+
 	public Result update(String groupId) {
 		Logger.debug("GroupAPIController.update()");
 
-		RequestBody body = request().body();
+		Group original = getGroupService().getGroup(groupId);
+		if (!original.canUpdate(getUserName())) {
+			return forbidden();
+		}
 
+		RequestBody body = request().body();
 		Group group = Json.fromJson(body.asJson(), Group.class);
 		group.setId(groupId);
 		group.username = getUserName();
@@ -100,7 +109,7 @@ public class GroupAPIController extends YaController {
 
 		return ok(Json.toJson(getGroupService().groupFollowers(groupId)));
 	}
-	
+
 	public Result sponsors(String groupId) {
 		Logger.debug("GroupAPIController.sponsors groupId =" + groupId);
 		return ok(Json.toJson(getGroupService().groupSponsors(groupId)));
@@ -118,12 +127,12 @@ public class GroupAPIController extends YaController {
 		Logger.debug("GroupAPIController.followingIds username =" + username);
 		return ok(Json.toJson(getGroupService().getFollowingIds(username)));
 	}
-	
+
 	public Result following(String username) {
 		Logger.debug("GroupAPIController.following username =" + username);
 		return ok(Json.toJson(getGroupService().getFollowingGroups(username)));
 	}
-	
+
 	public Result followingSize(String username) {
 		Logger.debug("GroupAPIController.followingSize username =" + username);
 		return ok(Json.toJson(getGroupService().groupFollowingSize(username)));
@@ -136,6 +145,12 @@ public class GroupAPIController extends YaController {
 	}
 
 	public Result deleteGroup(String groupId) {
+
+		Group original = getGroupService().getGroup(groupId);
+		if (!original.canUpdate(getUserName())) {
+			return forbidden();
+		}
+
 		Logger.debug("GroupAPIController.deleteGroup groupId =" + groupId);
 		getGroupService().delete(groupId);
 		return ok();

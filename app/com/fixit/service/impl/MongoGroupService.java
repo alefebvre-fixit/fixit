@@ -59,9 +59,7 @@ public class MongoGroupService implements GroupService {
 	@Override
 	public Group save(Group group) {
 		Logger.debug("MongoGroupService.save(Group group) id=" + group.id);
-		if (!group.getSponsors().contains(group.getUsername())){
-			group.getSponsors().add(group.getUsername());
-		}
+		
 		Group result = groupRepository.save(group);
 		
 		notificationService.publishNotification(group);

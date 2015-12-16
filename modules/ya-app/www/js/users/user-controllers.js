@@ -1,5 +1,5 @@
-angular.module('ya-app').controller('SignUpController', ['YaService', 'UserService', '$scope', '$log', '$state', 'signup', '$ionicLoading',
-    function (YaService, UserService, $scope, $log,  $state, signup, $ionicLoading) {
+angular.module('ya-app').controller('SignUpController', ['YaService', 'UserService', '$scope', '$log', '$state', 'signup',
+    function (YaService, UserService, $scope, $log,  $state, signup) {
         $log.debug("Enter SignUpController");
 
         $scope.signup = signup;
@@ -21,17 +21,14 @@ angular.module('ya-app').controller('SignUpController', ['YaService', 'UserServi
     }
 ]);
 
-angular.module('ya-app').controller('SignInController', ['YaService', 'UserService', '$scope', '$rootScope', '$log', '$state', '$ionicLoading', 'NotificationService',
-    function (YaService, UserService, $scope, $rootScope, $log, $state, $ionicLoading, NotificationService) {
+angular.module('ya-app').controller('SignInController', ['YaService', 'UserService', '$scope', '$rootScope', '$log', '$state', 'NotificationService',
+    function (YaService, UserService, $scope, $rootScope, $log, $state, NotificationService) {
 
         $scope.signin = {username: 'antoinelefebvre', password: 'password'};
         // Perform the login action when the user submits the login for
         $scope.doSignIn = function () {
 
-            $ionicLoading.show({
-                template: '<ion-spinner class="spinner-calm"></ion-spinner>'
-            });
-
+            YaService.startLoading();
             UserService.signinUser($scope.signin).success(function (user) {
 
                 UserService.getFollowingGroupIds(user.username).then(function(favorites) {
@@ -45,12 +42,12 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
                             });
 
                             $state.transitionTo('tabs.events');
-                            $ionicLoading.hide();
+                            YaService.stopLoading();
                         });
                     }
                 );
             }).error(function (response, status) {
-                $ionicLoading.hide();
+                YaService.stopLoading();
                 $log.debug("Invalid username or password");
                 $scope.signin.error = 'Invalid username or password';
             });
@@ -62,40 +59,33 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
         };
 
         $scope.googleLogin = function() {
-            $ionicLoading.show({
-                template: '<ion-spinner class="spinner-positive"></ion-spinner>'
-            });
+            YaService.startLoading();
             $cordovaOauth.google("55883713895-e9egmn26h1ilo7n8msj9ptsfs48dagp3.apps.googleusercontent.com", ["profile"]).then(function(result) {
                 $log.debug(JSON.stringify(result));
                 $scope.signin.error = JSON.stringify(result);
 
-
                 UserService.signInGoogle(result).success(function (user) {
-                    $ionicLoading.hide();
-
+                    YaService.stopLoading();
                 }).error(function (response, status) {
-                    $ionicLoading.hide();
+                    YaService.stopLoading();
                     $log.debug("Invalid username or password");
                     $scope.signin.error = 'Invalid username or password';
                 });
 
-
-                $ionicLoading.hide();
+                YaService.stopLoading();
             }, function(error) {
                 $log.debug(error);
-                $ionicLoading.hide();
+                YaService.stopLoading();
                 $scope.signin.error = error;
             });
         };
 
         $scope.facebookLogin = function() {
-            $ionicLoading.show({
-                template: '<ion-spinner class="spinner-positive"></ion-spinner>'
-            });
+            YaService.startLoading();
             $cordovaOauth.facebook("CLIENT_ID_HERE", ["email"]).then(function(result) {
                 // results
             }, function(error) {
-                $ionicLoading.hide();
+                YaService.stopLoading();
                 $scope.signin.error = 'Invalid username or password';
                 // error
             });
@@ -108,21 +98,17 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
 
 
 
-angular.module('ya-app').controller('EditUserController', ['YaService', 'UserService', '$scope', '$log', 'profile','$state', '$ionicModal', '$ionicLoading',
-    function (YaService, UserService, $scope, $log, profile, $state, $ionicModal, $ionicLoading) {
+angular.module('ya-app').controller('EditUserController', ['YaService', 'UserService', '$scope', '$log', 'profile','$state', '$ionicModal',
+    function (YaService, UserService, $scope, $log, profile, $state, $ionicModal) {
 
         $scope.profile = profile;
 
         $scope.saveProfile = function(profile) {
-            $ionicLoading.show({
-                template: '<ion-spinner class="spinner-calm"></ion-spinner>'
-            });
-
-
+            YaService.startLoading();
             UserService.saveProfile(profile).then(function (data) {
                 YaService.setUser(data);
                 $scope.profile = data.profile;
-                $ionicLoading.hide();
+                YaService.stopLoading();
                 YaService.toastMe('Setting Updated');
                 $state.go("user", {username : $scope.user.username});
             });

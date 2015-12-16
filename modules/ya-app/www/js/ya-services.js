@@ -1,6 +1,6 @@
 angular.module('ya-app').factory('YaService',
-    ['$rootScope', '$log', '$cordovaToast', 'YaConfig',
-        function($rootScope, $log, $cordovaToast, YaConfig) {
+    ['$rootScope', '$log', '$cordovaToast', '$ionicLoading', 'YaConfig',
+        function($rootScope, $log, $cordovaToast, $ionicLoading, YaConfig) {
             var resultService;
             resultService = {
                 toastMe: function(message) {
@@ -14,6 +14,14 @@ angular.module('ya-app').factory('YaService',
                     } else {
                         $log.debug('$cordovaToast will show:' + message);
                     }
+                },
+                startLoading: function(){
+                    $ionicLoading.show({
+                        template: '<ion-spinner class="spinner-calm"></ion-spinner>'
+                    });
+                },
+                stopLoading: function(){
+                    $ionicLoading.hide();
                 },
                 setUser: function(user){
                     $rootScope.user = user;

@@ -25,8 +25,8 @@ angular.module('ya-app').controller('ListGroupsController',
 
 
 angular.module('ya-app').controller('EditGroupController',
-    ['GroupService', '$scope', '$log', '$state', 'groupId','$ionicLoading', '$ionicModal', 'YaService',
-        function (GroupService, $scope, $log, $state, groupId, $ionicLoading, $ionicModal, YaService) {
+    ['GroupService', '$scope', '$log', '$state', 'groupId', '$ionicModal', 'YaService',
+        function (GroupService, $scope, $log, $state, groupId, $ionicModal, YaService) {
 
             GroupService.getGroup(groupId).then(function(group) {
                 $scope.group = group;
@@ -38,11 +38,9 @@ angular.module('ya-app').controller('EditGroupController',
                 if (form.$invalid) {
                     return;
                 }
-                $ionicLoading.show({
-                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
-                });
+                YaService.startLoading();
                 GroupService.saveGroup($scope.group).then(function(group) {
-                    $ionicLoading.hide();
+                    YaService.stopLoading();
                     $state.go('group', {groupId: group.id});
                 });
 
@@ -99,8 +97,8 @@ angular.module('ya-app').controller('EditGroupController',
     ]);
 
 angular.module('ya-app').controller('CreateGroupController',
-    ['GroupService', 'YaService', '$scope', '$log', '$state', '$ionicHistory', '$ionicLoading', '$ionicModal',
-        function (GroupService, YaService, $scope, $log, $state, $ionicHistory, $ionicLoading, $ionicModal) {
+    ['GroupService', 'YaService', '$scope', '$log', '$state', '$ionicHistory', '$ionicModal',
+        function (GroupService, YaService, $scope, $log, $state, $ionicHistory, $ionicModal) {
 
             $scope.group = {type:'Coffee'};
 
@@ -111,13 +109,11 @@ angular.module('ya-app').controller('CreateGroupController',
                     return;
                 }
 
-                $ionicLoading.show({
-                    template: '<ion-spinner class="spinner-calm"></ion-spinner>'
-                });
+                YaService.startLoading();
 
                 GroupService.saveGroup($scope.group).then(function(group) {
                     $ionicHistory.currentView($ionicHistory.backView());
-                    $ionicLoading.hide();
+                    YaService.stopLoading();
                     $state.go('group', {groupId: group.id, location: 'replace'});
                 });
 
@@ -360,8 +356,8 @@ angular.module('ya-app').controller('GroupSponsorsController', ['GroupService', 
     }
 ]);
 
-angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupService', 'UserService', '$scope', '$log', 'groupId', '$ionicModal', '$ionicLoading', '$state', '$ionicHistory',
-    function (GroupService, UserService,  $scope, $log, groupId, $ionicModal, $ionicLoading, $state, $ionicHistory) {
+angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupService', 'UserService', '$scope', '$log', 'groupId', '$ionicModal', 'YaService', '$state', '$ionicHistory',
+    function (GroupService, UserService,  $scope, $log, groupId, $ionicModal, YaService, $state, $ionicHistory) {
 
         //To insure the back button is displayed
         $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
@@ -423,12 +419,10 @@ angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupServic
         $scope.save = function() {
             $log.debug($scope.group);
             // If form is invalid, return and let AngularJS show validation errors.
-            $ionicLoading.show({
-                template: '<ion-spinner class="spinner-calm"></ion-spinner>'
-            });
+            YaService.startLoading();
             GroupService.saveGroup($scope.group).then(function(group) {
                 $ionicHistory.currentView($ionicHistory.backView());
-                $ionicLoading.hide();
+                YaService.stopLoading();
                 $state.go('group', {groupId: group.id});
             });
 
