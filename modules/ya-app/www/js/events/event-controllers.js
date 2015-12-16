@@ -109,7 +109,9 @@ angular.module('ya-app').controller('ViewEventController',
     ['$scope', '$state', '$log', '$ionicPopup', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId',
         function ($scope, $state, $log, $ionicPopup, $ionicModal, $ionicPopover,  YaService, EventService, eventId) {
 
-            $log.debug("ViewEventController eventId=" + eventId);
+            $scope.canEdit = function(event){
+                return EventService.canEdit(event);
+            };
 
             $scope.summary = {participationsSize : '-', commentSize : '-', comments: [],  myParticipation : {}};
 

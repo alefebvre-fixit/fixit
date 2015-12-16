@@ -52,7 +52,7 @@
 <ion-view title="Profile">
 
     <ion-nav-buttons side="right">
-        <a class="button button-clear" ui-sref="user-edit">Edit</a>
+        <a class="button button-clear" ui-sref="user-edit" ng-show="canEdit(summary.user)">Edit</a>
     </ion-nav-buttons>
 
     <ion-content class="has-header">

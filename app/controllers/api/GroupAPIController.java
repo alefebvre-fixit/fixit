@@ -42,7 +42,7 @@ public class GroupAPIController extends YaController {
 	public Result publishGroup(String groupId) {
 		Group group = getGroupService().getGroup(groupId);
 
-		if (!group.canUpdate(getUserName())) {
+		if (group != null && !group.canUpdate(getUserName())) {
 			return forbidden();
 		}
 
@@ -70,7 +70,7 @@ public class GroupAPIController extends YaController {
 		Logger.debug("GroupAPIController.update()");
 
 		Group original = getGroupService().getGroup(groupId);
-		if (!original.canUpdate(getUserName())) {
+		if (original != null && !original.canUpdate(getUserName())) {
 			return forbidden();
 		}
 
@@ -147,7 +147,7 @@ public class GroupAPIController extends YaController {
 	public Result deleteGroup(String groupId) {
 
 		Group original = getGroupService().getGroup(groupId);
-		if (!original.canUpdate(getUserName())) {
+		if (original != null && !original.canUpdate(getUserName())) {
 			return forbidden();
 		}
 

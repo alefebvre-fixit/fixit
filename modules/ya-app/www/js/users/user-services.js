@@ -1,5 +1,5 @@
-angular.module('ya-app').factory('UserService', ['$http', '$log', 'YaConfig','User',
-                            function($http, $log, YaConfig, User) {
+angular.module('ya-app').factory('UserService', ['$http', '$log', 'YaConfig','YaService','User',
+                            function($http, $log, YaConfig, YaService, User) {
 
     var resultService;
     resultService = {
@@ -83,6 +83,15 @@ angular.module('ya-app').factory('UserService', ['$http', '$log', 'YaConfig','Us
         },
         getUsers: function () {
             return User.findAll();
+        },
+        canEdit: function(user){
+            $log.debug("call canUpdate from UserService canUpdate =" + YaService.getUsername());
+            if (user){
+                if (user.username == YaService.getUsername()){
+                    return true;
+                }
+            }
+            return false;
         }
     };
 

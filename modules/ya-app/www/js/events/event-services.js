@@ -1,6 +1,6 @@
 angular.module('ya-app').factory('EventService',
-    ['$http', 'YaConfig', '$filter', 'YaService', 'Event',
-        function($http, YaConfig, $filter, YaService, Event) {
+    ['$http', 'YaConfig', '$filter', '$log', 'YaService', 'Event',
+        function($http, YaConfig, $filter, $log, YaService, Event) {
 
             var resultService;
             resultService = {
@@ -105,8 +105,17 @@ angular.module('ya-app').factory('EventService',
                     return $http.get(YaConfig.url + '/events/' + event.id +'/participations/size').then(function (response) {
                         return response.data;
                     });
+                },
+                canEdit: function(event){
+                    $log.debug("call canUpdate from EventService canUpdate =" + YaService.getUsername());
+                    if (event){
+                        if (event.username == YaService.getUsername()){
+                            return true;
+                        }
+                        return (event.sponsors && event.sponsors.indexOf(YaService.getUsername()) > 0);
+                    }
+                    return false;
                 }
-
 
             };
 

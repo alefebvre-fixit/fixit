@@ -38,7 +38,7 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
                             YaService.setUser(user);
 
                             NotificationService.getNotifications().then(function (notifications) {
-                                $rootScope.badgecount = Object.keys(notifications).length;
+                                $rootScope.badgecount = Object.keys(notifications).length-1;
                             });
 
                             $state.transitionTo('tabs.events');
@@ -182,7 +182,9 @@ angular.module('ya-app').controller('EditUserController', ['YaService', 'UserSer
 angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$log', 'UserService', 'username', '$ionicPopup', '$ionicPopover','$state',
     function (YaService, $scope, $log, UserService, username, $ionicPopup, $ionicPopover, $state) {
 
-
+        $scope.canEdit = function(user){
+            return UserService.canEdit(user);
+        };
 
         $scope.summary = {groupSize : '-', followingSize : '-', followerSize : '-', user: {}, followingGroups : []};
 

@@ -1,6 +1,8 @@
 package com.fixit.model.event;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 
@@ -8,8 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fixit.model.group.Group;
-import com.fixit.model.user.User;
+import com.fixit.util.YaUtil;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -30,6 +31,13 @@ public class Event {
 	private String type;
 	private Date creationDate;
 	private Date modificationDate;
+	public String name;
+	public String description;
+	public String city;
+	public String country;
+
+	public String username;
+	private List<String> sponsors = new ArrayList<String>();
 
 	public Date getCreationDate() {
 		return creationDate;
@@ -78,14 +86,6 @@ public class Event {
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-
-	public String name;
-	public String description;
-
-	public String city;
-	public String country;
-
-	public String username;
 
 	public String getName() {
 		return name;
@@ -139,18 +139,6 @@ public class Event {
 		this.version = version;
 	}
 
-	public static Event instanciate(Group group, User user) {
-		Event event = new Event();
-		event.username = user.getUsername();
-		event.country = group.getCountry();
-		event.city = group.getCity();
-		event.type = group.getType();
-		event.name = "new event 2";
-		event.description = "";
-
-		return event;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -169,6 +157,29 @@ public class Event {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public List<String> getSponsors() {
+		return sponsors;
+	}
+
+	public void setSponsors(List<String> sponsors) {
+		this.sponsors = sponsors;
+	}
+
+	public boolean canUpdate(String actor) {
+
+		if (actor != null) {
+			if (actor.equals(this.username)) {
+				return true;
+			}
+
+			if (YaUtil.isNotEmpty(sponsors)) {
+				return sponsors.contains(actor);
+			}
+		}
+
+		return false;
 	}
 
 }

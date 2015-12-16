@@ -1,6 +1,6 @@
 angular.module('ya-app').factory('GroupService',
-    ['$http', 'YaConfig', 'YaService', 'Group',
-        function($http, YaConfig, YaService, Group) {
+    ['$http', 'YaConfig', 'YaService', 'Group', '$log',
+        function($http, YaConfig, YaService, Group, $log) {
 
             var resultService;
             resultService = {
@@ -9,6 +9,7 @@ angular.module('ya-app').factory('GroupService',
                     //    return response.data;
                     //});
                     return Group.findAll().then(function (groups) {
+                        $log.debug(groups);
                         return groups;
                     });
                 },
@@ -108,16 +109,16 @@ angular.module('ya-app').factory('GroupService',
                         return response.data;
                     });
                 },
-                canUpdate: function(group){
-                    $log.debug("call canUpdate from GroupService canUpdate =" + username);
-
-                    if (group.username == YaService.getUsername()){
-                        return true;
+                canEdit: function(group){
+                    $log.debug("call canUpdate from GroupService canUpdate =" + YaService.getUsername());
+                    if (group){
+                        if (group.username == YaService.getUsername()){
+                            return true;
+                        }
+                        return (group.sponsors && group.sponsors.indexOf(YaService.getUsername()) > 0);
                     }
-                    return (group.sponsors && group.sponsors.indexOf(YaService.getUsername()) >= 0);
+                    return false;
                 }
-
-
             };
             return resultService;
         }]);

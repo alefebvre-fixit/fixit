@@ -174,7 +174,11 @@ angular.module('ya-app').controller('CreateGroupController',
 angular.module('ya-app').controller('ViewGroupController',
     ['YaService', '$scope', '$log', '$state', '$ionicPopup','$ionicPopover', '$ionicActionSheet', '$ionicModal', 'GroupService', 'EventService', 'groupId',
         function (YaService, $scope, $log, $state, $ionicPopup,$ionicPopover, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
-            $log.debug("ViewGroupController groupId=" + groupId);
+
+
+            $scope.canEdit = function(group){
+              return GroupService.canEdit(group);
+            };
 
             $scope.isFavorite = function(group){
                 return YaService.isFavorite(group);
@@ -337,8 +341,8 @@ angular.module('ya-app').controller('GroupEventsController',
     ]);
 
 
-angular.module('ya-app').controller('GroupSponsorsController', ['GroupService', '$scope', '$log', 'groupId',
-    function (GroupService, $scope, $log, groupId) {
+angular.module('ya-app').controller('GroupSponsorsController', ['GroupService', 'UserService', '$scope', '$log', 'groupId',
+    function (GroupService, UserService, $scope, $log, groupId) {
 
         //To insure the back button is displayed
         $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
@@ -349,9 +353,15 @@ angular.module('ya-app').controller('GroupSponsorsController', ['GroupService', 
             });
             GroupService.getGroup(groupId).then(function (group) {
                 $scope.group = group;
+                UserService.getUser(group.username).then(function (user) {
+                    $scope.owner = user;
+                });
             });
-
         });
+
+        $scope.canEdit = function(group){
+            return GroupService.canEdit(group);
+        };
 
     }
 ]);
@@ -368,6 +378,9 @@ angular.module('ya-app').controller('GroupSponsorsEditController', ['GroupServic
             });
             GroupService.getGroup(groupId).then(function (group) {
                 $scope.group = group;
+                UserService.getUser(group.username).then(function (user) {
+                    $scope.owner = user;
+                });
             });
 
         });

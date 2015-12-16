@@ -13,12 +13,18 @@ public class EventFactory {
 		result.setUsername(user.getUsername());
 		result.setCreationDate(new Date());
 		result.setModificationDate(result.getCreationDate());
-		result.setCity(user.getProfile().getCity());
-		result.setCountry(user.getProfile().getCountry());
+		result.setCity(group.getCity());
+		result.setCountry(group.getCountry());
 		result.setGroupId(group.getId());
 		result.setGroupName(group.getName());
 		result.setType(group.getType());
-		
+
+		result.setSponsors(group.getSponsors());
+
+		if (result.getSponsors().contains(group.getUsername())) {
+			result.getSponsors().add(group.getUsername());
+		}
+
 		return result;
 	}
 
