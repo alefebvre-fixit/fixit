@@ -44,8 +44,8 @@ angular.module('ya-app', ['ionic', 'ngMessages', 'ngCordova', 'angularMoment', '
 }
 );
 
-angular.module('ya-app').constant('YaConfig', {context : 'test', url : 'http://localhost:9000/api', enablePlugin : false, enableDebug : true});
-//angular.module('ya-app').constant('YaConfig', {context : 'production', url : 'http://vast-gorge-2883.herokuapp.com/api', enablePlugin : true, enableDebug : false});
+//angular.module('ya-app').constant('YaConfig', {context : 'test', url : 'http://localhost:9000/api', enablePlugin : false, enableDebug : true});
+angular.module('ya-app').constant('YaConfig', {context : 'production', url : 'http://vast-gorge-2883.herokuapp.com/api', enablePlugin : true, enableDebug : false});
 //angular.module('ya-app').constant('YaConfig', {context : 'simulator', url : 'http://10.0.2.2:9000/api', enablePlugin : true, enableDebug : false});
 
 
