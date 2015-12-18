@@ -109,7 +109,7 @@ angular.module('ya-app').controller('ViewEventController',
     ['$scope', '$state', '$log', '$ionicPopup', '$ionicModal', '$ionicPopover', 'YaService', 'EventService', 'eventId',
         function ($scope, $state, $log, $ionicPopup, $ionicModal, $ionicPopover,  YaService, EventService, eventId) {
 
-            $scope.canEdit = function(event){
+            $scope.isSponsor = function(event){
                 return EventService.canEdit(event);
             };
 

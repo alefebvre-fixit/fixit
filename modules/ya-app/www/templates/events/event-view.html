@@ -11,14 +11,14 @@
 
 
     <ion-nav-buttons side="right">
-        <button class="button button-icon ion-more" ng-click="popover.show($event)" ng-show="canEdit(event)"></button>
+        <button class="button button-icon ion-more" ng-click="popover.show($event)" ng-show="isSponsor(event)"></button>
     </ion-nav-buttons>
     <ion-content ion-sticky>
 
 
 
 <div class="event-module">
-    <div ng-show="!isMine(event)">
+    <div>
         <button class="button button-calm button-small button-follow" ng-click="openRSVP(summary.myParticipation)" ng-show="summary.myParticipation.status=='RSVP'">
             RSVP
         </button>
@@ -29,7 +29,6 @@
             I'm In!
         </button>
     </div>
-
     <img ng-src="img/themes/{{event.type}}-large.jpg" >
 
     <div class="event-icon-holder">

@@ -16714,11 +16714,6 @@ a.button {
   text-shadow: 0 1px 0 black;
   font-size: 110%; }
 
-.button-follow {
-  position: absolute;
-  bottom: 5px;
-  right: 5px; }
-
 .button-create-event {
   position: absolute;
   bottom: 5px;
@@ -16740,11 +16735,6 @@ a.button {
   width: 70px;
   height: 70px;
   display: table; }
-
-.button-follow {
-  position: absolute;
-  bottom: 5px;
-  right: 5px; }
 
 .col-sponsors {
   -webkit-box-flex: 0;
@@ -16794,6 +16784,11 @@ a.button {
   position: absolute;
   bottom: 5px;
   right: 5px; }
+
+.button-repeat-event {
+  position: absolute;
+  bottom: 40px;
+  right: 40px; }
 
 .event-icon {
   font-size: 60px;

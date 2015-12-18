@@ -277,12 +277,6 @@ $palette-5:                        #FF3D7F !default;
   font-size: 110%;
 }
 
-
-.button-follow{
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-}
 .button-create-event{
   position: absolute;
   bottom: 5px;
@@ -297,7 +291,6 @@ $palette-5:                        #FF3D7F !default;
   text-align: center;
   text-shadow: 0 2px 0 black;
 }
-
 .group-icon-holder {
   position: absolute;
   top: 15px;
@@ -305,12 +298,6 @@ $palette-5:                        #FF3D7F !default;
   width: 70px;
   height: 70px;
   display: table;
-}
-
-.button-follow{
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
 }
 
 .col-sponsors {
@@ -365,6 +352,12 @@ $palette-5:                        #FF3D7F !default;
   bottom: 5px;
   right: 5px;
 }
+.button-repeat-event{
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+}
+
 .event-icon {
   font-size: 60px;
   color: white;
