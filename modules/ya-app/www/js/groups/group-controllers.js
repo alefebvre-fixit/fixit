@@ -176,7 +176,7 @@ angular.module('ya-app').controller('ViewGroupController',
         function (YaService, $scope, $log, $state, $ionicPopup,$ionicPopover, $ionicActionSheet, $ionicModal, GroupService, EventService, groupId) {
 
 
-            $scope.canEdit = function(group){
+            $scope.isSponsor = function(group){
               return GroupService.canEdit(group);
             };
 
@@ -224,9 +224,19 @@ angular.module('ya-app').controller('ViewGroupController',
             $scope.unfollow = function(group){
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Unfollow',
-                    template: 'Remove group ' + group.name + ' from favorites ?',
-                    type: 'button-calm'
+                    template: 'Stop following ' + group.name + ' ?',
+                    buttons: [
+                        { text: 'Cancel' },
+                        {
+                            text: '<b>Ok</b>',
+                            type: 'button-calm',
+                            onTap: function(e) {
+                                return true;
+                            }
+                        }
+                    ]
                 });
+
                 confirmPopup.then(function(res) {
                     if(res) {
                         GroupService.unfollowGroup(group).then(function (favorites) {

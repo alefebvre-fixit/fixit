@@ -7,13 +7,13 @@
 
 <ion-view view-title="Group">
     <ion-nav-buttons side="right">
-        <button class="button button-icon ion-more" ng-click="popover.show($event)" ng-show="canEdit(group)"></button>
+        <button class="button button-icon ion-more" ng-click="popover.show($event)" ng-show="isSponsor(group)"></button>
     </ion-nav-buttons>
 <ion-content>
 
 
 <div class="group-module">
-    <div ng-show="!isMine(group)">
+    <div ng-show="!isSponsor(group)">
         <button class="button button-calm button-small ion-star button-follow" ng-click="follow(group)" ng-show="!isFavorite(group)">
             Follow
         </button>
@@ -21,7 +21,11 @@
             Following
         </button>
     </div>
-
+    <div ng-show="isSponsor(group)">
+        <button class="button button-calm button-small ion-calendar button-create-event" ng-click="openCreateEvent(group)">
+            Create Event
+        </button>
+    </div>
     <img ng-src="img/themes/{{group.type}}-large.jpg" >
 
     <div class="group-icon-holder">

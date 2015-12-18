@@ -232,7 +232,16 @@ angular.module('ya-app').controller('UserController', ['YaService', '$scope', '$
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Unfollow',
                 template: 'Stop following ' + username + ' ?',
-                type: 'button-calm'
+                buttons: [
+                    { text: 'Cancel' },
+                    {
+                        text: '<b>Ok</b>',
+                        type: 'button-calm',
+                        onTap: function(e) {
+                            return true;
+                        }
+                    }
+                ]
             });
             confirmPopup.then(function(res) {
                 if(res) {
