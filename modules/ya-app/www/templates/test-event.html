@@ -50,6 +50,20 @@
 		height: 70px;
 		display: table;
 	}
+	.overlay {
+		background: linear-gradient(
+				to top,
+				rgba(0, 0, 0, 0),
+				rgba(0, 0, 0, 0.4)
+		);
+		background-blend-mode: screen;
+	}
+	.test-imnage{
+		position:relative;
+		z-index:-1;
+		display:block;
+	}
+
 
 </style>
 
@@ -64,8 +78,8 @@
 	</ion-nav-buttons>
 	<ion-content ion-sticky>
 
-		<div class="module">
-			<img src="img/themes/coffee-400.jpg" >
+		<div class="module overlay">
+			<img src="img/themes/Soccer-large.jpg" class="test-imnage" >
 
 			<div class="social-icon-holder2">
 				<span class="ion-calendar social-icon calm"></span>

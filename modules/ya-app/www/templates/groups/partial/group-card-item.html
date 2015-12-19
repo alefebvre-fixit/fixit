@@ -1,7 +1,7 @@
-<div class="card group-header">
+<div class="card group-header frame-overlay">
 
-    <div class="item item-image event-image" ui-sref="group({ groupId: group.id })">
-        <img ng-src="img/themes/{{group.type}}-large.jpg" >
+    <div class="item item-image group-image frame-overlay" ui-sref="group({ groupId: group.id })">
+        <img ng-src="img/themes/{{group.type}}-large.jpg" class="image-overlay">
         <div class="group-title"><b>{{group.name}}</b></div>
         <div class="group-subtitle">#{{::group.type}}</div>
     </div>
