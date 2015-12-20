@@ -36,11 +36,11 @@ angular.module('ya-app').config(function ($stateProvider) {
             },
             authenticate: true
         })
-        .state('event-edit', {
+        .state('event-repeat', {
             cache: false,
             url: "/event/:eventId",
-            templateUrl: "templates/events/event-edit.html",
-            controller: 'EditEventController',
+            templateUrl: "templates/events/event-repeat.html",
+            controller: 'RepeatEventController',
             resolve: {
                 eventId: function ($stateParams) {
                     return $stateParams.eventId;

@@ -48,20 +48,45 @@ angular.module('ya-app').controller('EditEventController',
 
             $scope.picker = {date: new Date() , time: new Date()};
 
-            $log.debug($scope.picker.time.getUTCMinutes());
-
             EventService.getEvent(eventId).then(function(event) {
                 $scope.event = event;
                 event.date = new Date(event.date);
             });
 
             $scope.saveEvent = function(form) {
-
                 // If form is invalid, return and let AngularJS show validation errors.
                 if (form.$invalid) {
                     return;
                 }
+                YaService.startLoading();
+                EventService.saveEvent($scope.event).then(function(data){
+                    YaService.stopLoading();
+                    $state.go('event', {eventId: data.id});
+                });
 
+            };
+
+
+        }
+    ]);
+
+angular.module('ya-app').controller('RepeatEventController',
+    ['EventService', '$scope', '$log', '$state', 'eventId','YaService',
+        function (EventService, $scope, $log, $state, eventId, YaService) {
+
+            $scope.picker = {date: new Date() , time: new Date()};
+
+            EventService.getEvent(eventId).then(function(event) {
+                $scope.original = event;
+                $scope.event= angular.copy(event);
+                $scope.event.date = new Date();
+            });
+
+            $scope.saveEvent = function(form) {
+                // If form is invalid, return and let AngularJS show validation errors.
+                if (form.$invalid) {
+                    return;
+                }
                 YaService.startLoading();
                 EventService.saveEvent($scope.event).then(function(data){
                     YaService.stopLoading();
@@ -149,6 +174,11 @@ angular.module('ya-app').controller('ViewEventController',
                 reload(eventId);
             });
 
+
+            $scope.repeatEvent = function(event) {
+                $scope.closePopover();
+                $state.go("event-repeat", { eventId: event.id});
+            };
 
             $scope.setEvent =function(newEvent){
                 $scope.event = newEvent;
