@@ -49,6 +49,19 @@ angular.module('ya-app').config(function ($stateProvider) {
             ,
             authenticate: true
         })
+        .state('event-edit', {
+            cache: false,
+            url: "/event/:eventId",
+            templateUrl: "templates/events/event-edit.html",
+            controller: 'EditEventController',
+            resolve: {
+                eventId: function ($stateParams) {
+                    return $stateParams.eventId;
+                }
+            }
+            ,
+            authenticate: true
+        })
         .state('event-participation', {
             cache: true,
             url: "/event/:eventId/participations",
