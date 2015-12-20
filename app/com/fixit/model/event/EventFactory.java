@@ -21,8 +21,11 @@ public class EventFactory {
 
 		result.setSponsors(group.getSponsors());
 
-		if (result.getSponsors().contains(group.getUsername())) {
+		if (!result.getSponsors().contains(group.getUsername())) {
 			result.getSponsors().add(group.getUsername());
+		}
+		if (result.getSponsors().contains(user.getUsername())) {
+			result.getSponsors().remove(user.getUsername());
 		}
 
 		return result;

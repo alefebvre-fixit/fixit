@@ -115,10 +115,13 @@ angular.module('ya-app').factory('EventService',
                         return (event.sponsors && event.sponsors.indexOf(YaService.getUsername()) > 0);
                     }
                     return false;
+                },
+                getSponsors: function (eventId) {
+                    return $http.get(YaConfig.url + '/events/' + eventId + '/sponsors').then(function (response) {
+                        return response.data;
+                    });
                 }
-
             };
-
             return resultService;
         }]);
 

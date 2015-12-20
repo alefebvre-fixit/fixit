@@ -75,6 +75,18 @@ angular.module('ya-app').config(function ($stateProvider) {
             ,
             authenticate: true
         })
+        .state('event-sponsors', {
+            cache: false,
+            url: "/events/:eventId/sponsors",
+            templateUrl: "templates/events/event-sponsors.html",
+            controller: 'EventSponsorsController',
+            resolve: {
+                groupId: function ($stateParams) {
+                    return $stateParams.eventId;
+                }
+            },
+            authenticate: true
+        })
     ;
 
 });

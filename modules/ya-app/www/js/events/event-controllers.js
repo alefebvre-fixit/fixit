@@ -344,3 +344,28 @@ angular.module('ya-app').controller('EventCommentsController', ['EventService', 
 
     }
 ]);
+
+angular.module('ya-app').controller('EventSponsorsController', ['EventService', 'UserService', '$scope', '$log', 'groupId',
+    function (EventService, UserService, $scope, $log, eventId) {
+
+        //To insure the back button is displayed
+        $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+            viewData.enableBack = true;
+
+            EventService.getSponsors(eventId).then(function(sponsors) {
+                $scope.sponsors = sponsors;
+            });
+            EventService.getEvent(eventId).then(function (event) {
+                $scope.event = event;
+                UserService.getUser(event.username).then(function (user) {
+                    $scope.owner = user;
+                });
+            });
+        });
+
+        $scope.canEdit = function(event){
+            return EventService.canEdit(event);
+        };
+
+    }
+]);

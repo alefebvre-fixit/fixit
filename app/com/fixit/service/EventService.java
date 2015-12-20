@@ -7,6 +7,7 @@ import com.fixit.model.event.EventComment;
 import com.fixit.model.event.EventTimeline;
 import com.fixit.model.event.Participation;
 import com.fixit.model.event.ParticipationSummary;
+import com.fixit.model.user.User;
 
 public interface EventService {
 
@@ -63,5 +64,6 @@ public interface EventService {
 	
 	public int getCommentSize(String eventId);
 	
-	
+	public List<User> eventSponsors(String groupId);
+
 }

@@ -69,17 +69,29 @@
                 {{event.description}}
             </div>
         </div>
-        <a class="item item-icon-left item-icon-right" href="#">
+        <a class="item item-icon-left item-icon-right">
             <i class="icon ion-location"></i>
             {{event.city}}, {{event.country}}
             <i class="icon ion-ios-arrow-forward"></i>
         </a>
-        <a class="item item-icon-left item-icon-right" href="#">
+        <a class="item item-icon-left item-icon-right">
             <i class="icon ion-calendar"></i>
             {{event.date | date:'short'}}
             <i class="icon ion-ios-arrow-forward"></i>
         </a>
-
+        <div class="row" style="background-color: white">
+            <div class="col">
+                <p class="statistic-label" style="text-align: left">Presented By :</p>
+            </div>
+        </div>
+        <div class="row" style="background-color: white" ui-sref="event-sponsors({eventId: event.id})">
+            <div class="col-16" style="padding: 5px">
+                <img ng-src="img/users/{{event.username}}.jpg" class="sponsor-avatar owner-avatar">
+            </div>
+            <div class="col-16" ng-repeat="sponsor in event.sponsors | limitTo: 8" style="padding: 5px">
+                <img ng-src="img/users/{{sponsor}}.jpg" class="sponsor-avatar">
+            </div>
+        </div>
         <div ng-include data-src="'templates/events/partial/event-participation.html'"></div>
 
 

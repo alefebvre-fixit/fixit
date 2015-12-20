@@ -1,5 +1,6 @@
 package com.fixit.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +22,11 @@ import com.fixit.model.event.EventTimeline;
 import com.fixit.model.event.Participation;
 import com.fixit.model.event.ParticipationSummary;
 import com.fixit.model.group.Group;
+import com.fixit.model.user.User;
 import com.fixit.service.EventService;
 import com.fixit.service.GroupService;
 import com.fixit.service.NotificationService;
+import com.fixit.service.UserService;
 
 @Named
 public class MongoEventService implements EventService {
@@ -47,6 +50,9 @@ public class MongoEventService implements EventService {
 	
 	@Inject
 	private GroupService groupService;
+	
+	@Inject
+	private UserService userService;
 	
 	public NotificationService getNotificationService() {
 		return notificationService;
@@ -314,5 +320,22 @@ public class MongoEventService implements EventService {
 		return result;
 	}
 	
+	@Override
+	public List<User> eventSponsors(String eventId) {
+		
+		Logger.debug("MongoEventService.eventSponsors(String eventId) eventId=" + eventId);
+
+		List<User> result = new ArrayList<User>();
+		Event event = getEvent(eventId);
+		if (event != null) {
+			result = userService.load(event.getSponsors());
+		}
+		
+		if (result == null){
+			result = new ArrayList<User>();
+		}
+		
+		return result;
+	}
 
 }

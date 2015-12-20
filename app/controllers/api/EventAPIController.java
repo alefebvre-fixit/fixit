@@ -95,6 +95,11 @@ public class EventAPIController extends YaController {
 
 		return ok(Json.toJson(result));
 	}
+	
+	public Result sponsors(String eventId) {
+		Logger.debug("EventAPIController.sponsors eventId =" + eventId);
+		return ok(Json.toJson(getEventService().eventSponsors(eventId)));
+	}
 
 	public Result getUserEvents(String username) {
 		Logger.debug("EventAPIController.eventByOwner username =" + username);

@@ -160,6 +160,7 @@ GET		/api/events/:eventId/participations/size					@controllers.api.EventAPIContr
 GET		/api/events/:eventId/participations/last					@controllers.api.EventAPIController.lastParticipations(eventId: String)
 GET		/api/events/:eventId/participations/summary					@controllers.api.EventAPIController.participationSummary(eventId: String)
 GET		/api/events/:eventId/participations							@controllers.api.EventAPIController.participations(eventId: String)
+GET 	/api/events/:eventId/sponsors 								@controllers.api.EventAPIController.sponsors(eventId: String)
 
 GET 	/api/users/:username/events/:eventId/participation			@controllers.api.EventAPIController.userParticipation(username: String, eventId: String)
 GET 	/api/users/:username/participations							@controllers.api.EventAPIController.userParticipations(username: String)
