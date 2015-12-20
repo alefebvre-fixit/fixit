@@ -9,7 +9,7 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 		})
 		.state('test', {
 			url: "/test",
-			templateUrl: "templates/test-event.html",
+			templateUrl: "templates/test-group.html",
 			authenticate: false
 		})
 		.state('jsdata', {

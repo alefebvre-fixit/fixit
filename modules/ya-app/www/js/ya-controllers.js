@@ -10,6 +10,11 @@ angular.module('ya-app').controller('YaController', ['$scope', '$log', '$rootSco
             $state.go('sign-in');
 		};
 
+        $scope.test = function(){
+            closePopover();
+            $state.go('test');
+        };
+
         $scope.goToUser = function(){
             closePopover();
             $state.go('user', {username : YaService.getUsername()});
