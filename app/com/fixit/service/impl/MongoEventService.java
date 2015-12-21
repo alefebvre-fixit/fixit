@@ -53,10 +53,6 @@ public class MongoEventService implements EventService {
 	
 	@Inject
 	private UserService userService;
-	
-	public NotificationService getNotificationService() {
-		return notificationService;
-	}
 
 	@Override
 	public List<Event> getAll() {
@@ -80,7 +76,7 @@ public class MongoEventService implements EventService {
 
 	@Override
 	public Event save(Event event) {		
-		getNotificationService().publishNotification(event);
+		notificationService.publishNotification(event);
 		
 		if (event.getGroupId() != null && event.getId() == null){
 			Group group = groupService.getGroup(event.getGroupId());
@@ -204,7 +200,7 @@ public class MongoEventService implements EventService {
 			result = participationRepository.save(participation);
 		}
 		
-		getNotificationService().publishNotification(participation);
+		notificationService.publishNotification(participation);
 
 		return result;
 	}

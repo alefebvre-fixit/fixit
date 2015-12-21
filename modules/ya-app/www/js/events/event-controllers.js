@@ -180,6 +180,11 @@ angular.module('ya-app').controller('ViewEventController',
                 $state.go("event-repeat", { eventId: event.id});
             };
 
+            $scope.addSurvey = function(event){
+                $scope.closePopover();
+                $state.go("survey-edit", { eventId: event.id});
+            };
+
             $scope.setEvent =function(newEvent){
                 $scope.event = newEvent;
                 EventService.getCommentSize(eventId).then(function (data) {
@@ -345,7 +350,7 @@ angular.module('ya-app').controller('EventCommentsController', ['EventService', 
     }
 ]);
 
-angular.module('ya-app').controller('EventSponsorsController', ['EventService', 'UserService', '$scope', '$log', 'groupId',
+angular.module('ya-app').controller('EventSponsorsController', ['EventService', 'UserService', '$scope', '$log', 'eventId',
     function (EventService, UserService, $scope, $log, eventId) {
 
         //To insure the back button is displayed

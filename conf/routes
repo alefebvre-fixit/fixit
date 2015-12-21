@@ -178,7 +178,15 @@ POST 	/api/events			   										@controllers.api.EventAPIController.create()
 PUT 	/api/events/:eventId   										@controllers.api.EventAPIController.update(eventId: String)
 
 
+
 DELETE	/api/events/:eventId   										@controllers.api.EventAPIController.deleteEvent(eventId: String)
+
+
+# API Survey
+
+POST	/api/events/:eventId/surveys								@controllers.api.SurveyAPIController.create(eventId: String)
+PUT 	/api/events/:eventId/surveys/:surveyId   					@controllers.api.SurveyAPIController.update(eventId: String, surveyId: String)
+GET 	/api/events/:eventId/surveys/:surveyId   					@controllers.api.SurveyAPIController.survey(eventId: String, surveyId: String)
 
 
 

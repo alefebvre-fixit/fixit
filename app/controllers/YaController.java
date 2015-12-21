@@ -8,6 +8,7 @@ import play.mvc.Controller;
 import com.fixit.model.user.User;
 import com.fixit.service.EventService;
 import com.fixit.service.GroupService;
+import com.fixit.service.SurveyService;
 import com.fixit.service.UserService;
 
 @Named
@@ -25,6 +26,9 @@ public class YaController extends Controller {
 	@Inject
 	private GroupService groupService;
 
+	@Inject
+	private SurveyService surveyService;
+	
 	protected UserService getUserService() {
 		return userService;
 	}
@@ -41,6 +45,10 @@ public class YaController extends Controller {
 		return userService.load(getUserName());
 	}
 
+	protected SurveyService getSurveyService() {
+		return surveyService;
+	}
+	
 	protected static String getUserName() {
 		return session().get(SESSION_ATTRIBUTE_USERNAME);
 	}
