@@ -53,12 +53,6 @@ angular.module('ya-app').config(function($logProvider, YaConfig) {
     $logProvider.debugEnabled(YaConfig.enableDebug);
 });
 
-angular.module('ya-app').config(function($ionicConfigProvider) {
-    if(!ionic.Platform.isIOS())$ionicConfigProvider.scrolling.jsScrolling(false);
-});
-
-
-
 angular.module('ya-app')
     .config(function (DSProvider, DSHttpAdapterProvider, YaConfig) {
         angular.extend(DSProvider.defaults, {});

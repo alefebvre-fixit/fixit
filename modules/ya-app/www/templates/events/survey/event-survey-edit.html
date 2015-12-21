@@ -1,7 +1,6 @@
 <ion-view title="Survey" hide-back-button="false">
 
 	<ion-nav-buttons side="right">
-		<a class="button button-icon icon ion-plus" ng-click="openSelector()"></a>
 	</ion-nav-buttons>
 
 	<ion-content class="has-header">
@@ -14,11 +13,11 @@
 		<a class="item item-icon-left item-icon-right">
 			<i class="icon ion-ios-list-outline"></i>
 			Choices
-			<i class="icon ion-plus" ng-click="addChoice()"></i>
+			<i class="icon ion-plus" ng-click="createProposal()"></i>
 		</a>
 		<ion-list>
-			<ion-item ng-repeat="choice in survey.choices">
-				<h2>{{choice.name}}</h2>
+			<ion-item ng-repeat="proposal in survey.proposals">
+				<h2>{{proposal.name}}</h2>
 				<ion-option-button class="button-assertive"
 								   ng-click="remove(user)">
 					Remove
