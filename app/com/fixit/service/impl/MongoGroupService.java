@@ -34,14 +34,15 @@ public class MongoGroupService implements GroupService {
 
 	@Inject
 	private UserService userService;
-	
+
 	@Inject
 	private NotificationService notificationService;
 
 	@Override
-	public List<Group> getAll() {
+	public List<Group> findAll() {
 		Logger.debug("MongoGroupService.getAll()");
-		return groupRepository.findAll(new Sort(Sort.Direction.DESC, "creationDate"));
+		return groupRepository.findAll(new Sort(Sort.Direction.DESC,
+				"creationDate"));
 	}
 
 	@Override
@@ -59,26 +60,26 @@ public class MongoGroupService implements GroupService {
 	@Override
 	public Group save(Group group) {
 		Logger.debug("MongoGroupService.save(Group group) id=" + group.id);
-		
+
 		Group result = groupRepository.save(group);
-		
+
 		notificationService.publishNotification(group);
-		
+
 		return result;
 	}
 
 	@Override
-	public Group getGroup(String id) {
+	public Group findOne(String id) {
 		return groupRepository.findOne(id);
 	}
 
 	@Override
-	public int countGroupsByOwner(String username) {
+	public int countByOwner(String username) {
 		return groupRepository.countByUsername(username);
 	}
 
 	@Override
-	public List<Group> getUserGroups(String username, int offset, int length) {
+	public List<Group> findUserGroups(String username, int offset, int length) {
 		List<Group> result = null;
 
 		if (length > 0) {
@@ -119,7 +120,7 @@ public class MongoGroupService implements GroupService {
 	}
 
 	@Override
-	public List<String> getFollowingIds(String username) {
+	public List<String> findFollowingIds(String username) {
 		List<String> result = new ArrayList<String>();
 
 		List<Favorite> favorites = favoriteRepository.findByUsername(username);
@@ -133,12 +134,12 @@ public class MongoGroupService implements GroupService {
 	}
 
 	@Override
-	public String getGroupOwner(String groupId) {
+	public String findGroupOwner(String groupId) {
 		// TODO Improve implementation by loading only the username
 
 		String result = null;
 
-		Group group = getGroup(groupId);
+		Group group = findOne(groupId);
 		if (group != null) {
 			result = group.getUsername();
 		}
@@ -147,12 +148,12 @@ public class MongoGroupService implements GroupService {
 	}
 
 	@Override
-	public int groupFollowersSize(String groupId) {
+	public int countFollowers(String groupId) {
 		return favoriteRepository.countByGroupId(groupId);
 	}
 
 	@Override
-	public List<String> groupFollowerNames(String groupId) {
+	public List<String> findFollowerNames(String groupId) {
 		// TODO Improve implementation by loading only the username
 
 		List<String> result = new ArrayList<String>();
@@ -170,9 +171,10 @@ public class MongoGroupService implements GroupService {
 	}
 
 	@Override
-	public List<User> groupFollowers(String groupId) {
+	public List<User> findFollowers(String groupId) {
 
-		Logger.debug("MongoGroupService.groupFollowers(String groupId) groupId=" + groupId);
+		Logger.debug("MongoGroupService.groupFollowers(String groupId) groupId="
+				+ groupId);
 		List<User> result = new ArrayList<User>();
 
 		List<Favorite> favorites = favoriteRepository.findByGroupId(groupId);
@@ -182,53 +184,54 @@ public class MongoGroupService implements GroupService {
 			for (Favorite favorite : favorites) {
 				usernames.add(favorite.getUsername());
 			}
-			result = userService.load(usernames);
+			result = userService.find(usernames);
 		}
-		
-		if (result == null){
+
+		if (result == null) {
 			result = new ArrayList<User>();
 		}
-		
 
 		return result;
 	}
 
 	@Override
-	public int groupFollowingSize(String username) {
-		Logger.debug("MongoGroupService.groupFollowingSize(String username) username=" + username);
+	public int countFollowingSize(String username) {
+		Logger.debug("MongoGroupService.groupFollowingSize(String username) username="
+				+ username);
 		return favoriteRepository.countByUsername(username);
 	}
 
 	@Override
-	public List<Group> getFollowingGroups(String username) {
+	public List<Group> findFollowingGroups(String username) {
 		List<Group> result = new ArrayList<Group>();
-		
-		List<String> ids = getFollowingIds(username);
-		if (YaUtil.isNotEmpty(ids)){
+
+		List<String> ids = findFollowingIds(username);
+		if (YaUtil.isNotEmpty(ids)) {
 			Iterable<Group> groups = groupRepository.findAll(ids);
 			for (Group group : groups) {
 				result.add(group);
 			}
 		}
-		
+
 		return result;
 	}
 
 	@Override
-	public List<User> groupSponsors(String groupId) {
-		
-		Logger.debug("MongoGroupService.groupSponsors(String groupId) groupId=" + groupId);
+	public List<User> findSponsors(String groupId) {
+
+		Logger.debug("MongoGroupService.groupSponsors(String groupId) groupId="
+				+ groupId);
 
 		List<User> result = new ArrayList<User>();
-		Group group = getGroup(groupId);
+		Group group = findOne(groupId);
 		if (group != null) {
-			result = userService.load(group.getSponsors());
+			result = userService.find(group.getSponsors());
 		}
-		
-		if (result == null){
+
+		if (result == null) {
 			result = new ArrayList<User>();
 		}
-		
+
 		return result;
 	}
 

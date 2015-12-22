@@ -19,7 +19,7 @@ public class NotificationAPIController extends YaController {
 		Logger.debug("NotificationAPIController.notifications");
 
 		List<Notification> notifications = getNotificationService()
-				.getUserNotifications(getUserName(), 0, 0);
+				.findUserNotifications(getUserName(), 0, 0);
 
 		return ok(play.libs.Json.toJson(notifications));
 	}

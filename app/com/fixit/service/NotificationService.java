@@ -6,22 +6,22 @@ import com.fixit.model.notification.Notification;
 
 public interface NotificationService {
 	
-	public Notification getNotification(String notificationId);
+	public Notification findOne(String notificationId);
 
-	public Notification saveNotification(Notification notification);
+	public Notification save(Notification notification);
 
-	public void deleteNotification(String notificationId);
+	public void delete(String notificationId);
 
 	public void deleteNotifications(List<Notification> notifications);
 
-	public List<Notification> getUserNotifications(String username, int offset,
+	public List<Notification> findUserNotifications(String username, int offset,
 			int length);
 	
 	public void publishNotification(Object o);
 	
-	public List<Notification> getGroupNotifications(String groupId, String username);
+	public List<Notification> findGroupNotifications(String groupId, String username);
 	
-	public List<Notification> getEventNotifications(String eventId, String username);
+	public List<Notification> findEventNotifications(String eventId, String username);
 	
 	public void acknowledgeEventNotifications(String eventId, String username);
 

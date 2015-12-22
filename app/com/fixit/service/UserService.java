@@ -10,7 +10,7 @@ public interface UserService {
 
 	public User load(String username);
 	
-	public List<User> load(List<String> usernames);
+	public List<User> find(List<String> usernames);
 
 	public User authenticate(SignIn signin);
 
@@ -24,11 +24,11 @@ public interface UserService {
 
 	public void delete(String id);
 
-	public List<User> getAll();
+	public List<User> findAll();
 
 	public List<User> getFollowers(String username);
 	
-	public List<String> getFollowerNames(String username);
+	public List<String> findFollowerNames(String username);
 
 	public int countFollowers(String username);
 
@@ -38,9 +38,9 @@ public interface UserService {
 
 	public void unFollow(String follower, String followee);
 
-	public List<User> getFollowing(String username);
+	public List<User> findFollowing(String username);
 
-	public List<String> getFollowingNames(String username);
+	public List<String> findFollowingNames(String username);
 	
 	public int countFollowing(String username);
 

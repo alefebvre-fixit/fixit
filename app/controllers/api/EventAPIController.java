@@ -28,19 +28,19 @@ public class EventAPIController extends YaController {
 	public Result events() {
 		Logger.debug("EventAPIController.events()");
 
-		return ok(play.libs.Json.toJson(getEventService().getAll()));
+		return ok(play.libs.Json.toJson(getEventService().findAll()));
 	}
 
 	@Security.Authenticated(Secured.class)
 	public Result getEventTimeline() {
 		Logger.debug("EventAPIController.getEventTimeline()");
-		return ok(play.libs.Json.toJson(getEventService().getEventTimeline()));
+		return ok(play.libs.Json.toJson(getEventService().findEventTimeline()));
 	}
 
 	public Result getEventTimelineByGroup(String groupId) {
 		Logger.debug("EventAPIController.getEventTimelineByGroup(groupId) groupId="
 				+ groupId);
-		return ok(play.libs.Json.toJson(getEventService().getEventTimeline(
+		return ok(play.libs.Json.toJson(getEventService().findEventTimeline(
 				groupId)));
 	}
 
@@ -49,12 +49,12 @@ public class EventAPIController extends YaController {
 				+ groupId);
 
 		return ok(Json.toJson(EventFactory.createEvent(getGroupService()
-				.getGroup(groupId), getUser())));
+				.findOne(groupId), getUser())));
 	}
 
 	public Result publishEvent(String eventId) {
 
-		Event event = getEventService().getEvent(eventId);
+		Event event = getEventService().findOne(eventId);
 
 		if (!event.canUpdate(getUserName())) {
 			return forbidden();
@@ -69,7 +69,7 @@ public class EventAPIController extends YaController {
 	public Result update(String eventId) {
 		Logger.debug("EventAPIController.save()");
 
-		Event original = getEventService().getEvent(eventId);
+		Event original = getEventService().findOne(eventId);
 
 		if (original != null && !original.canUpdate(getUserName())) {
 			return forbidden();
@@ -100,43 +100,43 @@ public class EventAPIController extends YaController {
 	
 	public Result sponsors(String eventId) {
 		Logger.debug("EventAPIController.sponsors eventId =" + eventId);
-		return ok(Json.toJson(getEventService().eventSponsors(eventId)));
+		return ok(Json.toJson(getEventService().findSponsors(eventId)));
 	}
 
 	public Result getUserEvents(String username) {
 		Logger.debug("EventAPIController.eventByOwner username =" + username);
-		List<Event> events = getEventService().getUserEvents(username, -1, -1);
+		List<Event> events = getEventService().findUserEvents(username, -1, -1);
 		return ok(Json.toJson(events));
 	}
 
 	public Result groupEvents(String groupId) {
 		Logger.debug("EventAPIController.groupEvents groupId =" + groupId);
-		List<Event> events = getEventService().getGroupEvents(groupId, -1, -1);
+		List<Event> events = getEventService().findGroupEvents(groupId, -1, -1);
 		return ok(Json.toJson(events));
 	}
 
 	public Result lastGroupEvents(String groupId) {
 		Logger.debug("EventAPIController.lastGroupEvents groupId =" + groupId);
-		List<Event> events = getEventService().getGroupEvents(groupId, 0, 5);
+		List<Event> events = getEventService().findGroupEvents(groupId, 0, 5);
 		return ok(Json.toJson(events));
 	}
 
 	public Result eventSizeByGroup(String groupId) {
 		Logger.debug("EventAPIController.eventSizeByGroup groupId =" + groupId);
-		int events = getEventService().countEventsByGroup(groupId);
+		int events = getEventService().countByGroup(groupId);
 		return ok(Json.toJson(events));
 	}
 
 	public Result event(String eventId) {
 		Logger.debug("EventAPIController.event eventId =" + eventId);
-		Event event = getEventService().getEvent(eventId);
+		Event event = getEventService().findOne(eventId);
 		return ok(Json.toJson(event));
 	}
 
 	public Result deleteEvent(String eventId) {
 		Logger.debug("EventAPIController.deleteEvent eventId =" + eventId);
 
-		Event original = getEventService().getEvent(eventId);
+		Event original = getEventService().findOne(eventId);
 		if (original != null && !original.canUpdate(getUserName())) {
 			return forbidden();
 		}
@@ -152,7 +152,7 @@ public class EventAPIController extends YaController {
 		Participation participation = Json.fromJson(body.asJson(),
 				Participation.class);
 
-		Event event = getEventService().getEvent(eventId);
+		Event event = getEventService().findOne(eventId);
 		if (event != null) {
 			if (event.accept(participation)) {
 				participation.setEventName(event.getName());
@@ -169,11 +169,11 @@ public class EventAPIController extends YaController {
 	public Result generateParticipation(String eventId) {
 		Logger.debug("EventAPIController.generateParticipation() eventId = "
 				+ eventId);
-		Event event = getEventService().getEvent(eventId);
+		Event event = getEventService().findOne(eventId);
 		if (event != null) {
 			getEventService().deleteEventParticipations(eventId);
 
-			List<User> users = getUserService().getAll();
+			List<User> users = getUserService().findAll();
 			if (users != null) {
 				for (User user : users) {
 					Logger.debug("User username=|" + user.getUsername() + "|");
@@ -201,14 +201,14 @@ public class EventAPIController extends YaController {
 
 	public Result participations(String eventId) {
 		Logger.debug("EventAPIController.participations()" + eventId);
-		return ok(play.libs.Json.toJson(getEventService().getParticipations(
+		return ok(play.libs.Json.toJson(getEventService().findParticipations(
 				eventId, 0, -1)));
 	}
 
 	public Result participationSummary(String eventId) {
 		Logger.debug("EventAPIController.participationSummary()" + eventId);
 		return ok(play.libs.Json.toJson(getEventService()
-				.getParticipationSummary(eventId)));
+				.findParticipationSummary(eventId)));
 	}
 
 	public Result countParticipations(String eventId) {
@@ -219,20 +219,20 @@ public class EventAPIController extends YaController {
 
 	public Result lastParticipations(String eventId) {
 		Logger.debug("EventAPIController.participations()" + eventId);
-		return ok(play.libs.Json.toJson(getEventService().getParticipations(
+		return ok(play.libs.Json.toJson(getEventService().findParticipations(
 				eventId, 0, 5)));
 	}
 
 	public Result userParticipations(String username) {
 		Logger.debug("EventAPIController.userParticipations()" + username);
 		return ok(play.libs.Json.toJson(getEventService()
-				.getUserParticipations(username)));
+				.findUserParticipations(username)));
 	}
 
 	public Result userParticipation(String username, String eventId) {
 		Logger.debug("EventAPIController.userParticipation()" + eventId);
 
-		Participation participation = getEventService().getParticipation(
+		Participation participation = getEventService().findOneParticipation(
 				eventId, username);
 		if (participation == null) {
 			participation = new Participation();
@@ -247,7 +247,7 @@ public class EventAPIController extends YaController {
 	public Result comments(String eventId) {
 		Logger.debug("EventAPIController.comments for eventId" + eventId);
 
-		List<EventComment> comments = getEventService().getComments(eventId, 0,
+		List<EventComment> comments = getEventService().findComments(eventId, 0,
 				0);
 
 		return ok(play.libs.Json.toJson(comments));
@@ -256,7 +256,7 @@ public class EventAPIController extends YaController {
 	public Result commentSize(String eventId) {
 		Logger.debug("EventAPIController.commentSize for eventId" + eventId);
 
-		return ok(play.libs.Json.toJson(getEventService().getCommentSize(
+		return ok(play.libs.Json.toJson(getEventService().countComments(
 				eventId)));
 	}
 

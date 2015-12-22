@@ -50,12 +50,12 @@ public class UserAPIController extends YaController {
 
 	public Result accounts() {
 		Logger.debug("UserAPIController.accounts()");
-		return ok(play.libs.Json.toJson(userService.getAll()));
+		return ok(play.libs.Json.toJson(userService.findAll()));
 	}
 
 	public Result userDiscovery() {
 		Logger.debug("UserAPIController.accounts()");
-		return ok(play.libs.Json.toJson(userService.getAll()));
+		return ok(play.libs.Json.toJson(userService.findAll()));
 	}
 
 	public Result user(String username) {
@@ -181,12 +181,12 @@ public class UserAPIController extends YaController {
 
 	public Result following(String username) {
 		Logger.debug("UserAPIController.following username =" + username);
-		return ok(Json.toJson(getUserService().getFollowing(username)));
+		return ok(Json.toJson(getUserService().findFollowing(username)));
 	}
 
 	public Result followingNames(String username) {
 		Logger.debug("UserAPIController.followingNames username =" + username);
-		return ok(Json.toJson(getUserService().getFollowingNames(username)));
+		return ok(Json.toJson(getUserService().findFollowingNames(username)));
 	}
 
 	public Result followingSize(String username) {

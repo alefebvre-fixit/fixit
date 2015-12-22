@@ -7,7 +7,7 @@ import com.fixit.model.user.User;
 
 public interface GroupService {
 
-	public List<Group> getAll();
+	public List<Group> findAll();
 
 	public String create(Group group);
 
@@ -15,31 +15,31 @@ public interface GroupService {
 
 	public void delete(String id);
 
-	public Group getGroup(String id);
+	public Group findOne(String id);
 
-	public int countGroupsByOwner(String username);
+	public int countByOwner(String username);
 
-	public List<Group> getUserGroups(String username, int offset, int length);
+	public List<Group> findUserGroups(String username, int offset, int length);
 
 	public void follow(String username, String groupId);
 
 	public void unfollow(String username, String groupId);
 
-	public List<String> getFollowingIds(String username);
+	public List<String> findFollowingIds(String username);
 
-	public List<Group> getFollowingGroups(String username);
+	public List<Group> findFollowingGroups(String username);
 	
-	public int groupFollowingSize(String username);
+	public int countFollowingSize(String username);
 	
-	public List<User> groupFollowers(String groupId);
+	public List<User> findFollowers(String groupId);
 	
-	public List<User> groupSponsors(String groupId);
+	public List<User> findSponsors(String groupId);
 
-	public List<String> groupFollowerNames(String groupId);
+	public List<String> findFollowerNames(String groupId);
 
-	public int groupFollowersSize(String groupId);
+	public int countFollowers(String groupId);
 
-	public String getGroupOwner(String groupId);
+	public String findGroupOwner(String groupId);
 
 	
 }

@@ -11,59 +11,59 @@ import com.fixit.model.user.User;
 
 public interface EventService {
 
-	public List<Event> getAll();
+	public List<Event> findAll();
 
-	public EventTimeline getEventTimeline();
+	public EventTimeline findEventTimeline();
 	
-	public EventTimeline getEventTimeline(String groupId);
+	public EventTimeline findEventTimeline(String groupId);
 
 	public Event save(Event event);
 
 	public void delete(String id);
 
-	public Event getEvent(String id);
+	public Event findOne(String id);
 
-	public int countEventsByOwner(String username);
+	public int countByOwner(String username);
 
-	public List<Event> getUserEvents(String username, int offset, int length);
+	public List<Event> findUserEvents(String username, int offset, int length);
 
-	public List<Event> getGroupEvents(String groupId, int offset, int length);
+	public List<Event> findGroupEvents(String groupId, int offset, int length);
 	
-	public int countEventsByGroup(String groupId);
+	public int countByGroup(String groupId);
 	
-	public String getEventOwner(String eventId);
+	public String findEventOwner(String eventId);
 	
-	public List<Participation> getParticipations(String eventId, int offset, int length);
+	public List<Participation> findParticipations(String eventId, int offset, int length);
 	
-	public ParticipationSummary getParticipationSummary(String eventId);
+	public ParticipationSummary findParticipationSummary(String eventId);
 	
 	public int countParticipations(String eventId);
 	
 	public Participation save(Participation participation);
 	
-	public Participation getParticipation(String participationId);
+	public Participation findOneParticipation(String participationId);
 	
-	public Participation getParticipation(String eventId, String username);
+	public Participation findOneParticipation(String eventId, String username);
 	
 	public void deleteParticipation(String id);
 	
 	public void deleteEventParticipations(String eventId);
 	
-	public List<Participation> getUserParticipations(String username);
+	public List<Participation> findUserParticipations(String username);
 
-	public List<Participation> getParticipations(String eventId);
+	public List<Participation> findParticipations(String eventId);
 	
-	public EventComment getComment(String commentId);
+	public EventComment findOneComment(String commentId);
 
 	public EventComment saveComments(EventComment comment);
 
 	public void deleteComment(String commentId);
 
-	public List<EventComment> getComments(String eventId,
+	public List<EventComment> findComments(String eventId,
 			int offset, int length);
 	
-	public int getCommentSize(String eventId);
+	public int countComments(String eventId);
 	
-	public List<User> eventSponsors(String groupId);
+	public List<User> findSponsors(String groupId);
 
 }

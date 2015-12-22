@@ -41,32 +41,32 @@ public class MongoEventService implements EventService {
 
 	@Inject
 	ParticipationRepository participationRepository;
-	
+
 	@Inject
 	private NotificationService notificationService;
 
 	@Inject
 	EventCommentRepository commentRepository;
-	
+
 	@Inject
 	private GroupService groupService;
-	
+
 	@Inject
 	private UserService userService;
 
 	@Override
-	public List<Event> getAll() {
-		Logger.debug("MongoEventService.getAll()");
+	public List<Event> findAll() {
+		Logger.debug("MongoEventService.findAll()");
 		return eventRepository.findAll(new Sort(Sort.Direction.DESC, "date"));
 	}
 
 	@Override
 	public void delete(String id) {
 		Logger.debug("MongoEventService.delete(String id) id=" + id);
-		Event event = getEvent(id);
-		if (event != null && event.getGroupId() != null){
-			Group group = groupService.getGroup(event.getGroupId());
-			if (group != null){
+		Event event = findOne(id);
+		if (event != null && event.getGroupId() != null) {
+			Group group = groupService.findOne(event.getGroupId());
+			if (group != null) {
 				group.decrementEventSize();
 				groupService.save(group);
 			}
@@ -75,35 +75,35 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public Event save(Event event) {		
+	public Event save(Event event) {
 		notificationService.publishNotification(event);
-		
-		if (event.getGroupId() != null && event.getId() == null){
-			Group group = groupService.getGroup(event.getGroupId());
-			if (group != null){
+
+		if (event.getGroupId() != null && event.getId() == null) {
+			Group group = groupService.findOne(event.getGroupId());
+			if (group != null) {
 				group.incrementEventSize();
-				Logger.debug("MongoEventService.create(Event id) incrementEventSize=" + group.getEventSize());
+				Logger.debug("MongoEventService.create(Event id) incrementEventSize="
+						+ group.getEventSize());
 				groupService.save(group);
 			}
 		}
-		
-		
-		Event result =  eventRepository.save(event);
+
+		Event result = eventRepository.save(event);
 		return result;
 	}
 
 	@Override
-	public Event getEvent(String id) {
+	public Event findOne(String id) {
 		return eventRepository.findOne(id);
 	}
 
 	@Override
-	public int countEventsByOwner(String username) {
+	public int countByOwner(String username) {
 		return eventRepository.countByUsername(username);
 	}
 
 	@Override
-	public List<Event> getUserEvents(String username, int offset, int length) {
+	public List<Event> findUserEvents(String username, int offset, int length) {
 		List<Event> result = null;
 
 		if (length > 0) {
@@ -118,7 +118,7 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public List<Event> getGroupEvents(String groupId, int offset, int length) {
+	public List<Event> findGroupEvents(String groupId, int offset, int length) {
 		List<Event> result = null;
 
 		if (length > 0) {
@@ -133,17 +133,17 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public int countEventsByGroup(String groupId) {
+	public int countByGroup(String groupId) {
 		return eventRepository.countByGroupId(groupId);
 	}
 
 	@Override
-	public String getEventOwner(String eventId) {
+	public String findEventOwner(String eventId) {
 		// TODO Improve implementation by loading only the username
 
 		String result = null;
 
-		Event event = getEvent(eventId);
+		Event event = findOne(eventId);
 		if (event != null) {
 			result = event.getUsername();
 		}
@@ -152,10 +152,12 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public List<Participation> getParticipations(String eventId, int offset,
+	public List<Participation> findParticipations(String eventId, int offset,
 			int length) {
 		List<Participation> result = null;
-		Logger.debug("MongoEventService.getParticipations(String eventId = " + eventId +", int offset = " + offset +", int length = " + length + " )");
+		Logger.debug("MongoEventService.getParticipations(String eventId = "
+				+ eventId + ", int offset = " + offset + ", int length = "
+				+ length + " )");
 		if (length > 0) {
 			Page<Participation> pages = participationRepository.findByEventId(
 					eventId, new PageRequest(offset, length));
@@ -174,10 +176,13 @@ public class MongoEventService implements EventService {
 		participation.incrementVersion();
 		Logger.debug("MongoEventService.save(Participation participation)");
 		if (participation.getId() == null) {
-			
-			Logger.debug("Looking for an existing participation with params eventId = " + participation.getEventId() + " participation " + participation.getUsername());
-			
-			Participation existing = getParticipation(
+
+			Logger.debug("Looking for an existing participation with params eventId = "
+					+ participation.getEventId()
+					+ " participation "
+					+ participation.getUsername());
+
+			Participation existing = findOneParticipation(
 					participation.getEventId(), participation.getUsername());
 			if (existing != null) {
 				Logger.debug("MongoEventService.save.reconcile with id="
@@ -187,7 +192,7 @@ public class MongoEventService implements EventService {
 				result = participationRepository.save(participation);
 			} else {
 				Logger.debug("Cannot find existing participation");
-				
+
 				participation.setCreationDate(new Date());
 				participation.setModificationDate(participation
 						.getCreationDate());
@@ -199,19 +204,19 @@ public class MongoEventService implements EventService {
 			participation.setModificationDate(new Date());
 			result = participationRepository.save(participation);
 		}
-		
+
 		notificationService.publishNotification(participation);
 
 		return result;
 	}
 
 	@Override
-	public Participation getParticipation(String participationId) {
+	public Participation findOneParticipation(String participationId) {
 		return participationRepository.findOne(participationId);
 	}
 
 	@Override
-	public Participation getParticipation(String eventId, String username) {
+	public Participation findOneParticipation(String eventId, String username) {
 		Participation result = null;
 
 		List<Participation> pages = participationRepository
@@ -225,12 +230,12 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public List<Participation> getUserParticipations(String username) {
+	public List<Participation> findUserParticipations(String username) {
 		return participationRepository.findByUsername(username);
 	}
 
 	@Override
-	public List<Participation> getParticipations(String eventId) {
+	public List<Participation> findParticipations(String eventId) {
 		return participationRepository.findByEventId(eventId);
 	}
 
@@ -241,7 +246,7 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public EventComment getComment(String commentId) {
+	public EventComment findOneComment(String commentId) {
 		return commentRepository.findOne(commentId);
 	}
 
@@ -256,81 +261,91 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public List<EventComment> getComments(String eventId, int offset, int length) {
+	public List<EventComment> findComments(String eventId, int offset,
+			int length) {
 
 		List<EventComment> result = null;
-		Logger.debug("MongoEventService.getComments(String eventId = " + eventId +", int offset = " + offset +", int length = " + length + " )");
+		Logger.debug("MongoEventService.getComments(String eventId = "
+				+ eventId + ", int offset = " + offset + ", int length = "
+				+ length + " )");
 		if (length > 0) {
-			Page<EventComment> pages = commentRepository.findByEventIdOrderByCommentDateDesc(
-					eventId, new PageRequest(offset, length));
+			Page<EventComment> pages = commentRepository
+					.findByEventIdOrderByCommentDateDesc(eventId,
+							new PageRequest(offset, length));
 			result = pages.getContent();
 		} else {
-			result = commentRepository.findByEventIdOrderByCommentDateDesc(eventId);
+			result = commentRepository
+					.findByEventIdOrderByCommentDateDesc(eventId);
 		}
-		Logger.debug("MongoEventService.getCommentSize(String eventId = " + eventId + " ) found=" + result.size());
-
+		Logger.debug("MongoEventService.getCommentSize(String eventId = "
+				+ eventId + " ) found=" + result.size());
 
 		return result;
-		
+
 	}
 
 	@Override
-	public int getCommentSize(String eventId) {
-		Logger.debug("MongoEventService.getCommentSize(String eventId = " + eventId + " )");
+	public int countComments(String eventId) {
+		Logger.debug("MongoEventService.getCommentSize(String eventId = "
+				+ eventId + " )");
 		return commentRepository.countByEventId(eventId);
 	}
 
 	@Override
 	public void deleteParticipation(String id) {
-		Logger.debug("MongoEventService.deleteParticipation(String id = " + id + " )");
+		Logger.debug("MongoEventService.deleteParticipation(String id = " + id
+				+ " )");
 		participationRepository.delete(id);
 	}
 
 	@Override
 	public void deleteEventParticipations(String eventId) {
-		Logger.debug("MongoEventService.deleteEventParticipations(String eventId = " + eventId + " )");
+		Logger.debug("MongoEventService.deleteEventParticipations(String eventId = "
+				+ eventId + " )");
 		participationRepository.deleteByEventId(eventId);
 	}
 
 	@Override
-	public ParticipationSummary getParticipationSummary(String eventId) {
-		Logger.debug("MongoEventService.getParticipationSummary(String eventId = " + eventId + " )");
-		return new ParticipationSummary(getParticipations(eventId));
+	public ParticipationSummary findParticipationSummary(String eventId) {
+		Logger.debug("MongoEventService.getParticipationSummary(String eventId = "
+				+ eventId + " )");
+		return new ParticipationSummary(findParticipations(eventId));
 	}
 
 	@Override
-	public EventTimeline getEventTimeline() {
-		
+	public EventTimeline findEventTimeline() {
+
 		EventTimeline result = new EventTimeline();
-		result.add(getAll());
-		
+		result.add(findAll());
+
 		return result;
 	}
-	
+
 	@Override
-	public EventTimeline getEventTimeline(String groupId) {
-		
+	public EventTimeline findEventTimeline(String groupId) {
+
 		EventTimeline result = new EventTimeline();
-		result.add(getGroupEvents(groupId, 0, -1));
-		
+		result.add(findGroupEvents(groupId, 0, -1));
+
 		return result;
 	}
-	
+
 	@Override
-	public List<User> eventSponsors(String eventId) {
-		
-		Logger.debug("MongoEventService.eventSponsors(String eventId) eventId=" + eventId);
+	public List<User> findSponsors(String eventId) {
+
+		Logger.debug("MongoEventService.eventSponsors(String eventId) eventId="
+				+ eventId);
 
 		List<User> result = new ArrayList<User>();
-		Event event = getEvent(eventId);
+		Event event = findOne(eventId);
 		if (event != null) {
-			result = userService.load(event.getSponsors());
+			result = userService.find(event.getSponsors());
 		}
-		
-		if (result == null){
+
+		if (result == null) {
 			result = new ArrayList<User>();
 		}
-		
+
 		return result;
 	}
 

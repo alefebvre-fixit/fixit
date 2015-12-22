@@ -23,7 +23,7 @@ public class MongoGroupSubscriptionService extends
 		if (Notification.TYPE_GROUP.equals(notification.getType())) {
 			
 			//Followers want to receive notification about project they follow
-			List<String> followers = getGroupService().groupFollowerNames(
+			List<String> followers = getGroupService().findFollowerNames(
 					notification.getGroupId());
 			if (followers != null && followers.size() > 0) {
 				result.addAll(followers);

@@ -92,7 +92,7 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public List<User> getAll() {
+	public List<User> findAll() {
 		return userRepository.findAll();
 	}
 
@@ -147,7 +147,7 @@ public class MongoUserService implements UserService {
 
 		List<User> result = null;
 
-		List<String> names = getFollowerNames(username);
+		List<String> names = findFollowerNames(username);
 
 		if (YaUtil.isNotEmpty(names)) {
 			result = userRepository.findByUsernameIn(names);
@@ -171,13 +171,13 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public List<User> getFollowing(String username) {
+	public List<User> findFollowing(String username) {
 		List<User> result = null;
 
 		Logger.debug("MongoUserService.getFollowing(String username) username="
 				+ username);
 
-		List<String> names = getFollowingNames(username);
+		List<String> names = findFollowingNames(username);
 
 		if (YaUtil.isNotEmpty(names)) {
 			result = userRepository.findByUsernameIn(names);
@@ -198,7 +198,7 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public List<String> getFollowerNames(String username) {
+	public List<String> findFollowerNames(String username) {
 		Logger.debug("MongoUserService.getFollowerNames(String username) username="
 				+ username);
 
@@ -217,7 +217,7 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public List<String> getFollowingNames(String username) {
+	public List<String> findFollowingNames(String username) {
 		Logger.debug("MongoUserService.getFollowingNames(String username) username="
 				+ username);
 
@@ -236,7 +236,7 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public List<User> load(List<String> usernames) {
+	public List<User> find(List<String> usernames) {
 		List<User> result = null;
 
 		Logger.debug("MongoUserService.load(List<String> usernames) usernames="

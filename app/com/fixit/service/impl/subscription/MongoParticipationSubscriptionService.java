@@ -24,7 +24,7 @@ public class MongoParticipationSubscriptionService extends
 		if (notification.getEventId() != null) {
 
 			// Owner of the event want to receive notifications
-			String owner = getEventService().getEventOwner(
+			String owner = getEventService().findEventOwner(
 					notification.getEventId());
 
 			Logger.debug("MongoParticipationSubscriptionService.getSubscribers(Notification notification) owner="

@@ -21,7 +21,7 @@ public class MongoEventSubscriptionService extends
 		if (Notification.TYPE_EVENT.equals(notification.getType())) {
 			
 			//Followers want to receive notification about group they follow
-			List<String> followers = getGroupService().groupFollowerNames(
+			List<String> followers = getGroupService().findFollowerNames(
 					notification.getGroupId());
 			if (followers != null && followers.size() > 0) {
 				result.addAll(followers);

@@ -30,22 +30,22 @@ public class MongoNotificationService implements NotificationService {
 	private SubscriptionServiceFactory serviceFactory;
 
 	@Override
-	public Notification getNotification(String notificationId) {
+	public Notification findOne(String notificationId) {
 		return notificationRepository.findOne(notificationId);
 	}
 
 	@Override
-	public Notification saveNotification(Notification notification) {
+	public Notification save(Notification notification) {
 		return notificationRepository.save(notification);
 	}
 
 	@Override
-	public void deleteNotification(String notificationId) {
+	public void delete(String notificationId) {
 		notificationRepository.delete(notificationId);
 	}
 
 	@Override
-	public List<Notification> getUserNotifications(String username, int offset,
+	public List<Notification> findUserNotifications(String username, int offset,
 			int length) {
 		List<Notification> result = null;
 		if (length > 0) {
@@ -64,7 +64,7 @@ public class MongoNotificationService implements NotificationService {
 		Notification notification = NotificationFactory.getInstance(o)
 				.createNotification(o);
 		if (notification != null) {
-			Set<String> subscribers = getSubscribers(notification);
+			Set<String> subscribers = findSubscribers(notification);
 			if (subscribers != null && subscribers.size() > 0) {
 				List<Notification> notifications = new ArrayList<Notification>(
 						subscribers.size());
@@ -84,26 +84,26 @@ public class MongoNotificationService implements NotificationService {
 
 	}
 
-	private Set<String> getSubscribers(Notification notification) {
+	private Set<String> findSubscribers(Notification notification) {
 		return serviceFactory.getInstance(notification).getSubscribers(
 				notification);
 	}
 
 	@Override
-	public List<Notification> getGroupNotifications(String groupId,
+	public List<Notification> findGroupNotifications(String groupId,
 			String username) {
 		return notificationRepository.findByUsernameAndGroupId(username, groupId);
 	}
 
 	@Override
-	public List<Notification> getEventNotifications(String eventId,
+	public List<Notification> findEventNotifications(String eventId,
 			String username) {
 		return notificationRepository.findByUsernameAndEventId(username, eventId);
 	}
 
 	@Override
 	public void acknowledgeEventNotifications(String eventId, String username) {
-		List<Notification> notifications = getEventNotifications(eventId, username);
+		List<Notification> notifications = findEventNotifications(eventId, username);
 		if (notifications != null && notifications.size()>0){
 			deleteNotifications(notifications);
 		}
@@ -111,7 +111,7 @@ public class MongoNotificationService implements NotificationService {
 
 	@Override
 	public void acknowledgeGroupNotifications(String groupId, String username) {
-		List<Notification> notifications = getGroupNotifications(groupId, username);
+		List<Notification> notifications = findGroupNotifications(groupId, username);
 		if (notifications != null && notifications.size()>0){
 			deleteNotifications(notifications);
 		}
@@ -119,7 +119,7 @@ public class MongoNotificationService implements NotificationService {
 
 	@Override
 	public void acknowledgeNotification(String notificationId) {
-		deleteNotification(notificationId);
+		delete(notificationId);
 	}
 
 	@Override
