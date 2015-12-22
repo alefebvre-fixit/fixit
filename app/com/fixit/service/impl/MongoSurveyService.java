@@ -1,5 +1,7 @@
 package com.fixit.service.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -40,6 +42,11 @@ public class MongoSurveyService implements SurveyService {
 	@Override
 	public Survey getSurvey(String id) {
 		return surveyRepository.findOne(id);
+	}
+
+	@Override
+	public List<Survey> getAll() {
+		return surveyRepository.findAll();
 	}
 
 }

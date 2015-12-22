@@ -184,11 +184,18 @@ DELETE	/api/events/:eventId   										@controllers.api.EventAPIController.dele
 
 # API Survey
 
-POST	/api/events/:eventId/surveys								@controllers.api.SurveyAPIController.create(eventId: String)
-PUT 	/api/events/:eventId/surveys/:surveyId   					@controllers.api.SurveyAPIController.update(eventId: String, surveyId: String)
-GET 	/api/events/:eventId/surveys/:surveyId   					@controllers.api.SurveyAPIController.survey(eventId: String, surveyId: String)
+GET		/api/surveys												@controllers.api.SurveyAPIController.surveys()
+
+POST	/api/surveys												@controllers.api.SurveyAPIController.create()
+PUT 	/api/surveys/:surveyId   									@controllers.api.SurveyAPIController.update(surveyId: String)
+GET 	/api/surveys/:surveyId   									@controllers.api.SurveyAPIController.survey(surveyId: String)
 
 
+DELETE	/api/surveys/:surveyId   									@controllers.api.SurveyAPIController.deleteSurvey(surveyId: String)
+
+
+
+# Others
 
 GET     /pingWs                     								controllers.Application.pingWs()
 GET     /testSpring                     							@controllers.SpringController.index()

@@ -17,7 +17,9 @@ import com.fixit.model.notification.impl.FavoriteNotificationFactory;
 import com.fixit.model.notification.impl.GroupNotificationFactory;
 import com.fixit.model.notification.impl.ParticipationNotificationFactory;
 import com.fixit.model.notification.impl.ProjectNotificationFactory;
+import com.fixit.model.notification.impl.SurveyNotificationFactory;
 import com.fixit.model.project.ProjectComment;
+import com.fixit.model.survey.Survey;
 
 public abstract class NotificationFactory {
 
@@ -34,6 +36,7 @@ public abstract class NotificationFactory {
 	private final static NotificationFactory participationFactory = new ParticipationNotificationFactory();
 	private final static NotificationFactory groupFactory = new GroupNotificationFactory();
 	private final static NotificationFactory eventFactory = new EventNotificationFactory();
+	private final static NotificationFactory surveyFactory = new SurveyNotificationFactory();
 
 	public static NotificationFactory getInstance(Object object) {
 		NotificationFactory result = null;
@@ -44,6 +47,8 @@ public abstract class NotificationFactory {
 			result = groupFactory;
 		} else if (object instanceof Event) {
 			result = eventFactory;
+		} else if (object instanceof Survey) {
+			result = surveyFactory;
 		} else if (object instanceof Participation) {
 			result = participationFactory;
 		} else if (object instanceof Project) {

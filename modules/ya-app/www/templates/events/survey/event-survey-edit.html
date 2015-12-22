@@ -18,9 +18,14 @@
 		<ion-list>
 			<ion-item ng-repeat="proposal in survey.proposals">
 				<h2>{{proposal.name}}</h2>
+				<p>{{proposal.description}}</p>
 				<ion-option-button class="button-assertive"
-								   ng-click="remove(user)">
+								   ng-click="removeProposal(proposal)">
 					Remove
+				</ion-option-button>
+				<ion-option-button class="button-calm"
+								   ng-click="editProposal(proposal)">
+					Edit
 				</ion-option-button>
 			</ion-item>
 		</ion-list>

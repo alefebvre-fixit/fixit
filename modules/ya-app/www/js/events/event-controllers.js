@@ -182,7 +182,7 @@ angular.module('ya-app').controller('ViewEventController',
 
             $scope.addSurvey = function(event){
                 $scope.closePopover();
-                $state.go("survey-edit", { eventId: event.id});
+                $state.go("survey-create", { eventId: event.id});
             };
 
             $scope.setEvent =function(newEvent){

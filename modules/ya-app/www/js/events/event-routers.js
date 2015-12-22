@@ -100,18 +100,6 @@ angular.module('ya-app').config(function ($stateProvider) {
             },
             authenticate: true
         })
-        .state('survey-edit', {
-            cache: false,
-            url: "/events/:eventId/sponsors",
-            templateUrl: "templates/events/survey/event-survey-edit.html",
-            controller: 'EditSurveyController',
-            resolve: {
-                eventId: function ($stateParams) {
-                    return $stateParams.eventId;
-                }
-            },
-            authenticate: true
-        })
     ;
 
 });

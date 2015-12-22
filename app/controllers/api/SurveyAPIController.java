@@ -15,7 +15,7 @@ import controllers.YaController;
 @Named
 public class SurveyAPIController extends YaController {
 
-	public Result update(String eventId, String surveyId) {
+	public Result update(String surveyId) {
 		Logger.debug("SurveyAPIController.update()");
 
 		Survey original = getSurveyService().getSurvey(surveyId);
@@ -28,13 +28,13 @@ public class SurveyAPIController extends YaController {
 
 		Survey survey = Json.fromJson(body.asJson(), Survey.class);
 		survey.setUsername(getUserName());
-		survey.setId(eventId);
+		survey.setId(surveyId);
 		Survey result = getSurveyService().save(survey);
 
 		return ok(Json.toJson(result));
 	}
 
-	public Result create(String eventId) {
+	public Result create() {
 		Logger.debug("SurveyAPIController.save()");
 
 		RequestBody body = request().body();
@@ -42,16 +42,33 @@ public class SurveyAPIController extends YaController {
 		Survey survey = Json.fromJson(body.asJson(), Survey.class);
 		survey.setUsername(getUserName());
 		survey.setId(null);
-		survey.setEventId(eventId);
 		Survey result = getSurveyService().save(survey);
 
 		return ok(Json.toJson(result));
 	}
 
-	public Result survey(String eventId, String surveyId) {
+	public Result survey(String surveyId) {
 		Logger.debug("SurveyAPIController.survey surveyId =" + surveyId);
 		Survey survey = getSurveyService().getSurvey(surveyId);
 		return ok(Json.toJson(survey));
+	}
+
+	public Result deleteSurvey(String surveyId) {
+
+		Survey original = getSurveyService().getSurvey(surveyId);
+		if (original != null && !original.canUpdate(getUserName())) {
+			return forbidden();
+		}
+
+		getSurveyService().delete(surveyId);
+		return ok();
+
+	}
+
+	public Result surveys() {
+		Logger.debug("SurveyAPIController.surveys()");
+
+		return ok(play.libs.Json.toJson(getSurveyService().getAll()));
 	}
 
 }
