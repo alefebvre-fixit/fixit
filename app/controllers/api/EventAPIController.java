@@ -11,6 +11,7 @@ import play.libs.Json;
 import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 import play.mvc.Results;
+import play.mvc.Security;
 
 import com.fixit.model.event.Event;
 import com.fixit.model.event.EventComment;
@@ -18,9 +19,9 @@ import com.fixit.model.event.EventFactory;
 import com.fixit.model.event.Participation;
 import com.fixit.model.user.User;
 
+import controllers.Secured;
 import controllers.YaController;
 
-//@Security.Authenticated(Secured.class)
 @Named
 public class EventAPIController extends YaController {
 
@@ -30,6 +31,7 @@ public class EventAPIController extends YaController {
 		return ok(play.libs.Json.toJson(getEventService().getAll()));
 	}
 
+	@Security.Authenticated(Secured.class)
 	public Result getEventTimeline() {
 		Logger.debug("EventAPIController.getEventTimeline()");
 		return ok(play.libs.Json.toJson(getEventService().getEventTimeline()));

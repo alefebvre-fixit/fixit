@@ -54,4 +54,10 @@ public class AppConfig {
 
 	}
 
+	
+	@Bean
+	public play.mvc.Security.AuthenticatedAction security$AuthenticatedAction() {
+		return new play.mvc.Security.AuthenticatedAction();
+	} 
+	
 }

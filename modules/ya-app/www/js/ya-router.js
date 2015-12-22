@@ -17,6 +17,10 @@ angular.module('ya-app').config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: "templates/groups/group-list.html",
 			controller: 'JSDataController'
 		})
+		.state('login-test', {
+			url: "/logintest",
+			templateUrl: "templates/login-test.html"
+		})
 		;
 
 
