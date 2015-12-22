@@ -19,5 +19,6 @@ libraryDependencies ++= Seq(
   	"org.springframework" % "spring-test" % "4.0.4.RELEASE" % "test",
     "com.amazonaws" % "aws-java-sdk" % "1.3.11" ,
     "com.google.apis" % "google-api-services-plus" % "v1-rev219-1.20.0" ,
-  	"org.atmosphere" % "atmosphere-play" % "2.1.2" 	
+  	"org.atmosphere" % "atmosphere-play" % "2.1.2",
+  	"com.restfb"    % "restfb" % "1.18.0"
   )
