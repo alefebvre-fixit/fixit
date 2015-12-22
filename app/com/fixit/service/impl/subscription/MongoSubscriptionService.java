@@ -5,17 +5,9 @@ import javax.inject.Named;
 
 import com.fixit.service.EventService;
 import com.fixit.service.GroupService;
-import com.fixit.service.ProjectService;
 
 @Named
 public abstract class MongoSubscriptionService {
-
-	@Inject
-	private ProjectService projectService;
-
-	protected ProjectService getProjectService() {
-		return projectService;
-	}
 
 	@Inject
 	private EventService eventService;
