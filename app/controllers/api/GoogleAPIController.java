@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import controllers.FixItController;
 
-public class TestController extends FixItController {
+public class GoogleAPIController extends FixItController {
 	
 	//https://developers.google.com/+/web/api/rest/
 	//https://developers.google.com/identity/protocols/OAuth2UserAgent#callinganapi

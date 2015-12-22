@@ -40,8 +40,6 @@ GET     /api/projects/new          							@controllers.api.ProjectAPIController.
 GET     /api/projects/:id          							controllers.api.ProjectAPIController.project(id: String)
 GET 	/api/projects/:projectId/followers/size 			controllers.api.ProjectAPIController.followerSize(projectId: String)
 GET 	/api/projects/:projectId/followers 					controllers.api.ProjectAPIController.followers(projectId: String)
-GET 	/api/projects/:projectId/comments/size 				controllers.api.CommentAPIController.commentSize(projectId: String)
-GET 	/api/projects/:projectId/comments 					controllers.api.CommentAPIController.comments(projectId: String)
 
 
 POST 	/api/projects			   					controllers.api.ProjectAPIController.save()
@@ -49,7 +47,6 @@ POST    /api/projects/:projectId/delete   			controllers.api.ProjectAPIControlle
 POST    /api/projects/:projectId/publish  			controllers.api.ProjectAPIController.publishProject(projectId: String)
 POST 	/api/projects/:projectId/follow 			controllers.api.ProjectAPIController.follow(projectId: String)
 POST 	/api/projects/:projectId/unfollow 			controllers.api.ProjectAPIController.unfollow(projectId: String)
-POST 	/api/projects/:projectId/comments/:content 			controllers.api.CommentAPIController.post(projectId: String, content: String)
 
 
 # API Cards
@@ -123,8 +120,8 @@ POST    /api/events/:eventId/notifications/acknowledge     		@controllers.api.No
 
 # API Test 
 
-GET    /api/test     											controllers.api.TestController.test()
-GET    /api/external/google/profile/:username     				controllers.api.TestController.googlePlusProfile(username: String)
+GET    /api/test     											controllers.api.GoogleAPIController.test()
+GET    /api/external/google/profile/:username     				controllers.api.GoogleAPIController.googlePlusProfile(username: String)
 
 
 # API Group

@@ -122,7 +122,7 @@ public class UserAPIController extends FixItController {
 
 	// TODO use bean validation
 	public List<String> validate(SignUp signup) {
-		List<String> result = new ArrayList<>();
+		List<String> result = new ArrayList<String>();
 
 		User user = userService.load(signup.getUsername());
 		if (user != null) {

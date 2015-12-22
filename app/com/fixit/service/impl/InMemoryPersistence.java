@@ -10,7 +10,7 @@ import com.fixit.model.Project;
 
 public class InMemoryPersistence {
 
-	private static final Map<String, Project> projects = new HashMap<>();
+	private static final Map<String, Project> projects = new HashMap<String, Project>();
 
 	public static final List<Project> getProjects() {
 		return new ArrayList<Project>(projects.values());

@@ -10,7 +10,6 @@ import com.fixit.model.event.Event;
 import com.fixit.model.event.Participation;
 import com.fixit.model.group.Group;
 import com.fixit.model.notification.impl.CardNotificationFactory;
-import com.fixit.model.notification.impl.CommentNotificationFactory;
 import com.fixit.model.notification.impl.ContributionNotificationFactory;
 import com.fixit.model.notification.impl.EventNotificationFactory;
 import com.fixit.model.notification.impl.FavoriteNotificationFactory;
@@ -18,7 +17,6 @@ import com.fixit.model.notification.impl.GroupNotificationFactory;
 import com.fixit.model.notification.impl.ParticipationNotificationFactory;
 import com.fixit.model.notification.impl.ProjectNotificationFactory;
 import com.fixit.model.notification.impl.SurveyNotificationFactory;
-import com.fixit.model.project.ProjectComment;
 import com.fixit.model.survey.Survey;
 
 public abstract class NotificationFactory {
@@ -30,7 +28,6 @@ public abstract class NotificationFactory {
 	private final static NotificationFactory cardFactory = new CardNotificationFactory();
 	private final static NotificationFactory projectFactory = new ProjectNotificationFactory();
 	private final static NotificationFactory favoriteFactory = new FavoriteNotificationFactory();
-	private final static NotificationFactory commentFactory = new CommentNotificationFactory();
 
 	// Ya
 	private final static NotificationFactory participationFactory = new ParticipationNotificationFactory();
@@ -57,9 +54,7 @@ public abstract class NotificationFactory {
 			result = cardFactory;
 		} else if (object instanceof Favorite) {
 			result = favoriteFactory;
-		} else if (object instanceof ProjectComment) {
-			result = commentFactory;
-		}
+		} 
 
 		if (result != null){
 			Logger.debug("NotificationFactory.getInstance(Object object) result=" + result.getClass().getSimpleName());			
