@@ -195,7 +195,6 @@ DELETE	/api/surveys/:surveyId   									@controllers.api.SurveyAPIController.de
 # Others
 
 GET     /pingWs                     								controllers.Application.pingWs()
-GET     /testSpring                     							@controllers.SpringController.index()
 
 
 
