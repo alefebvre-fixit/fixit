@@ -6,15 +6,17 @@ import play.Logger;
 import play.libs.Json;
 import play.mvc.Http.RequestBody;
 import play.mvc.Result;
+import play.mvc.Security;
 
 import com.fixit.model.survey.Survey;
 
+import controllers.Secured;
 import controllers.YaController;
 
-//@Security.Authenticated(Secured.class)
 @Named
 public class SurveyAPIController extends YaController {
 
+	@Security.Authenticated(Secured.class)
 	public Result update(String surveyId) {
 		Logger.debug("SurveyAPIController.update()");
 
@@ -34,6 +36,7 @@ public class SurveyAPIController extends YaController {
 		return ok(Json.toJson(result));
 	}
 
+	@Security.Authenticated(Secured.class)
 	public Result create() {
 		Logger.debug("SurveyAPIController.save()");
 
@@ -47,12 +50,14 @@ public class SurveyAPIController extends YaController {
 		return ok(Json.toJson(result));
 	}
 
+	@Security.Authenticated(Secured.class)
 	public Result survey(String surveyId) {
 		Logger.debug("SurveyAPIController.survey surveyId =" + surveyId);
 		Survey survey = getSurveyService().getSurvey(surveyId);
 		return ok(Json.toJson(survey));
 	}
 
+	@Security.Authenticated(Secured.class)
 	public Result deleteSurvey(String surveyId) {
 
 		Survey original = getSurveyService().getSurvey(surveyId);
@@ -65,6 +70,7 @@ public class SurveyAPIController extends YaController {
 
 	}
 
+	@Security.Authenticated(Secured.class)
 	public Result surveys() {
 		Logger.debug("SurveyAPIController.surveys()");
 
