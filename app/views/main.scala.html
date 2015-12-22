@@ -32,51 +32,9 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-theme.css")">
     <script src="@routes.Assets.at("javascripts/bootstrap.js")" type="text/javascript"></script>
 
-
   </head>
 
   <body>
-      <!-- Static navbar -->
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Fix-It</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="@{if (title.equals("Home")) "active" else "inactive"}"><a href="@routes.ProjectController.projects()">Home</a></li>
-            <li class="@{if (title.equals("Me")) "active" else "inactive"}"><a href="@routes.ProjectController.me()">Me</a></li>
-            <li class="@{if (title.equals("New")) "active" else "inactive"}"><a href="@routes.ProjectController.newProject()">New Project</a></li>
-            <li class="@{if (title.equals("Test")) "active" else "inactive"}"><a href="@routes.ProjectController.testProject()">Test</a></li>           
-                     
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">@session().get("username") <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="@routes.AccountController.userProfile()">Edit Account</a></li>
-                <li class="divider"></li>
-                <li><a href="@routes.AccountController.logout()">logout</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-
-      <div class="container" ng-controller="FixItController" ng-init="init('@session().get("username")')">
-        	@content
-      </div><!--/.container-->
-
-      <footer class="container">
-        <p>&copy; Company 2014</p>
-      </footer>
   </body>
   
 </html>

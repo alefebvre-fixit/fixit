@@ -5,80 +5,12 @@
 
 
 # Home page
-GET     /                       controllers.ProjectController.projects()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file            controllers.Assets.at(path="/public", file)
 
 
-# Login
-GET  /login        				controllers.AccountController.login()
-GET  /signup        			controllers.AccountController.signup()
-GET  /logout        			controllers.AccountController.logout()
-POST /authenticate 				@controllers.AccountController.authenticate()
-
-# User
-GET     /setting/profile       	controllers.AccountController.userProfile()
-
-
-# Projects          
-GET     /projects               controllers.ProjectController.projects()
-GET     /projects/:id           controllers.ProjectController.viewProject(id: String)
-GET     /projects/:id/edit      controllers.ProjectController.editProject(id: String)
-GET     /projects/new/          controllers.ProjectController.newProject()
-GET     /me/		       	    controllers.ProjectController.me()
-GET     /projects/test/         controllers.ProjectController.testProject()
-
-
-GET     /api/users/:user/contributions     		@controllers.api.ContributionAPIController.getUserContributions(user: String)
-GET     /api/users/:user/projects     			@controllers.api.ProjectAPIController.getUserProjects(user: String)
-GET     /api/users/:user/favorites/projects     @controllers.api.ProjectAPIController.favorites(user: String)
-
-# API Project
-GET     /api/projects              							controllers.api.ProjectAPIController.projects()
-GET     /api/projects/new          							@controllers.api.ProjectAPIController.createNewProject()
-GET     /api/projects/:id          							controllers.api.ProjectAPIController.project(id: String)
-GET 	/api/projects/:projectId/followers/size 			controllers.api.ProjectAPIController.followerSize(projectId: String)
-GET 	/api/projects/:projectId/followers 					controllers.api.ProjectAPIController.followers(projectId: String)
-
-
-POST 	/api/projects			   					controllers.api.ProjectAPIController.save()
-POST    /api/projects/:projectId/delete   			controllers.api.ProjectAPIController.deleteProject(projectId: String)
-POST    /api/projects/:projectId/publish  			controllers.api.ProjectAPIController.publishProject(projectId: String)
-POST 	/api/projects/:projectId/follow 			controllers.api.ProjectAPIController.follow(projectId: String)
-POST 	/api/projects/:projectId/unfollow 			controllers.api.ProjectAPIController.unfollow(projectId: String)
-
-
-# API Cards
-
-GET     /api/projects/:projectId/cards/:cardId          				controllers.api.ProjectAPIController.card(projectId: String, cardId: String)
-GET    	/api/projects/:projectId/cards/new/:type						controllers.api.ProjectAPIController.createCard(projectId: String, type: String)
-GET    	/api/projects/:projectId/cards/:cardId/summary					controllers.api.ProjectAPIController.getCardSummary(projectId: String, cardId: String)
-
-POST    /api/projects/:projectId/cards  								controllers.api.ProjectAPIController.addCard(projectId: String)
-
-
-PUT    	/api/projects/:projectId/cards/:cardId  						controllers.api.ProjectAPIController.updateCard(projectId: String, cardId: String)
-
-DELETE 	/api/projects/:projectId/cards/:cardId 							controllers.api.ProjectAPIController.deleteCard(projectId: String, cardId: String)
-
-# API Contributions
-
-POST 	/api/projects/:projectId/contributions/:contributionId/cancel 	controllers.api.ContributionAPIController.cancelContribution(projectId: String, contributionId: String)
-POST    /api/projects/:projectId/cards/:cardId/contributions  			@controllers.api.ContributionAPIController.contribute(projectId: String, cardId: String)
-
-GET 	/api/projects/:projectId/contributions 							controllers.api.ContributionAPIController.getProjectContributions(projectId: String)
-GET 	/api/projects/:projectId/contributions/:contributionId 			controllers.api.ContributionAPIController.getContribution(projectId: String, contributionId: String)
-GET    	/api/projects/:projectId/cards/:cardId/contributions  			controllers.api.ContributionAPIController.getCardContributions(projectId: String, cardId: String)
-GET    	/api/projects/:projectId/cards/:cardId/contributions/new/:type  controllers.api.ContributionAPIController.createContribution(projectId: String, cardId: String, type: String)
-
-
-GET    	/api/projects/:projectId/cards/new/:type						controllers.api.ProjectAPIController.createCard(projectId: String, type: String)
-
-
 # API Account
-
-
 GET     /api/users/:user/followers/size       		@controllers.api.UserAPIController.followerSize(user: String)
 GET     /api/users/:user/followers       			@controllers.api.UserAPIController.followers(user: String)
 GET     /api/users/:user/following/size       		@controllers.api.UserAPIController.followingSize(user: String)
