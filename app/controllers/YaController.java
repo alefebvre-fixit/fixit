@@ -8,6 +8,7 @@ import play.mvc.Controller;
 import com.fixit.model.user.User;
 import com.fixit.service.EventService;
 import com.fixit.service.GroupService;
+import com.fixit.service.NotificationService;
 import com.fixit.service.SurveyService;
 import com.fixit.service.UserService;
 
@@ -28,6 +29,13 @@ public class YaController extends Controller {
 
 	@Inject
 	private SurveyService surveyService;
+	
+	@Inject
+	private NotificationService notificationService;
+	
+	protected NotificationService getNotificationService(){
+		return notificationService;
+	}
 	
 	protected UserService getUserService() {
 		return userService;

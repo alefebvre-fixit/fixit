@@ -21,10 +21,10 @@ import com.fixit.model.user.User;
 import com.fixit.service.GroupService;
 import com.fixit.service.UserService;
 
-import controllers.FixItController;
+import controllers.YaController;
 
 @Named
-public class UserAPIController extends FixItController {
+public class UserAPIController extends YaController {
 
 	@Inject
 	private GroupService groupService;
@@ -52,7 +52,7 @@ public class UserAPIController extends FixItController {
 		Logger.debug("UserAPIController.accounts()");
 		return ok(play.libs.Json.toJson(userService.getAll()));
 	}
-	
+
 	public Result userDiscovery() {
 		Logger.debug("UserAPIController.accounts()");
 		return ok(play.libs.Json.toJson(userService.getAll()));
@@ -183,7 +183,7 @@ public class UserAPIController extends FixItController {
 		Logger.debug("UserAPIController.following username =" + username);
 		return ok(Json.toJson(getUserService().getFollowing(username)));
 	}
-	
+
 	public Result followingNames(String username) {
 		Logger.debug("UserAPIController.followingNames username =" + username);
 		return ok(Json.toJson(getUserService().getFollowingNames(username)));

@@ -9,10 +9,10 @@ import play.mvc.Result;
 
 import com.fixit.model.notification.Notification;
 
-import controllers.FixItController;
+import controllers.YaController;
 
 @Named
-public class NotificationAPIController extends FixItController {
+public class NotificationAPIController extends YaController {
 
 	// @Security.Authenticated(Secured.class)
 	public Result notifications() {
@@ -60,5 +60,5 @@ public class NotificationAPIController extends FixItController {
 
 		return ok();
 	}
-	
+
 }

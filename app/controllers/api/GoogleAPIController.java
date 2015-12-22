@@ -10,9 +10,9 @@ import play.mvc.Result;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import controllers.FixItController;
+import controllers.YaController;
 
-public class GoogleAPIController extends FixItController {
+public class GoogleAPIController extends YaController {
 	
 	//https://developers.google.com/+/web/api/rest/
 	//https://developers.google.com/identity/protocols/OAuth2UserAgent#callinganapi

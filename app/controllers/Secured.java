@@ -9,8 +9,9 @@ public class Secured extends Authenticator {
 
 	@Override
 	public String getUsername(Context ctx) {
-		Logger.debug("Secured getUsername()" + ctx.session().get(FixItController.SESSION_ATTRIBUTE_USERNAME));
-		return ctx.session().get(FixItController.SESSION_ATTRIBUTE_USERNAME);
+		Logger.debug("Secured getUsername()"
+				+ ctx.session().get(YaController.SESSION_ATTRIBUTE_USERNAME));
+		return ctx.session().get(YaController.SESSION_ATTRIBUTE_USERNAME);
 	}
 
 	@Override
