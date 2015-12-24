@@ -30,4 +30,10 @@ public class EmailSignIn extends SignIn{
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "EmailSignIn [password=" + password + ", username=" + username
+				+ "]";
+	}
+
 }

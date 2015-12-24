@@ -118,6 +118,9 @@ public class UserAPIController extends YaController {
 	String APP_SECRET = "07682c1ea374c2ca6eaa6fcff5ebb589";
 
 	public Result facebookSignIn() {
+		Logger.debug("UserAPIController.facebookSignIn()");
+		
+		YaUser user = null;
 		
 		RequestBody body = request().body();
 		FacebookSignIn signin = Json.fromJson(body.asJson(), FacebookSignIn.class);
@@ -130,22 +133,29 @@ public class UserAPIController extends YaController {
 		User facebook = facebookClient.fetchObject("me", User.class);
 		
 		if (facebook!= null){
-			YaUser user = getUserService().findOneByEmail(facebook.getEmail());
+			Logger.debug("UserAPIController.facebookSignIn() retrieved user from facebook=" + facebook);
+				
+			user = getUserService().findOneByEmail(facebook.getEmail());
 			
 			//We do not know this user, this is actually a sign-up
 			if (user == null){
 				SignUp signup = new FacebookSignUp(facebook);
 				user = getUserService().signup(signup);
 			}
-			
-			
+		} 
+		
+		
+		if (user == null) {
+			Logger.debug("UserAPIController.facebookSignIn() cannot identify user=");
 			session().clear();
-			session(SESSION_ATTRIBUTE_USERNAME, user.getUsername());
-			session(SESSION_ATTRIBUTE_ACCESS_TOKEN, signin.getToken());
-					
+			return forbidden("Invalid password");
 		}
-	
-		return ok();
+		
+		session().clear();
+		session(SESSION_ATTRIBUTE_USERNAME, user.getUsername());
+		session(SESSION_ATTRIBUTE_ACCESS_TOKEN, signin.getToken());
+
+		return ok(play.libs.Json.toJson(user));
 	}
 
 	// TODO use bean validation
