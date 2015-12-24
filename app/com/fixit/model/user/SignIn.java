@@ -7,8 +7,6 @@ import play.data.validation.Constraints.Required;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SignIn {
 
-	private static final long serialVersionUID = 1L;
-
 	@Required
 	private String password;
 
