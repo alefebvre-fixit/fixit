@@ -5,7 +5,7 @@ import javax.inject.Named;
 
 import play.mvc.Controller;
 
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 import com.fixit.service.EventService;
 import com.fixit.service.GroupService;
 import com.fixit.service.NotificationService;
@@ -49,8 +49,8 @@ public class YaController extends Controller {
 		return groupService;
 	}
 
-	protected User getUser() {
-		return userService.load(getUserName());
+	protected YaUser getUser() {
+		return userService.findOne(getUserName());
 	}
 
 	protected SurveyService getSurveyService() {

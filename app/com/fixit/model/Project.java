@@ -1,15 +1,13 @@
 package com.fixit.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection = "Project")
@@ -163,7 +161,7 @@ public class Project {
 		return false;
 	}
 
-	public static Project instanciate(User user) {
+	public static Project instanciate(YaUser user) {
 		Project project = new Project();
 		project.username = user.getUsername();
 		project.country = user.getProfile().getCountry();
@@ -183,62 +181,4 @@ public class Project {
 		this.status = status;
 	}
 
-	public static Map<String, Project> all() {
-		// return find.all();
-
-		Map<String, Project> result = new HashMap<String, Project>();
-
-		Project project = new Project();
-		project.id = "1";
-		project.name = "Project A";
-		project.description = "First " + loremIpsum;
-		project.country = "France";
-		project.city = "Paris";
-		project.username = User.PAUL_SMITH;
-
-		result.put(project.getId(), project);
-
-		Project project2 = new Project();
-		project2.id = "2";
-		project2.name = "Project B";
-		project2.description = "Seccond " + loremIpsum;
-		project2.city = "San Francisco";
-		project2.country = "USA";
-		project2.username = User.PAUL_SMITH;
-
-		result.put(project2.getId(), project2);
-
-		Project project3 = new Project();
-		project3.id = "3";
-		project3.name = "Project C";
-		project3.description = "Third " + loremIpsum;
-		project3.city = "San Francisco";
-		project3.country = "USA";
-		project3.username = User.PAUL_SMITH;
-
-		result.put(project3.getId(), project3);
-
-		Project project4 = new Project();
-		project4.id = "4";
-		project4.name = "Project D";
-		project4.description = "Fourth " + loremIpsum;
-		project4.city = "San Francisco";
-		project4.country = "USA";
-		project4.username = User.ANTOINE;
-		result.put(project4.getId(), project4);
-
-		Project project5 = new Project();
-		project5.id = "5";
-		project5.name = "Project E";
-		project5.description = "Fifth " + loremIpsum;
-		project5.city = "San Francisco";
-		project5.country = "USA";
-		project5.username = User.ANTOINE;
-		result.put(project5.getId(), project5);
-
-		return result;
-
-	}
-
-	private static String loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 }

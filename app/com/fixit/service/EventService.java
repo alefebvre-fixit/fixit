@@ -7,7 +7,7 @@ import com.fixit.model.event.EventComment;
 import com.fixit.model.event.EventTimeline;
 import com.fixit.model.event.Participation;
 import com.fixit.model.event.ParticipationSummary;
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 
 public interface EventService {
 
@@ -64,6 +64,6 @@ public interface EventService {
 	
 	public int countComments(String eventId);
 	
-	public List<User> findSponsors(String groupId);
+	public List<YaUser> findSponsors(String groupId);
 
 }

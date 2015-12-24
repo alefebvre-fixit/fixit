@@ -5,33 +5,32 @@ import java.util.List;
 
 public class Profile {
 
-	private static final long serialVersionUID = 1L;
+	private String name;
 
-    private String name;
+	private String website;
+	private String biography;
 
-    private String website;
-    private String biography;
+	private String city;
+	private String country;
 
-    private String city;
-    private String country;
+	private List<String> interest = new ArrayList<String>();
+	private Picture picture = new Picture();
 
-    private List<String> interest = new ArrayList<String>();
-    
-    public void setName(String name){
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getName(){
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public String getWebsite(){
-        return this.website;
-    }
+	public String getWebsite() {
+		return this.website;
+	}
 
-    public void setWebsite(String website){
-        this.website = website;
-    }
+	public void setWebsite(String website) {
+		this.website = website;
+	}
 
 	public String getBiography() {
 		return biography;
@@ -63,6 +62,14 @@ public class Profile {
 
 	public void setInterest(List<String> interest) {
 		this.interest = interest;
+	}
+
+	public Picture getPicture() {
+		return picture;
+	}
+
+	public void setPicture(Picture picture) {
+		this.picture = picture;
 	}
 
 }

@@ -34,6 +34,8 @@ GET     /api/notifications     						@controllers.api.NotificationAPIController.
 
 POST    /api/signup     							@controllers.api.UserAPIController.signUp()
 POST 	/api/signin/google							@controllers.api.UserAPIController.googleSignIn()
+POST 	/api/signin/facebook						@controllers.api.UserAPIController.facebookSignIn()
+
 POST    /api/signin     							@controllers.api.UserAPIController.signIn()
 POST    /api/profile     							@controllers.api.UserAPIController.updateProfile()
 POST    /api/profile/picture     					@controllers.api.UserAPIController.uploadPicture()

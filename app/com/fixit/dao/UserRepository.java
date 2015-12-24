@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 
-public interface UserRepository extends MongoRepository<User, String> {
+public interface UserRepository extends MongoRepository<YaUser, String> {
 
 
-	List<User> findByEmail(String email);
+	List<YaUser> findByEmail(String email);
 	
-	List<User> findByUsername(String username);
+	List<YaUser> findByUsername(String username);
 	
-	List<User> findByUsernameIn(List<String> usernames);
+	List<YaUser> findByUsernameIn(List<String> usernames);
 
 }

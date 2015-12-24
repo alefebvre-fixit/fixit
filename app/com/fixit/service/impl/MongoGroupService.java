@@ -17,7 +17,7 @@ import com.fixit.dao.FavoriteRepository;
 import com.fixit.dao.GroupRepository;
 import com.fixit.model.Favorite;
 import com.fixit.model.group.Group;
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 import com.fixit.service.GroupService;
 import com.fixit.service.NotificationService;
 import com.fixit.service.UserService;
@@ -171,11 +171,11 @@ public class MongoGroupService implements GroupService {
 	}
 
 	@Override
-	public List<User> findFollowers(String groupId) {
+	public List<YaUser> findFollowers(String groupId) {
 
 		Logger.debug("MongoGroupService.groupFollowers(String groupId) groupId="
 				+ groupId);
-		List<User> result = new ArrayList<User>();
+		List<YaUser> result = new ArrayList<YaUser>();
 
 		List<Favorite> favorites = favoriteRepository.findByGroupId(groupId);
 
@@ -188,7 +188,7 @@ public class MongoGroupService implements GroupService {
 		}
 
 		if (result == null) {
-			result = new ArrayList<User>();
+			result = new ArrayList<YaUser>();
 		}
 
 		return result;
@@ -217,19 +217,19 @@ public class MongoGroupService implements GroupService {
 	}
 
 	@Override
-	public List<User> findSponsors(String groupId) {
+	public List<YaUser> findSponsors(String groupId) {
 
 		Logger.debug("MongoGroupService.groupSponsors(String groupId) groupId="
 				+ groupId);
 
-		List<User> result = new ArrayList<User>();
+		List<YaUser> result = new ArrayList<YaUser>();
 		Group group = findOne(groupId);
 		if (group != null) {
 			result = userService.find(group.getSponsors());
 		}
 
 		if (result == null) {
-			result = new ArrayList<User>();
+			result = new ArrayList<YaUser>();
 		}
 
 		return result;

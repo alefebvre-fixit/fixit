@@ -4,44 +4,46 @@ import java.util.List;
 
 import com.fixit.model.user.SignIn;
 import com.fixit.model.user.SignUp;
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 
 public interface UserService {
 
-	public User load(String username);
-	
-	public List<User> find(List<String> usernames);
+	public YaUser findOne(String username);
 
-	public User authenticate(SignIn signin);
+	public YaUser findOneByEmail(String email);
 
-	public User authenticateByEmail(String email, String password);
+	public List<YaUser> find(List<String> usernames);
 
-	public User authenticateByUserName(String username, String password);
+	public YaUser authenticate(SignIn signin);
 
-	public String create(User user);
+	public YaUser authenticateByEmail(String email, String password);
 
-	public User save(User user);
+	public YaUser authenticateByUserName(String username, String password);
+
+	public String create(YaUser user);
+
+	public YaUser save(YaUser user);
 
 	public void delete(String id);
 
-	public List<User> findAll();
+	public List<YaUser> findAll();
 
-	public List<User> getFollowers(String username);
-	
+	public List<YaUser> getFollowers(String username);
+
 	public List<String> findFollowerNames(String username);
 
 	public int countFollowers(String username);
 
-	public User signup(SignUp signup);
+	public YaUser signup(SignUp signup);
 
 	public void follow(String follower, String followee);
 
 	public void unFollow(String follower, String followee);
 
-	public List<User> findFollowing(String username);
+	public List<YaUser> findFollowing(String username);
 
 	public List<String> findFollowingNames(String username);
-	
+
 	public int countFollowing(String username);
 
 }

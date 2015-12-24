@@ -13,7 +13,8 @@ import com.fixit.dao.UserRepository;
 import com.fixit.model.user.Following;
 import com.fixit.model.user.SignIn;
 import com.fixit.model.user.SignUp;
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
+import com.fixit.model.user.impl.EmailSignIn;
 import com.fixit.service.UserService;
 import com.fixit.util.YaUtil;
 
@@ -27,12 +28,12 @@ public class MongoUserService implements UserService {
 	private FollowingRepository followingRepository;
 
 	@Override
-	public User load(String username) {
+	public YaUser findOne(String username) {
 		Logger.debug("MongoUserService.load(String userName) username="
 				+ username);
-		User result = null;
+		YaUser result = null;
 
-		List<User> users = userRepository.findByUsername(username);
+		List<YaUser> users = userRepository.findByUsername(username);
 		if (users != null && users.size() > 0) {
 			result = users.get(0);
 		}
@@ -41,10 +42,10 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public User authenticateByEmail(String email, String password) {
-		User user = null;
+	public YaUser authenticateByEmail(String email, String password) {
+		YaUser user = null;
 
-		List<User> users = userRepository.findByEmail(email);
+		List<YaUser> users = userRepository.findByEmail(email);
 		if (users != null && users.size() > 0) {
 			user = users.get(0);
 			if (authenticate(user, password)) {
@@ -57,8 +58,8 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public User authenticateByUserName(String username, String password) {
-		User user = load(username);
+	public YaUser authenticateByUserName(String username, String password) {
+		YaUser user = findOne(username);
 
 		if (authenticate(user, password)) {
 			return user;
@@ -67,7 +68,7 @@ public class MongoUserService implements UserService {
 		}
 	}
 
-	private boolean authenticate(User user, String password) {
+	private boolean authenticate(YaUser user, String password) {
 
 		if (user == null) {
 			return false;
@@ -81,18 +82,18 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public String create(User user) {
-		User result = save(user);
+	public String create(YaUser user) {
+		YaUser result = save(user);
 		return result.getUsername();
 	}
 
 	@Override
-	public User save(User user) {
+	public YaUser save(YaUser user) {
 		return userRepository.save(user);
 	}
 
 	@Override
-	public List<User> findAll() {
+	public List<YaUser> findAll() {
 		return userRepository.findAll();
 	}
 
@@ -103,16 +104,19 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public User signup(SignUp signup) {
-		User user = new User(signup);
-		save(user);
-		return user;
+	public YaUser signup(SignUp signup) {
+		return save(YaUser.create(signup));
 	}
 
 	@Override
-	public User authenticate(SignIn signin) {
-		return authenticateByUserName(signin.getUsername(),
-				signin.getPassword());
+	public YaUser authenticate(SignIn signin) {
+		if (signin instanceof EmailSignIn){
+			EmailSignIn emailSignIn = (EmailSignIn) signin;
+			return authenticateByUserName(emailSignIn.getUsername(),
+					emailSignIn.getPassword());
+		}
+		Logger.error("MongoUserService.authenticate(SignIn signin) unknown signin method = " + signin.getClass().getSimpleName());
+		return null;
 	}
 
 	@Override
@@ -140,12 +144,12 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public List<User> getFollowers(String username) {
+	public List<YaUser> getFollowers(String username) {
 
 		Logger.debug("MongoUserService.getFollowers(String username) username="
 				+ username);
 
-		List<User> result = null;
+		List<YaUser> result = null;
 
 		List<String> names = findFollowerNames(username);
 
@@ -154,7 +158,7 @@ public class MongoUserService implements UserService {
 		}
 
 		if (result == null) {
-			result = new ArrayList<User>();
+			result = new ArrayList<YaUser>();
 		}
 
 		Logger.debug("MongoUserService.getFollowers(String username) result="
@@ -171,8 +175,8 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public List<User> findFollowing(String username) {
-		List<User> result = null;
+	public List<YaUser> findFollowing(String username) {
+		List<YaUser> result = null;
 
 		Logger.debug("MongoUserService.getFollowing(String username) username="
 				+ username);
@@ -184,7 +188,7 @@ public class MongoUserService implements UserService {
 		}
 
 		if (result == null) {
-			result = new ArrayList<User>();
+			result = new ArrayList<YaUser>();
 		}
 
 		return result;
@@ -236,21 +240,44 @@ public class MongoUserService implements UserService {
 	}
 
 	@Override
-	public List<User> find(List<String> usernames) {
-		List<User> result = null;
+	public List<YaUser> find(List<String> usernames) {
+		List<YaUser> result = null;
 
-		Logger.debug("MongoUserService.load(List<String> usernames) usernames="
+		Logger.debug("MongoUserService.find(List<String> usernames) usernames="
 				+ usernames);
-		
+
 		if (YaUtil.isNotEmpty(usernames)) {
 			result = userRepository.findByUsernameIn(usernames);
 		}
-		
+
 		if (result == null) {
-			result = new ArrayList<User>();
+			result = new ArrayList<YaUser>();
 		}
-		
+
 		return result;
 	}
+
+	@Override
+	public YaUser findOneByEmail(String email) {
+		Logger.debug("MongoUserService.findOneByEmail(String email) email="
+				+ email);
+
+		YaUser result = null;
+
+		List<YaUser> users = userRepository.findByEmail(email);
+
+		if (YaUtil.isEmpty(users)) {
+			Logger.debug("Cannot find user with email=" + email);
+		} else if (users.size() == 1) {
+			Logger.debug("Cannot find one user with email=" + email);
+			result = users.get(0);
+		} else {
+			Logger.debug("Cannot find " + users.size() + " user with email="
+					+ email);
+		}
+
+		return result;
+	}
+
 
 }

@@ -83,13 +83,32 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
         $scope.facebookLogin = function() {
             YaService.startLoading();
             $cordovaOauth.facebook("1489020631407250", ["email", "public_profile"]).then(function(result) {
-                $rootScope.logindata = result;
-                YaService.stopLoading();
-                $state.go('login-test');
+                var signin = {token: result.access_token, expiration: result.expires_in};
+
+                YaService.facebookLogin(signin).success(function (user) {
+                    UserService.getFollowingGroupIds(user.username).then(function(favorites) {
+                            YaService.setFavorites(favorites);
+                            UserService.getFollowingNames(user.username).then(function(following) {
+                                YaService.setFollowing(following);
+                                YaService.setUser(user);
+
+                                NotificationService.getNotifications().then(function (notifications) {
+                                    $rootScope.badgecount = Object.keys(notifications).length-1;
+                                });
+
+                                $state.transitionTo('tabs.events');
+                                YaService.stopLoading();
+                            });
+                        }
+                    );
+                }).error(function (response, status) {
+                    YaService.stopLoading();
+                    $log.debug("Invalid username or password");
+                    $scope.signin.error = 'Invalid username or password';
+                });
             }, function(error) {
                 YaService.stopLoading();
                 $rootScope.logindata = error;
-                $state.go('login-test');
             });
         };
 

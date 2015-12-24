@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 
 @Document(collection = "Participation")
 public class Participation {
@@ -29,7 +29,7 @@ public class Participation {
 	public Participation(){
 	}
 	
-	public Participation(Event event, User user){
+	public Participation(Event event, YaUser user){
 		this.eventId = event.getId();
 		this.eventName = event.getName();
 		this.creationDate = new Date();

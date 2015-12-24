@@ -22,7 +22,7 @@ import com.fixit.model.event.EventTimeline;
 import com.fixit.model.event.Participation;
 import com.fixit.model.event.ParticipationSummary;
 import com.fixit.model.group.Group;
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 import com.fixit.service.EventService;
 import com.fixit.service.GroupService;
 import com.fixit.service.NotificationService;
@@ -331,19 +331,19 @@ public class MongoEventService implements EventService {
 	}
 
 	@Override
-	public List<User> findSponsors(String eventId) {
+	public List<YaUser> findSponsors(String eventId) {
 
 		Logger.debug("MongoEventService.eventSponsors(String eventId) eventId="
 				+ eventId);
 
-		List<User> result = new ArrayList<User>();
+		List<YaUser> result = new ArrayList<YaUser>();
 		Event event = findOne(eventId);
 		if (event != null) {
 			result = userService.find(event.getSponsors());
 		}
 
 		if (result == null) {
-			result = new ArrayList<User>();
+			result = new ArrayList<YaUser>();
 		}
 
 		return result;

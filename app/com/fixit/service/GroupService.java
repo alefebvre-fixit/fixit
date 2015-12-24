@@ -3,7 +3,7 @@ package com.fixit.service;
 import java.util.List;
 
 import com.fixit.model.group.Group;
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 
 public interface GroupService {
 
@@ -31,9 +31,9 @@ public interface GroupService {
 	
 	public int countFollowingSize(String username);
 	
-	public List<User> findFollowers(String groupId);
+	public List<YaUser> findFollowers(String groupId);
 	
-	public List<User> findSponsors(String groupId);
+	public List<YaUser> findSponsors(String groupId);
 
 	public List<String> findFollowerNames(String groupId);
 

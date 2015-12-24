@@ -11,7 +11,7 @@ import javax.validation.Validator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.fixit.model.user.SignUp;
+import com.fixit.model.user.impl.EmailSignUp;
 
 public class SignUpTest {
 
@@ -24,9 +24,9 @@ public class SignUpTest {
 
 	@Test
 	public void manufacturerIsNull() {
-		SignUp signup = new SignUp();
+		EmailSignUp signup = new EmailSignUp();
 
-		Set<ConstraintViolation<SignUp>> constraintViolations = validator
+		Set<ConstraintViolation<EmailSignUp>> constraintViolations = validator
 				.validate(signup);
 
 		assertEquals(1, constraintViolations.size());

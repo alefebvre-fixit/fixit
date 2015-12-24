@@ -2,19 +2,23 @@ package com.fixit.model.user;
 
 import play.data.validation.Constraints.Required;
 
-public class SignUp {
+public abstract class SignUp {
 
 	@Required
 	private String username;
 
 	@Required
-	private String name;
-
-	@Required
 	private String email;
+	
+	private Profile profile = new Profile();
+	
+	public Profile getProfile() {
+		return profile;
+	}
 
-	@Required
-	private String password;
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
 
 	public String getUsername() {
 		return username;
@@ -24,28 +28,12 @@ public class SignUp {
 		this.username = username;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 }

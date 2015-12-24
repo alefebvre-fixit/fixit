@@ -17,7 +17,7 @@ import com.fixit.model.event.Event;
 import com.fixit.model.event.EventComment;
 import com.fixit.model.event.EventFactory;
 import com.fixit.model.event.Participation;
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 
 import controllers.Secured;
 import controllers.YaController;
@@ -188,9 +188,9 @@ public class EventAPIController extends YaController {
 		if (event != null) {
 			getEventService().deleteEventParticipations(eventId);
 
-			List<User> users = getUserService().findAll();
+			List<YaUser> users = getUserService().findAll();
 			if (users != null) {
-				for (User user : users) {
+				for (YaUser user : users) {
 					Logger.debug("User username=|" + user.getUsername() + "|");
 					if (user.getUsername() != null
 							&& !user.getUsername().equals("")) {

@@ -2,11 +2,11 @@ package com.fixit.model.group;
 
 import java.util.Date;
 
-import com.fixit.model.user.User;
+import com.fixit.model.user.YaUser;
 
 public class GroupFactory {
 
-	public static final Group createGroup(User user) {
+	public static final Group createGroup(YaUser user) {
 		Group result = new Group();
 		
 		result.setCreationDate(new Date());
