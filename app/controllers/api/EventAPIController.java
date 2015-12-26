@@ -23,22 +23,20 @@ import controllers.Secured;
 import controllers.YaController;
 
 @Named
+@Security.Authenticated(Secured.class)
 public class EventAPIController extends YaController {
 
-	@Security.Authenticated(Secured.class)
 	public Result events() {
 		Logger.debug("EventAPIController.events()");
 
 		return ok(play.libs.Json.toJson(getEventService().findAll()));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result getEventTimeline() {
 		Logger.debug("EventAPIController.getEventTimeline()");
 		return ok(play.libs.Json.toJson(getEventService().findEventTimeline()));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result getEventTimelineByGroup(String groupId) {
 		Logger.debug("EventAPIController.getEventTimelineByGroup(groupId) groupId="
 				+ groupId);
@@ -46,7 +44,6 @@ public class EventAPIController extends YaController {
 				groupId)));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result createNewEvent(String groupId) {
 		Logger.debug("EventAPIController.createNewEvent() gor groupId"
 				+ groupId);
@@ -55,7 +52,6 @@ public class EventAPIController extends YaController {
 				.findOne(groupId), getUser())));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result publishEvent(String eventId) {
 
 		Event event = getEventService().findOne(eventId);
@@ -70,7 +66,6 @@ public class EventAPIController extends YaController {
 		return ok(Json.toJson(event));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result update(String eventId) {
 		Logger.debug("EventAPIController.save()");
 
@@ -90,7 +85,6 @@ public class EventAPIController extends YaController {
 		return ok(Json.toJson(result));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result create() {
 		Logger.debug("EventAPIController.save()");
 
@@ -104,48 +98,41 @@ public class EventAPIController extends YaController {
 		return ok(Json.toJson(result));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result sponsors(String eventId) {
 		Logger.debug("EventAPIController.sponsors eventId =" + eventId);
 		return ok(Json.toJson(getEventService().findSponsors(eventId)));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result getUserEvents(String username) {
 		Logger.debug("EventAPIController.eventByOwner username =" + username);
 		List<Event> events = getEventService().findUserEvents(username, -1, -1);
 		return ok(Json.toJson(events));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result groupEvents(String groupId) {
 		Logger.debug("EventAPIController.groupEvents groupId =" + groupId);
 		List<Event> events = getEventService().findGroupEvents(groupId, -1, -1);
 		return ok(Json.toJson(events));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result lastGroupEvents(String groupId) {
 		Logger.debug("EventAPIController.lastGroupEvents groupId =" + groupId);
 		List<Event> events = getEventService().findGroupEvents(groupId, 0, 5);
 		return ok(Json.toJson(events));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result eventSizeByGroup(String groupId) {
 		Logger.debug("EventAPIController.eventSizeByGroup groupId =" + groupId);
 		int events = getEventService().countByGroup(groupId);
 		return ok(Json.toJson(events));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result event(String eventId) {
 		Logger.debug("EventAPIController.event eventId =" + eventId);
 		Event event = getEventService().findOne(eventId);
 		return ok(Json.toJson(event));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result deleteEvent(String eventId) {
 		Logger.debug("EventAPIController.deleteEvent eventId =" + eventId);
 
@@ -158,7 +145,6 @@ public class EventAPIController extends YaController {
 		return ok();
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result participate(String eventId) {
 		Logger.debug("EventAPIController.participate");
 
@@ -180,7 +166,6 @@ public class EventAPIController extends YaController {
 		return ok(play.libs.Json.toJson(participation));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result generateParticipation(String eventId) {
 		Logger.debug("EventAPIController.generateParticipation() eventId = "
 				+ eventId);
@@ -214,42 +199,36 @@ public class EventAPIController extends YaController {
 		return ok();
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result participations(String eventId) {
 		Logger.debug("EventAPIController.participations()" + eventId);
 		return ok(play.libs.Json.toJson(getEventService().findParticipations(
 				eventId, 0, -1)));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result participationSummary(String eventId) {
 		Logger.debug("EventAPIController.participationSummary()" + eventId);
 		return ok(play.libs.Json.toJson(getEventService()
 				.findParticipationSummary(eventId)));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result countParticipations(String eventId) {
 		Logger.debug("EventAPIController.participations()" + eventId);
 		return ok(play.libs.Json.toJson(getEventService().countParticipations(
 				eventId)));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result lastParticipations(String eventId) {
 		Logger.debug("EventAPIController.participations()" + eventId);
 		return ok(play.libs.Json.toJson(getEventService().findParticipations(
 				eventId, 0, 5)));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result userParticipations(String username) {
 		Logger.debug("EventAPIController.userParticipations()" + username);
 		return ok(play.libs.Json.toJson(getEventService()
 				.findUserParticipations(username)));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result userParticipation(String username, String eventId) {
 		Logger.debug("EventAPIController.userParticipation()" + eventId);
 
@@ -265,7 +244,6 @@ public class EventAPIController extends YaController {
 		return ok(play.libs.Json.toJson(participation));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result comments(String eventId) {
 		Logger.debug("EventAPIController.comments for eventId" + eventId);
 
@@ -275,7 +253,6 @@ public class EventAPIController extends YaController {
 		return ok(play.libs.Json.toJson(comments));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result commentSize(String eventId) {
 		Logger.debug("EventAPIController.commentSize for eventId" + eventId);
 
@@ -283,7 +260,6 @@ public class EventAPIController extends YaController {
 				.countComments(eventId)));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result post(String eventId, String content) {
 		Logger.debug("EventAPIController.post");
 

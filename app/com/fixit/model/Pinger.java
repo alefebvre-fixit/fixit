@@ -1,14 +1,10 @@
 package com.fixit.model;
 
-import play.*;
-import play.mvc.*;
-import play.libs.*;
-
-import scala.concurrent.duration.Duration;
-import java.util.concurrent.TimeUnit;
-import akka.actor.UntypedActor;
-import java.util.Calendar;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import play.mvc.WebSocket;
+import akka.actor.UntypedActor;
 
 public class Pinger extends UntypedActor {
     WebSocket.In<String> in;

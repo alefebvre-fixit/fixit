@@ -14,9 +14,9 @@ import controllers.Secured;
 import controllers.YaController;
 
 @Named
+@Security.Authenticated(Secured.class)
 public class NotificationAPIController extends YaController {
 
-	@Security.Authenticated(Secured.class)
 	public Result notifications() {
 		Logger.debug("NotificationAPIController.notifications");
 
@@ -26,7 +26,6 @@ public class NotificationAPIController extends YaController {
 		return ok(play.libs.Json.toJson(notifications));
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result acknowledgeGroupNotifications(String groupId) {
 		Logger.debug("NotificationAPIController.acknowledgeGroupNotifications groupId"
 				+ groupId);
@@ -37,7 +36,6 @@ public class NotificationAPIController extends YaController {
 		return ok();
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result acknowledgeEventNotifications(String eventId) {
 		Logger.debug("NotificationAPIController.acknowledgeEventNotifications eventId"
 				+ eventId);
@@ -48,7 +46,6 @@ public class NotificationAPIController extends YaController {
 		return ok();
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result acknowledgeNotification(String notificationId) {
 		Logger.debug("NotificationAPIController.acknowledgeNotification notificationId"
 				+ notificationId);
@@ -58,7 +55,6 @@ public class NotificationAPIController extends YaController {
 		return ok();
 	}
 
-	@Security.Authenticated(Secured.class)
 	public Result acknowledgeNotifications() {
 		Logger.debug("NotificationAPIController.acknowledgeNotifications");
 

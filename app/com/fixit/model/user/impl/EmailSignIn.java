@@ -1,9 +1,9 @@
 package com.fixit.model.user.impl;
 
+import play.data.validation.Constraints.Required;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fixit.model.user.SignIn;
-
-import play.data.validation.Constraints.Required;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EmailSignIn extends SignIn{

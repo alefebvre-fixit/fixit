@@ -1,8 +1,8 @@
 package filters;
 
+import play.Logger;
 import play.api.mvc.EssentialAction;
 import play.api.mvc.EssentialFilter;
-import play.Logger;
 
 public class LogFilter implements EssentialFilter {
 

@@ -32,11 +32,11 @@ GET     /api/account     							@controllers.api.UserAPIController.account()
 GET     /api/accounts     							@controllers.api.UserAPIController.accounts()
 GET     /api/notifications     						@controllers.api.NotificationAPIController.notifications()
 
-POST    /api/signup     							@controllers.api.UserAPIController.signUp()
-POST 	/api/signin/google							@controllers.api.UserAPIController.googleSignIn()
-POST 	/api/signin/facebook						@controllers.api.UserAPIController.facebookSignIn()
+POST    /api/signup     							@controllers.api.LoginAPIController.signUp()
+POST 	/api/signin/google							@controllers.api.LoginAPIController.googleSignIn()
+POST 	/api/signin/facebook						@controllers.api.LoginAPIController.facebookSignIn()
 
-POST    /api/signin     							@controllers.api.UserAPIController.signIn()
+POST    /api/signin     							@controllers.api.LoginAPIController.signIn()
 POST    /api/profile     							@controllers.api.UserAPIController.updateProfile()
 POST    /api/profile/picture     					@controllers.api.UserAPIController.uploadPicture()
 
