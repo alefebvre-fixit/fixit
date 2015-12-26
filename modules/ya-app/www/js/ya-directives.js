@@ -5,10 +5,6 @@ angular.module('ya-app').directive('helloWorld', function() {
         template: '<h3>Hello World!!</h3>'
     };
 });
-
-
-
-
 angular.module('ya-app').directive('googleplace', function() {
     return {
         require: 'ngModel',
