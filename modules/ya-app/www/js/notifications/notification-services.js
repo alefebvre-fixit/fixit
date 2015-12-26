@@ -6,13 +6,9 @@ angular.module('ya-app').factory('NotificationService',
             resultService = {
                 getNotifications: function () {
                     return Notification.findAll();
-
-                    /*
-                    return $http.get(YaConfig.url + '/notifications').then(function (response) {
-                        return response.data;
-                    });
-                    */
-
+                    //return $http.get(YaConfig.url + '/notifications').then(function (response) {
+                    //    return response.data;
+                    //});
                 },
                 acknowledgeNotification: function (notification) {
                     return $http.post(YaConfig.url + '/notifications/' + notification.id + '/acknowledge').then(function (response) {

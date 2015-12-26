@@ -13,6 +13,7 @@ public class EventFactory {
 		result.setUsername(user.getUsername());
 		result.setCreationDate(new Date());
 		result.setModificationDate(result.getCreationDate());
+		result.setLocation(group.getLocation());
 		result.setCity(group.getCity());
 		result.setCountry(group.getCountry());
 		result.setGroupId(group.getId());

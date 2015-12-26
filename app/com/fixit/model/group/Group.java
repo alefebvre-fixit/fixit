@@ -53,7 +53,7 @@ public class Group {
 
 	public String city;
 	public String country;
-
+	public String location;
 	public String username;
 
 	public String getName() {
@@ -86,6 +86,14 @@ public class Group {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public String getUsername() {
