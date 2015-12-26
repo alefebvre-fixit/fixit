@@ -85,7 +85,7 @@ angular.module('ya-app').controller('SignInController', ['YaService', 'UserServi
             $cordovaOauth.facebook("1489020631407250", ["email", "public_profile"]).then(function(result) {
                 var signin = {token: result.access_token, expiration: result.expires_in};
 
-                YaService.facebookLogin(signin).success(function (user) {
+                UserService.signInFacebook(signin).success(function (user) {
                     UserService.getFollowingGroupIds(user.username).then(function(favorites) {
                             YaService.setFavorites(favorites);
                             UserService.getFollowingNames(user.username).then(function(following) {

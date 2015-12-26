@@ -1,6 +1,5 @@
 package com.fixit.model.user;
 
-import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -38,6 +37,8 @@ public class YaUser {
 	@Required
 	public String password;
 
+	private String facebookId;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -67,10 +68,10 @@ public class YaUser {
 	public YaUser() {
 	}
 
-	public static YaUser create(SignUp signup){
-		if (signup instanceof EmailSignUp){
+	public static YaUser create(SignUp signup) {
+		if (signup instanceof EmailSignUp) {
 			return new YaUser((EmailSignUp) signup);
-		} else if (signup instanceof FacebookSignUp){
+		} else if (signup instanceof FacebookSignUp) {
 			return new YaUser((FacebookSignUp) signup);
 		}
 		return null;
@@ -100,6 +101,14 @@ public class YaUser {
 
 	public void setProfile(Profile profile) {
 		this.profile = profile;
+	}
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
 	}
 
 }

@@ -25,7 +25,7 @@ angular.module('ya-app').factory('UserService', ['$http', '$log', 'YaConfig','Ya
         signInGoogle: function (signin) {
             return $http.post(YaConfig.url + '/signin/google', signin);
         },
-        signInGoogle: function (signin) {
+        signInFacebook: function (signin) {
             return $http.post(YaConfig.url + '/signin/facebook', signin);
         },
         follow: function (username) {

@@ -44,7 +44,6 @@ public class MongoUserService implements UserService {
 	@Override
 	public YaUser authenticateByEmail(String email, String password) {
 		YaUser user = null;
-
 		List<YaUser> users = userRepository.findByEmail(email);
 		if (users != null && users.size() > 0) {
 			user = users.get(0);
@@ -264,16 +263,18 @@ public class MongoUserService implements UserService {
 
 		YaUser result = null;
 
-		List<YaUser> users = userRepository.findByEmail(email);
+		if (!YaUtil.isNotEmpty(email)){
+			List<YaUser> users = userRepository.findByEmail(email);
 
-		if (YaUtil.isEmpty(users)) {
-			Logger.debug("Cannot find user with email=" + email);
-		} else if (users.size() == 1) {
-			Logger.debug("Cannot find one user with email=" + email);
-			result = users.get(0);
-		} else {
-			Logger.debug("Cannot find " + users.size() + " user with email="
-					+ email);
+			if (YaUtil.isEmpty(users)) {
+				Logger.debug("Cannot find user with email=" + email);
+			} else if (users.size() == 1) {
+				Logger.debug("Cannot find one user with email=" + email);
+				result = users.get(0);
+			} else {
+				Logger.debug("Cannot find " + users.size() + " user with email="
+						+ email);
+			}
 		}
 
 		return result;

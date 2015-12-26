@@ -21,6 +21,7 @@ import com.fixit.model.user.YaUser;
 import com.fixit.model.user.impl.EmailSignIn;
 import com.fixit.model.user.impl.FacebookSignIn;
 import com.fixit.model.user.impl.FacebookSignUp;
+import com.fixit.util.YaUtil;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Version;
@@ -141,6 +142,14 @@ public class UserAPIController extends YaController {
 			if (user == null){
 				SignUp signup = new FacebookSignUp(facebook);
 				user = getUserService().signup(signup);
+			} else {
+				
+				if (YaUtil.isEmpty(user.getFacebookId())){
+					//merge with existing account
+					user.setFacebookId(facebook.getId());
+					user = getUserService().save(user);
+				}
+				
 			}
 		} 
 		
