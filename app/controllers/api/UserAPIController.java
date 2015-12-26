@@ -24,6 +24,7 @@ import com.fixit.model.user.impl.FacebookSignUp;
 import com.fixit.util.YaUtil;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.types.User;
 
@@ -131,7 +132,7 @@ public class UserAPIController extends YaController {
 		FacebookClient facebookClient = new DefaultFacebookClient(signin.getToken(), APP_SECRET, Version.VERSION_2_5);
 		
 		
-		User facebook = facebookClient.fetchObject("me", User.class);
+		User facebook = facebookClient.fetchObject("me", User.class, Parameter.with("fields", "id,name,email,bio,website"));
 		
 		if (facebook!= null){
 			Logger.debug("UserAPIController.facebookSignIn() retrieved user from facebook=" + facebook);
@@ -140,16 +141,15 @@ public class UserAPIController extends YaController {
 			
 			//We do not know this user, this is actually a sign-up
 			if (user == null){
+				Logger.debug("UserAPIController.facebookSignIn() unknown user from facebook=" + facebook);
 				SignUp signup = new FacebookSignUp(facebook);
 				user = getUserService().signup(signup);
 			} else {
-				
 				if (YaUtil.isEmpty(user.getFacebookId())){
 					//merge with existing account
 					user.setFacebookId(facebook.getId());
 					user = getUserService().save(user);
 				}
-				
 			}
 		} 
 		

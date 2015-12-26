@@ -95,6 +95,9 @@ angular.module('ya-app').factory('UserService', ['$http', '$log', 'YaConfig','Ya
                 }
             }
             return false;
+        },
+        getAccessToken: function(){
+            return YaConfig.access_token;
         }
     };
 

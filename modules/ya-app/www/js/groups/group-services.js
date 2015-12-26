@@ -8,9 +8,9 @@ angular.module('ya-app').factory('GroupService',
                     //return $http.get(YaConfig.url + '/groups').then(function (response) {
                     //    return response.data;
                     //});
-                    return Group.findAll().then(function (groups) {
-                        $log.debug(groups);
-                        return groups;
+                    return $http.get(YaConfig.url + '/groups').then(function (response) {
+                        Group.inject(response.data);
+                        return response.data;
                     });
                 },
                 getGroupsByOwner: function (username) {

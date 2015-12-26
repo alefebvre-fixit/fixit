@@ -34,7 +34,7 @@
     </div>
     <ion-input class="item item-input item-floating-label">
         <ion-label>Location</ion-label>
-        <input type="text" name="location" placeholder="Type event location here..." ng-model="event.city" required>
+        <input type="text" name="location" placeholder="Type event location here..." ng-model="event.location" googleplace="" class="ng-pristine ng-valid" autocomplete="off">
     </ion-input>
     <div ng-show="eventForm.$submitted && eventForm.location.$error" ng-messages="eventForm.location.$error">
         <ng-include src="'templates/common/validation-messages.html'"></ng-include>

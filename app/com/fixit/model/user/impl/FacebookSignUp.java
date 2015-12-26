@@ -16,7 +16,7 @@ public class FacebookSignUp extends SignUp {
 		setFaceBookId(facebook.getId());
 		getProfile().setBiography(facebook.getBio());
 		getProfile().setWebsite(facebook.getWebsite());
-		getProfile().getPicture().setUrl(facebook.getPicture().getUrl());
+		//getProfile().getPicture().setUrl(facebook.getPicture().getUrl());
 	}
 
 	public String getFaceBookId() {

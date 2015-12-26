@@ -263,7 +263,7 @@ public class MongoUserService implements UserService {
 
 		YaUser result = null;
 
-		if (!YaUtil.isNotEmpty(email)){
+		if (YaUtil.isNotEmpty(email)){
 			List<YaUser> users = userRepository.findByEmail(email);
 
 			if (YaUtil.isEmpty(users)) {
@@ -272,8 +272,15 @@ public class MongoUserService implements UserService {
 				Logger.debug("Cannot find one user with email=" + email);
 				result = users.get(0);
 			} else {
-				Logger.debug("Cannot find " + users.size() + " user with email="
+				Logger.debug("Find " + users.size() + " user with email="
 						+ email);
+				for (YaUser yaUser : users) {
+					if (YaUtil.isEmpty(yaUser.getUsername())){
+						delete(yaUser.getId());
+					} else {
+						result = yaUser;
+					}
+				}
 			}
 		}
 

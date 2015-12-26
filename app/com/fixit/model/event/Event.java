@@ -35,6 +35,7 @@ public class Event {
 	public String description;
 	public String city;
 	public String country;
+	public String location;
 
 	public String username;
 	private List<String> sponsors = new ArrayList<String>();
@@ -145,6 +146,14 @@ public class Event {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public boolean accept(Participation participation) {
