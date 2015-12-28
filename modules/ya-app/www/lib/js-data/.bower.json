@@ -39,6 +39,6 @@
     "commit": "cca868715a80a12313b9525b4b136cd220989ede"
   },
   "_source": "git://github.com/js-data/js-data.git",
-  "_target": "~2.8.2",
+  "_target": ">=2.0.0",
   "_originalSource": "js-data"
 }
