@@ -19,7 +19,6 @@ import controllers.Secured;
 import controllers.YaController;
 
 @Named
-@Security.Authenticated(Secured.class)
 public class UserAPIController extends YaController {
 
 	public Result account() {

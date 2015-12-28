@@ -68,8 +68,7 @@ angular.module('ya-app').factory('YaService',
                     $rootScope.following = following;
                 },
                 isFollowing: function(username){
-                    $log.debug("call isFollowing from YaService following =" + username);
-                    $log.debug($rootScope.following);
+                    //$log.debug("call isFollowing from YaService following =" + username);
                     if (username && $rootScope.following){
                         return ($rootScope.following.indexOf(username) >= 0);
                     }

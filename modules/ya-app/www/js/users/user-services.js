@@ -45,6 +45,7 @@ angular.module('ya-app').factory('UserService', ['$http', '$log', 'YaConfig','Ya
         },
         getFollowingGroupsSize: function (username) {
             return $http.get(YaConfig.url + '/users/' + username + '/groups/following/size').then(function (response) {
+                $log.log('#### Expected = 33 ###' + response.data);
                 return response.data;
             });
         },
@@ -60,11 +61,13 @@ angular.module('ya-app').factory('UserService', ['$http', '$log', 'YaConfig','Ya
         },
         getFollowersSize: function (username) {
             return $http.get(YaConfig.url + '/users/' + username + '/followers/size').then(function (response) {
+                $log.log('#### Expected = 22 ###' + response.data);
                 return response.data;
             });
         },
         getFollowingSize: function (username) {
             return $http.get(YaConfig.url + '/users/' + username + '/following/size').then(function (response) {
+                $log.log('#### Expected = 11 ###' + response.data);
                 return response.data;
             });
         },
@@ -88,7 +91,7 @@ angular.module('ya-app').factory('UserService', ['$http', '$log', 'YaConfig','Ya
             return User.findAll();
         },
         canEdit: function(user){
-            $log.debug("call canUpdate from UserService canUpdate =" + YaService.getUsername());
+            //$log.debug("call canUpdate from UserService canUpdate =" + YaService.getUsername());
             if (user){
                 if (user.username == YaService.getUsername()){
                     return true;

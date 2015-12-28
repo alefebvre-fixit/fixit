@@ -10,15 +10,24 @@
 GET     /assets/*file            controllers.Assets.at(path="/public", file)
 
 
+
+
+
+
 # API Account
-GET     /api/users/:user/followers/size       		@controllers.api.UserAPIController.followerSize(user: String)
+#GET     /api/users/:user/followers/size       		@controllers.api.UserAPIController.followerSize(user: String)
 GET     /api/users/:user/followers       			@controllers.api.UserAPIController.followers(user: String)
-GET     /api/users/:user/following/size       		@controllers.api.UserAPIController.followingSize(user: String)
+#GET     /api/users/:user/following/size       		@controllers.api.UserAPIController.followingSize(user: String)
 GET     /api/users/:user/following/name       		@controllers.api.UserAPIController.followingNames(user: String)
 GET     /api/users/:user/following       			@controllers.api.UserAPIController.following(user: String)
-GET     /api/users/:user/groups/following/size    	@controllers.api.GroupAPIController.followingSize(user: String)
-GET     /api/users/:user/groups/following/id    	@controllers.api.GroupAPIController.followingIds(user: String)
-GET     /api/users/:user/groups/following    		@controllers.api.GroupAPIController.following(user: String)
+#GET     /api/users/:user/groups/following/size    	@controllers.api.GroupAPIController.followingSize(user: String)
+GET     	/api/users/:user/groups/following/id    	@controllers.api.GroupAPIController.followingIds(user: String)
+#GET     /api/users/:user/groups/following    		@controllers.api.GroupAPIController.following(user: String)
+
+GET     /api/users/:user/following/size       		controllers.api.TestAPIController.followingSize(user: String)
+GET     /api/users/:user/followers/size       		controllers.api.TestAPIController.followerSize(user: String)
+GET     /api/users/:user/groups/following/size    	controllers.api.TestAPIController.followingGroupSize(user: String)
+GET     /api/users/:user/groups/following    		controllers.api.TestAPIController.following(user: String)
 
 GET     /api/users/discovery     					@controllers.api.UserAPIController.userDiscovery()
 GET     /api/users     								@controllers.api.UserAPIController.userDiscovery()
