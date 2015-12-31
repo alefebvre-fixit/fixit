@@ -20,7 +20,7 @@ angular.module('ya-app').factory('UserService', ['$http', '$log', 'YaConfig','Ya
             return $http.post(YaConfig.url + '/signup', signup);
         },
         signinUser: function (signin) {
-            return $http.post(YaConfig.url + '/signin/email', signin);
+            return $http.post(YaConfig.url + '/signin', signin);
         },
         signInGoogle: function (signin) {
             return $http.post(YaConfig.url + '/signin/google', signin);
