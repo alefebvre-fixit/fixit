@@ -27,6 +27,8 @@ public class MongoUserService implements UserService {
 	@Inject
 	private FollowingRepository followingRepository;
 
+	@Inject
+	
 	@Override
 	public YaUser findOne(String username) {
 		Logger.debug("MongoUserService.load(String userName) username="

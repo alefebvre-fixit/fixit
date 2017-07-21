@@ -2,6 +2,7 @@ package com.fixit.service;
 
 import java.util.List;
 
+import com.fixit.model.user.Credential;
 import com.fixit.model.user.SignIn;
 import com.fixit.model.user.SignUp;
 import com.fixit.model.user.YaUser;
@@ -46,4 +47,6 @@ public interface UserService {
 
 	public int countFollowing(String username);
 
+	public Credential findCredential(String username);
+	
 }
